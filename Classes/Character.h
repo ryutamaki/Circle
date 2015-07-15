@@ -21,6 +21,8 @@ public:
     void setMoveState(CharacterMoveState moveState);
     void setMoveStateByStartPositionAndCurrentPosition(Vec2 startPosition, Vec2 currentPosition);
 
+    void attack();
+    
 private:
     cocostudio::timeline::ActionTimeline* timeline;
 

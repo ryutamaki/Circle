@@ -74,6 +74,15 @@ void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 star
     }
 }
 
+#pragma mark Game logic
+
+void Character::attack()
+{
+    this->stopAllActions();
+    this->runAction(this->timeline);
+    this->timeline->play("Attack", false);
+}
+
 #pragma mark - Prvate methods
 
 #pragma mark View lifecycle
@@ -123,8 +132,8 @@ void Character::update(float dt)
         default:
             break;
     }
-    this->velocity = CHARACTER_SPEED * direction;
 
+    this->velocity = CHARACTER_SPEED * direction;
     this->setPosition(this->getPosition() + this->velocity);
 }
 

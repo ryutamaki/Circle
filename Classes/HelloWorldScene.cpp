@@ -91,6 +91,11 @@ void HelloWorld::setupTouchHandling()
     touchListener->onTouchEnded = [&](Touch* touch, Event* event)
     {
         this->character->setMoveState(CharacterMoveState::NONE);
+
+        if (firstTouchPosition.distance(lastTouchPosition) < 2.0f)
+        {
+            this->character->attack();
+        }
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
