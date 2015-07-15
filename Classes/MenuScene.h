@@ -25,6 +25,9 @@ public:
     CREATE_FUNC(MenuScene);
 
 private:
+
+    void onEnter() override;
+
     void singlePlayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void multiplayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 

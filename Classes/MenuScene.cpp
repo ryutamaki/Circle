@@ -11,6 +11,7 @@
 #include "ui/CocosGUI.h"
 
 #include "GameScene.h"
+#include "SceneManager.h"
 
 USING_NS_CC;
 
@@ -59,14 +60,24 @@ bool MenuScene::init()
 
 #pragma mark - Private methods
 
+#pragma mark View lifecycle
+
+void MenuScene::onEnter()
+{
+    Layer::onEnter();
+
+    // This will start observing to find peers.
+    // Set self.peerID in NetworkManager also.
+    SceneManager::getInstance()->receiveMultiplayerInvitations();
+}
+
 #pragma mark Callbacks
 
 void MenuScene::singlePlayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
-        Scene* gameScene = GameScene::createScene();
-        Director::getInstance()->pushScene(gameScene);
+        SceneManager::getInstance()->enterGameScene(false);
     }
 }
 
@@ -74,7 +85,6 @@ void MenuScene::multiplayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widg
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
-        Scene* gameScene = GameScene::createScene();
-        Director::getInstance()->pushScene(gameScene);
+        SceneManager::getInstance()->showPeerList();
     }
 }
