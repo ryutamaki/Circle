@@ -2,8 +2,10 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
+#include "CocosGUI.h"
 
 class Character;
+class Enemy;
 
 class HelloWorld : public cocos2d::Layer
 {
@@ -19,9 +21,12 @@ public:
 
 private:
     Character* character;
+    Enemy* enemy;
 
     void onEnter() override;
     void setupTouchHandling();
+
+    void attackButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     
 };
 

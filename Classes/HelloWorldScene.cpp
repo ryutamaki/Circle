@@ -4,6 +4,8 @@
 
 #include "Character.h"
 #include "CharacterReader.h"
+#include "Enemy.h"
+#include "EnemyReader.h"
 
 USING_NS_CC;
 
@@ -36,11 +38,16 @@ bool HelloWorld::init()
 
     CSLoader* instance = CSLoader::getInstance();
     instance->registReaderObject("CharacterReader", (ObjectFactory::Instance) CharacterReader::getInstance);
+    instance->registReaderObject("EnemyReader", (ObjectFactory::Instance) EnemyReader::getInstance);
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
     Sprite* field = dynamic_cast<Sprite*>(rootNode->getChildByName("Field"));
     this->character = dynamic_cast<Character*>(field->getChildByName("Character"));
+    this->enemy = dynamic_cast<Enemy*>(field->getChildByName("Enemy"));
+
+    ui::Button* attackButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("AButton"));
+    attackButton->addTouchEventListener(CC_CALLBACK_2(HelloWorld::attackButtonPushed, this));
 
     addChild(rootNode);
 
@@ -91,13 +98,27 @@ void HelloWorld::setupTouchHandling()
     touchListener->onTouchEnded = [&](Touch* touch, Event* event)
     {
         this->character->setMoveState(CharacterMoveState::NONE);
-
-        if (firstTouchPosition.distance(lastTouchPosition) < 2.0f)
-        {
-            this->character->attack();
-        }
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
     
+}
+
+#pragma mark Callbacks
+
+void HelloWorld::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
+{
+    if (eEventType == ui::Widget::TouchEventType::ENDED)
+    {
+        this->character->attack();
+        // TODO: temporary
+        if (this->character->getPosition().distance(this->enemy->getPosition()) < 60.0f)
+        {
+            this->enemy->recieveAttack(10);
+            if (this->enemy->getHp() < 0)
+            {
+                MessageBox("Enemy hit point is 0", "YOU WIN");
+            }
+        }
+    }
 }

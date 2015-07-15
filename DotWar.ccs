@@ -8,6 +8,8 @@
           <Folder Name="Images">
             <Image Name="Character.png" />
             <Image Name="Field.png" />
+            <Image Name="Enemy.png" />
+            <Image Name="A.png" />
           </Folder>
         </Folder>
         <Project Name="Character.csd" Type="Node" />
