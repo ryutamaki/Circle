@@ -21,6 +21,7 @@ private:
     Character* character;
 
     void onEnter() override;
+    void setupTouchHandling();
     
 };
 

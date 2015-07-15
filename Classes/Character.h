@@ -11,14 +11,25 @@
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
+#include "GameConstants.h"
 
 class Character : public cocos2d::Node {
 public:
     CREATE_FUNC(Character);
     bool init() override;
 
-protected:
+    void setMoveState(CharacterMoveState moveState);
+    void setMoveStateByStartPositionAndCurrentPosition(Vec2 startPosition, Vec2 currentPosition);
+
+private:
     cocostudio::timeline::ActionTimeline* timeline;
+
+    CharacterMoveState moveState;
+    Vec2 velocity;
+
+    void onEnter() override;
+
+    void update(float dt) override;
 
 };
 

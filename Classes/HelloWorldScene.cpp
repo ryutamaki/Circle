@@ -44,6 +44,8 @@ bool HelloWorld::init()
 
     addChild(rootNode);
 
+    this->setupTouchHandling();
+
     return true;
 }
 
@@ -54,4 +56,43 @@ void HelloWorld::onEnter()
     Layer::onEnter();
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
+}
+
+void HelloWorld::setupTouchHandling()
+{
+    static Vec2 firstTouchPosition;
+    static Vec2 lastTouchPosition;
+
+    EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
+
+    touchListener->onTouchBegan = [&](Touch* touch, Event* event)
+    {
+        firstTouchPosition = this->convertTouchToNodeSpace(touch);
+        lastTouchPosition = firstTouchPosition;
+        return true;
+    };
+    touchListener->onTouchMoved = [&](Touch* touch, Event* event)
+    {
+        Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
+        // TODO: Define sensitivity
+        if (lastTouchPosition.distance(currentTouchPosition) < 10.0f)
+        {
+            return;
+        }
+
+        this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
+
+        lastTouchPosition = currentTouchPosition;
+    };
+    touchListener->onTouchCancelled = [&](Touch* touch, Event* event)
+    {
+        this->character->setMoveState(CharacterMoveState::NONE);
+    };
+    touchListener->onTouchEnded = [&](Touch* touch, Event* event)
+    {
+        this->character->setMoveState(CharacterMoveState::NONE);
+    };
+
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
 }
