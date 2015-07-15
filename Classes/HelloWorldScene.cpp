@@ -117,6 +117,7 @@ void HelloWorld::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::
             this->enemy->recieveAttack(10);
             if (this->enemy->getHp() < 0)
             {
+                Director::getInstance()->popScene();
                 MessageBox("Enemy hit point is 0", "YOU WIN");
             }
         }

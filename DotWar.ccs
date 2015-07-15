@@ -10,10 +10,15 @@
             <Image Name="Field.png" />
             <Image Name="Enemy.png" />
             <Image Name="A.png" />
+            <Image Name="MultiplayerButtonNormal.png" />
+            <Image Name="MultiplayerButtonPushed.png" />
+            <Image Name="SinglePlayerButtonNormal.png" />
+            <Image Name="SinglePlayerButtonPushed.png" />
           </Folder>
         </Folder>
         <Project Name="Character.csd" Type="Node" />
         <Project Name="Enemy.csd" Type="Node" />
+        <Project Name="MenuScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>
