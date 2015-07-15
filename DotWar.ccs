@@ -1,0 +1,17 @@
+<Solution>
+  <PropertyGroup Name="DotWar" Version="2.3.0.1" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Project Name="GameScene.csd" Type="Scene" />
+        <Folder Name="Assets">
+          <Folder Name="Images">
+            <Image Name="Character.png" />
+            <Image Name="Field.png" />
+          </Folder>
+        </Folder>
+        <Project Name="Character.csd" Type="Node" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
