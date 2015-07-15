@@ -11,6 +11,10 @@ USING_NS_CC;
 
 using namespace cocostudio::timeline;
 
+#pragma mark - Public methods
+
+#pragma mark Initializer
+
 Scene* GameScene::createScene()
 {
     // 'scene' is an autorelease object
@@ -52,17 +56,31 @@ bool GameScene::init()
     addChild(rootNode);
 
     this->setupTouchHandling();
+    this->networkedSession = false;
 
     return true;
 }
 
+#pragma mark Networking
+
+void GameScene::setNetworkedSession(bool networkedSession)
+{
+    this->networkedSession = networkedSession;
+}
+
+void GameScene::receivedData(const void *data, unsigned long length)
+{
+    const char* cstr = reinterpret_cast<const char*>(data);
+    std::string json = std::string(cstr, length);
+}
+
 #pragma mark - Private methods
+
+#pragma mark View lifecycle
 
 void GameScene::onEnter()
 {
     Layer::onEnter();
-
-    Size visibleSize = Director::getInstance()->getVisibleSize();
 }
 
 void GameScene::setupTouchHandling()

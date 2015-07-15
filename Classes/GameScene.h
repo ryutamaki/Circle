@@ -19,7 +19,12 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
 
+    void setNetworkedSession(bool networkedSession);
+    void receivedData(const void* data, unsigned long length);
+
 private:
+    bool networkedSession;
+    
     Character* character;
     Enemy* enemy;
 

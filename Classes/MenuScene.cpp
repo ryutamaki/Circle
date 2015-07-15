@@ -52,17 +52,21 @@ bool MenuScene::init()
     return true;
 }
 
+#pragma mark Networking
+
+
+
 
 #pragma mark - Private methods
 
-#pragma mark Callback
+#pragma mark Callbacks
 
 void MenuScene::singlePlayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
         Scene* gameScene = GameScene::createScene();
-        Director::getInstance()->pushScene(gameScenen);
+        Director::getInstance()->pushScene(gameScene);
     }
 }
 
@@ -71,6 +75,6 @@ void MenuScene::multiplayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widg
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
         Scene* gameScene = GameScene::createScene();
-        Director::getInstance()->pushScene(gameScenen);
+        Director::getInstance()->pushScene(gameScene);
     }
 }
