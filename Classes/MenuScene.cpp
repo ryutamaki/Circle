@@ -10,7 +10,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -61,7 +61,7 @@ void MenuScene::singlePlayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Wid
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
-        Scene* gameScenen = HelloWorld::createScene();
+        Scene* gameScene = GameScene::createScene();
         Director::getInstance()->pushScene(gameScenen);
     }
 }
@@ -70,7 +70,7 @@ void MenuScene::multiplayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widg
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
-        Scene* gameScenen = HelloWorld::createScene();
+        Scene* gameScene = GameScene::createScene();
         Director::getInstance()->pushScene(gameScenen);
     }
 }

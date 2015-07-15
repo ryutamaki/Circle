@@ -1,4 +1,4 @@
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
@@ -11,13 +11,13 @@ USING_NS_CC;
 
 using namespace cocostudio::timeline;
 
-Scene* HelloWorld::createScene()
+Scene* GameScene::createScene()
 {
     // 'scene' is an autorelease object
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
+    auto layer = GameScene::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -27,7 +27,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -47,7 +47,7 @@ bool HelloWorld::init()
     this->enemy = dynamic_cast<Enemy*>(field->getChildByName("Enemy"));
 
     ui::Button* attackButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("AButton"));
-    attackButton->addTouchEventListener(CC_CALLBACK_2(HelloWorld::attackButtonPushed, this));
+    attackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::attackButtonPushed, this));
 
     addChild(rootNode);
 
@@ -58,14 +58,14 @@ bool HelloWorld::init()
 
 #pragma mark - Private methods
 
-void HelloWorld::onEnter()
+void GameScene::onEnter()
 {
     Layer::onEnter();
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
 }
 
-void HelloWorld::setupTouchHandling()
+void GameScene::setupTouchHandling()
 {
     static Vec2 firstTouchPosition;
     static Vec2 lastTouchPosition;
@@ -106,7 +106,7 @@ void HelloWorld::setupTouchHandling()
 
 #pragma mark Callbacks
 
-void HelloWorld::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
+void GameScene::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
