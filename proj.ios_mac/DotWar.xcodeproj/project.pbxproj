@@ -17,6 +17,11 @@
 		03917D651B56EDC60068BCA6 /* EnemyReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D601B56EDC60068BCA6 /* EnemyReader.cpp */; };
 		03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D661B56F7FC0068BCA6 /* MenuScene.cpp */; };
 		03917D691B56F7FC0068BCA6 /* MenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D661B56F7FC0068BCA6 /* MenuScene.cpp */; };
+		03917D701B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03917D6C1B56FD030068BCA6 /* NetworkingWrapper.mm */; };
+		03917D711B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03917D6C1B56FD030068BCA6 /* NetworkingWrapper.mm */; };
+		03917D721B56FD030068BCA6 /* NetworkManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03917D6E1B56FD030068BCA6 /* NetworkManager.mm */; };
+		03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03917D6E1B56FD030068BCA6 /* NetworkManager.mm */; };
+		03917D751B56FD2C0068BCA6 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03917D741B56FD2C0068BCA6 /* MultipeerConnectivity.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -83,6 +88,12 @@
 		03917D611B56EDC60068BCA6 /* EnemyReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyReader.h; sourceTree = "<group>"; };
 		03917D661B56F7FC0068BCA6 /* MenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuScene.cpp; sourceTree = "<group>"; };
 		03917D671B56F7FC0068BCA6 /* MenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScene.h; sourceTree = "<group>"; };
+		03917D6B1B56FD030068BCA6 /* NetworkingWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingWrapper.h; sourceTree = "<group>"; };
+		03917D6C1B56FD030068BCA6 /* NetworkingWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkingWrapper.mm; sourceTree = "<group>"; };
+		03917D6D1B56FD030068BCA6 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		03917D6E1B56FD030068BCA6 /* NetworkManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkManager.mm; sourceTree = "<group>"; };
+		03917D6F1B56FD030068BCA6 /* NetworkManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManagerDelegate.h; sourceTree = "<group>"; };
+		03917D741B56FD2C0068BCA6 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* DotWar iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DotWar iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03917D751B56FD2C0068BCA6 /* MultipeerConnectivity.framework in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -181,6 +193,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03917D6A1B56FD030068BCA6 /* networking */ = {
+			isa = PBXGroup;
+			children = (
+				03917D6B1B56FD030068BCA6 /* NetworkingWrapper.h */,
+				03917D6C1B56FD030068BCA6 /* NetworkingWrapper.mm */,
+				03917D6D1B56FD030068BCA6 /* NetworkManager.h */,
+				03917D6E1B56FD030068BCA6 /* NetworkManager.mm */,
+				03917D6F1B56FD030068BCA6 /* NetworkManagerDelegate.h */,
+			);
+			path = networking;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +247,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03917D741B56FD2C0068BCA6 /* MultipeerConnectivity.framework */,
 				8262943D1AAF051F00CB7CF7 /* Security.framework */,
 				52B47A461A53D09B004E4C60 /* Security.framework */,
 				D6B0611A1803AB670077942B /* CoreMotion.framework */,
@@ -271,6 +296,7 @@
 				03917D5F1B56EDC60068BCA6 /* Enemy.h */,
 				03917D601B56EDC60068BCA6 /* EnemyReader.cpp */,
 				03917D611B56EDC60068BCA6 /* EnemyReader.h */,
+				03917D6A1B56FD030068BCA6 /* networking */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -452,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03917D701B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D621B56EDC60068BCA6 /* Enemy.cpp in Sources */,
 				03917D591B56C9B90068BCA6 /* CharacterReader.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
@@ -461,6 +488,7 @@
 				03917D571B56C9B90068BCA6 /* Character.cpp in Sources */,
 				03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				03917D721B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,9 +501,11 @@
 				03917D691B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				03917D651B56EDC60068BCA6 /* EnemyReader.cpp in Sources */,
 				03917D5A1B56C9B90068BCA6 /* CharacterReader.cpp in Sources */,
+				03917D711B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D581B56C9B90068BCA6 /* Character.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
