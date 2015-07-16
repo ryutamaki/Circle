@@ -66,6 +66,8 @@ void GameScene::receivedData(const void *data, unsigned long length)
 void GameScene::onEnter()
 {
     Layer::onEnter();
+
+    this->scheduleUpdate();
 }
 
 void GameScene::setupTouchHandling()
@@ -84,7 +86,7 @@ void GameScene::setupTouchHandling()
     touchListener->onTouchMoved = [&](Touch* touch, Event* event)
     {
         Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
-        // TODO: Define sensitivity
+        // TODO: magic number
         if (lastTouchPosition.distance(currentTouchPosition) < 10.0f)
         {
             return;
@@ -107,6 +109,27 @@ void GameScene::setupTouchHandling()
     
 }
 
+#pragma mark Game logic
+
+void GameScene::update(float dt)
+{
+    Vec2 enemyPosition = this->enemy->getPosition();
+    Vec2 characterPosition = this->character->getPosition();
+
+    // TODO: magic number
+    if (enemyPosition.distance(characterPosition) < 80.0f)
+    {
+        // TODO: magic number
+        this->character->receiveDamage(5, characterPosition - enemyPosition);
+
+        if (this->character->getHp() < 0)
+        {
+            Director::getInstance()->popScene();
+            MessageBox("Player hit point is 0", "YOU LOSE");
+        }
+    }
+}
+
 #pragma mark Callbacks
 
 void GameScene::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
@@ -114,10 +137,12 @@ void GameScene::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
         this->character->attack();
-        // TODO: temporary
-        if (this->character->getPosition().distance(this->enemy->getPosition()) < 60.0f)
+        // TODO: magic number
+        if (this->character->getPosition().distance(this->enemy->getPosition()) < 100.0f)
         {
-            this->enemy->recieveAttack(10);
+            // TODO: magic number
+            this->enemy->recieveDamage(10, (this->enemy->getPosition() - this->character->getPosition()) / 2.0f);
+            // TODO: magic number
             if (this->enemy->getHp() < 0)
             {
                 Director::getInstance()->popScene();

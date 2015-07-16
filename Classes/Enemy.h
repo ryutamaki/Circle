@@ -11,21 +11,19 @@
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
+#include "Entity.h"
 
-class Enemy : public cocos2d::Node {
+class Enemy : public Entity {
 public:
     CREATE_FUNC(Enemy);
     bool init() override;
 
-    void recieveAttack(int damage);
+    void recieveDamage(int damage, Vec2 knockback);
 
-    int getHp();
-
-protected:
+private:
     cocostudio::timeline::ActionTimeline* timeline;
 
-    int hp;
-
+    void onEnter() override;
 };
 
 #endif /* defined(__DotWar__Enemy__) */

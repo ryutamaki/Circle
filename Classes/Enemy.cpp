@@ -13,7 +13,7 @@
 #pragma mark Initializer
 
 bool Enemy::init() {
-    if (!Node::init()) {
+    if (!Entity::init()) {
         return false;
     }
 
@@ -22,22 +22,25 @@ bool Enemy::init() {
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
-    this->hp = 100;
-
     return true;
 }
 
 #pragma mark Game logic
 
-void Enemy::recieveAttack(int damage)
+void Enemy::recieveDamage(int damage, Vec2 knockback)
 {
     this->runAction(Sequence::create(ScaleTo::create(0.1f, 0.9f), ScaleTo::create(0.1f, 1.0f), NULL));
     this->hp -= damage;
+    this->setPosition(this->getPosition() + knockback);
 }
 
-#pragma mark Accessor
 
-int Enemy::getHp()
+#pragma mark - Private methods
+
+#pragma mark View lifecycle
+
+void Enemy::onEnter()
 {
-    return this->hp;
+    Entity::onEnter();
+
 }

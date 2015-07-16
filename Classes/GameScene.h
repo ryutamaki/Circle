@@ -26,6 +26,8 @@ private:
     void onEnter() override;
     void setupTouchHandling();
 
+    void update(float dt) override;
+
     void attackButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     
 };

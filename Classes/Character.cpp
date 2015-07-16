@@ -13,7 +13,7 @@
 #pragma mark Initializer
 
 bool Character::init() {
-    if (!Node::init()) {
+    if (!Entity::init()) {
         return false;
     }
 
@@ -26,11 +26,6 @@ bool Character::init() {
 }
 
 #pragma mark Accessor
-
-void Character::setMoveState(CharacterMoveState moveState)
-{
-    this->moveState = moveState;
-}
 
 void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 currentPosition)
 {
@@ -83,13 +78,21 @@ void Character::attack()
     this->timeline->play("Attack", false);
 }
 
+void Character::receiveDamage(int damage, Vec2 knockback)
+{
+    this->runAction(Sequence::create(ScaleTo::create(0.1f, 0.9f), ScaleTo::create(0.1f, 1.0f), NULL));
+    
+    this->hp -= damage;
+    this->setPosition(this->getPosition() + knockback);
+}
+
 #pragma mark - Prvate methods
 
 #pragma mark View lifecycle
 
 void Character::onEnter()
 {
-    Node::onEnter();
+    Entity::onEnter();
 
     this->scheduleUpdate();
 }

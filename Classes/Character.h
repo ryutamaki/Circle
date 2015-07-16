@@ -13,21 +13,20 @@
 #include "cocostudio/CocoStudio.h"
 #include "GameConstants.h"
 
-class Character : public cocos2d::Node {
+#include "Entity.h"
+
+class Character : public Entity {
 public:
     CREATE_FUNC(Character);
     bool init() override;
 
-    void setMoveState(CharacterMoveState moveState);
     void setMoveStateByStartPositionAndCurrentPosition(Vec2 startPosition, Vec2 currentPosition);
 
-    void attack();
-    
+    void attack() override;
+    void receiveDamage(int damage, Vec2 knockback);
+
 private:
     cocostudio::timeline::ActionTimeline* timeline;
-
-    CharacterMoveState moveState;
-    Vec2 velocity;
 
     void onEnter() override;
 
