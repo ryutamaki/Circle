@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 
-#include "GameConstants.h"
+#include "EntityConstants.h"
 
 class Entity : public cocos2d::Node
 {
@@ -20,7 +20,7 @@ public:
 
     // Accessors
     int getHp();
-    void setMoveState(CharacterMoveState moveState);
+    void setMoveState(EntityMoveState moveState);
 
     // Behavior
     virtual void attack();
@@ -29,7 +29,7 @@ public:
 
 protected:
     int hp;
-    CharacterMoveState moveState;
+    EntityMoveState moveState;
     cocos2d::Vec2 velocity;
 
     bool init() override;
@@ -37,8 +37,8 @@ protected:
     void onExit() override;
 
     // Utility methods
-    cocos2d::Vec2 directionFromMoveState(CharacterMoveState moveState);
-    CharacterMoveState moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition);
+    cocos2d::Vec2 directionFromMoveState(EntityMoveState moveState);
+    EntityMoveState moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition);
 
 };
 

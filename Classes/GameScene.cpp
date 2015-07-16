@@ -102,11 +102,11 @@ void GameScene::setupTouchHandling()
     };
     touchListener->onTouchCancelled = [&](Touch* touch, Event* event)
     {
-        this->character->setMoveState(CharacterMoveState::NONE);
+        this->character->setMoveState(EntityMoveState::NONE);
     };
     touchListener->onTouchEnded = [&](Touch* touch, Event* event)
     {
-        this->character->setMoveState(CharacterMoveState::NONE);
+        this->character->setMoveState(EntityMoveState::NONE);
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);

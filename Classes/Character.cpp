@@ -29,7 +29,7 @@ bool Character::init() {
 
 void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 currentPosition)
 {
-    CharacterMoveState moveState = this->moveStateFromStartPositionAndEndPosition(startPosition, currentPosition);
+    EntityMoveState moveState = this->moveStateFromStartPositionAndEndPosition(startPosition, currentPosition);
     this->setMoveState(moveState);
 }
 

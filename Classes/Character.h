@@ -11,7 +11,7 @@
 
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
-#include "GameConstants.h"
+#include "EntityConstants.h"
 
 #include "Entity.h"
 

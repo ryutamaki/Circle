@@ -20,7 +20,7 @@ bool Entity::init()
     }
 
     this->hp = 100;
-    this->moveState = CharacterMoveState::NONE;
+    this->moveState = EntityMoveState::NONE;
     this->velocity = Vec2(0.0f, 0.0f);
 
     return true;
@@ -33,7 +33,7 @@ int Entity::getHp()
     return this->hp;
 }
 
-void Entity::setMoveState(CharacterMoveState moveState)
+void Entity::setMoveState(EntityMoveState moveState)
 {
     this->moveState = moveState;
 }
@@ -79,26 +79,26 @@ void Entity::onExit()
 
 #pragma mark Utility methods
 
-Vec2 Entity::directionFromMoveState(CharacterMoveState moveState)
+Vec2 Entity::directionFromMoveState(EntityMoveState moveState)
 {
     switch (this->moveState) {
-        case CharacterMoveState::UP_RIGHT:
+        case EntityMoveState::UP_RIGHT:
             return Vec2(1.0f / sqrt(2.0f), 1.0f / sqrt(2.0f));
-        case CharacterMoveState::UP:
+        case EntityMoveState::UP:
             return Vec2(0.0f, 1.0f);
-        case CharacterMoveState::UP_LEFT:
+        case EntityMoveState::UP_LEFT:
             return Vec2(- 1.0f / sqrt(2.0f), 1.0f / sqrt(2.0f));
-        case CharacterMoveState::LEFT:
+        case EntityMoveState::LEFT:
             return Vec2(- 1.0f, 0.0f);
-        case CharacterMoveState::DOWN_LEFT:
+        case EntityMoveState::DOWN_LEFT:
             return Vec2(- 1.0f / sqrt(2.0f), - 1.0f / sqrt(2.0f));
-        case CharacterMoveState::DOWN:
+        case EntityMoveState::DOWN:
             return Vec2(0.0f, - 1.0f);
-        case CharacterMoveState::DOWN_RIGHT:
+        case EntityMoveState::DOWN_RIGHT:
             return Vec2(1.0f / sqrt(2.0f), - 1.0f / sqrt(2.0f));
-        case CharacterMoveState::RIGHT:
+        case EntityMoveState::RIGHT:
             return Vec2(1.0f, 0.0f);
-        case CharacterMoveState::NONE:
+        case EntityMoveState::NONE:
             return Vec2(0.0f, 0.0f);
         default:
             CCASSERT(false, "Undefined moveState are passed");
@@ -106,7 +106,7 @@ Vec2 Entity::directionFromMoveState(CharacterMoveState moveState)
     }
 }
 
-CharacterMoveState Entity::moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition)
+EntityMoveState Entity::moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition)
 {
     Vec2 direction = endPosition - startPosition;
     float yDifference = endPosition.y - startPosition.y;
@@ -115,19 +115,19 @@ CharacterMoveState Entity::moveStateFromStartPositionAndEndPosition(cocos2d::Vec
     degree = yDifference > 0 ? degree : 360.0f - degree;
 
     if (22.5 <= degree && degree < 67.5)
-        return CharacterMoveState::UP_RIGHT;
+        return EntityMoveState::UP_RIGHT;
     else if (67.5 <= degree && degree < 112.5)
-        return CharacterMoveState::UP;
+        return EntityMoveState::UP;
     else if (112.5 <= degree && degree < 157.5)
-        return CharacterMoveState::UP_LEFT;
+        return EntityMoveState::UP_LEFT;
     else if (157.5 <= degree && degree < 202.5)
-        return CharacterMoveState::LEFT;
+        return EntityMoveState::LEFT;
     else if (202.5 <= degree && degree < 247.5)
-        return CharacterMoveState::DOWN_LEFT;
+        return EntityMoveState::DOWN_LEFT;
     else if (247.5 <= degree && degree < 292.5)
-        return CharacterMoveState::DOWN;
+        return EntityMoveState::DOWN;
     else if (292.5 <= degree && degree < 337.5)
-        return CharacterMoveState::DOWN_RIGHT;
+        return EntityMoveState::DOWN_RIGHT;
     else
-        return CharacterMoveState::RIGHT;
+        return EntityMoveState::RIGHT;
 }

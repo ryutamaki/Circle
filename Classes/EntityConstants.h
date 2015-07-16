@@ -6,12 +6,12 @@
 //
 //
 
-#ifndef DotWar_GameConstants_h
-#define DotWar_GameConstants_h
+#ifndef DotWar_EntityConstants_h
+#define DotWar_EntityConstants_h
 
 static const float CHARACTER_SPEED = 5.0f;
 
-enum CharacterMoveState
+enum EntityMoveState
 {
     NONE,
     UP,
