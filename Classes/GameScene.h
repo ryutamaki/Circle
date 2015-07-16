@@ -24,9 +24,11 @@ private:
     Enemy* enemy;
 
     void onEnter() override;
+    void setupUserInterfaces(Node* rootNode);
     void setupTouchHandling();
 
     void update(float dt) override;
+    void checkGameOver();
 
     void attackButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     

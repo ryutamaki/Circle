@@ -25,6 +25,7 @@ public:
     // Behavior
     virtual void attack();
     virtual void receiveDamage(int damage, cocos2d::Vec2 knockback);
+    virtual bool isDead();
 
 protected:
     int hp;

@@ -35,11 +35,9 @@ bool GameScene::init()
     this->character = dynamic_cast<Character*>(field->getChildByName("Character"));
     this->enemy = dynamic_cast<Enemy*>(field->getChildByName("Enemy"));
 
-    ui::Button* attackButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("AButton"));
-    attackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::attackButtonPushed, this));
-
     addChild(rootNode);
 
+    this->setupUserInterfaces(rootNode);
     this->setupTouchHandling();
     this->networkedSession = false;
 
@@ -68,6 +66,12 @@ void GameScene::onEnter()
     Layer::onEnter();
 
     this->scheduleUpdate();
+}
+
+void GameScene::setupUserInterfaces(Node* rootNode)
+{
+    ui::Button* attackButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("AButton"));
+    attackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::attackButtonPushed, this));
 }
 
 void GameScene::setupTouchHandling()
@@ -121,12 +125,22 @@ void GameScene::update(float dt)
     {
         // TODO: magic number
         this->character->receiveDamage(5, characterPosition - enemyPosition);
+    }
 
-        if (this->character->getHp() < 0)
-        {
-            Director::getInstance()->popScene();
-            MessageBox("Player hit point is 0", "YOU LOSE");
-        }
+    this->checkGameOver();
+}
+
+void GameScene::checkGameOver()
+{
+    if (this->character->isDead())
+    {
+        Director::getInstance()->popScene();
+        MessageBox("Player hit point is 0", "YOU LOSE");
+    }
+    else if (this->enemy->isDead())
+    {
+        Director::getInstance()->popScene();
+        MessageBox("Enemy hit point is 0", "YOU WIN");
     }
 }
 
@@ -142,12 +156,6 @@ void GameScene::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
         {
             // TODO: magic number
             this->enemy->recieveDamage(10, (this->enemy->getPosition() - this->character->getPosition()) / 2.0f);
-            // TODO: magic number
-            if (this->enemy->getHp() < 0)
-            {
-                Director::getInstance()->popScene();
-                MessageBox("Enemy hit point is 0", "YOU WIN");
-            }
         }
     }
 }

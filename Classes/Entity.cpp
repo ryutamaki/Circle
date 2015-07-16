@@ -54,6 +54,15 @@ void Entity::receiveDamage(int damage, Vec2 knockback)
     // override point
 }
 
+bool Entity::isDead()
+{
+    if (this->getHp() < 0)
+    {
+        return true;
+    }
+    return false;
+}
+
 #pragma mark - Protected method
 
 #pragma mark View lifecycle
