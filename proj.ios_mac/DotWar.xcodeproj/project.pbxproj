@@ -239,14 +239,7 @@
 				03917D5D1B56D1910068BCA6 /* EntityConstants.h */,
 				03917D821B57230B0068BCA6 /* Entity.cpp */,
 				03917D831B57230B0068BCA6 /* Entity.h */,
-				03917D531B56C9B90068BCA6 /* Character.cpp */,
-				03917D541B56C9B90068BCA6 /* Character.h */,
-				03917D551B56C9B90068BCA6 /* CharacterReader.cpp */,
-				03917D561B56C9B90068BCA6 /* CharacterReader.h */,
-				03917D5E1B56EDC60068BCA6 /* Enemy.cpp */,
-				03917D5F1B56EDC60068BCA6 /* Enemy.h */,
-				03917D601B56EDC60068BCA6 /* EnemyReader.cpp */,
-				03917D611B56EDC60068BCA6 /* EnemyReader.h */,
+				03B167B01B582555005D1FF6 /* CustomEntities */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -278,6 +271,21 @@
 				03B167A91B581B0E005D1FF6 /* libcocos2d iOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		03B167B01B582555005D1FF6 /* CustomEntities */ = {
+			isa = PBXGroup;
+			children = (
+				03917D531B56C9B90068BCA6 /* Character.cpp */,
+				03917D541B56C9B90068BCA6 /* Character.h */,
+				03917D551B56C9B90068BCA6 /* CharacterReader.cpp */,
+				03917D561B56C9B90068BCA6 /* CharacterReader.h */,
+				03917D5E1B56EDC60068BCA6 /* Enemy.cpp */,
+				03917D5F1B56EDC60068BCA6 /* Enemy.h */,
+				03917D601B56EDC60068BCA6 /* EnemyReader.cpp */,
+				03917D611B56EDC60068BCA6 /* EnemyReader.h */,
+			);
+			name = CustomEntities;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* ios */ = {
