@@ -35,6 +35,10 @@ protected:
     void onEnter() override;
     void onExit() override;
 
+    // Utility methods
+    cocos2d::Vec2 directionFromMoveState(CharacterMoveState moveState);
+    CharacterMoveState moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition);
+
 };
 
 #endif /* defined(__DotWar__Entity__) */
