@@ -80,10 +80,7 @@ void Character::attack()
 
 void Character::receiveDamage(int damage, Vec2 knockback)
 {
-    this->runAction(Sequence::create(ScaleTo::create(0.1f, 0.9f), ScaleTo::create(0.1f, 1.0f), NULL));
-    
-    this->hp -= damage;
-    this->setPosition(this->getPosition() + knockback);
+    Entity::receiveDamage(damage, knockback);
 }
 
 #pragma mark - Prvate methods

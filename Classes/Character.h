@@ -23,7 +23,7 @@ public:
     void setMoveStateByStartPositionAndCurrentPosition(Vec2 startPosition, Vec2 currentPosition);
 
     void attack() override;
-    void receiveDamage(int damage, Vec2 knockback);
+    void receiveDamage(int damage, Vec2 knockback) override;
 
 private:
     cocostudio::timeline::ActionTimeline* timeline;
