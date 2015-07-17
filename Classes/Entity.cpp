@@ -34,9 +34,15 @@ int Entity::getHp()
     return this->hp;
 }
 
-void Entity::setMoveState(EntityMoveState moveState)
+Vec2 Entity::getVelocity()
 {
-    this->moveState = moveState;
+    return this->velocity;
+}
+
+Size Entity::getBodySize()
+{
+    Sprite* body = this->getChildByName<Sprite*>("Body");
+    return body->getContentSize();
 }
 
 #pragma mark Game logic
@@ -63,6 +69,7 @@ bool Entity::isDead()
     }
     return false;
 }
+
 
 #pragma mark - Protected method
 

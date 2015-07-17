@@ -42,8 +42,9 @@ bool MenuScene::init()
     }
 
     auto rootNode = CSLoader::createNode("MenuScene.csb");
-    ui::Button* singlePlayerButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("SinglePlayerButton"));
-    ui::Button* multiplayerButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("MultiplayerButton"));
+    Sprite* background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
+    ui::Button* singlePlayerButton = dynamic_cast<ui::Button*>(background->getChildByName("SinglePlayerButton"));
+    ui::Button* multiplayerButton = dynamic_cast<ui::Button*>(background->getChildByName("MultiplayerButton"));
 
     singlePlayerButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::singlePlayerButtonPushed, this));
     multiplayerButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::multiplayerButtonPushed, this));

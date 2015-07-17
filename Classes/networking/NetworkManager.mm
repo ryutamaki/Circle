@@ -40,7 +40,7 @@
     _session = [[MCSession alloc] initWithPeer:self.peerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
     _session.delegate = self;
 
-    _advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"doodler-game" discoveryInfo:nil session:_session];
+    _advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"dotwar-game" discoveryInfo:nil session:_session];
     [_advertiserAssistant start];
 }
 
@@ -52,7 +52,7 @@
 - (void)showPeerList
 {
     // Display view listing nearby peers
-    MCBrowserViewController *browserViewController = [[MCBrowserViewController alloc] initWithServiceType:@"doodler-game" session:_session];
+    MCBrowserViewController *browserViewController = [[MCBrowserViewController alloc] initWithServiceType:@"dotwar-game" session:_session];
     
     browserViewController.delegate = self;
     browserViewController.minimumNumberOfPeers = 1;

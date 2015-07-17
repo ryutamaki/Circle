@@ -85,7 +85,7 @@ void Character::update(float dt)
         return;
     }
 
-    this->velocity = CHARACTER_SPEED * direction;
-    this->setPosition(this->getPosition() + this->velocity);
+    Vec2 direction = this->directionFromMoveState(this->stateMachine->getMoveState());
+    this->velocity = CHARACTER_SPEED * direction * dt;
 }
 

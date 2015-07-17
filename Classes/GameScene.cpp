@@ -35,9 +35,10 @@ bool GameScene::init()
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
-    Sprite* field = dynamic_cast<Sprite*>(rootNode->getChildByName("Field"));
-    this->character = dynamic_cast<Character*>(field->getChildByName("Character"));
-    this->enemy = dynamic_cast<Enemy*>(field->getChildByName("Enemy"));
+    Sprite* background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
+    this->field = dynamic_cast<Sprite*>(background->getChildByName("Field"));
+    this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
+    this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
 
     addChild(rootNode);
 
@@ -72,6 +73,24 @@ void GameScene::receivedData(const void *data, unsigned long length)
 void GameScene::onEnter()
 {
     Layer::onEnter();
+
+    // Define battle field Rect
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Size fieldSize = this->field->getContentSize();
+    this->fieldRect = Rect(
+                           (visibleSize.width - fieldSize.width) * 0.5f + BATTLE_FIELD_FRAME_THICKNESS,
+                           (visibleSize.height - fieldSize.height) * 0.5f + BATTLE_FIELD_FRAME_THICKNESS,
+                           fieldSize.width - BATTLE_FIELD_FRAME_THICKNESS * 2,
+                           fieldSize.height - BATTLE_FIELD_FRAME_THICKNESS * 2
+                           );
+
+    if (this->networkedSession)
+    {
+        this->friendCharacter = dynamic_cast<Character*>(CSLoader::createNode("Character.csb"));
+        this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
+        this->friendCharacter->setAnchorPoint(Vec2(0.5f, 0.5f));
+        this->addChild(this->friendCharacter);
+    }
 
     this->scheduleUpdate();
 }
@@ -125,6 +144,24 @@ void GameScene::setupTouchHandling()
 
 void GameScene::update(float dt)
 {
+    Vec2 characterNextPosition = this->character->getPosition() + this->character->getVelocity();
+
+    Size characterBodySize = this->character->getBodySize();
+
+    // if a character collide to
+    if (characterNextPosition.x - characterBodySize.width * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
+        || characterNextPosition.y - characterBodySize.height * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
+        || characterNextPosition.x + characterBodySize.width * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.width
+        || characterNextPosition.y + characterBodySize.height * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.height)
+    {
+        this->character->stateMachine->stopMoving();
+    }
+    else
+    {
+        this->character->setPosition(characterNextPosition);
+    }
+
+
     Vec2 enemyPosition = this->enemy->getPosition();
     Vec2 characterPosition = this->character->getPosition();
 

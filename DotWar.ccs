@@ -7,13 +7,14 @@
         <Folder Name="Assets">
           <Folder Name="Images">
             <Image Name="Character.png" />
-            <Image Name="Field.png" />
             <Image Name="Enemy.png" />
             <Image Name="A.png" />
             <Image Name="MultiplayerButtonNormal.png" />
             <Image Name="MultiplayerButtonPushed.png" />
             <Image Name="SinglePlayerButtonNormal.png" />
             <Image Name="SinglePlayerButtonPushed.png" />
+            <Image Name="Background.png" />
+            <Image Name="Field.png" />
           </Folder>
         </Folder>
         <Project Name="Character.csd" Type="Node" />

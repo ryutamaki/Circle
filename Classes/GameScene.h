@@ -19,8 +19,12 @@ public:
 
 private:
     bool networkedSession;
-    
+
+    cocos2d::Rect fieldRect;
+    cocos2d::Sprite* field;
+
     Character* character;
+    Character* friendCharacter;
     Enemy* enemy;
 
     void onEnter() override;

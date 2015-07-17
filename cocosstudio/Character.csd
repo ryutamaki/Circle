@@ -18,7 +18,7 @@
           <ScaleFrame FrameIndex="1" X="0.9000" Y="0.9000">
             <EasingData Type="0" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="2" X="1.2000" Y="1.2000">
+          <ScaleFrame FrameIndex="2" X="1.3000" Y="1.3000">
             <EasingData Type="0" />
           </ScaleFrame>
           <ScaleFrame FrameIndex="20" X="1.0000" Y="1.0000">
@@ -38,8 +38,8 @@
         </Timeline>
       </Animation>
       <AnimationList>
-        <AnimationInfo Name="Attack" StartIndex="0" EndIndex="20">
-          <RenderColor A="150" R="230" G="230" B="250" />
+        <AnimationInfo Name="Attack" StartIndex="0" EndIndex="21">
+          <RenderColor A="255" R="230" G="230" B="250" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Character" Tag="8" ctype="GameNodeObjectData">

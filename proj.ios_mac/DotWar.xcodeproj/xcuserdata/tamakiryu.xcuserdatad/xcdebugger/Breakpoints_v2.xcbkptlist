@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Classes/MenuScene.cpp"
-            timestampString = "458696703.551351"
+            filePath = "../Classes/GameScene.cpp"
+            timestampString = "458861551.833599"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "MenuScene::multiplayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "GameScene::onEnter()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

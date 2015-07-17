@@ -23,7 +23,8 @@ public:
 
     // Accessors
     int getHp();
-    void setMoveState(EntityMoveState moveState);
+    cocos2d::Vec2 getVelocity();
+    cocos2d::Size getBodySize();
 
     // Behavior
     virtual void attack();
