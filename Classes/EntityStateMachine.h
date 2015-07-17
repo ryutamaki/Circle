@@ -50,11 +50,14 @@ public:
 
     // Function to change state
     // These functions return a result
-    bool stopMoving();
-    bool startMoving(EntityMoveState movingState);
-    bool startAttaking();
-    bool coolDownAttaking();
-    bool finishAttaking();
+    void stopMoving();
+    void startMoving(EntityMoveState movingState);
+    void readyToAttack();
+    void startToAttack();
+    void coolDownAttaking();
+    void finishAttaking();
+
+    bool canAttack();
 
 private:
     EntityMoveState moveState;

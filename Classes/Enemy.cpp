@@ -8,6 +8,8 @@
 
 #include "Enemy.h"
 
+using namespace cocostudio::timeline;
+
 #pragma mark - Public methods
 
 #pragma mark Initializer
@@ -27,12 +29,6 @@ bool Enemy::init() {
 
 #pragma mark Game logic
 
-void Enemy::recieveDamage(int damage, Vec2 knockback)
-{
-    Entity::receiveDamage(damage, knockback);
-}
-
-
 #pragma mark - Private methods
 
 #pragma mark View lifecycle
@@ -41,4 +37,12 @@ void Enemy::onEnter()
 {
     Entity::onEnter();
 
+    this->schedule(CC_SCHEDULE_SELECTOR(Enemy::updateAttack), 4.0f);
+}
+
+#pragma mark Game logic
+
+void Enemy::updateAttack(float dt)
+{
+    this->attack("Attack");
 }

@@ -3,38 +3,25 @@
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="20" Speed="1.0000" ActivedAnimationName="Attack">
-        <Timeline ActionTag="-350048995" Property="Position">
-          <PointFrame FrameIndex="0" X="0.0000" Y="0.0000">
-            <EasingData Type="20" />
-          </PointFrame>
-          <PointFrame FrameIndex="20" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </PointFrame>
-        </Timeline>
-        <Timeline ActionTag="-350048995" Property="Scale">
-          <ScaleFrame FrameIndex="0" X="1.0000" Y="1.0000">
-            <EasingData Type="20" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="1" X="0.9000" Y="0.9000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="2" X="1.3000" Y="1.3000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="20" X="1.0000" Y="1.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-        </Timeline>
-        <Timeline ActionTag="-350048995" Property="RotationSkew">
+        <Timeline ActionTag="-1773017991" Property="RotationSkew">
           <ScaleFrame FrameIndex="0" X="0.0000" Y="0.0000">
-            <EasingData Type="20" />
+            <EasingData Type="0" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="10" X="1800.0000" Y="1800.0000">
-            <EasingData Type="19" />
+          <ScaleFrame FrameIndex="1" X="-30.0000" Y="-30.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="19" X="360.0000" Y="360.0000">
+            <EasingData Type="0" />
           </ScaleFrame>
           <ScaleFrame FrameIndex="20" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </ScaleFrame>
+        </Timeline>
+        <Timeline ActionTag="-1773017991" Property="FrameEvent">
+          <EventFrame FrameIndex="0" Tween="False" Value="Ready" />
+          <EventFrame FrameIndex="1" Tween="False" Value="Attack" />
+          <EventFrame FrameIndex="19" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="20" Tween="False" Value="Finish" />
         </Timeline>
       </Animation>
       <AnimationList>
@@ -45,7 +32,7 @@
       <ObjectData Name="Node" CustomClassName="Character" Tag="8" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="Body" ActionTag="-350048995" Tag="9" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-20.0000" RightMargin="-20.0000" TopMargin="-20.0000" BottomMargin="-20.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Finish" IconVisible="False" LeftMargin="-20.0000" RightMargin="-20.0000" TopMargin="-20.0000" BottomMargin="-20.0000" ctype="SpriteObjectData">
             <Size X="40.0000" Y="40.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />

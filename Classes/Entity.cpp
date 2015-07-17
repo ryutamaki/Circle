@@ -9,6 +9,7 @@
 #include "Entity.h"
 
 USING_NS_CC;
+using namespace cocostudio::timeline;
 
 #pragma mark - Initilalizer
 
@@ -47,9 +48,37 @@ Size Entity::getBodySize()
 
 #pragma mark Game logic
 
-void Entity::attack()
+void Entity::attack(std::string attackName)
 {
     // override point
+    if (!this->stateMachine->canAttack())
+    {
+        return;
+    }
+
+    this->stopAllActions();
+    this->runAction(this->timeline);
+    this->timeline->play(attackName, false);
+    this->timeline->setFrameEventCallFunc([&](Frame* frame){
+        EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
+        auto eventName = frameEvent->getEvent();
+        if (eventName == "Ready") {
+            this->stateMachine->readyToAttack();
+            log("ready");
+        }
+        else if (eventName == "Attack") {
+            this->stateMachine->startToAttack();
+            log("attack");
+        }
+        else if (eventName == "Cooldown") {
+            this->stateMachine->coolDownAttaking();
+            log("cooldown");
+        }
+        else if (eventName == "Finish") {
+            this->stateMachine->finishAttaking();
+            log("finish");
+        }
+    });
 }
 
 void Entity::receiveDamage(int damage, Vec2 knockback)

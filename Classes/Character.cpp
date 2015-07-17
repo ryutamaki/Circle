@@ -39,29 +39,6 @@ void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 star
 
 #pragma mark Game logic
 
-void Character::attack()
-{
-    Entity::attack();
-    bool isStartAttaking = this->stateMachine->startAttaking();
-    if (!isStartAttaking)
-    {
-        return;
-    }
-
-    this->stopAllActions();
-    this->runAction(this->timeline);
-    this->timeline->play("Attack", false);
-    this->timeline->setLastFrameCallFunc([&](){
-        this->stateMachine->coolDownAttaking();
-        this->stateMachine->finishAttaking();
-    });
-}
-
-void Character::receiveDamage(int damage, Vec2 knockback)
-{
-    Entity::receiveDamage(damage, knockback);
-}
-
 #pragma mark - Prvate methods
 
 #pragma mark View lifecycle

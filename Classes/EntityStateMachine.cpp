@@ -42,64 +42,70 @@ EntityAttackState EntityStateMachine::getAttackState()
 
 #pragma mark State functions
 
-bool EntityStateMachine::stopMoving()
+void EntityStateMachine::stopMoving()
 {
     this->setMoveState(EntityMoveState::NONE);
 
     this->sendCurrentEntityState();
-
-    return true;
 }
 
-bool EntityStateMachine::startMoving(EntityMoveState movingState)
+void EntityStateMachine::startMoving(EntityMoveState movingState)
 {
     if (this->attackState != EntityAttackState::NONE)
-        return false;
+        return;
 
     this->setMoveState(movingState);
     
     this->sendCurrentEntityState();
-
-    return true;
 }
 
-bool EntityStateMachine::startAttaking()
+void EntityStateMachine::readyToAttack()
 {
     if (this->attackState != EntityAttackState::NONE)
-        return false;
+        return;
 
-    this->setMoveState(EntityMoveState::NONE);
+    this->setAttackState(EntityAttackState::READY);
+
+    this->sendCurrentEntityState();
+}
+
+void EntityStateMachine::startToAttack()
+{
+    if (this->attackState != EntityAttackState::READY)
+        return;
+
     this->setAttackState(EntityAttackState::ATTAKING);
 
     this->sendCurrentEntityState();
-
-    return true;
 }
 
-bool EntityStateMachine::coolDownAttaking()
+void EntityStateMachine::coolDownAttaking()
 {
     if (this->attackState != EntityAttackState::ATTAKING)
-        return false;
+        return;
 
-    this->setMoveState(EntityMoveState::NONE);
     this->setAttackState(EntityAttackState::COOL_DOWN);
 
     this->sendCurrentEntityState();
-
-    return true;
 }
 
-bool EntityStateMachine::finishAttaking()
+void EntityStateMachine::finishAttaking()
 {
     if (this->attackState != EntityAttackState::COOL_DOWN)
-        return false;
+        return;
 
-    this->setMoveState(EntityMoveState::NONE);
     this->setAttackState(EntityAttackState::NONE);
 
     this->sendCurrentEntityState();
+}
 
-    return true;
+bool EntityStateMachine::canAttack()
+{
+    if (this->attackState == EntityAttackState::NONE)
+    {
+        return true;
+    }
+    return false;
 }
 
 #pragma mark - Private methods

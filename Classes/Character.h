@@ -10,7 +10,6 @@
 #define __DotWar__Character__
 
 #include "cocos2d.h"
-#include "cocostudio/CocoStudio.h"
 #include "EntityConstants.h"
 
 #include "Entity.h"
@@ -22,12 +21,7 @@ public:
 
     void setMoveStateByStartPositionAndCurrentPosition(Vec2 startPosition, Vec2 currentPosition);
 
-    void attack() override;
-    void receiveDamage(int damage, Vec2 knockback) override;
-
 private:
-    cocostudio::timeline::ActionTimeline* timeline;
-
     void onEnter() override;
 
     void update(float dt) override;

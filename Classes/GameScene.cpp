@@ -166,9 +166,28 @@ void GameScene::update(float dt)
         {
             entity->setPosition(entityNextPosition);
         }
+
     }
 
+    if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTAKING)
+    {
+        // TODO: magic number
+        if (this->character->getPosition().distance(this->enemy->getPosition()) < 100.0f)
+        {
+            // TODO: magic number
+            this->enemy->receiveDamage(10, (this->enemy->getPosition() - this->character->getPosition()) / 2.0f);
+        }
+    }
 
+    if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTAKING)
+    {
+        // TODO: magic number
+        if (this->enemy->getPosition().distance(this->character->getPosition()) < 200.0f)
+        {
+            // TODO: magic number
+            this->character->receiveDamage(10, (this->character->getPosition() - this->enemy->getPosition()) / 2.0f);
+        }
+    }
 
     Vec2 enemyPosition = this->enemy->getPosition();
     Vec2 characterPosition = this->character->getPosition();
@@ -212,12 +231,6 @@ void GameScene::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::T
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED)
     {
-        this->character->attack();
-        // TODO: magic number
-        if (this->character->getPosition().distance(this->enemy->getPosition()) < 100.0f)
-        {
-            // TODO: magic number
-            this->enemy->recieveDamage(10, (this->enemy->getPosition() - this->character->getPosition()) / 2.0f);
-        }
+        this->character->attack("Attack");
     }
 }

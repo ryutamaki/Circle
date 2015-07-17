@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 
 #include "EntityStateMachine.h"
+#include "cocostudio/CocoStudio.h"
 
 class Entity : public cocos2d::Node
 {
@@ -27,11 +28,13 @@ public:
     cocos2d::Size getBodySize();
 
     // Behavior
-    virtual void attack();
+    virtual void attack(std::string attackName);
     virtual void receiveDamage(int damage, cocos2d::Vec2 knockback);
     virtual bool isDead();
 
 protected:
+    cocostudio::timeline::ActionTimeline* timeline;
+
     int hp;
     cocos2d::Vec2 velocity;
 
