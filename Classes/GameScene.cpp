@@ -2,10 +2,14 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+#include "GameConstants.h"
+
 #include "Character.h"
 #include "CharacterReader.h"
 #include "Enemy.h"
 #include "EnemyReader.h"
+
+#include "JSONPacker.h"
 
 USING_NS_CC;
 

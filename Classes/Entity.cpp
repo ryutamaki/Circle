@@ -19,8 +19,9 @@ bool Entity::init()
         return false;
     }
 
+    this->stateMachine = new EntityStateMachine();
+
     this->hp = 100;
-    this->moveState = EntityMoveState::NONE;
     this->velocity = Vec2(0.0f, 0.0f);
 
     return true;
