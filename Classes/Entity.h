@@ -11,11 +11,14 @@
 
 #include "cocos2d.h"
 
-#include "EntityConstants.h"
+#include "EntityStateMachine.h"
 
 class Entity : public cocos2d::Node
 {
 public:
+    // Opened
+    EntityStateMachine* stateMachine;
+
     CREATE_FUNC(Entity);
 
     // Accessors
@@ -29,7 +32,6 @@ public:
 
 protected:
     int hp;
-    EntityMoveState moveState;
     cocos2d::Vec2 velocity;
 
     bool init() override;

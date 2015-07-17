@@ -82,7 +82,7 @@ void Entity::onExit()
 
 Vec2 Entity::directionFromMoveState(EntityMoveState moveState)
 {
-    switch (this->moveState) {
+    switch (moveState) {
         case EntityMoveState::UP_RIGHT:
             return Vec2(1.0f / sqrt(2.0f), 1.0f / sqrt(2.0f));
         case EntityMoveState::UP:

@@ -59,6 +59,10 @@ void GameScene::receivedData(const void *data, unsigned long length)
 {
     const char* cstr = reinterpret_cast<const char*>(data);
     std::string json = std::string(cstr, length);
+    JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
+
+    this->friendCharacter->stateMachine->setMoveState(entityState.moveState);
+    this->friendCharacter->stateMachine->setAttackState(entityState.attackState);
 }
 
 #pragma mark - Private methods
@@ -106,11 +110,11 @@ void GameScene::setupTouchHandling()
     };
     touchListener->onTouchCancelled = [&](Touch* touch, Event* event)
     {
-        this->character->setMoveState(EntityMoveState::NONE);
+        this->character->stateMachine->stopMoving();
     };
     touchListener->onTouchEnded = [&](Touch* touch, Event* event)
     {
-        this->character->setMoveState(EntityMoveState::NONE);
+        this->character->stateMachine->stopMoving();
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);

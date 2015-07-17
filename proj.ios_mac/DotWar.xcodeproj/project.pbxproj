@@ -30,6 +30,8 @@
 		03917D851B57230B0068BCA6 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D821B57230B0068BCA6 /* Entity.cpp */; };
 		03B167AA1B581B1C005D1FF6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B167A91B581B0E005D1FF6 /* libcocos2d iOS.a */; };
 		03B167AB1B581B22005D1FF6 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B167A71B581B0E005D1FF6 /* libcocos2d Mac.a */; };
+		03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
+		03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -124,6 +126,8 @@
 		03917D821B57230B0068BCA6 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		03917D831B57230B0068BCA6 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		03B167A11B581B0D005D1FF6 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../../Tetrominos/cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
+		03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityStateMachine.cpp; sourceTree = "<group>"; };
+		03B167B21B58301C005D1FF6 /* EntityStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityStateMachine.h; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* DotWar iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DotWar iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,6 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				03917D5D1B56D1910068BCA6 /* EntityConstants.h */,
+				03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */,
+				03B167B21B58301C005D1FF6 /* EntityStateMachine.h */,
 				03917D821B57230B0068BCA6 /* Entity.cpp */,
 				03917D831B57230B0068BCA6 /* Entity.h */,
 				03B167B01B582555005D1FF6 /* CustomEntities */,
@@ -569,6 +575,7 @@
 				03917D571B56C9B90068BCA6 /* Character.cpp in Sources */,
 				03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
 				03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */,
+				03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				03917D721B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				03917D7B1B56FE220068BCA6 /* SceneManager.cpp in Sources */,
@@ -587,6 +594,7 @@
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				46880B8B19C43A87006E1F66 /* GameScene.cpp in Sources */,
+				03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				03917D651B56EDC60068BCA6 /* EnemyReader.cpp in Sources */,
 				03917D5A1B56C9B90068BCA6 /* CharacterReader.cpp in Sources */,
 				03917D7C1B56FE220068BCA6 /* SceneManager.cpp in Sources */,

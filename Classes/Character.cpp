@@ -30,16 +30,31 @@ bool Character::init() {
 void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 currentPosition)
 {
     EntityMoveState moveState = this->moveStateFromStartPositionAndEndPosition(startPosition, currentPosition);
-    this->setMoveState(moveState);
+    if (moveState == this->stateMachine->getMoveState())
+    {
+        return;
+    }
+    this->stateMachine->startMoving(moveState);
 }
 
 #pragma mark Game logic
 
 void Character::attack()
 {
+    Entity::attack();
+    bool isStartAttaking = this->stateMachine->startAttaking();
+    if (!isStartAttaking)
+    {
+        return;
+    }
+
     this->stopAllActions();
     this->runAction(this->timeline);
     this->timeline->play("Attack", false);
+    this->timeline->setLastFrameCallFunc([&](){
+        this->stateMachine->coolDownAttaking();
+        this->stateMachine->finishAttaking();
+    });
 }
 
 void Character::receiveDamage(int damage, Vec2 knockback)
@@ -64,7 +79,11 @@ void Character::update(float dt)
 {
     Node::update(dt);
 
-    Vec2 direction = this->directionFromMoveState(this->moveState);
+    if (this->stateMachine->getMoveState() == EntityMoveState::NONE)
+    {
+        this->velocity.setZero();
+        return;
+    }
 
     this->velocity = CHARACTER_SPEED * direction;
     this->setPosition(this->getPosition() + this->velocity);
