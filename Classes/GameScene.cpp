@@ -144,22 +144,30 @@ void GameScene::setupTouchHandling()
 
 void GameScene::update(float dt)
 {
-    Vec2 characterNextPosition = this->character->getPosition() + this->character->getVelocity();
-
-    Size characterBodySize = this->character->getBodySize();
-
-    // if a character collide to
-    if (characterNextPosition.x - characterBodySize.width * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
-        || characterNextPosition.y - characterBodySize.height * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
-        || characterNextPosition.x + characterBodySize.width * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.width
-        || characterNextPosition.y + characterBodySize.height * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.height)
+    Vector<Node*> fieldChildren = this->field->getChildren();
+    for (int index = 0; index < fieldChildren.size(); ++index)
     {
-        this->character->stateMachine->stopMoving();
+        Entity* entity = dynamic_cast<Entity*>(fieldChildren.at(index));
+        if (!entity)
+            return;
+
+        Vec2 entityNextPosition = entity->getPosition() + entity->getVelocity();
+        Size entityBodySize = entity->getBodySize();
+
+        // if a character collide to
+        if (entityNextPosition.x - entityBodySize.width * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
+            || entityNextPosition.y - entityBodySize.height * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
+            || entityNextPosition.x + entityBodySize.width * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.width
+            || entityNextPosition.y + entityBodySize.height * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.height)
+        {
+            entity->stateMachine->stopMoving();
+        }
+        else
+        {
+            entity->setPosition(entityNextPosition);
+        }
     }
-    else
-    {
-        this->character->setPosition(characterNextPosition);
-    }
+
 
 
     Vec2 enemyPosition = this->enemy->getPosition();
