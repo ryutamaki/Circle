@@ -95,7 +95,7 @@ void Entity::attack(std::string attackName)
 
 void Entity::receiveDamage(int damage, Vec2 knockback)
 {
-//    log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
+    log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
     this->stateMachine->startMoving(this->moveStateFromVector(knockback));
     this->hp -= damage;
 

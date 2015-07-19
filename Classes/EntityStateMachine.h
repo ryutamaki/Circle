@@ -31,9 +31,9 @@ enum class EntityAttackState
     NONE,
     READY,
     ATTAKING,
+    HIT,
     COOL_DOWN,
 };
-
 
 class EntityStateMachine
 {
@@ -50,10 +50,13 @@ public:
 
     // Function to change state
     // These functions return a result
+    // MOVE:
     void stopMoving();
     void startMoving(EntityMoveState movingState);
+    // ATTACK:
     void readyToAttack();
     void startToAttack();
+    void hitAttack();
     void coolDownAttaking();
     void finishAttaking();
 

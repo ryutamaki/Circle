@@ -75,18 +75,23 @@ void EntityStateMachine::startToAttack()
         return;
 
     this->setAttackState(EntityAttackState::ATTAKING);
-
-    this->sendCurrentEntityState();
 }
 
-void EntityStateMachine::coolDownAttaking()
+void EntityStateMachine::hitAttack()
 {
     if (this->attackState != EntityAttackState::ATTAKING)
         return;
 
-    this->setAttackState(EntityAttackState::COOL_DOWN);
+    this->setAttackState(EntityAttackState::HIT);
+}
 
-    this->sendCurrentEntityState();
+void EntityStateMachine::coolDownAttaking()
+{
+    if (this->attackState != EntityAttackState::ATTAKING &&
+        this->attackState != EntityAttackState::HIT)
+        return;
+
+    this->setAttackState(EntityAttackState::COOL_DOWN);
 }
 
 void EntityStateMachine::finishAttaking()
@@ -95,8 +100,6 @@ void EntityStateMachine::finishAttaking()
         return;
 
     this->setAttackState(EntityAttackState::NONE);
-
-    this->sendCurrentEntityState();
 }
 
 bool EntityStateMachine::canAttack()
