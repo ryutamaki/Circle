@@ -27,7 +27,7 @@ private:
     Enemy* enemy;
 
     void onEnter() override;
-    void setupUserInterfaces(Node* rootNode);
+    void setupUserInterfaces(const Node* rootNode);
     void setupTouchHandling();
 
     void update(float dt) override;

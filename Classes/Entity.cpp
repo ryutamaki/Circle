@@ -64,7 +64,7 @@ Rect Entity::getRect()
 
 #pragma mark Game logic
 
-void Entity::attack(std::string attackName)
+void Entity::attack(const std::string attackName)
 {
     if (!this->stateMachine->canAttack())
         return;
@@ -93,7 +93,7 @@ void Entity::attack(std::string attackName)
     // override point
 }
 
-void Entity::receiveDamage(int damage, Vec2 knockback)
+void Entity::receiveDamage(const int damage, const Vec2 knockback)
 {
     log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
     this->stateMachine->startMoving(this->moveStateFromVector(knockback));
@@ -137,7 +137,7 @@ void Entity::onExit()
 
 #pragma mark Utility methods
 
-Vec2 Entity::directionFromMoveState(EntityMoveState moveState)
+const Vec2 Entity::directionFromMoveState(const EntityMoveState moveState)
 {
     switch (moveState) {
         case EntityMoveState::UP_RIGHT:
@@ -164,13 +164,13 @@ Vec2 Entity::directionFromMoveState(EntityMoveState moveState)
     }
 }
 
-EntityMoveState Entity::moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition)
+const EntityMoveState Entity::moveStateFromStartPositionAndEndPosition(const Vec2 startPosition, const Vec2 endPosition)
 {
     Vec2 vector = endPosition - startPosition;
     return this->moveStateFromVector(vector);
 }
 
-EntityMoveState Entity::moveStateFromVector(cocos2d::Vec2 knockback)
+const EntityMoveState Entity::moveStateFromVector(const Vec2 knockback)
 {
     if (knockback.equals(Vec2::ZERO))
         return EntityMoveState::NONE;

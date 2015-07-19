@@ -30,12 +30,12 @@ EntityStateMachine::~EntityStateMachine()
 
 #pragma mark Getter
 
-EntityMoveState EntityStateMachine::getMoveState()
+const EntityMoveState EntityStateMachine::getMoveState()
 {
     return this->moveState;
 }
 
-EntityAttackState EntityStateMachine::getAttackState()
+const EntityAttackState EntityStateMachine::getAttackState()
 {
     return this->attackState;
 }
@@ -49,7 +49,7 @@ void EntityStateMachine::stopMoving()
     this->sendCurrentEntityState();
 }
 
-void EntityStateMachine::startMoving(EntityMoveState movingState)
+void EntityStateMachine::startMoving(const EntityMoveState movingState)
 {
     if (this->attackState != EntityAttackState::NONE)
         return;
@@ -115,12 +115,12 @@ bool EntityStateMachine::canAttack()
 
 #pragma mark Setter
 
-void EntityStateMachine::setMoveState(EntityMoveState moveState)
+void EntityStateMachine::setMoveState(const EntityMoveState moveState)
 {
     this->moveState = moveState;
 }
 
-void EntityStateMachine::setAttackState(EntityAttackState attackState)
+void EntityStateMachine::setAttackState(const EntityAttackState attackState)
 {
     this->attackState = attackState;
 }

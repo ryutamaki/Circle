@@ -83,7 +83,7 @@ void GameScene::onEnter()
     this->scheduleUpdate();
 }
 
-void GameScene::setupUserInterfaces(Node* rootNode)
+void GameScene::setupUserInterfaces(const Node* rootNode)
 {
     ui::Button* attackButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("AButton"));
     attackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::attackButtonPushed, this));

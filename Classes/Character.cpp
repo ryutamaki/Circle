@@ -31,9 +31,8 @@ void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 star
 {
     EntityMoveState moveState = this->moveStateFromStartPositionAndEndPosition(startPosition, currentPosition);
     if (moveState == this->stateMachine->getMoveState())
-    {
         return;
-    }
+
     this->stateMachine->startMoving(moveState);
 }
 
@@ -46,6 +45,4 @@ void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 star
 void Character::onEnter()
 {
     Entity::onEnter();
-
-    this->scheduleUpdate();
 }

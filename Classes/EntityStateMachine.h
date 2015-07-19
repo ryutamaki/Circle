@@ -42,17 +42,17 @@ public:
     ~EntityStateMachine();
 
     // Getter
-    EntityMoveState getMoveState();
-    EntityAttackState getAttackState();
+    const EntityMoveState getMoveState();
+    const EntityAttackState getAttackState();
 
-    void setMoveState(EntityMoveState moveState);
-    void setAttackState(EntityAttackState attackState);
+    void setMoveState(const EntityMoveState moveState);
+    void setAttackState(const EntityAttackState attackState);
 
     // Function to change state
     // These functions return a result
     // MOVE:
     void stopMoving();
-    void startMoving(EntityMoveState movingState);
+    void startMoving(const EntityMoveState movingState);
     // ATTACK:
     void readyToAttack();
     void startToAttack();

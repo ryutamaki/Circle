@@ -29,8 +29,8 @@ public:
     cocos2d::Rect getRect();
 
     // Behavior
-    virtual void attack(std::string attackName);
-    virtual void receiveDamage(int damage, cocos2d::Vec2 knockback);
+    virtual void attack(const std::string attackName);
+    virtual void receiveDamage(const int damage, const cocos2d::Vec2 knockback);
     virtual bool isDead();
 
 protected:
@@ -46,9 +46,9 @@ protected:
     void update(float dt) override;
 
     // Utility methods
-    cocos2d::Vec2 directionFromMoveState(EntityMoveState moveState);
-    EntityMoveState moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition);
-    EntityMoveState moveStateFromVector(cocos2d::Vec2 knockback);
+    const cocos2d::Vec2 directionFromMoveState(const EntityMoveState moveState);
+    const EntityMoveState moveStateFromStartPositionAndEndPosition(const cocos2d::Vec2 startPosition, const cocos2d::Vec2 endPosition);
+    const EntityMoveState moveStateFromVector(const cocos2d::Vec2 knockback);
 
 };
 
