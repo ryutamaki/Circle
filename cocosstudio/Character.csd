@@ -7,7 +7,10 @@
           <ScaleFrame FrameIndex="0" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="1" X="-30.0000" Y="-30.0000">
+          <ScaleFrame FrameIndex="1" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="2" X="-30.0000" Y="-30.0000">
             <EasingData Type="0" />
           </ScaleFrame>
           <ScaleFrame FrameIndex="19" X="360.0000" Y="360.0000">
@@ -18,10 +21,15 @@
           </ScaleFrame>
         </Timeline>
         <Timeline ActionTag="-1773017991" Property="FrameEvent">
-          <EventFrame FrameIndex="0" Tween="False" Value="Ready" />
-          <EventFrame FrameIndex="1" Tween="False" Value="Attack" />
+          <EventFrame FrameIndex="1" Tween="False" Value="Ready" />
+          <EventFrame FrameIndex="2" Tween="False" Value="Attack" />
           <EventFrame FrameIndex="19" Tween="False" Value="Cooldown" />
           <EventFrame FrameIndex="20" Tween="False" Value="Finish" />
+        </Timeline>
+        <Timeline ActionTag="-1773017991" Property="Scale">
+          <ScaleFrame FrameIndex="0" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
         </Timeline>
       </Animation>
       <AnimationList>
@@ -32,7 +40,7 @@
       <ObjectData Name="Node" CustomClassName="Character" Tag="8" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Finish" IconVisible="False" LeftMargin="-20.0000" RightMargin="-20.0000" TopMargin="-20.0000" BottomMargin="-20.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-20.0000" RightMargin="-20.0000" TopMargin="-20.0000" BottomMargin="-20.0000" ctype="SpriteObjectData">
             <Size X="40.0000" Y="40.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />

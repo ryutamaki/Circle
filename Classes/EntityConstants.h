@@ -9,6 +9,6 @@
 #ifndef DotWar_EntityConstants_h
 #define DotWar_EntityConstants_h
 
-static const float CHARACTER_SPEED = 300.0f;
+static const float ENTITY_SPEED = 300.0f;
 
 #endif

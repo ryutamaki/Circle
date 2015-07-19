@@ -49,20 +49,3 @@ void Character::onEnter()
 
     this->scheduleUpdate();
 }
-
-#pragma mark Game logic
-
-void Character::update(float dt)
-{
-    Node::update(dt);
-
-    if (this->stateMachine->getMoveState() == EntityMoveState::NONE)
-    {
-        this->velocity.setZero();
-        return;
-    }
-
-    Vec2 direction = this->directionFromMoveState(this->stateMachine->getMoveState());
-    this->velocity = CHARACTER_SPEED * direction * dt;
-}
-

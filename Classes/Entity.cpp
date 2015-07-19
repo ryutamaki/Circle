@@ -8,6 +8,8 @@
 
 #include "Entity.h"
 
+#include "EntityConstants.h"
+
 USING_NS_CC;
 using namespace cocostudio::timeline;
 
@@ -72,33 +74,30 @@ void Entity::attack(std::string attackName)
     this->stopAllActions();
     this->runAction(this->timeline);
     this->timeline->play(attackName, false);
-    this->timeline->setFrameEventCallFunc([&](Frame* frame){
+    this->timeline->setFrameEventCallFunc([this](Frame* frame){
         EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
         auto eventName = frameEvent->getEvent();
+        log("---- %s ----", eventName.c_str());
         if (eventName == "Ready") {
             this->stateMachine->readyToAttack();
-            log("ready");
         }
         else if (eventName == "Attack") {
             this->stateMachine->startToAttack();
-            log("attack");
         }
         else if (eventName == "Cooldown") {
             this->stateMachine->coolDownAttaking();
-            log("cooldown");
         }
         else if (eventName == "Finish") {
             this->stateMachine->finishAttaking();
-            log("finish");
         }
     });
 }
 
 void Entity::receiveDamage(int damage, Vec2 knockback)
 {
-    this->runAction(Sequence::create(ScaleTo::create(0.1f, 0.9f), ScaleTo::create(0.1f, 1.0f), NULL));
+//    log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
+    this->stateMachine->startMoving(this->moveStateFromVector(knockback));
     this->hp -= damage;
-    this->setPosition(this->getPosition() + knockback);
 
     // override point
 }
@@ -112,6 +111,20 @@ bool Entity::isDead()
     return false;
 }
 
+void Entity::update(float dt)
+{
+    Node::update(dt);
+
+    if (this->stateMachine->getMoveState() == EntityMoveState::NONE)
+    {
+        this->velocity.setZero();
+        return;
+    }
+
+    Vec2 direction = this->directionFromMoveState(this->stateMachine->getMoveState());
+    this->velocity = ENTITY_SPEED * direction * dt;
+}
+
 
 #pragma mark - Protected method
 
@@ -120,6 +133,8 @@ bool Entity::isDead()
 void Entity::onEnter()
 {
     Node::onEnter();
+
+    this->scheduleUpdate();
 }
 
 void Entity::onExit()
@@ -158,11 +173,15 @@ Vec2 Entity::directionFromMoveState(EntityMoveState moveState)
 
 EntityMoveState Entity::moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition)
 {
-    Vec2 direction = endPosition - startPosition;
-    float yDifference = endPosition.y - startPosition.y;
-    float radiun = Vec2::angle(direction, Vec2(1.0f, 0.0f));
+    Vec2 vector = endPosition - startPosition;
+    return this->moveStateFromVector(vector);
+}
+
+EntityMoveState Entity::moveStateFromVector(cocos2d::Vec2 knockback)
+{
+    float radiun = Vec2::angle(knockback, Vec2(1.0f, 0.0f));
     float degree = CC_RADIANS_TO_DEGREES(radiun);
-    degree = yDifference > 0 ? degree : 360.0f - degree;
+    degree = knockback.y > 0 ? degree : 360.0f - degree;
 
     if (22.5 <= degree && degree < 67.5)
         return EntityMoveState::UP_RIGHT;

@@ -43,9 +43,12 @@ protected:
     void onEnter() override;
     void onExit() override;
 
+    void update(float dt) override;
+
     // Utility methods
     cocos2d::Vec2 directionFromMoveState(EntityMoveState moveState);
     EntityMoveState moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 endPosition);
+    EntityMoveState moveStateFromVector(cocos2d::Vec2 knockback);
 
 };
 

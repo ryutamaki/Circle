@@ -24,8 +24,6 @@ public:
 private:
     void onEnter() override;
 
-    void update(float dt) override;
-
 };
 
 #endif /* defined(__DotWar__Character__) */
