@@ -105,6 +105,7 @@ void GameScene::setupTouchHandling()
     touchListener->onTouchMoved = [this](Touch* touch, Event* event)
     {
         Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
+        if (lastTouchPosition.distance(currentTouchPosition) < SENSITIVITY_TO_CONTROL_PLAYER)
             return;
 
         this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
