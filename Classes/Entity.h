@@ -17,7 +17,7 @@
 class Entity : public cocos2d::Node
 {
 public:
-    // Opened
+    // This stateMachine is opened to the public
     EntityStateMachine* stateMachine;
 
     CREATE_FUNC(Entity);
@@ -26,6 +26,7 @@ public:
     int getHp();
     cocos2d::Vec2 getVelocity();
     cocos2d::Size getBodySize();
+    cocos2d::Rect getRect();
 
     // Behavior
     virtual void attack(std::string attackName);

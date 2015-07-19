@@ -46,6 +46,19 @@ Size Entity::getBodySize()
     return body->getContentSize();
 }
 
+Rect Entity::getRect()
+{
+    Size size = this->getBodySize();
+    Vec2 position = this->getPosition();
+
+    Rect returnRect = Rect(
+                      position.x - size.width * 0.5f,
+                      position.y - size.height * 0.5f,
+                      size.width, size.height
+                      );
+    return returnRect;
+}
+
 #pragma mark Game logic
 
 void Entity::attack(std::string attackName)

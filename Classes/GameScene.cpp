@@ -189,23 +189,12 @@ void GameScene::update(float dt)
         }
     }
 
-    Vec2 enemyPosition = this->enemy->getPosition();
-    Vec2 characterPosition = this->character->getPosition();
-    Rect characterRect = Rect(
-                              this->character->getPosition().x - this->character->getAnchorPoint().x * this->character->getBodySize().width,
-                              this->character->getPosition().y - this->character->getAnchorPoint().y * this->character->getBodySize().height,
-                              this->character->getBodySize().width, this->character->getBodySize().height
-    );
-    Rect enemyRect = Rect(
-                              this->enemy->getPosition().x - this->enemy->getAnchorPoint().x * this->enemy->getBodySize().width,
-                              this->enemy->getPosition().y - this->enemy->getAnchorPoint().y * this->enemy->getBodySize().height,
-                              this->enemy->getBodySize().width, this->enemy->getBodySize().height
-    );
-
+    Rect characterRect = this->character->getRect();
+    Rect enemyRect = this->enemy->getRect();
     if (enemyRect.intersectsRect(characterRect))
     {
         // TODO: magic number
-        this->character->receiveDamage(5, characterPosition - enemyPosition);
+        this->character->receiveDamage(5, this->character->getPosition() - this->enemy->getPosition());
     }
 
     this->checkGameOver();
