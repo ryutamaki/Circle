@@ -19,11 +19,8 @@ using namespace cocostudio::timeline;
 
 #pragma mark Initializer
 
-// on "init" you need to initialize your instance
 bool GameScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
     if ( !Layer::init() )
     {
         return false;
@@ -74,15 +71,12 @@ void GameScene::onEnter()
 {
     Layer::onEnter();
 
-    // Define battle field Rect
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Size fieldSize = this->field->getContentSize();
-
     if (this->networkedSession)
     {
         this->friendCharacter = dynamic_cast<Character*>(CSLoader::createNode("Character.csb"));
+        // TODO: magic number
         this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
-        this->friendCharacter->setAnchorPoint(Vec2(0.5f, 0.5f));
+        this->friendCharacter->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
         this->addChild(this->friendCharacter);
     }
 
@@ -102,30 +96,26 @@ void GameScene::setupTouchHandling()
 
     EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
 
-    touchListener->onTouchBegan = [&](Touch* touch, Event* event)
+    touchListener->onTouchBegan = [this](Touch* touch, Event* event)
     {
         firstTouchPosition = this->convertTouchToNodeSpace(touch);
         lastTouchPosition = firstTouchPosition;
         return true;
     };
-    touchListener->onTouchMoved = [&](Touch* touch, Event* event)
+    touchListener->onTouchMoved = [this](Touch* touch, Event* event)
     {
         Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
-        // TODO: magic number
-        if (lastTouchPosition.distance(currentTouchPosition) < 10.0f)
-        {
             return;
-        }
 
         this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
 
         lastTouchPosition = currentTouchPosition;
     };
-    touchListener->onTouchCancelled = [&](Touch* touch, Event* event)
+    touchListener->onTouchCancelled = [this](Touch* touch, Event* event)
     {
         this->character->stateMachine->stopMoving();
     };
-    touchListener->onTouchEnded = [&](Touch* touch, Event* event)
+    touchListener->onTouchEnded = [this](Touch* touch, Event* event)
     {
         this->character->stateMachine->stopMoving();
     };
@@ -175,7 +165,7 @@ void GameScene::update(float dt)
         {
             // TODO: magic number
             this->character->stateMachine->hitAttack();
-            this->enemy->receiveDamage(10, (this->enemy->getPosition() - this->character->getPosition()) / 2.0f);
+            this->enemy->receiveDamage(10, this->enemy->getPosition() - this->character->getPosition());
         }
     }
 
@@ -186,7 +176,7 @@ void GameScene::update(float dt)
         {
             // TODO: magic number
             this->enemy->stateMachine->hitAttack();
-            this->character->receiveDamage(10, (this->character->getPosition() - this->enemy->getPosition()) / 2.0f);
+            this->character->receiveDamage(10, this->character->getPosition() - this->enemy->getPosition());
         }
     }
 

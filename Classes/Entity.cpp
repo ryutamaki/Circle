@@ -24,8 +24,9 @@ bool Entity::init()
 
     this->stateMachine = new EntityStateMachine();
 
+    // TODO: magic number
     this->hp = 100;
-    this->velocity = Vec2(0.0f, 0.0f);
+    this->velocity = Vec2::ZERO;
 
     return true;
 }
@@ -65,11 +66,8 @@ Rect Entity::getRect()
 
 void Entity::attack(std::string attackName)
 {
-    // override point
     if (!this->stateMachine->canAttack())
-    {
         return;
-    }
 
     this->stopAllActions();
     this->runAction(this->timeline);
@@ -91,6 +89,8 @@ void Entity::attack(std::string attackName)
             this->stateMachine->finishAttaking();
         }
     });
+
+    // override point
 }
 
 void Entity::receiveDamage(int damage, Vec2 knockback)
@@ -105,21 +105,14 @@ void Entity::receiveDamage(int damage, Vec2 knockback)
 bool Entity::isDead()
 {
     if (this->getHp() < 0)
-    {
         return true;
-    }
-    return false;
+    else
+        return false;
 }
 
 void Entity::update(float dt)
 {
     Node::update(dt);
-
-    if (this->stateMachine->getMoveState() == EntityMoveState::NONE)
-    {
-        this->velocity.setZero();
-        return;
-    }
 
     Vec2 direction = this->directionFromMoveState(this->stateMachine->getMoveState());
     this->velocity = ENTITY_SPEED * direction * dt;
@@ -150,7 +143,7 @@ Vec2 Entity::directionFromMoveState(EntityMoveState moveState)
         case EntityMoveState::UP_RIGHT:
             return Vec2(1.0f / sqrt(2.0f), 1.0f / sqrt(2.0f));
         case EntityMoveState::UP:
-            return Vec2(0.0f, 1.0f);
+            return Vec2::UNIT_Y;
         case EntityMoveState::UP_LEFT:
             return Vec2(- 1.0f / sqrt(2.0f), 1.0f / sqrt(2.0f));
         case EntityMoveState::LEFT:
@@ -162,9 +155,9 @@ Vec2 Entity::directionFromMoveState(EntityMoveState moveState)
         case EntityMoveState::DOWN_RIGHT:
             return Vec2(1.0f / sqrt(2.0f), - 1.0f / sqrt(2.0f));
         case EntityMoveState::RIGHT:
-            return Vec2(1.0f, 0.0f);
+            return Vec2::UNIT_X;
         case EntityMoveState::NONE:
-            return Vec2(0.0f, 0.0f);
+            return Vec2::ZERO;
         default:
             CCASSERT(false, "Undefined moveState are passed");
             break;
@@ -179,7 +172,10 @@ EntityMoveState Entity::moveStateFromStartPositionAndEndPosition(cocos2d::Vec2 s
 
 EntityMoveState Entity::moveStateFromVector(cocos2d::Vec2 knockback)
 {
-    float radiun = Vec2::angle(knockback, Vec2(1.0f, 0.0f));
+    if (knockback.equals(Vec2::ZERO))
+        return EntityMoveState::NONE;
+
+    float radiun = Vec2::angle(knockback, Vec2::UNIT_X);
     float degree = CC_RADIANS_TO_DEGREES(radiun);
     degree = knockback.y > 0 ? degree : 360.0f - degree;
 
