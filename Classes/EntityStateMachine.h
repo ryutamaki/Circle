@@ -30,7 +30,7 @@ enum class EntityAttackState
 {
     NONE,
     READY,
-    ATTAKING,
+    ATTACKING,
     HIT,
     COOL_DOWN,
 };

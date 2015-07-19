@@ -159,7 +159,7 @@ void GameScene::update(float dt)
 
     }
 
-    if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTAKING)
+    if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
     {
         // TODO: magic number
         if (this->character->getPosition().distance(this->enemy->getPosition()) < 100.0f)
@@ -170,7 +170,7 @@ void GameScene::update(float dt)
         }
     }
 
-    if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTAKING)
+    if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
     {
         // TODO: magic number
         if (this->enemy->getPosition().distance(this->character->getPosition()) < 200.0f)
