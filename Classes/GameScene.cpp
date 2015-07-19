@@ -77,12 +77,6 @@ void GameScene::onEnter()
     // Define battle field Rect
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Size fieldSize = this->field->getContentSize();
-    this->fieldRect = Rect(
-                           (visibleSize.width - fieldSize.width) * 0.5f + BATTLE_FIELD_FRAME_THICKNESS,
-                           (visibleSize.height - fieldSize.height) * 0.5f + BATTLE_FIELD_FRAME_THICKNESS,
-                           fieldSize.width - BATTLE_FIELD_FRAME_THICKNESS * 2,
-                           fieldSize.height - BATTLE_FIELD_FRAME_THICKNESS * 2
-                           );
 
     if (this->networkedSession)
     {
@@ -151,20 +145,25 @@ void GameScene::update(float dt)
         if (!entity)
             return;
 
-        Vec2 entityNextPosition = entity->getPosition() + entity->getVelocity();
-        Size entityBodySize = entity->getBodySize();
+        Rect entityRect = entity->getRect();
+        Rect entityNextRect = Rect(
+                                   entityRect.origin.x + entity->getVelocity().x,
+                                   entityRect.origin.y + entity->getVelocity().y,
+                                   entityRect.size.width, entityRect.size.height
+                                   );
 
         // if a character collide to
-        if (entityNextPosition.x - entityBodySize.width * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
-            || entityNextPosition.y - entityBodySize.height * 0.5f <= BATTLE_FIELD_FRAME_THICKNESS
-            || entityNextPosition.x + entityBodySize.width * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.width
-            || entityNextPosition.y + entityBodySize.height * 0.5f >= BATTLE_FIELD_FRAME_THICKNESS + this->fieldRect.size.height)
+        if (entityNextRect.getMinX() <= BATTLE_FIELD_FRAME_THICKNESS ||
+            entityNextRect.getMinY() <= BATTLE_FIELD_FRAME_THICKNESS ||
+            entityNextRect.getMaxX() >= this->field->getContentSize().width - BATTLE_FIELD_FRAME_THICKNESS ||
+            entityNextRect.getMaxY() >= this->field->getContentSize().height - BATTLE_FIELD_FRAME_THICKNESS)
         {
             entity->stateMachine->stopMoving();
         }
         else
         {
-            entity->setPosition(entityNextPosition);
+            Vec2 nextEntityPosition = entity->getPosition() + entity->getVelocity();
+            entity->setPosition(nextEntityPosition);
         }
 
     }

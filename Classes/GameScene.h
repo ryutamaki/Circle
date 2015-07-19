@@ -20,7 +20,6 @@ public:
 private:
     bool networkedSession;
 
-    cocos2d::Rect fieldRect;
     cocos2d::Sprite* field;
 
     Character* character;
