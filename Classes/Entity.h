@@ -25,13 +25,14 @@ public:
     // Accessors
     int getHp();
     cocos2d::Vec2 getVelocity();
-    cocos2d::Size getBodySize();
     cocos2d::Rect getRect();
+
+    cocos2d::Size getBodySize();
+    virtual bool isDead();
 
     // Behavior
     virtual void attack(const std::string attackName);
     virtual void receiveDamage(const int damage, const cocos2d::Vec2 knockback);
-    virtual bool isDead();
 
 protected:
     cocostudio::timeline::ActionTimeline* timeline;

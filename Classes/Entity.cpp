@@ -43,12 +43,6 @@ Vec2 Entity::getVelocity()
     return this->velocity;
 }
 
-Size Entity::getBodySize()
-{
-    Sprite* body = this->getChildByName<Sprite*>("Body");
-    return body->getContentSize();
-}
-
 Rect Entity::getRect()
 {
     Size size = this->getBodySize();
@@ -60,6 +54,20 @@ Rect Entity::getRect()
                       size.width, size.height
                       );
     return returnRect;
+}
+
+Size Entity::getBodySize()
+{
+    Sprite* body = this->getChildByName<Sprite*>("Body");
+    return body->getContentSize();
+}
+
+bool Entity::isDead()
+{
+    if (this->getHp() < 0)
+        return true;
+    else
+        return false;
 }
 
 #pragma mark Game logic
@@ -100,14 +108,6 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
     this->hp -= damage;
 
     // override point
-}
-
-bool Entity::isDead()
-{
-    if (this->getHp() < 0)
-        return true;
-    else
-        return false;
 }
 
 void Entity::update(float dt)
