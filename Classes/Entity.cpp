@@ -114,8 +114,10 @@ void Entity::update(float dt)
 {
     Node::update(dt);
 
-    Vec2 direction = this->directionFromMoveState(this->stateMachine->getMoveState());
+    EntityMoveState currentMoveState = this->stateMachine->getMoveState();
+    Vec2 direction = this->directionFromMoveState(currentMoveState);
     this->velocity = ENTITY_SPEED * direction * dt;
+    this->setRotation(this->rotationFromMoveState(currentMoveState));
 }
 
 
@@ -158,6 +160,35 @@ const Vec2 Entity::directionFromMoveState(const EntityMoveState moveState)
             return Vec2::UNIT_X;
         case EntityMoveState::NONE:
             return Vec2::ZERO;
+        default:
+            CCASSERT(false, "Undefined moveState are passed");
+            break;
+    }
+}
+
+const float Entity::rotationFromMoveState(const EntityMoveState moveState)
+{
+    // this is tricky function because of cocos2d rotation is anti clocked
+    switch (moveState) {
+        case EntityMoveState::UP_RIGHT:
+            return 315.0f;
+        case EntityMoveState::UP:
+            return 270.0f;
+        case EntityMoveState::UP_LEFT:
+            return 225.0f;
+        case EntityMoveState::LEFT:
+            return 180.0f;
+        case EntityMoveState::DOWN_LEFT:
+            return 135.0f;
+        case EntityMoveState::DOWN:
+            return 90.0f;
+        case EntityMoveState::DOWN_RIGHT:
+            return 45.0f;
+        case EntityMoveState::RIGHT:
+            return 0.0f;
+        case EntityMoveState::NONE:
+            // return curretn rotation if moveState is NONE
+            return this->getRotation();
         default:
             CCASSERT(false, "Undefined moveState are passed");
             break;
