@@ -2,71 +2,35 @@
   <PropertyGroup Type="Node" Name="Enemy" ID="8590d622-a871-41c1-ba55-fafd14948388" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="60" Speed="1.0000" ActivedAnimationName="Attack">
-        <Timeline ActionTag="-2083801574" Property="Scale">
-          <ScaleFrame FrameIndex="0" X="1.0000" Y="1.0000">
+      <Animation Duration="4" Speed="1.0000" ActivedAnimationName="Damaged">
+        <Timeline ActionTag="-2083801574" Property="CColor">
+          <ColorFrame FrameIndex="1" Alpha="255">
             <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="1" X="1.0000" Y="1.0000">
+            <Color A="255" R="255" G="255" B="255" />
+          </ColorFrame>
+          <ColorFrame FrameIndex="2" Alpha="255">
             <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="29" X="0.5000" Y="0.5000">
+            <Color A="255" R="255" G="255" B="0" />
+          </ColorFrame>
+          <ColorFrame FrameIndex="3" Alpha="255">
             <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="30" X="2.0000" Y="2.0000">
-            <EasingData Type="2" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="58" X="1.0000" Y="1.0000">
+            <Color A="255" R="255" G="255" B="0" />
+          </ColorFrame>
+          <ColorFrame FrameIndex="4" Alpha="255">
             <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="59" X="1.0000" Y="1.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="60" X="1.0000" Y="1.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-        </Timeline>
-        <Timeline ActionTag="-2083801574" Property="RotationSkew">
-          <ScaleFrame FrameIndex="1" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="29" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="30" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="58" X="720.0000" Y="720.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="59" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="60" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-        </Timeline>
-        <Timeline ActionTag="-2083801574" Property="FrameEvent">
-          <EventFrame FrameIndex="1" Tween="False" Value="Ready" />
-          <EventFrame FrameIndex="30" Tween="False" Value="Attack" />
-          <EventFrame FrameIndex="59" Tween="False" Value="Cooldown" />
-          <EventFrame FrameIndex="60" Tween="False" Value="Finish" />
-        </Timeline>
-        <Timeline ActionTag="-2083801574" Property="Position">
-          <PointFrame FrameIndex="1" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </PointFrame>
+            <Color A="255" R="255" G="255" B="255" />
+          </ColorFrame>
         </Timeline>
       </Animation>
       <AnimationList>
-        <AnimationInfo Name="Attack" StartIndex="0" EndIndex="61">
-          <RenderColor A="255" R="250" G="128" B="114" />
+        <AnimationInfo Name="Damaged" StartIndex="0" EndIndex="5">
+          <RenderColor A="150" R="255" G="160" B="122" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Enemy" Tag="3" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="Body" ActionTag="-2083801574" Tag="4" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-2083801574" Tag="4" Rotation="720.0000" RotationSkewX="720.0000" RotationSkewY="720.0000" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />

@@ -103,6 +103,13 @@ void Entity::attack(const std::string attackName)
 
 void Entity::receiveDamage(const int damage, const Vec2 knockback)
 {
+//    std::string animationName = "Damaged";
+//    this->stopAllActions();
+//    this->runAction(this->timeline);
+//    this->timeline->play(animationName, false);
+
+    this->runAction(Blink::create(0.2f, 2));
+
     log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
     this->stateMachine->startMoving(this->moveStateFromVector(knockback));
     this->hp -= damage;

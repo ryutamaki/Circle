@@ -2,31 +2,34 @@
   <PropertyGroup Type="Node" Name="Character" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="10" Speed="1.0000" ActivedAnimationName="Attack">
+      <Animation Duration="20" Speed="1.0000" ActivedAnimationName="Damaged">
         <Timeline ActionTag="-1773017991" Property="FrameEvent">
-          <EventFrame FrameIndex="1" Tween="False" Value="Ready" />
-          <EventFrame FrameIndex="2" Tween="False" Value="Attack" />
-          <EventFrame FrameIndex="5" Tween="False" Value="Cooldown" />
-          <EventFrame FrameIndex="10" Tween="False" Value="Finish" />
+          <EventFrame FrameIndex="11" Tween="False" Value="Ready" />
+          <EventFrame FrameIndex="12" Tween="False" Value="Attack" />
+          <EventFrame FrameIndex="19" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="20" Tween="False" Value="Finish" />
         </Timeline>
         <Timeline ActionTag="-1773017991" Property="Position">
-          <PointFrame FrameIndex="1" X="0.0000" Y="0.0000">
+          <PointFrame FrameIndex="11" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
-          <PointFrame FrameIndex="2" X="80.0000" Y="0.0000">
+          <PointFrame FrameIndex="12" X="80.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
-          <PointFrame FrameIndex="5" X="80.0000" Y="0.0000">
+          <PointFrame FrameIndex="19" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
-          <PointFrame FrameIndex="10" X="0.0000" Y="0.0000">
+          <PointFrame FrameIndex="20" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
         </Timeline>
       </Animation>
       <AnimationList>
-        <AnimationInfo Name="Attack" StartIndex="0" EndIndex="11">
+        <AnimationInfo Name="Attack" StartIndex="10" EndIndex="21">
           <RenderColor A="255" R="230" G="230" B="250" />
+        </AnimationInfo>
+        <AnimationInfo Name="Damaged" StartIndex="0" EndIndex="5">
+          <RenderColor A="150" R="255" G="239" B="213" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Character" Tag="8" ctype="GameNodeObjectData">
