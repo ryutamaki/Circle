@@ -29,6 +29,12 @@
           <ScaleFrame FrameIndex="40" X="1.0000" Y="1.0000">
             <EasingData Type="0" />
           </ScaleFrame>
+          <ScaleFrame FrameIndex="55" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="60" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
         </Timeline>
         <Timeline ActionTag="-2083801574" Property="RotationSkew">
           <ScaleFrame FrameIndex="11" X="0.0000" Y="0.0000">
