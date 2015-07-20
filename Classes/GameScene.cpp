@@ -173,22 +173,21 @@ void GameScene::update(float dt)
     Rect enemyRect = this->enemy->getRect();
     if (enemyRect.intersectsRect(characterRect))
     {
-        if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
+        // TODO: magic number
+        if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
+            this->enemy->getPosition().distance(this->character->getPosition()) < 160.0f)
         {
             this->character->stateMachine->hitAttack();
             // TODO: magic number
             this->enemy->receiveDamage(10, this->enemy->getPosition() - this->character->getPosition());
         }
-        else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
+        // TODO: magic number
+        else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
+                 this->enemy->getPosition().distance(this->character->getPosition()) < 160.0f)
         {
             this->enemy->stateMachine->hitAttack();
             // TODO: magic number
             this->character->receiveDamage(10, this->character->getPosition() - this->enemy->getPosition());
-        }
-        else
-        {
-            // TODO: magic number
-            this->character->receiveDamage(5, this->character->getPosition() - this->enemy->getPosition());
         }
     }
 

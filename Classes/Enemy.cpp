@@ -36,14 +36,4 @@ bool Enemy::init() {
 void Enemy::onEnter()
 {
     Entity::onEnter();
-
-    // TODO: magic number
-    this->schedule(CC_SCHEDULE_SELECTOR(Enemy::updateAttack), 4.0f);
-}
-
-#pragma mark Game logic
-
-void Enemy::updateAttack(float dt)
-{
-    this->attack("Attack");
 }

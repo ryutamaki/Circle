@@ -20,7 +20,6 @@ public:
 private:
     void onEnter() override;
 
-    void updateAttack(float dt);
 };
 
 #endif /* defined(__DotWar__Enemy__) */
