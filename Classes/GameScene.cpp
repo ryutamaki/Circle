@@ -34,10 +34,13 @@ bool GameScene::init()
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
-    Sprite* background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
-    this->field = dynamic_cast<Sprite*>(background->getChildByName("Field"));
+    this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
+    this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
     this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
     this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
+
+    ui::Button* overlayButton = dynamic_cast<ui::Button*>(this->background->getChildByName("Overlay"));
+    overlayButton->addTouchEventListener(CC_CALLBACK_2(GameScene::startGame, this));
 
     addChild(rootNode);
 
@@ -75,7 +78,6 @@ void GameScene::onEnter()
     cocos2d::Vector<Entity*> opponents;
     opponents.pushBack(this->character);
     this->enemyAI = new EnemyAI(this->enemy, opponents);
-    this->enemyAI->start();
     this->addChild(this->enemyAI);
 
     if (this->networkedSession)
@@ -219,3 +221,13 @@ void GameScene::checkGameOver()
     }
 }
 
+
+void GameScene::startGame(Ref *pSender, ui::Widget::TouchEventType eEventType)
+{
+    if (eEventType == ui::Widget::TouchEventType::ENDED)
+    {
+        this->enemyAI->start();
+        this->background->removeChildByName("Overlay");
+        this->background = nullptr;
+    }
+}

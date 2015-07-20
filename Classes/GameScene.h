@@ -22,6 +22,7 @@ public:
 private:
     bool networkedSession;
 
+    cocos2d::Sprite* background;
     cocos2d::Sprite* field;
 
     Character* character;
@@ -35,6 +36,7 @@ private:
     void update(float dt) override;
     void checkGameOver();
 
+    void startGame(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 };
 
 #endif // __GAME_SCENE_H__
