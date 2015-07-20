@@ -106,14 +106,14 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
 //    this->runAction(this->timeline);
 //    this->timeline->play(animationName, false);
 
-//    this->stopAllActions();
-    this->setOpacity(255);
     this->runAction(Blink::create(0.1f, 2));
 
     log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
     this->stateMachine->startMoving(this->moveStateFromVector(knockback));
     this->hp -= damage;
 
+    Sprite* hpBar = dynamic_cast<Sprite*>(this->getChildByName("Bar"));
+    hpBar->setScaleX(float(this->hp) / float(this->initialHp));
     // override point
 }
 

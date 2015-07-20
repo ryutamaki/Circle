@@ -37,7 +37,7 @@ public:
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
 
-    int hp;
+    int hp, initialHp;
     cocos2d::Vec2 velocity;
 
     bool init() override;
