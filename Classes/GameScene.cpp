@@ -41,7 +41,6 @@ bool GameScene::init()
 
     addChild(rootNode);
 
-    this->setupUserInterfaces(rootNode);
     this->setupTouchHandling();
     this->networkedSession = false;
 
@@ -91,16 +90,11 @@ void GameScene::onEnter()
     this->scheduleUpdate();
 }
 
-void GameScene::setupUserInterfaces(const Node* rootNode)
-{
-    ui::Button* attackButton = dynamic_cast<ui::Button*>(rootNode->getChildByName("AButton"));
-    attackButton->addTouchEventListener(CC_CALLBACK_2(GameScene::attackButtonPushed, this));
-}
-
 void GameScene::setupTouchHandling()
 {
     static Vec2 firstTouchPosition;
     static Vec2 lastTouchPosition;
+    static bool isMove;
 
     EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
 
@@ -108,25 +102,45 @@ void GameScene::setupTouchHandling()
     {
         firstTouchPosition = this->convertTouchToNodeSpace(touch);
         lastTouchPosition = firstTouchPosition;
+        isMove = firstTouchPosition.x < Director::getInstance()->getVisibleSize().width * 0.5f ? true : false;
         return true;
     };
     touchListener->onTouchMoved = [this](Touch* touch, Event* event)
     {
-        Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
-        if (lastTouchPosition.distance(currentTouchPosition) < SENSITIVITY_TO_CONTROL_PLAYER)
-            return;
+        if (isMove)
+        {
+            Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
+            if (lastTouchPosition.distance(currentTouchPosition) < SENSITIVITY_TO_CONTROL_PLAYER)
+                return;
 
-        this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
+            this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
 
-        lastTouchPosition = currentTouchPosition;
+            lastTouchPosition = currentTouchPosition;
+        }
     };
     touchListener->onTouchCancelled = [this](Touch* touch, Event* event)
     {
-        this->character->stateMachine->stopMoving();
+        if (isMove)
+        {
+            this->character->stateMachine->stopMoving();
+        }
+        else
+        {
+            this->character->attack("Attack");
+            isMove = false;
+        }
     };
     touchListener->onTouchEnded = [this](Touch* touch, Event* event)
     {
-        this->character->stateMachine->stopMoving();
+        if (isMove)
+        {
+            this->character->stateMachine->stopMoving();
+        }
+        else
+        {
+            this->character->attack("Attack");
+            isMove = false;
+        }
     };
 
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
@@ -205,12 +219,3 @@ void GameScene::checkGameOver()
     }
 }
 
-#pragma mark Callbacks
-
-void GameScene::attackButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
-{
-    if (eEventType == ui::Widget::TouchEventType::ENDED)
-    {
-        this->character->attack("Attack");
-    }
-}

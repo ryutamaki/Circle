@@ -30,14 +30,11 @@ private:
     EnemyAI* enemyAI;
 
     void onEnter() override;
-    void setupUserInterfaces(const Node* rootNode);
     void setupTouchHandling();
 
     void update(float dt) override;
     void checkGameOver();
 
-    void attackButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
-    
 };
 
 #endif // __GAME_SCENE_H__

@@ -62,7 +62,7 @@ Size Entity::getBodySize()
 
 bool Entity::isDead()
 {
-    if (this->getHp() < 0)
+    if (this->getHp() <= 0)
         return true;
     else
         return false;
