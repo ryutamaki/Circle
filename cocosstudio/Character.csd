@@ -2,38 +2,30 @@
   <PropertyGroup Type="Node" Name="Character" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="20" Speed="1.0000" ActivedAnimationName="Attack">
-        <Timeline ActionTag="-1773017991" Property="RotationSkew">
-          <ScaleFrame FrameIndex="0" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="1" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="2" X="-30.0000" Y="-30.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="19" X="360.0000" Y="360.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="20" X="0.0000" Y="0.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-        </Timeline>
+      <Animation Duration="10" Speed="1.0000" ActivedAnimationName="Attack">
         <Timeline ActionTag="-1773017991" Property="FrameEvent">
           <EventFrame FrameIndex="1" Tween="False" Value="Ready" />
           <EventFrame FrameIndex="2" Tween="False" Value="Attack" />
-          <EventFrame FrameIndex="19" Tween="False" Value="Cooldown" />
-          <EventFrame FrameIndex="20" Tween="False" Value="Finish" />
+          <EventFrame FrameIndex="5" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="10" Tween="False" Value="Finish" />
         </Timeline>
-        <Timeline ActionTag="-1773017991" Property="Scale">
-          <ScaleFrame FrameIndex="0" X="1.0000" Y="1.0000">
+        <Timeline ActionTag="-1773017991" Property="Position">
+          <PointFrame FrameIndex="1" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
-          </ScaleFrame>
+          </PointFrame>
+          <PointFrame FrameIndex="2" X="80.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="5" X="80.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="10" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
         </Timeline>
       </Animation>
       <AnimationList>
-        <AnimationInfo Name="Attack" StartIndex="0" EndIndex="21">
+        <AnimationInfo Name="Attack" StartIndex="0" EndIndex="11">
           <RenderColor A="255" R="230" G="230" B="250" />
         </AnimationInfo>
       </AnimationList>

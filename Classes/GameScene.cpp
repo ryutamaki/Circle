@@ -159,34 +159,29 @@ void GameScene::update(float dt)
 
     }
 
-    if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
-    {
-        // TODO: magic number
-        if (this->character->getPosition().distance(this->enemy->getPosition()) < 100.0f)
-        {
-            // TODO: magic number
-            this->character->stateMachine->hitAttack();
-            this->enemy->receiveDamage(10, this->enemy->getPosition() - this->character->getPosition());
-        }
-    }
-
-    if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
-    {
-        // TODO: magic number
-        if (this->enemy->getPosition().distance(this->character->getPosition()) < 200.0f)
-        {
-            // TODO: magic number
-            this->enemy->stateMachine->hitAttack();
-            this->character->receiveDamage(10, this->character->getPosition() - this->enemy->getPosition());
-        }
-    }
-
+    // this rects does not effected by animations
     Rect characterRect = this->character->getRect();
+//    log("%f, %f, %f, %f", characterRect.origin.x, characterRect.origin.y, characterRect.size.width, characterRect.size.height);
     Rect enemyRect = this->enemy->getRect();
     if (enemyRect.intersectsRect(characterRect))
     {
-        // TODO: magic number
-        this->character->receiveDamage(5, this->character->getPosition() - this->enemy->getPosition());
+        if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
+        {
+            this->character->stateMachine->hitAttack();
+            // TODO: magic number
+            this->enemy->receiveDamage(10, this->enemy->getPosition() - this->character->getPosition());
+        }
+        else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING)
+        {
+            this->enemy->stateMachine->hitAttack();
+            // TODO: magic number
+            this->character->receiveDamage(10, this->character->getPosition() - this->enemy->getPosition());
+        }
+        else
+        {
+            // TODO: magic number
+            this->character->receiveDamage(5, this->character->getPosition() - this->enemy->getPosition());
+        }
     }
 
     this->checkGameOver();

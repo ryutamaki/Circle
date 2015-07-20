@@ -64,6 +64,7 @@ void EntityStateMachine::readyToAttack()
     if (this->attackState != EntityAttackState::NONE)
         return;
 
+    this->setMoveState(EntityMoveState::NONE);
     this->setAttackState(EntityAttackState::READY);
 
     this->sendCurrentEntityState();

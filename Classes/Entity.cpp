@@ -83,7 +83,7 @@ void Entity::attack(const std::string attackName)
     this->timeline->setFrameEventCallFunc([this](Frame* frame){
         EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
         auto eventName = frameEvent->getEvent();
-        log("---- %s ----", eventName.c_str());
+//        log("---- %s ----", eventName.c_str());
         if (eventName == "Ready") {
             this->stateMachine->readyToAttack();
         }
