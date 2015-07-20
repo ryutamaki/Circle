@@ -6,15 +6,40 @@
         <Project Name="GameScene.csd" Type="Scene" />
         <Folder Name="Assets">
           <Folder Name="Images">
-            <Image Name="Character.png" />
-            <Image Name="Enemy.png" />
-            <Image Name="A.png" />
-            <Image Name="MultiplayerButtonNormal.png" />
-            <Image Name="MultiplayerButtonPushed.png" />
-            <Image Name="SinglePlayerButtonNormal.png" />
-            <Image Name="SinglePlayerButtonPushed.png" />
-            <Image Name="Background.png" />
-            <Image Name="Field.png" />
+            <Folder Name="Resources-1x">
+              <Image Name="A.png" />
+              <Image Name="Background.png" />
+              <Image Name="Field.png" />
+              <Image Name="GrayRobot.png" />
+              <Image Name="GreenRobot.png" />
+              <Image Name="MultiplayerButtonNormal.png" />
+              <Image Name="MultiplayerButtonPushed.png" />
+              <Image Name="RedRobot.png" />
+              <Image Name="SinglePlayerButtonNormal.png" />
+              <Image Name="SinglePlayerButtonPushed.png" />
+              <Image Name="YellowRobot.png" />
+            </Folder>
+            <Folder Name="Resources-2x">
+              <Image Name="Field@2x.png" />
+              <Image Name="GrayRobot@2x.png" />
+              <Image Name="GreenRobot@2x.png" />
+              <Image Name="RedRobot@2x.png" />
+              <Image Name="YellowRobot@2x.png" />
+            </Folder>
+            <Folder Name="Resources-3x">
+              <Image Name="Field@3x.png" />
+              <Image Name="GrayRobot@3x.png" />
+              <Image Name="GreenRobot@3x.png" />
+              <Image Name="RedRobot@3x.png" />
+              <Image Name="YellowRobot@3x.png" />
+            </Folder>
+            <Folder Name="Resources-4x">
+              <Image Name="Field@4x.png" />
+              <Image Name="GrayRobot@4x.png" />
+              <Image Name="GreenRobot@4x.png" />
+              <Image Name="RedRobot@4x.png" />
+              <Image Name="YellowRobot@4x.png" />
+            </Folder>
           </Folder>
         </Folder>
         <Project Name="Character.csd" Type="Node" />
