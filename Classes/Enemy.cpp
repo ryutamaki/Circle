@@ -24,6 +24,8 @@ bool Enemy::init() {
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
+    this->hp = 1000;
+
     return true;
 }
 

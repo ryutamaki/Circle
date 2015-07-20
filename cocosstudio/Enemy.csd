@@ -2,7 +2,56 @@
   <PropertyGroup Type="Node" Name="Enemy" ID="8590d622-a871-41c1-ba55-fafd14948388" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="4" Speed="1.0000" ActivedAnimationName="Damaged">
+      <Animation Duration="60" Speed="1.0000" ActivedAnimationName="Attack">
+        <Timeline ActionTag="-684589477" Property="Position">
+          <PointFrame FrameIndex="11" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+        </Timeline>
+        <Timeline ActionTag="-684589477" Property="Scale">
+          <ScaleFrame FrameIndex="11" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="37" X="0.8000" Y="0.8000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="40" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+        </Timeline>
+        <Timeline ActionTag="-2083801574" Property="Scale">
+          <ScaleFrame FrameIndex="11" X="1.0000" Y="1.0000">
+            <EasingData Type="1" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="37" X="1.5000" Y="1.5000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="40" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+        </Timeline>
+        <Timeline ActionTag="-2083801574" Property="RotationSkew">
+          <ScaleFrame FrameIndex="11" X="0.0000" Y="0.0000">
+            <EasingData Type="1" />
+          </ScaleFrame>
+        </Timeline>
+        <Timeline ActionTag="-2083801574" Property="FrameEvent">
+          <EventFrame FrameIndex="11" Tween="False" Value="Ready" />
+          <EventFrame FrameIndex="41" Tween="False" Value="Attack" />
+          <EventFrame FrameIndex="55" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="60" Tween="False" Value="Finish" />
+        </Timeline>
+        <Timeline ActionTag="-2083801574" Property="Position">
+          <PointFrame FrameIndex="11" X="0.0000" Y="0.0000">
+            <EasingData Type="1" />
+          </PointFrame>
+          <PointFrame FrameIndex="37" X="0.0000" Y="200.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="40" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+        </Timeline>
         <Timeline ActionTag="-2083801574" Property="CColor">
           <ColorFrame FrameIndex="1" Alpha="255">
             <EasingData Type="0" />
@@ -26,11 +75,25 @@
         <AnimationInfo Name="Damaged" StartIndex="0" EndIndex="5">
           <RenderColor A="150" R="255" G="160" B="122" />
         </AnimationInfo>
+        <AnimationInfo Name="Attack" StartIndex="10" EndIndex="61">
+          <RenderColor A="150" R="219" G="112" B="147" />
+        </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Enemy" Tag="3" ctype="GameNodeObjectData">
         <Size />
         <Children>
-          <AbstractNodeData Name="Body" ActionTag="-2083801574" Tag="4" Rotation="720.0000" RotationSkewX="720.0000" RotationSkewY="720.0000" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Shadow" ActionTag="-684589477" Tag="5" FrameEvent="Attack" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+            <Size X="80.0000" Y="80.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize />
+            <FileData Type="Normal" Path="Assets/Images/Resources-2x/Shadow@2x.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Body" ActionTag="-2083801574" Tag="4" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />

@@ -18,6 +18,7 @@
               <Image Name="SinglePlayerButtonNormal.png" />
               <Image Name="SinglePlayerButtonPushed.png" />
               <Image Name="YellowRobot.png" />
+              <Image Name="Shadow.png" />
             </Folder>
             <Folder Name="Resources-2x">
               <Image Name="Field@2x.png" />
@@ -25,6 +26,7 @@
               <Image Name="GreenRobot@2x.png" />
               <Image Name="RedRobot@2x.png" />
               <Image Name="YellowRobot@2x.png" />
+              <Image Name="Shadow@2x.png" />
             </Folder>
             <Folder Name="Resources-3x">
               <Image Name="Field@3x.png" />
@@ -32,6 +34,7 @@
               <Image Name="GreenRobot@3x.png" />
               <Image Name="RedRobot@3x.png" />
               <Image Name="YellowRobot@3x.png" />
+              <Image Name="Shadow@3x.png" />
             </Folder>
             <Folder Name="Resources-4x">
               <Image Name="Field@4x.png" />
@@ -39,6 +42,7 @@
               <Image Name="GreenRobot@4x.png" />
               <Image Name="RedRobot@4x.png" />
               <Image Name="YellowRobot@4x.png" />
+              <Image Name="Shadow@4x.png" />
             </Folder>
           </Folder>
         </Folder>

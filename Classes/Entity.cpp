@@ -24,8 +24,6 @@ bool Entity::init()
 
     this->stateMachine = new EntityStateMachine();
 
-    // TODO: magic number
-    this->hp = 100;
     this->velocity = Vec2::ZERO;
 
     return true;
@@ -108,7 +106,9 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
 //    this->runAction(this->timeline);
 //    this->timeline->play(animationName, false);
 
-    this->runAction(Blink::create(0.2f, 2));
+//    this->stopAllActions();
+    this->setOpacity(255);
+    this->runAction(Blink::create(0.1f, 2));
 
     log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
     this->stateMachine->startMoving(this->moveStateFromVector(knockback));

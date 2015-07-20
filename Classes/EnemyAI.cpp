@@ -40,8 +40,15 @@ void EnemyAI::stop()
 
 void EnemyAI::running(float dt)
 {
-    int random = CCRANDOM_0_1() * 8;
-    this->move((EntityMoveState)random, 3.0f);
+    if (CCRANDOM_0_1() * 8 < 2.0f)
+    {
+        this->attack("Attack");
+    }
+    else
+    {
+        int random = CCRANDOM_0_1() * 8;
+        this->move((EntityMoveState)random, 3.0f);
+    }
 };
 
 void EnemyAI::move(EntityMoveState moveState, float dulation)
@@ -56,5 +63,5 @@ void EnemyAI::move(EntityMoveState moveState, float dulation)
 
 void EnemyAI::attack(std::string attackName)
 {
-    this->entity->stateMachine->startToAttack();
+    this->entity->attack(attackName);
 }
