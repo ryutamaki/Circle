@@ -9,6 +9,8 @@
 #include "Enemy.h"
 #include "EnemyReader.h"
 
+#include "EnemyAI.h"
+
 #include "JSONPacker.h"
 
 USING_NS_CC;
@@ -70,6 +72,12 @@ void GameScene::receivedData(const void *data, unsigned long length)
 void GameScene::onEnter()
 {
     Layer::onEnter();
+
+    cocos2d::Vector<Entity*> opponents;
+    opponents.pushBack(this->character);
+    this->enemyAI = new EnemyAI(this->enemy, opponents);
+    this->enemyAI->start();
+    this->addChild(this->enemyAI);
 
     if (this->networkedSession)
     {

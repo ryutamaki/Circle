@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 #include "CocosGUI.h"
 
+#include "EnemyAI.h"
+
 class Character;
 class Enemy;
 
@@ -25,6 +27,7 @@ private:
     Character* character;
     Character* friendCharacter;
     Enemy* enemy;
+    EnemyAI* enemyAI;
 
     void onEnter() override;
     void setupUserInterfaces(const Node* rootNode);

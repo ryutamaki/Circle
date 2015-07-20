@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034F41081B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
+		034F41091B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
 		03917D571B56C9B90068BCA6 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D531B56C9B90068BCA6 /* Character.cpp */; };
 		03917D581B56C9B90068BCA6 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D531B56C9B90068BCA6 /* Character.cpp */; };
 		03917D591B56C9B90068BCA6 /* CharacterReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D551B56C9B90068BCA6 /* CharacterReader.cpp */; };
@@ -102,6 +104,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		034F41061B5D529E00167F16 /* EnemyAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyAI.cpp; sourceTree = "<group>"; };
+		034F41071B5D529E00167F16 /* EnemyAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyAI.h; sourceTree = "<group>"; };
 		03917D531B56C9B90068BCA6 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		03917D541B56C9B90068BCA6 /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
 		03917D551B56C9B90068BCA6 /* CharacterReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterReader.cpp; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 				03B167B21B58301C005D1FF6 /* EntityStateMachine.h */,
 				03917D821B57230B0068BCA6 /* Entity.cpp */,
 				03917D831B57230B0068BCA6 /* Entity.h */,
+				034F41061B5D529E00167F16 /* EnemyAI.cpp */,
+				034F41071B5D529E00167F16 /* EnemyAI.h */,
 				03B167B01B582555005D1FF6 /* CustomEntities */,
 			);
 			name = Entities;
@@ -569,6 +575,7 @@
 			files = (
 				03917D701B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D621B56EDC60068BCA6 /* Enemy.cpp in Sources */,
+				034F41081B5D529E00167F16 /* EnemyAI.cpp in Sources */,
 				03917D591B56C9B90068BCA6 /* CharacterReader.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				03917D641B56EDC60068BCA6 /* EnemyReader.cpp in Sources */,
@@ -592,6 +599,7 @@
 			files = (
 				03917D631B56EDC60068BCA6 /* Enemy.cpp in Sources */,
 				03917D691B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
+				034F41091B5D529E00167F16 /* EnemyAI.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */,
