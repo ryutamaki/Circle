@@ -14,7 +14,7 @@
 #include "EntityStateMachine.h"
 #include "cocostudio/CocoStudio.h"
 
-class Entity : public cocos2d::Node
+class Entity : public cocos2d::Node, public EntityStateMachineDelegate
 {
 public:
     // This stateMachine is opened to the public
@@ -24,9 +24,11 @@ public:
 
     // Accessors
     int getHp();
+    void setHp(int hp);
     cocos2d::Vec2 getVelocity();
     cocos2d::Rect getRect();
 
+    void setIsSendData(bool isSendData);
     cocos2d::Size getBodySize();
     virtual bool isDead();
 
@@ -34,8 +36,13 @@ public:
     virtual void attack(const std::string attackName);
     virtual void receiveDamage(const int damage, const cocos2d::Vec2 knockback);
 
+    // EntityStateMachineDelegate
+    void willStateChange(EntityMoveState moveState, EntityAttackState attackState) override;
+    void didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState) override;
+
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
+    bool isSendData;
 
     int hp, initialHp;
     float velocityFactor;
@@ -46,8 +53,9 @@ protected:
     void onExit() override;
 
     void update(float dt) override;
+    void sendCurrentEntityData();
 
-    // Utility methods
+    // Utility methods
     const cocos2d::Vec2 directionFromMoveState(const EntityMoveState moveState);
     const float rotationFromMoveState(const EntityMoveState moveState);
     const EntityMoveState moveStateFromStartPositionAndEndPosition(const cocos2d::Vec2 startPosition, const cocos2d::Vec2 endPosition);

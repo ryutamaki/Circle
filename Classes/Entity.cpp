@@ -9,6 +9,8 @@
 #include "Entity.h"
 
 #include "EntityConstants.h"
+#include "SceneManager.h"
+#include "JSONPacker.h"
 
 USING_NS_CC;
 using namespace cocostudio::timeline;
@@ -23,8 +25,10 @@ bool Entity::init()
     }
 
     this->stateMachine = new EntityStateMachine();
+    this->stateMachine->setDelegate(this);
 
     this->velocity = Vec2::ZERO;
+    this->isSendData = false;
 
     return true;
 }
@@ -34,6 +38,17 @@ bool Entity::init()
 int Entity::getHp()
 {
     return this->hp;
+}
+
+void Entity::setHp(int hp)
+{
+    this->hp = hp;
+
+    Sprite* hpBar = dynamic_cast<Sprite*>(this->getChildByName("Bar"));
+    if (hpBar && this->initialHp != 0)
+    {
+        hpBar->setScaleX(float(this->hp) / float(this->initialHp));
+    }
 }
 
 Vec2 Entity::getVelocity()
@@ -52,6 +67,11 @@ Rect Entity::getRect()
                       size.width, size.height
                       );
     return returnRect;
+}
+
+void Entity::setIsSendData(bool isSendData)
+{
+    this->isSendData = isSendData;
 }
 
 Size Entity::getBodySize()
@@ -102,23 +122,29 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
 //    std::string animationName = "Damaged";
 //    this->timeline->play(animationName, false);
 
-    log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
-    this->stateMachine->startMoving(this->moveStateFromVector(knockback));
-    this->hp -= damage;
+    this->stateMachine->move(this->moveStateFromVector(knockback));
+    this->setHp(this->getHp() - damage);
 
-    Sprite* hpBar = dynamic_cast<Sprite*>(this->getChildByName("Bar"));
-    hpBar->setScaleX(float(this->hp) / float(this->initialHp));
+    this->sendCurrentEntityData();
+
     // override point
 }
 
-void Entity::update(float dt)
-{
-    Node::update(dt);
+#pragma mark EntityStateMachineDelegate
 
-    EntityMoveState currentMoveState = this->stateMachine->getMoveState();
-    Vec2 direction = this->directionFromMoveState(currentMoveState);
-    this->velocity = this->velocityFactor * direction * dt;
-    this->setRotation(this->rotationFromMoveState(currentMoveState));
+void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attackState)
+{
+
+}
+
+void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState)
+{
+    if (!this->isSendData)
+    {
+        return;
+    }
+
+    this->sendCurrentEntityData();
 }
 
 
@@ -149,6 +175,18 @@ void Entity::update(float dt)
     Vec2 direction = this->directionFromMoveState(currentMoveState);
     this->velocity = this->velocityFactor * direction * dt;
     this->setRotation(this->rotationFromMoveState(currentMoveState));
+}
+
+void Entity::sendCurrentEntityData()
+{
+    JSONPacker::EntityState entityState;
+    entityState.hp = this->getHp();
+    entityState.position = this->getPosition();
+    entityState.moveState = this->stateMachine->getMoveState();
+    entityState.attackState = this->stateMachine->getAttackState();
+
+    std::string json = JSONPacker::packEntityState(entityState);
+    SceneManager::getInstance()->sendData(json.c_str(), json.length());
 }
 
 #pragma mark Utility methods

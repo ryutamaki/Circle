@@ -35,6 +35,13 @@ enum class EntityAttackState
     COOL_DOWN,
 };
 
+class EntityStateMachineDelegate
+{
+public:
+    virtual void willStateChange(EntityMoveState moveState, EntityAttackState attackState) = 0;
+    virtual void didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState) = 0;
+};
+
 class EntityStateMachine
 {
 public:
@@ -47,11 +54,12 @@ public:
     const EntityAttackState getAttackState();
     void setAttackState(const EntityAttackState attackState);
 
+    void setDelegate(EntityStateMachineDelegate* delegate);
+
     // Function to change state
     // These functions return a result
     // MOVE:
-    void stopMoving();
-    void startMoving(const EntityMoveState movingState);
+    void move(const EntityMoveState movingState);
     // ATTACK:
     void readyToAttack();
     void startToAttack();
@@ -62,10 +70,10 @@ public:
     bool canAttack();
 
 private:
+    EntityStateMachineDelegate* delegate;
+    
     EntityMoveState moveState;
     EntityAttackState attackState;
-
-    void sendCurrentEntityState();
 
 };
 

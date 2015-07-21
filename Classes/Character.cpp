@@ -22,10 +22,6 @@ bool Character::init() {
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
-    this->initialHp = 20;
-    this->hp = this->initialHp;
-    this->velocityFactor = 300.0f;
-
     return true;
 }
 
@@ -37,7 +33,7 @@ void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 star
     if (moveState == this->stateMachine->getMoveState())
         return;
 
-    this->stateMachine->startMoving(moveState);
+    this->stateMachine->move(moveState);
 }
 
 #pragma mark Game logic
@@ -49,4 +45,9 @@ void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 star
 void Character::onEnter()
 {
     Entity::onEnter();
+    
+    this->initialHp = 20;
+    this->setHp(this->initialHp);
+    this->velocityFactor = 300.0f;
+
 }

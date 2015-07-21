@@ -23,14 +23,16 @@ namespace JSONPacker {
 
         EntityState entityState;
 
-        entityState.moveState = (EntityMoveState)document["moveState"].GetInt();
-        entityState.attackState = (EntityAttackState)document["attackState"].GetInt();
+        entityState.hp = document["hp"].GetInt();
 
         rapidjson::Value& positionJson = document["position"];
         Vec2 position;
-        position.x = positionJson["x"].GetInt();
-        position.y = positionJson["y"].GetInt();
+        position.x = positionJson["x"].GetDouble();
+        position.y = positionJson["y"].GetDouble();
         entityState.position = position;
+
+        entityState.moveState = (EntityMoveState)document["moveState"].GetInt();
+        entityState.attackState = (EntityAttackState)document["attackState"].GetInt();
 
         return entityState;
     }
@@ -40,15 +42,16 @@ namespace JSONPacker {
         rapidjson::Document document;
         document.SetObject();
 
-        document.AddMember("moveState", (int)entityState.moveState, document.GetAllocator());
-        document.AddMember("attackState", (int)entityState.attackState, document.GetAllocator());
+        document.AddMember("hp", (int)entityState.hp, document.GetAllocator());
 
         Vec2 position = entityState.position;
         rapidjson::Value positionJson(rapidjson::kObjectType);
         positionJson.AddMember("x", position.x, document.GetAllocator());
         positionJson.AddMember("y", position.y, document.GetAllocator());
-
         document.AddMember("position", positionJson, document.GetAllocator());
+
+        document.AddMember("moveState", (int)entityState.moveState, document.GetAllocator());
+        document.AddMember("attackState", (int)entityState.attackState, document.GetAllocator());
 
         rapidjson::StringBuffer buffer;
         rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);

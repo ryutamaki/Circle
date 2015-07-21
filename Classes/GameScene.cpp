@@ -12,6 +12,7 @@
 #include "EnemyAI.h"
 
 #include "JSONPacker.h"
+#include "SceneManager.h"
 
 USING_NS_CC;
 
@@ -37,7 +38,9 @@ bool GameScene::init()
     this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
     this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
     this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
+    this->character->setIsSendData(true);
     this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
+    this->enemy->setIsSendData(false);
 
     ui::Button* overlayButton = dynamic_cast<ui::Button*>(this->background->getChildByName("Overlay"));
     overlayButton->addTouchEventListener(CC_CALLBACK_2(GameScene::startGame, this));
@@ -62,8 +65,17 @@ void GameScene::receivedData(const void *data, unsigned long length)
     std::string json = std::string(cstr, length);
     JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
 
-    this->friendCharacter->stateMachine->setMoveState(entityState.moveState);
-    this->friendCharacter->stateMachine->setAttackState(entityState.attackState);
+    if (this->friendCharacter)
+    {
+        log("%d, %d, %d", entityState.hp, entityState.moveState, entityState.attackState);
+        this->friendCharacter->setHp(entityState.hp);
+        this->friendCharacter->setPosition(entityState.position);
+        this->friendCharacter->stateMachine->move(entityState.moveState);
+        if (entityState.attackState == EntityAttackState::READY)
+        {
+            this->friendCharacter->attack("Attack");
+        }
+    }
 }
 
 #pragma mark - Private methods
@@ -85,7 +97,8 @@ void GameScene::onEnter()
         // TODO: magic number
         this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
         this->friendCharacter->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-        this->addChild(this->friendCharacter);
+        this->friendCharacter->setIsSendData(false);
+        this->field->addChild(this->friendCharacter);
     }
 
     this->setupTouchHandling();
@@ -122,11 +135,11 @@ void GameScene::setupTouchHandling()
     };
     touchListenerForMove->onTouchCancelled = [this](Touch* touch, Event* event)
     {
-        this->character->stateMachine->stopMoving();
+        this->character->stateMachine->move(EntityMoveState::NONE);
     };
     touchListenerForMove->onTouchEnded = [this](Touch* touch, Event* event)
     {
-        this->character->stateMachine->stopMoving();
+        this->character->stateMachine->move(EntityMoveState::NONE);
     };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForMove, this);
 
@@ -151,6 +164,8 @@ void GameScene::setupTouchHandling()
 
 void GameScene::update(float dt)
 {
+//    log("%f, %f", this->friendCharacter->getVelocity().x, this->friendCharacter->getVelocity().y);
+
     Vector<Node*> fieldChildren = this->field->getChildren();
     for (int index = 0; index < fieldChildren.size(); ++index)
     {
@@ -171,7 +186,7 @@ void GameScene::update(float dt)
             entityNextRect.getMaxX() >= this->field->getContentSize().width - BATTLE_FIELD_FRAME_THICKNESS ||
             entityNextRect.getMaxY() >= this->field->getContentSize().height - BATTLE_FIELD_FRAME_THICKNESS)
         {
-            entity->stateMachine->stopMoving();
+            entity->stateMachine->move(EntityMoveState::NONE);
         }
         else
         {
@@ -209,12 +224,12 @@ void GameScene::checkGameOver()
 {
     if (this->character->isDead())
     {
-        Director::getInstance()->popScene();
+        SceneManager::getInstance()->exitGameScene();
         MessageBox("Player hit point is 0", "YOU LOSE");
     }
     else if (this->enemy->isDead())
     {
-        Director::getInstance()->popScene();
+        SceneManager::getInstance()->exitGameScene();
         MessageBox("Enemy hit point is 0", "YOU WIN");
     }
 }

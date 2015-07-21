@@ -17,6 +17,7 @@ namespace JSONPacker
 {
     struct EntityState
     {
+        int hp;
         cocos2d::Vec2 position;
         EntityMoveState moveState;
         EntityAttackState attackState;
