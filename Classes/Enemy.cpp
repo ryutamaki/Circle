@@ -26,6 +26,7 @@ bool Enemy::init() {
 
     this->initialHp = 300;
     this->hp = this->initialHp;
+    this->velocityFactor = 200.0f;
 
     return true;
 }

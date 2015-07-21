@@ -24,6 +24,7 @@ bool Character::init() {
 
     this->initialHp = 20;
     this->hp = this->initialHp;
+    this->velocityFactor = 300.0f;
 
     return true;
 }

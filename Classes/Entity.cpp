@@ -75,8 +75,6 @@ void Entity::attack(const std::string attackName)
     if (!this->stateMachine->canAttack())
         return;
 
-    this->stopAllActions();
-    this->runAction(this->timeline);
     this->timeline->play(attackName, false);
     this->timeline->setFrameEventCallFunc([this](Frame* frame){
         EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
@@ -102,11 +100,7 @@ void Entity::attack(const std::string attackName)
 void Entity::receiveDamage(const int damage, const Vec2 knockback)
 {
 //    std::string animationName = "Damaged";
-//    this->stopAllActions();
-//    this->runAction(this->timeline);
 //    this->timeline->play(animationName, false);
-
-    this->runAction(Blink::create(0.1f, 2));
 
     log("take damage %d, knockback %f:%f", damage, knockback.x, knockback.y);
     this->stateMachine->startMoving(this->moveStateFromVector(knockback));
@@ -123,7 +117,7 @@ void Entity::update(float dt)
 
     EntityMoveState currentMoveState = this->stateMachine->getMoveState();
     Vec2 direction = this->directionFromMoveState(currentMoveState);
-    this->velocity = ENTITY_SPEED * direction * dt;
+    this->velocity = this->velocityFactor * direction * dt;
     this->setRotation(this->rotationFromMoveState(currentMoveState));
 }
 
@@ -137,6 +131,7 @@ void Entity::onEnter()
     Node::onEnter();
 
     this->scheduleUpdate();
+    this->runAction(this->timeline);
 }
 
 void Entity::onExit()

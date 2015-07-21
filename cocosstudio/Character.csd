@@ -23,6 +23,12 @@
             <EasingData Type="0" />
           </PointFrame>
         </Timeline>
+        <Timeline ActionTag="-1773017991" Property="VisibleForFrame">
+          <BoolFrame FrameIndex="1" Tween="False" Value="True" />
+          <BoolFrame FrameIndex="2" Tween="False" Value="False" />
+          <BoolFrame FrameIndex="3" Tween="False" Value="True" />
+          <BoolFrame FrameIndex="4" Tween="False" Value="True" />
+        </Timeline>
       </Animation>
       <AnimationList>
         <AnimationInfo Name="Attack" StartIndex="10" EndIndex="21">
@@ -35,6 +41,17 @@
       <ObjectData Name="Node" CustomClassName="Character" Tag="8" ctype="GameNodeObjectData">
         <Size />
         <Children>
+          <AbstractNodeData Name="Shadow" ActionTag="2094682773" Tag="43" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+            <Size X="80.0000" Y="80.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize />
+            <FileData Type="Normal" Path="Assets/Images/Resources-2x/Shadow@2x.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
           <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />

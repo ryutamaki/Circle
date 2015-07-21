@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Enemy" ID="8590d622-a871-41c1-ba55-fafd14948388" Version="2.3.0.1" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="60" Speed="1.0000" ActivedAnimationName="Attack">
+      <Animation Duration="60" Speed="1.0000" ActivedAnimationName="Damaged">
         <Timeline ActionTag="-684589477" Property="Position">
           <PointFrame FrameIndex="11" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
@@ -75,6 +75,11 @@
             <EasingData Type="0" />
             <Color A="255" R="255" G="255" B="255" />
           </ColorFrame>
+        </Timeline>
+        <Timeline ActionTag="-2083801574" Property="VisibleForFrame">
+          <BoolFrame FrameIndex="1" Tween="False" Value="True" />
+          <BoolFrame FrameIndex="2" Tween="False" Value="False" />
+          <BoolFrame FrameIndex="4" Tween="False" Value="True" />
         </Timeline>
       </Animation>
       <AnimationList>

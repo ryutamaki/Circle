@@ -38,6 +38,7 @@ protected:
     cocostudio::timeline::ActionTimeline* timeline;
 
     int hp, initialHp;
+    float velocityFactor;
     cocos2d::Vec2 velocity;
 
     bool init() override;
