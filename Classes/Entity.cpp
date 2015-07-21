@@ -139,6 +139,18 @@ void Entity::onExit()
     Node::onExit();
 }
 
+#pragma mark Game logic
+
+void Entity::update(float dt)
+{
+    Node::update(dt);
+
+    EntityMoveState currentMoveState = this->stateMachine->getMoveState();
+    Vec2 direction = this->directionFromMoveState(currentMoveState);
+    this->velocity = this->velocityFactor * direction * dt;
+    this->setRotation(this->rotationFromMoveState(currentMoveState));
+}
+
 #pragma mark Utility methods
 
 const Vec2 Entity::directionFromMoveState(const EntityMoveState moveState)

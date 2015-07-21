@@ -112,20 +112,6 @@ bool EntityStateMachine::canAttack()
     return false;
 }
 
-#pragma mark - Private methods
-
-#pragma mark Setter
-
-void EntityStateMachine::setMoveState(const EntityMoveState moveState)
-{
-    this->moveState = moveState;
-}
-
-void EntityStateMachine::setAttackState(const EntityAttackState attackState)
-{
-    this->attackState = attackState;
-}
-
 #pragma mark Networking
 
 void EntityStateMachine::sendCurrentEntityState()

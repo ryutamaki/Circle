@@ -14,7 +14,8 @@
 
 #include "Entity.h"
 
-class Character : public Entity {
+class Character : public Entity
+{
 public:
     CREATE_FUNC(Character);
     bool init() override;

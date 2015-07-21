@@ -41,11 +41,10 @@ public:
     EntityStateMachine();
     ~EntityStateMachine();
 
-    // Getter
+    // Accessor
     const EntityMoveState getMoveState();
-    const EntityAttackState getAttackState();
-
     void setMoveState(const EntityMoveState moveState);
+    const EntityAttackState getAttackState();
     void setAttackState(const EntityAttackState attackState);
 
     // Function to change state
