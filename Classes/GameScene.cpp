@@ -44,7 +44,6 @@ bool GameScene::init()
 
     addChild(rootNode);
 
-    this->setupTouchHandling();
     this->networkedSession = false;
 
     return true;
@@ -89,6 +88,8 @@ void GameScene::onEnter()
         this->addChild(this->friendCharacter);
     }
 
+    this->setupTouchHandling();
+    
     this->scheduleUpdate();
 }
 
@@ -96,57 +97,54 @@ void GameScene::setupTouchHandling()
 {
     static Vec2 firstTouchPosition;
     static Vec2 lastTouchPosition;
-    static bool isMove;
 
-    EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
-
-    touchListener->onTouchBegan = [this](Touch* touch, Event* event)
+    EventListenerTouchOneByOne* touchListenerForMove = EventListenerTouchOneByOne::create();
+    touchListenerForMove->onTouchBegan = [this](Touch* touch, Event* event)
     {
-        firstTouchPosition = this->convertTouchToNodeSpace(touch);
-        lastTouchPosition = firstTouchPosition;
-        isMove = firstTouchPosition.x < Director::getInstance()->getVisibleSize().width * 0.5f ? true : false;
-        return true;
+        Vec2 position = this->convertTouchToNodeSpace(touch);
+        if (position.x < Director::getInstance()->getVisibleSize().width * 0.5f)
+        {
+            firstTouchPosition = this->convertTouchToNodeSpace(touch);
+            lastTouchPosition = firstTouchPosition;
+            return true;
+        }
+        return false;
     };
-    touchListener->onTouchMoved = [this](Touch* touch, Event* event)
+    touchListenerForMove->onTouchMoved = [this](Touch* touch, Event* event)
     {
-        if (isMove)
-        {
-            Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
-            if (lastTouchPosition.distance(currentTouchPosition) < SENSITIVITY_TO_CONTROL_PLAYER)
-                return;
+        Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
+        if (lastTouchPosition.distance(currentTouchPosition) < SENSITIVITY_TO_CONTROL_PLAYER)
+            return;
 
-            this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
+        this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
 
-            lastTouchPosition = currentTouchPosition;
-        }
+        lastTouchPosition = currentTouchPosition;
     };
-    touchListener->onTouchCancelled = [this](Touch* touch, Event* event)
+    touchListenerForMove->onTouchCancelled = [this](Touch* touch, Event* event)
     {
-        if (isMove)
-        {
-            this->character->stateMachine->stopMoving();
-        }
-        else
-        {
-            this->character->attack("Attack");
-            isMove = false;
-        }
+        this->character->stateMachine->stopMoving();
     };
-    touchListener->onTouchEnded = [this](Touch* touch, Event* event)
+    touchListenerForMove->onTouchEnded = [this](Touch* touch, Event* event)
     {
-        if (isMove)
-        {
-            this->character->stateMachine->stopMoving();
-        }
-        else
-        {
-            this->character->attack("Attack");
-            isMove = false;
-        }
+        this->character->stateMachine->stopMoving();
     };
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForMove, this);
 
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
-    
+    EventListenerTouchOneByOne* touchListenerForAttack = EventListenerTouchOneByOne::create();
+    touchListenerForAttack->onTouchBegan = [&](Touch* touch, Event* event)
+    {
+        Vec2 position = this->convertTouchToNodeSpace(touch);
+        if (position.x >= Director::getInstance()->getVisibleSize().width * 0.5f)
+        {
+            return true;
+        }
+        return false;
+    };
+    touchListenerForAttack->onTouchEnded = [&](Touch* touch, Event* event)
+    {
+        this->character->attack("Attack");
+    };
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForAttack, this);
 }
 
 #pragma mark Game logic
