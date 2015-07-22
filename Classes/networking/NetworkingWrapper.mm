@@ -47,6 +47,27 @@ void NetworkingWrapper::showPeerList()
     [this->networkManager showPeerList];
 }
 
+std::string NetworkingWrapper::getMyPeerId()
+{
+    NSString* myPeerIdObjcString = [this->networkManager getMyPeerId];
+    std::string myPeerId = std::string([myPeerIdObjcString UTF8String]);
+    return myPeerId;
+}
+
+std::vector<std::string> NetworkingWrapper::getPeerList()
+{
+    NSArray* peerList = [this->networkManager getPeerList];
+
+    std::vector<std::string> returnVector;
+
+    for (NSString* peerName in peerList) {
+        std::string peerString = std::string([peerName UTF8String]);
+        returnVector.push_back(peerString);
+    }
+
+    return returnVector;
+}
+
 void NetworkingWrapper::sendData(const void* data, unsigned long length)
 {
     NSData* dataToSend = [NSData dataWithBytes:data length:length];

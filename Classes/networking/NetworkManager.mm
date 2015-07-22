@@ -65,6 +65,24 @@
     [rootViewController presentViewController:browserViewController animated:YES completion:nil];
 }
 
+- (NSString*)getMyPeerId
+{
+    return self.peerID.displayName;
+}
+
+- (NSArray*)getPeerList
+{
+    NSMutableArray* peerDisplayNames = [@[] mutableCopy];
+
+    if (self.session && self.session.connectedPeers) {
+        for (MCPeerID* otherPeerID in self.session.connectedPeers) {
+            [peerDisplayNames addObject:[NSString stringWithString:otherPeerID.displayName]];
+        }
+    }
+
+    return [NSArray arrayWithArray:peerDisplayNames];
+}
+
 - (void)disconnect
 {
     [self.session disconnect];

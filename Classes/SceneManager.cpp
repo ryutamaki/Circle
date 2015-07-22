@@ -68,6 +68,31 @@ void SceneManager::sendData(const void* data, unsigned long length)
     this->networkingWrapper->sendData(data, length);
 }
 
+std::vector<std::string> SceneManager::getPeerNameList()
+{
+    return this->networkingWrapper->getPeerList();
+}
+
+std::string SceneManager::getMyName()
+{
+    return this->networkingWrapper->getMyPeerId();
+}
+
+std::string SceneManager::getHostUserName()
+{
+    std::vector<std::string> peerList = this->getPeerNameList();
+    std::sort(peerList.begin(), peerList.end());
+    return peerList[0];
+}
+
+bool SceneManager::isHost()
+{
+    if (this->getMyName().compare(this->getHostUserName()) == 0) {
+        return true;
+    }
+    return false;
+}
+
 #pragma mark - Private methods
 
 void SceneManager::receivedData(const void* data, unsigned long length)

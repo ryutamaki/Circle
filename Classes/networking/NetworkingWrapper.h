@@ -40,6 +40,10 @@ public:
 
     void showPeerList();
 
+    std::string getMyPeerId();
+    
+    std::vector<std::string> getPeerList();
+
     void sendData(const void* data, unsigned long length);
 
     static const char* getDeviceName();

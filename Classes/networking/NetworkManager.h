@@ -21,6 +21,10 @@ class NetworkManagerDelegate;
 
 - (void)showPeerList;
 
+- (NSString*)getMyPeerId;
+
+- (NSArray*)getPeerList;
+
 - (void)sendData:(NSData*)data;
 
 - (void)disconnect;

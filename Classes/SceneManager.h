@@ -25,6 +25,11 @@ public:
     void receiveMultiplayerInvitations();
     void sendData(const void* data, unsigned long length);
 
+    std::vector<std::string> getPeerNameList();
+    std::string getMyName();
+    std::string getHostUserName();
+    bool isHost();
+
 protected:
     std::unique_ptr<NetworkingWrapper> networkingWrapper;
     GameScene* gameScene;

@@ -39,7 +39,6 @@ bool GameScene::init()
     this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
     this->character->setIsSendData(true);
     this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
-    this->enemy->setIsSendData(false);
 
     ui::Button* overlayButton = dynamic_cast<ui::Button*>(this->background->getChildByName("Overlay"));
     overlayButton->addTouchEventListener(CC_CALLBACK_2(GameScene::startGame, this));
@@ -96,6 +95,8 @@ void GameScene::onEnter()
         this->friendCharacter->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
         this->friendCharacter->setIsSendData(false);
         this->field->addChild(this->friendCharacter);
+
+        this->enemy->setIsSendData(SceneManager::getInstance()->isHost());
     }
 
     this->setupTouchHandling();
