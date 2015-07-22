@@ -24,14 +24,13 @@ using namespace cocostudio::timeline;
 
 bool GameScene::init()
 {
-    if ( !Layer::init() )
-    {
+    if (! Layer::init()) {
         return false;
     }
 
     CSLoader* instance = CSLoader::getInstance();
-    instance->registReaderObject("CharacterReader", (ObjectFactory::Instance) CharacterReader::getInstance);
-    instance->registReaderObject("EnemyReader", (ObjectFactory::Instance) EnemyReader::getInstance);
+    instance->registReaderObject("CharacterReader", (ObjectFactory::Instance)CharacterReader::getInstance);
+    instance->registReaderObject("EnemyReader", (ObjectFactory::Instance)EnemyReader::getInstance);
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
@@ -59,20 +58,19 @@ void GameScene::setNetworkedSession(bool networkedSession)
     this->networkedSession = networkedSession;
 }
 
-void GameScene::receivedData(const void *data, unsigned long length)
+void GameScene::receivedData(const void* data, unsigned long length)
 {
     const char* cstr = reinterpret_cast<const char*>(data);
     std::string json = std::string(cstr, length);
     JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
 
-    if (this->friendCharacter)
-    {
+    if (this->friendCharacter) {
         log("%d, %d, %d", entityState.hp, entityState.moveState, entityState.attackState);
         this->friendCharacter->setHp(entityState.hp);
         this->friendCharacter->setPosition(entityState.position);
         this->friendCharacter->stateMachine->move(entityState.moveState);
-        if (entityState.attackState == EntityAttackState::READY)
-        {
+
+        if (entityState.attackState == EntityAttackState::READY) {
             this->friendCharacter->attack("Attack");
         }
     }
@@ -91,8 +89,7 @@ void GameScene::onEnter()
     this->enemyAI = new EnemyAI(this->enemy, opponents);
     this->addChild(this->enemyAI);
 
-    if (this->networkedSession)
-    {
+    if (this->networkedSession) {
         this->friendCharacter = dynamic_cast<Character*>(CSLoader::createNode("Character.csb"));
         // TODO: magic number
         this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
@@ -102,7 +99,7 @@ void GameScene::onEnter()
     }
 
     this->setupTouchHandling();
-    
+
     this->scheduleUpdate();
 }
 
@@ -112,51 +109,47 @@ void GameScene::setupTouchHandling()
     static Vec2 lastTouchPosition;
 
     EventListenerTouchOneByOne* touchListenerForMove = EventListenerTouchOneByOne::create();
-    touchListenerForMove->onTouchBegan = [this](Touch* touch, Event* event)
-    {
-        Vec2 position = this->convertTouchToNodeSpace(touch);
-        if (position.x < Director::getInstance()->getVisibleSize().width * 0.5f)
-        {
-            firstTouchPosition = this->convertTouchToNodeSpace(touch);
-            lastTouchPosition = firstTouchPosition;
-            return true;
-        }
-        return false;
-    };
-    touchListenerForMove->onTouchMoved = [this](Touch* touch, Event* event)
-    {
-        Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
-        if (lastTouchPosition.distance(currentTouchPosition) < SENSITIVITY_TO_CONTROL_PLAYER)
-            return;
+    touchListenerForMove->onTouchBegan = [this](Touch* touch, Event* event) {
+            Vec2 position = this->convertTouchToNodeSpace(touch);
 
-        this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
+            if (position.x < Director::getInstance()->getVisibleSize().width * 0.5f) {
+                firstTouchPosition = this->convertTouchToNodeSpace(touch);
+                lastTouchPosition = firstTouchPosition;
+                return true;
+            }
+            return false;
+        };
+    touchListenerForMove->onTouchMoved = [this](Touch* touch, Event* event) {
+            Vec2 currentTouchPosition = this->convertTouchToNodeSpace(touch);
 
-        lastTouchPosition = currentTouchPosition;
-    };
-    touchListenerForMove->onTouchCancelled = [this](Touch* touch, Event* event)
-    {
-        this->character->stateMachine->move(EntityMoveState::NONE);
-    };
-    touchListenerForMove->onTouchEnded = [this](Touch* touch, Event* event)
-    {
-        this->character->stateMachine->move(EntityMoveState::NONE);
-    };
+            if (lastTouchPosition.distance(currentTouchPosition) < SENSITIVITY_TO_CONTROL_PLAYER) {
+                return;
+            }
+
+            this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
+
+            lastTouchPosition = currentTouchPosition;
+        };
+    touchListenerForMove->onTouchCancelled = [this](Touch* touch, Event* event) {
+            this->character->stateMachine->move(EntityMoveState::NONE);
+        };
+    touchListenerForMove->onTouchEnded = [this](Touch* touch, Event* event) {
+            this->character->stateMachine->move(EntityMoveState::NONE);
+        };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForMove, this);
 
     EventListenerTouchOneByOne* touchListenerForAttack = EventListenerTouchOneByOne::create();
-    touchListenerForAttack->onTouchBegan = [&](Touch* touch, Event* event)
-    {
-        Vec2 position = this->convertTouchToNodeSpace(touch);
-        if (position.x >= Director::getInstance()->getVisibleSize().width * 0.5f)
-        {
-            return true;
-        }
-        return false;
-    };
-    touchListenerForAttack->onTouchEnded = [&](Touch* touch, Event* event)
-    {
-        this->character->attack("Attack");
-    };
+    touchListenerForAttack->onTouchBegan = [&](Touch* touch, Event* event) {
+            Vec2 position = this->convertTouchToNodeSpace(touch);
+
+            if (position.x >= Director::getInstance()->getVisibleSize().width * 0.5f) {
+                return true;
+            }
+            return false;
+        };
+    touchListenerForAttack->onTouchEnded = [&](Touch* touch, Event* event) {
+            this->character->attack("Attack");
+        };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForAttack, this);
 }
 
@@ -164,36 +157,34 @@ void GameScene::setupTouchHandling()
 
 void GameScene::update(float dt)
 {
-//    log("%f, %f", this->friendCharacter->getVelocity().x, this->friendCharacter->getVelocity().y);
+    // log("%f, %f", this->friendCharacter->getVelocity().x, this->friendCharacter->getVelocity().y);
 
     Vector<Node*> fieldChildren = this->field->getChildren();
-    for (int index = 0; index < fieldChildren.size(); ++index)
-    {
+
+    for (int index = 0; index < fieldChildren.size(); ++index) {
         Entity* entity = dynamic_cast<Entity*>(fieldChildren.at(index));
-        if (!entity)
+
+        if (! entity) {
             return;
+        }
 
         Rect entityRect = entity->getRect();
         Rect entityNextRect = Rect(
-                                   entityRect.origin.x + entity->getVelocity().x,
-                                   entityRect.origin.y + entity->getVelocity().y,
-                                   entityRect.size.width, entityRect.size.height
-                                   );
+                entityRect.origin.x + entity->getVelocity().x,
+                entityRect.origin.y + entity->getVelocity().y,
+                entityRect.size.width, entityRect.size.height
+            );
 
         // if a character collide to
         if (entityNextRect.getMinX() <= BATTLE_FIELD_FRAME_THICKNESS ||
             entityNextRect.getMinY() <= BATTLE_FIELD_FRAME_THICKNESS ||
             entityNextRect.getMaxX() >= this->field->getContentSize().width - BATTLE_FIELD_FRAME_THICKNESS ||
-            entityNextRect.getMaxY() >= this->field->getContentSize().height - BATTLE_FIELD_FRAME_THICKNESS)
-        {
+            entityNextRect.getMaxY() >= this->field->getContentSize().height - BATTLE_FIELD_FRAME_THICKNESS) {
             entity->stateMachine->move(EntityMoveState::NONE);
-        }
-        else
-        {
+        } else {
             Vec2 nextEntityPosition = entity->getPosition() + entity->getVelocity();
             entity->setPosition(nextEntityPosition);
         }
-
     }
 
     // this rects does not effected by animations
@@ -202,16 +193,14 @@ void GameScene::update(float dt)
 
     // TODO: magic number
     if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
-        enemyRect.origin.distance(characterRect.origin) < 160.0f)
-    {
+        enemyRect.origin.distance(characterRect.origin) < 160.0f) {
         this->character->stateMachine->hitAttack();
         // TODO: magic number
         this->enemy->receiveDamage(10, this->enemy->getPosition() - this->character->getPosition());
     }
     // TODO: magic number
     else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
-             enemyRect.origin.distance(characterRect.origin) < 160.0f)
-    {
+             enemyRect.origin.distance(characterRect.origin) < 160.0f) {
         this->enemy->stateMachine->hitAttack();
         // TODO: magic number
         this->character->receiveDamage(10, this->character->getPosition() - this->enemy->getPosition());
@@ -222,23 +211,18 @@ void GameScene::update(float dt)
 
 void GameScene::checkGameOver()
 {
-    if (this->character->isDead())
-    {
+    if (this->character->isDead()) {
         SceneManager::getInstance()->exitGameScene();
         MessageBox("Player hit point is 0", "YOU LOSE");
-    }
-    else if (this->enemy->isDead())
-    {
+    } else if (this->enemy->isDead()) {
         SceneManager::getInstance()->exitGameScene();
         MessageBox("Enemy hit point is 0", "YOU WIN");
     }
 }
 
-
-void GameScene::startGame(Ref *pSender, ui::Widget::TouchEventType eEventType)
+void GameScene::startGame(Ref* pSender, ui::Widget::TouchEventType eEventType)
 {
-    if (eEventType == ui::Widget::TouchEventType::ENDED)
-    {
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
         this->enemyAI->start();
         this->background->removeChildByName("Overlay");
         this->background = nullptr;

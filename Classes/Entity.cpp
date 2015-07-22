@@ -1,8 +1,8 @@
 //
-//  Entity.cpp
-//  DotWar
+// Entity.cpp
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/15.
+// Created by ryutamaki on 2015/07/15.
 //
 //
 
@@ -20,8 +20,7 @@ using namespace cocostudio::timeline;
 
 bool Entity::init()
 {
-    if (!Node::init())
-    {
+    if (! Node::init()) {
         return false;
     }
 
@@ -46,8 +45,8 @@ void Entity::setHp(int hp)
     this->hp = hp;
 
     Sprite* hpBar = dynamic_cast<Sprite*>(this->getChildByName("Bar"));
-    if (hpBar && this->initialHp != 0)
-    {
+
+    if (hpBar && this->initialHp != 0) {
         hpBar->setScaleX(float(this->hp) / float(this->initialHp));
     }
 }
@@ -63,10 +62,10 @@ Rect Entity::getRect()
     Vec2 position = this->getPosition();
 
     Rect returnRect = Rect(
-                      position.x - size.width * 0.5f,
-                      position.y - size.height * 0.5f,
-                      size.width, size.height
-                      );
+            position.x - size.width * 0.5f,
+            position.y - size.height * 0.5f,
+            size.width, size.height
+        );
     return returnRect;
 }
 
@@ -83,34 +82,34 @@ Size Entity::getBodySize()
 
 bool Entity::isDead()
 {
-    if (this->getHp() <= 0)
+    if (this->getHp() <= 0) {
         return true;
-    else
+    } else {
         return false;
+    }
 }
 
 #pragma mark Game logic
 
 void Entity::attack(const std::string attackName)
 {
-    if (!this->stateMachine->canAttack())
+    if (! this->stateMachine->canAttack()) {
         return;
+    }
 
     this->timeline->play(attackName, false);
-    this->timeline->setFrameEventCallFunc([this](Frame* frame){
+    this->timeline->setFrameEventCallFunc([this](Frame* frame) {
         EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
         auto eventName = frameEvent->getEvent();
-//        log("---- %s ----", eventName.c_str());
+
+        // log("---- %s ----", eventName.c_str());
         if (eventName == "Ready") {
             this->stateMachine->readyToAttack();
-        }
-        else if (eventName == "Attack") {
+        } else if (eventName == "Attack") {
             this->stateMachine->startToAttack();
-        }
-        else if (eventName == "Cooldown") {
+        } else if (eventName == "Cooldown") {
             this->stateMachine->coolDownAttaking();
-        }
-        else if (eventName == "Finish") {
+        } else if (eventName == "Finish") {
             this->stateMachine->finishAttaking();
         }
     });
@@ -120,8 +119,8 @@ void Entity::attack(const std::string attackName)
 
 void Entity::receiveDamage(const int damage, const Vec2 knockback)
 {
-//    std::string animationName = "Damaged";
-//    this->timeline->play(animationName, false);
+    // std::string animationName = "Damaged";
+    // this->timeline->play(animationName, false);
 
     this->stateMachine->move(EntityHelper::moveStateFromVector(knockback));
     this->setHp(this->getHp() - damage);
@@ -134,20 +133,16 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
 #pragma mark EntityStateMachineDelegate
 
 void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attackState)
-{
-
-}
+{}
 
 void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState)
 {
-    if (!this->isSendData)
-    {
+    if (! this->isSendData) {
         return;
     }
 
     this->sendCurrentEntityData();
 }
-
 
 #pragma mark - Protected method
 

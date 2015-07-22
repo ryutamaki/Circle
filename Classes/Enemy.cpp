@@ -1,8 +1,8 @@
 //
-//  Enemy.cpp
-//  DotWar
+// Enemy.cpp
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/15.
+// Created by ryutamaki on 2015/07/15.
 //
 //
 
@@ -14,8 +14,9 @@ using namespace cocostudio::timeline;
 
 #pragma mark Initializer
 
-bool Enemy::init() {
-    if (!Entity::init()) {
+bool Enemy::init()
+{
+    if (! Entity::init()) {
         return false;
     }
 

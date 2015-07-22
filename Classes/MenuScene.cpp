@@ -1,8 +1,8 @@
 //
-//  MenuScene.cpp
-//  DotWar
+// MenuScene.cpp
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/15.
+// Created by ryutamaki on 2015/07/15.
 //
 //
 
@@ -36,8 +36,7 @@ Scene* MenuScene::createScene()
 
 bool MenuScene::init()
 {
-    if ( !Layer::init() )
-    {
+    if (! Layer::init()) {
         return false;
     }
 
@@ -56,9 +55,6 @@ bool MenuScene::init()
 
 #pragma mark Networking
 
-
-
-
 #pragma mark - Private methods
 
 #pragma mark View lifecycle
@@ -74,18 +70,16 @@ void MenuScene::onEnter()
 
 #pragma mark Callbacks
 
-void MenuScene::singlePlayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
+void MenuScene::singlePlayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
-    if (eEventType == ui::Widget::TouchEventType::ENDED)
-    {
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
         SceneManager::getInstance()->enterGameScene(false);
     }
 }
 
-void MenuScene::multiplayerButtonPushed(cocos2d::Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType)
+void MenuScene::multiplayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
-    if (eEventType == ui::Widget::TouchEventType::ENDED)
-    {
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
         SceneManager::getInstance()->showPeerList();
     }
 }

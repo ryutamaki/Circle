@@ -1,8 +1,8 @@
 //
-//  EntityStateMachine.h
-//  DotWar
+// EntityStateMachine.h
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/16.
+// Created by ryutamaki on 2015/07/16.
 //
 //
 
@@ -11,7 +11,6 @@
 
 class Entity;
 class EntityStateDelegate;
-
 
 enum class EntityMoveState
 {
@@ -71,10 +70,9 @@ public:
 
 private:
     EntityStateMachineDelegate* delegate;
-    
+
     EntityMoveState moveState;
     EntityAttackState attackState;
-
 };
 
 #endif /* defined(__DotWar__EntityStateMachine__) */

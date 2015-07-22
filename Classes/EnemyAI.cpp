@@ -1,8 +1,8 @@
 //
-//  EnemyAI.cpp
-//  DotWar
+// EnemyAI.cpp
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/20.
+// Created by ryutamaki on 2015/07/20.
 //
 //
 
@@ -12,7 +12,7 @@ USING_NS_CC;
 
 #pragma mark - Public methods
 
-EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*> opponents)
+EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*>opponents)
 {
     this->entity = entity;
     this->opponents = opponents;
@@ -40,25 +40,24 @@ void EnemyAI::stop()
 
 void EnemyAI::running(float dt)
 {
-    if (CCRANDOM_0_1() * 8 < 2.0f)
-    {
+    if (CCRANDOM_0_1() * 8 < 2.0f) {
         this->attack("Attack");
-    }
-    else
-    {
+    } else {
         int random = CCRANDOM_0_1() * 8;
         this->move((EntityMoveState)random, 3.0f);
     }
-};
+}
 
 void EnemyAI::move(EntityMoveState moveState, float dulation)
 {
-    this->entity->runAction(Sequence::create(
-                                             CallFunc::create([this, moveState](){this->entity->stateMachine->move(moveState);}),
-                                             DelayTime::create(dulation),
-                                             CallFunc::create([this](){this->entity->stateMachine->move(EntityMoveState::NONE);}),
-                                             NULL
-                                             ));
+    this->entity->runAction(
+        Sequence::create(
+            CallFunc::create([this, moveState]() {this->entity->stateMachine->move(moveState); }),
+            DelayTime::create(dulation),
+            CallFunc::create([this]() {this->entity->stateMachine->move(EntityMoveState::NONE); }),
+            NULL
+        )
+    );
 }
 
 void EnemyAI::attack(std::string attackName)

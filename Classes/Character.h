@@ -1,8 +1,8 @@
 //
-//  Character.h
-//  DotWar
+// Character.h
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/15.
+// Created by ryutamaki on 2015/07/15.
 //
 //
 
@@ -14,7 +14,7 @@
 
 #include "Entity.h"
 
-class Character : public Entity
+class Character: public Entity
 {
 public:
     CREATE_FUNC(Character);
@@ -24,7 +24,6 @@ public:
 
 private:
     void onEnter() override;
-
 };
 
 #endif /* defined(__DotWar__Character__) */

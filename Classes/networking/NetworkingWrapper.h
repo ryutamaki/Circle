@@ -1,8 +1,8 @@
 //
-//  NetworkingWrapper.h
-//  Doodler
+// NetworkingWrapper.h
+// Doodler
 //
-//  Created by Daniel Haaser on 5/25/15.
+// Created by Daniel Haaser on 5/25/15.
 //
 //
 
@@ -26,30 +26,30 @@ public:
     virtual void stateChanged(ConnectionState state) = 0;
 };
 
-class NetworkingWrapper : public NetworkManagerDelegate
+class NetworkingWrapper: public NetworkManagerDelegate
 {
 public:
     NetworkingWrapper();
     ~NetworkingWrapper();
-    
+
     void setDelegate(NetworkingDelegate* delegate);
-    
+
     void startAdvertisingAvailability();
 
     void stopAdvertisingAvailability();
-    
+
     void showPeerList();
-    
+
     void sendData(const void* data, unsigned long length);
-    
-    static const char * getDeviceName();
-    
+
+    static const char* getDeviceName();
+
     void disconnect();
-    
+
 private:
     NetworkManager* networkManager;
     NetworkingDelegate* delegate;
-    
+
     void receivedData(const void* data, unsigned long length);
     void stateChanged(ConnectionState state);
 };

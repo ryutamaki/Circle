@@ -1,8 +1,8 @@
 //
-//  GameConstants.h
-//  DotWar
+// GameConstants.h
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/15.
+// Created by ryutamaki on 2015/07/15.
 //
 //
 

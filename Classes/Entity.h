@@ -56,8 +56,6 @@ protected:
 
     void update(float dt) override;
     void sendCurrentEntityData();
-
-
 };
 
 #endif /* defined(__DotWar__Entity__) */

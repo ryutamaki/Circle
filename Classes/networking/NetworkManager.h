@@ -1,8 +1,8 @@
 //
-//  NetworkManager.h
-//  Doodler
+// NetworkManager.h
+// Doodler
 //
-//  Created by Daniel Haaser on 5/25/15.
+// Created by Daniel Haaser on 5/25/15.
 //
 //
 
@@ -11,7 +11,7 @@
 
 class NetworkManagerDelegate;
 
-@interface NetworkManager : NSObject <MCBrowserViewControllerDelegate, MCSessionDelegate>
+@interface NetworkManager : NSObject<MCBrowserViewControllerDelegate, MCSessionDelegate>
 
 - (void)setDelegate:(NetworkManagerDelegate*)delegate;
 

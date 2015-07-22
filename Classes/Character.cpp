@@ -1,8 +1,8 @@
 //
-//  Character.cpp
-//  DotWar
+// Character.cpp
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/15.
+// Created by ryutamaki on 2015/07/15.
 //
 //
 
@@ -12,8 +12,9 @@
 
 #pragma mark Initializer
 
-bool Character::init() {
-    if (!Entity::init()) {
+bool Character::init()
+{
+    if (! Entity::init()) {
         return false;
     }
 
@@ -30,8 +31,10 @@ bool Character::init() {
 void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 startPosition, cocos2d::Vec2 currentPosition)
 {
     EntityMoveState moveState = EntityHelper::moveStateFromStartPositionAndEndPosition(startPosition, currentPosition);
-    if (moveState == this->stateMachine->getMoveState())
+
+    if (moveState == this->stateMachine->getMoveState()) {
         return;
+    }
 
     this->stateMachine->move(moveState);
 }
@@ -45,9 +48,8 @@ void Character::setMoveStateByStartPositionAndCurrentPosition(cocos2d::Vec2 star
 void Character::onEnter()
 {
     Entity::onEnter();
-    
+
     this->initialHp = 20;
     this->setHp(this->initialHp);
     this->velocityFactor = 300.0f;
-
 }

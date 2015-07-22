@@ -1,8 +1,8 @@
 //
-//  NetworkingWrapper.cpp
-//  Doodler
+// NetworkingWrapper.cpp
+// Doodler
 //
-//  Created by Daniel Haaser on 5/25/15.
+// Created by Daniel Haaser on 5/25/15.
 //
 //
 
@@ -14,7 +14,7 @@
 NetworkingWrapper::NetworkingWrapper()
 {
     this->networkManager = [[NetworkManager alloc] init];
-    [this->networkManager setDelegate:this];
+    [this->networkManager setDelegate: this];
     [networkManager retain];
 }
 
@@ -47,10 +47,10 @@ void NetworkingWrapper::showPeerList()
     [this->networkManager showPeerList];
 }
 
-void NetworkingWrapper::sendData(const void *data, unsigned long length)
+void NetworkingWrapper::sendData(const void* data, unsigned long length)
 {
     NSData* dataToSend = [NSData dataWithBytes:data length:length];
-    [this->networkManager sendData:dataToSend];
+    [this->networkManager sendData: dataToSend];
 }
 
 void NetworkingWrapper::disconnect()
@@ -58,28 +58,25 @@ void NetworkingWrapper::disconnect()
     [this->networkManager disconnect];
 }
 
-const char * NetworkingWrapper::getDeviceName()
+const char* NetworkingWrapper::getDeviceName()
 {
     NSString* deviceName = [UIDevice currentDevice].name;
     return [deviceName UTF8String];
 }
 
-
 #pragma mark -
 #pragma mark NetworkManager Delegate Methods
 
-void NetworkingWrapper::receivedData(const void *data, unsigned long length)
+void NetworkingWrapper::receivedData(const void* data, unsigned long length)
 {
-    if (this->delegate)
-    {
+    if (this->delegate) {
         this->delegate->receivedData(data, length);
     }
 }
 
 void NetworkingWrapper::stateChanged(ConnectionState state)
 {
-    if (this->delegate)
-    {
+    if (this->delegate) {
         this->delegate->stateChanged(state);
     }
 }

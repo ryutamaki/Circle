@@ -1,8 +1,8 @@
 //
-//  Enemy.h
-//  DotWar
+// Enemy.h
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/15.
+// Created by ryutamaki on 2015/07/15.
 //
 //
 
@@ -12,14 +12,13 @@
 #include "cocos2d.h"
 #include "Entity.h"
 
-class Enemy : public Entity {
+class Enemy: public Entity {
 public:
     CREATE_FUNC(Enemy);
     bool init() override;
 
 private:
     void onEnter() override;
-
 };
 
 #endif /* defined(__DotWar__Enemy__) */

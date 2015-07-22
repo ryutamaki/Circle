@@ -1,8 +1,8 @@
 //
-//  NetworkManagerDelegate.h
-//  Doodler
+// NetworkManagerDelegate.h
+// Doodler
 //
-//  Created by Daniel Haaser on 5/26/15.
+// Created by Daniel Haaser on 5/26/15.
 //
 //
 

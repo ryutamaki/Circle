@@ -1,8 +1,8 @@
 //
-//  EntityStateMachine.cpp
-//  DotWar
+// EntityStateMachine.cpp
+// DotWar
 //
-//  Created by ryutamaki on 2015/07/16.
+// Created by ryutamaki on 2015/07/16.
 //
 //
 
@@ -14,16 +14,12 @@
 #pragma mark Initializers
 
 EntityStateMachine::EntityStateMachine()
-:moveState(EntityMoveState::NONE)
-,attackState(EntityAttackState::NONE)
-{
-
-}
+    : moveState(EntityMoveState::NONE)
+    , attackState(EntityAttackState::NONE)
+{}
 
 EntityStateMachine::~EntityStateMachine()
-{
-
-}
+{}
 
 #pragma mark Accessor
 
@@ -47,11 +43,10 @@ void EntityStateMachine::setAttackState(const EntityAttackState attackState)
     this->attackState = attackState;
 }
 
-void EntityStateMachine::setDelegate(EntityStateMachineDelegate *delegate)
+void EntityStateMachine::setDelegate(EntityStateMachineDelegate* delegate)
 {
     this->delegate = delegate;
 }
-
 
 #pragma mark State functions
 
@@ -59,8 +54,9 @@ void EntityStateMachine::move(const EntityMoveState movingState)
 {
     this->delegate->willStateChange(this->moveState, this->attackState);
 
-    if (this->attackState != EntityAttackState::NONE)
+    if (this->attackState != EntityAttackState::NONE) {
         return;
+    }
 
     this->setMoveState(movingState);
 
@@ -70,8 +66,10 @@ void EntityStateMachine::move(const EntityMoveState movingState)
 void EntityStateMachine::readyToAttack()
 {
     this->delegate->willStateChange(this->moveState, this->attackState);
-    if (this->attackState != EntityAttackState::NONE)
+
+    if (this->attackState != EntityAttackState::NONE) {
         return;
+    }
 
     this->setMoveState(EntityMoveState::NONE);
     this->setAttackState(EntityAttackState::READY);
@@ -83,8 +81,9 @@ void EntityStateMachine::startToAttack()
 {
     this->delegate->willStateChange(this->moveState, this->attackState);
 
-    if (this->attackState != EntityAttackState::READY)
+    if (this->attackState != EntityAttackState::READY) {
         return;
+    }
 
     this->setAttackState(EntityAttackState::ATTACKING);
 
@@ -95,8 +94,9 @@ void EntityStateMachine::hitAttack()
 {
     this->delegate->willStateChange(this->moveState, this->attackState);
 
-    if (this->attackState != EntityAttackState::ATTACKING)
+    if (this->attackState != EntityAttackState::ATTACKING) {
         return;
+    }
 
     this->setAttackState(EntityAttackState::HIT);
 
@@ -108,8 +108,9 @@ void EntityStateMachine::coolDownAttaking()
     this->delegate->willStateChange(this->moveState, this->attackState);
 
     if (this->attackState != EntityAttackState::ATTACKING &&
-        this->attackState != EntityAttackState::HIT)
+        this->attackState != EntityAttackState::HIT) {
         return;
+    }
 
     this->setAttackState(EntityAttackState::COOL_DOWN);
 
@@ -120,8 +121,9 @@ void EntityStateMachine::finishAttaking()
 {
     this->delegate->willStateChange(this->moveState, this->attackState);
 
-    if (this->attackState != EntityAttackState::COOL_DOWN)
+    if (this->attackState != EntityAttackState::COOL_DOWN) {
         return;
+    }
 
     this->setAttackState(EntityAttackState::NONE);
 
@@ -130,10 +132,8 @@ void EntityStateMachine::finishAttaking()
 
 bool EntityStateMachine::canAttack()
 {
-    if (this->attackState == EntityAttackState::NONE)
-    {
+    if (this->attackState == EntityAttackState::NONE) {
         return true;
     }
     return false;
 }
-
