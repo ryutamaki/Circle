@@ -30,6 +30,8 @@
 		03917D811B5712800068BCA6 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D7E1B5712800068BCA6 /* JSONPacker.cpp */; };
 		03917D841B57230B0068BCA6 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D821B57230B0068BCA6 /* Entity.cpp */; };
 		03917D851B57230B0068BCA6 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D821B57230B0068BCA6 /* Entity.cpp */; };
+		039659B91B5F113E006E587B /* EntityHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039659B71B5F113E006E587B /* EntityHelper.cpp */; };
+		039659BA1B5F113E006E587B /* EntityHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039659B71B5F113E006E587B /* EntityHelper.cpp */; };
 		03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
 		03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
 		03B167C31B59C0B0005D1FF6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B167C21B59C085005D1FF6 /* libcocos2d iOS.a */; };
@@ -129,6 +131,8 @@
 		03917D7F1B5712800068BCA6 /* JSONPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPacker.h; sourceTree = "<group>"; };
 		03917D821B57230B0068BCA6 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		03917D831B57230B0068BCA6 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
+		039659B71B5F113E006E587B /* EntityHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityHelper.cpp; sourceTree = "<group>"; };
+		039659B81B5F113E006E587B /* EntityHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityHelper.h; sourceTree = "<group>"; };
 		03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityStateMachine.cpp; sourceTree = "<group>"; };
 		03B167B21B58301C005D1FF6 /* EntityStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityStateMachine.h; sourceTree = "<group>"; };
 		03B167B91B59928F005D1FF6 /* GameConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConstants.h; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 				03917D5D1B56D1910068BCA6 /* EntityConstants.h */,
 				03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */,
 				03B167B21B58301C005D1FF6 /* EntityStateMachine.h */,
+				039659B71B5F113E006E587B /* EntityHelper.cpp */,
+				039659B81B5F113E006E587B /* EntityHelper.h */,
 				03917D821B57230B0068BCA6 /* Entity.cpp */,
 				03917D831B57230B0068BCA6 /* Entity.h */,
 				034F41061B5D529E00167F16 /* EnemyAI.cpp */,
@@ -581,6 +587,7 @@
 				03917D641B56EDC60068BCA6 /* EnemyReader.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* GameScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				039659B91B5F113E006E587B /* EntityHelper.cpp in Sources */,
 				03917D571B56C9B90068BCA6 /* Character.cpp in Sources */,
 				03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
 				03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */,
@@ -611,6 +618,7 @@
 				03917D851B57230B0068BCA6 /* Entity.cpp in Sources */,
 				03917D711B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D581B56C9B90068BCA6 /* Character.cpp in Sources */,
+				039659BA1B5F113E006E587B /* EntityHelper.cpp in Sources */,
 				03917D811B5712800068BCA6 /* JSONPacker.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

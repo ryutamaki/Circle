@@ -12,6 +12,8 @@
 #include "cocos2d.h"
 
 #include "EntityStateMachine.h"
+#include "EntityHelper.h"
+
 #include "cocostudio/CocoStudio.h"
 
 class Entity : public cocos2d::Node, public EntityStateMachineDelegate
@@ -55,11 +57,6 @@ protected:
     void update(float dt) override;
     void sendCurrentEntityData();
 
-    // Utility methods
-    const cocos2d::Vec2 directionFromMoveState(const EntityMoveState moveState);
-    const float rotationFromMoveState(const EntityMoveState moveState);
-    const EntityMoveState moveStateFromStartPositionAndEndPosition(const cocos2d::Vec2 startPosition, const cocos2d::Vec2 endPosition);
-    const EntityMoveState moveStateFromVector(const cocos2d::Vec2 knockback);
 
 };
 

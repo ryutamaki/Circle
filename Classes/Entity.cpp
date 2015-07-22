@@ -9,6 +9,7 @@
 #include "Entity.h"
 
 #include "EntityConstants.h"
+
 #include "SceneManager.h"
 #include "JSONPacker.h"
 
@@ -122,7 +123,7 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
 //    std::string animationName = "Damaged";
 //    this->timeline->play(animationName, false);
 
-    this->stateMachine->move(this->moveStateFromVector(knockback));
+    this->stateMachine->move(EntityHelper::moveStateFromVector(knockback));
     this->setHp(this->getHp() - damage);
 
     this->sendCurrentEntityData();
@@ -172,9 +173,9 @@ void Entity::update(float dt)
     Node::update(dt);
 
     EntityMoveState currentMoveState = this->stateMachine->getMoveState();
-    Vec2 direction = this->directionFromMoveState(currentMoveState);
+    Vec2 direction = EntityHelper::directionFromMoveState(currentMoveState);
     this->velocity = this->velocityFactor * direction * dt;
-    this->setRotation(this->rotationFromMoveState(currentMoveState));
+    this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
 }
 
 void Entity::sendCurrentEntityData()
@@ -187,95 +188,4 @@ void Entity::sendCurrentEntityData()
 
     std::string json = JSONPacker::packEntityState(entityState);
     SceneManager::getInstance()->sendData(json.c_str(), json.length());
-}
-
-#pragma mark Utility methods
-
-const Vec2 Entity::directionFromMoveState(const EntityMoveState moveState)
-{
-    switch (moveState) {
-        case EntityMoveState::UP_RIGHT:
-            return Vec2(1.0f / sqrt(2.0f), 1.0f / sqrt(2.0f));
-        case EntityMoveState::UP:
-            return Vec2::UNIT_Y;
-        case EntityMoveState::UP_LEFT:
-            return Vec2(- 1.0f / sqrt(2.0f), 1.0f / sqrt(2.0f));
-        case EntityMoveState::LEFT:
-            return Vec2(- 1.0f, 0.0f);
-        case EntityMoveState::DOWN_LEFT:
-            return Vec2(- 1.0f / sqrt(2.0f), - 1.0f / sqrt(2.0f));
-        case EntityMoveState::DOWN:
-            return Vec2(0.0f, - 1.0f);
-        case EntityMoveState::DOWN_RIGHT:
-            return Vec2(1.0f / sqrt(2.0f), - 1.0f / sqrt(2.0f));
-        case EntityMoveState::RIGHT:
-            return Vec2::UNIT_X;
-        case EntityMoveState::NONE:
-            return Vec2::ZERO;
-        default:
-            CCASSERT(false, "Undefined moveState are passed");
-            break;
-    }
-}
-
-const float Entity::rotationFromMoveState(const EntityMoveState moveState)
-{
-    // this is tricky function because of cocos2d rotation is anti clocked
-    switch (moveState) {
-        case EntityMoveState::UP_RIGHT:
-            return 315.0f;
-        case EntityMoveState::UP:
-            return 270.0f;
-        case EntityMoveState::UP_LEFT:
-            return 225.0f;
-        case EntityMoveState::LEFT:
-            return 180.0f;
-        case EntityMoveState::DOWN_LEFT:
-            return 135.0f;
-        case EntityMoveState::DOWN:
-            return 90.0f;
-        case EntityMoveState::DOWN_RIGHT:
-            return 45.0f;
-        case EntityMoveState::RIGHT:
-            return 0.0f;
-        case EntityMoveState::NONE:
-            // return curretn rotation if moveState is NONE
-            return this->getRotation();
-        default:
-            CCASSERT(false, "Undefined moveState are passed");
-            break;
-    }
-}
-
-const EntityMoveState Entity::moveStateFromStartPositionAndEndPosition(const Vec2 startPosition, const Vec2 endPosition)
-{
-    Vec2 vector = endPosition - startPosition;
-    return this->moveStateFromVector(vector);
-}
-
-const EntityMoveState Entity::moveStateFromVector(const Vec2 knockback)
-{
-    if (knockback.equals(Vec2::ZERO))
-        return EntityMoveState::NONE;
-
-    float radiun = Vec2::angle(knockback, Vec2::UNIT_X);
-    float degree = CC_RADIANS_TO_DEGREES(radiun);
-    degree = knockback.y > 0 ? degree : 360.0f - degree;
-
-    if (22.5 <= degree && degree < 67.5)
-        return EntityMoveState::UP_RIGHT;
-    else if (67.5 <= degree && degree < 112.5)
-        return EntityMoveState::UP;
-    else if (112.5 <= degree && degree < 157.5)
-        return EntityMoveState::UP_LEFT;
-    else if (157.5 <= degree && degree < 202.5)
-        return EntityMoveState::LEFT;
-    else if (202.5 <= degree && degree < 247.5)
-        return EntityMoveState::DOWN_LEFT;
-    else if (247.5 <= degree && degree < 292.5)
-        return EntityMoveState::DOWN;
-    else if (292.5 <= degree && degree < 337.5)
-        return EntityMoveState::DOWN_RIGHT;
-    else
-        return EntityMoveState::RIGHT;
 }
