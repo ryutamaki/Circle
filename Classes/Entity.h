@@ -31,6 +31,8 @@ public:
     cocos2d::Rect getRect();
 
     void setIsSendData(bool isSendData);
+    void setIdentifier(std::string identifier);
+
     cocos2d::Size getBodySize();
     virtual bool isDead();
 
@@ -44,6 +46,7 @@ public:
 
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
+    std::string identifier;
     bool isSendData;
 
     int hp, initialHp;

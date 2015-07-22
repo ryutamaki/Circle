@@ -81,6 +81,7 @@ std::string SceneManager::getMyName()
 std::string SceneManager::getHostUserName()
 {
     std::vector<std::string> peerList = this->getPeerNameList();
+    peerList.push_back(this->getMyName());
     std::sort(peerList.begin(), peerList.end());
     return peerList[0];
 }

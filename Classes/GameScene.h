@@ -37,6 +37,8 @@ private:
     void checkGameOver();
 
     void startGame(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+
+    Entity* getTargetEntityByTargetString(std::string targetString);
 };
 
 #endif // __GAME_SCENE_H__

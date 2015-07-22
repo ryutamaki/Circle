@@ -74,6 +74,11 @@ void Entity::setIsSendData(bool isSendData)
     this->isSendData = isSendData;
 }
 
+void Entity::setIdentifier(std::string identifier)
+{
+    this->identifier = identifier;
+}
+
 Size Entity::getBodySize()
 {
     Sprite* body = this->getChildByName<Sprite*>("Body");
@@ -133,7 +138,8 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
 #pragma mark EntityStateMachineDelegate
 
 void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attackState)
-{}
+{
+}
 
 void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState)
 {
@@ -176,6 +182,7 @@ void Entity::update(float dt)
 void Entity::sendCurrentEntityData()
 {
     JSONPacker::EntityState entityState;
+    entityState.target = this->identifier;
     entityState.hp = this->getHp();
     entityState.position = this->getPosition();
     entityState.moveState = this->stateMachine->getMoveState();

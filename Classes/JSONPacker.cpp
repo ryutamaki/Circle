@@ -22,9 +22,10 @@ EntityState unpackEntityStateJSON(std::string json)
 
     EntityState entityState;
 
+    entityState.target = document["target"].GetString();
     entityState.hp = document["hp"].GetInt();
 
-    rapidjson::Value &positionJson = document["position"];
+    rapidjson::Value & positionJson = document["position"];
     Vec2 position;
     position.x = positionJson["x"].GetDouble();
     position.y = positionJson["y"].GetDouble();
@@ -41,6 +42,7 @@ std::string packEntityState(const EntityState entityState)
     rapidjson::Document document;
     document.SetObject();
 
+    document.AddMember("target", entityState.target.c_str(), document.GetAllocator());
     document.AddMember("hp", (int)entityState.hp, document.GetAllocator());
 
     Vec2 position = entityState.position;

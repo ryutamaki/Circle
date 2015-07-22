@@ -38,6 +38,7 @@ bool GameScene::init()
     this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
     this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
     this->character->setIsSendData(true);
+    this->character->setIdentifier("Player");
     this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
 
     ui::Button* overlayButton = dynamic_cast<ui::Button*>(this->background->getChildByName("Overlay"));
@@ -59,19 +60,27 @@ void GameScene::setNetworkedSession(bool networkedSession)
 
 void GameScene::receivedData(const void* data, unsigned long length)
 {
+    if (! this->networkedSession) {
+        return;
+    }
+
     const char* cstr = reinterpret_cast<const char*>(data);
     std::string json = std::string(cstr, length);
     JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
 
-    if (this->friendCharacter) {
-        log("%d, %d, %d", entityState.hp, entityState.moveState, entityState.attackState);
-        this->friendCharacter->setHp(entityState.hp);
-        this->friendCharacter->setPosition(entityState.position);
-        this->friendCharacter->stateMachine->move(entityState.moveState);
+    Entity* target = this->getTargetEntityByTargetString(entityState.target);
 
-        if (entityState.attackState == EntityAttackState::READY) {
-            this->friendCharacter->attack("Attack");
-        }
+    if (! target) {
+        return;
+    }
+
+    log("%d, %d, %d", entityState.hp, entityState.moveState, entityState.attackState);
+    target->setHp(entityState.hp);
+    target->setPosition(entityState.position);
+    target->stateMachine->move(entityState.moveState);
+
+    if (entityState.attackState == EntityAttackState::READY) {
+        target->attack("Attack");
     }
 }
 
@@ -97,6 +106,7 @@ void GameScene::onEnter()
         this->field->addChild(this->friendCharacter);
 
         this->enemy->setIsSendData(SceneManager::getInstance()->isHost());
+        this->enemy->setIdentifier("Enemy");
     }
 
     this->setupTouchHandling();
@@ -196,8 +206,12 @@ void GameScene::update(float dt)
     if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
         enemyRect.origin.distance(characterRect.origin) < 160.0f) {
         this->character->stateMachine->hitAttack();
-        // TODO: magic number
-        this->enemy->receiveDamage(10, this->enemy->getPosition() - this->character->getPosition());
+
+        if (SceneManager::getInstance()->isHost()) {
+            // TODO: magic number
+            this->enemy->receiveDamage(10, Vec2::ZERO);
+        } else {
+        }
     }
     // TODO: magic number
     else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
@@ -212,9 +226,14 @@ void GameScene::update(float dt)
 
 void GameScene::checkGameOver()
 {
-    if (this->character->isDead()) {
-        SceneManager::getInstance()->exitGameScene();
-        MessageBox("Player hit point is 0", "YOU LOSE");
+    if (this->networkedSession) {
+        if (this->character->isDead() && this->friendCharacter->isDead()) {
+            SceneManager::getInstance()->exitGameScene();
+            MessageBox("Player hit point is 0", "YOU LOSE");
+        } else if (this->character->isDead()) {
+            SceneManager::getInstance()->exitGameScene();
+            MessageBox("Player hit point is 0", "YOU LOSE");
+        }
     } else if (this->enemy->isDead()) {
         SceneManager::getInstance()->exitGameScene();
         MessageBox("Enemy hit point is 0", "YOU WIN");
@@ -228,4 +247,20 @@ void GameScene::startGame(Ref* pSender, ui::Widget::TouchEventType eEventType)
         this->background->removeChildByName("Overlay");
         this->background = nullptr;
     }
+}
+
+Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
+{
+    // TODO: 2人対戦までしかできないようになってる
+    // できることなら、Entity::identifier に UUID を突っ込んで、誰がどれを操作してるのかを明確にしたい
+    // そうすれば、3人以上の対戦に対応できる
+    Entity* target;
+
+    if (targetString == "Enemy") {
+        target = this->enemy;
+    } else if (targetString == "Player") {
+        target = this->friendCharacter;
+    }
+
+    return target;
 }
