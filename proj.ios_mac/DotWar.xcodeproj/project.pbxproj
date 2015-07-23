@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		034F41081B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
 		034F41091B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
+		038DE76A1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */; };
+		038DE76B1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */; };
 		03917D571B56C9B90068BCA6 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D531B56C9B90068BCA6 /* Character.cpp */; };
 		03917D581B56C9B90068BCA6 /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D531B56C9B90068BCA6 /* Character.cpp */; };
 		03917D591B56C9B90068BCA6 /* CharacterReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D551B56C9B90068BCA6 /* CharacterReader.cpp */; };
@@ -108,6 +110,8 @@
 /* Begin PBXFileReference section */
 		034F41061B5D529E00167F16 /* EnemyAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyAI.cpp; sourceTree = "<group>"; };
 		034F41071B5D529E00167F16 /* EnemyAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyAI.h; sourceTree = "<group>"; };
+		038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntitySynchronizer.cpp; sourceTree = "<group>"; };
+		038DE7691B60A71B00F1C861 /* EntitySynchronizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntitySynchronizer.h; sourceTree = "<group>"; };
 		03917D531B56C9B90068BCA6 /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Character.cpp; sourceTree = "<group>"; };
 		03917D541B56C9B90068BCA6 /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = "<group>"; };
 		03917D551B56C9B90068BCA6 /* CharacterReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CharacterReader.cpp; sourceTree = "<group>"; };
@@ -252,6 +256,8 @@
 				03917D5D1B56D1910068BCA6 /* EntityConstants.h */,
 				03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */,
 				03B167B21B58301C005D1FF6 /* EntityStateMachine.h */,
+				038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */,
+				038DE7691B60A71B00F1C861 /* EntitySynchronizer.h */,
 				039659B71B5F113E006E587B /* EntityHelper.cpp */,
 				039659B81B5F113E006E587B /* EntityHelper.h */,
 				03917D821B57230B0068BCA6 /* Entity.cpp */,
@@ -580,6 +586,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03917D701B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
+				038DE76A1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */,
 				03917D621B56EDC60068BCA6 /* Enemy.cpp in Sources */,
 				034F41081B5D529E00167F16 /* EnemyAI.cpp in Sources */,
 				03917D591B56C9B90068BCA6 /* CharacterReader.cpp in Sources */,
@@ -619,6 +626,7 @@
 				03917D711B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D581B56C9B90068BCA6 /* Character.cpp in Sources */,
 				039659BA1B5F113E006E587B /* EntityHelper.cpp in Sources */,
+				038DE76B1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */,
 				03917D811B5712800068BCA6 /* JSONPacker.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

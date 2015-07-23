@@ -37,8 +37,6 @@ bool GameScene::init()
     this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
     this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
     this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
-    this->character->setIsSendData(true);
-    this->character->setIdentifier("Player");
     this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
 
     ui::Button* overlayButton = dynamic_cast<ui::Button*>(this->background->getChildByName("Overlay"));
@@ -70,11 +68,11 @@ void GameScene::receivedData(const void* data, unsigned long length)
 
     Entity* target = this->getTargetEntityByTargetString(entityState.target);
 
-    if (! target) {
+    if (target == nullptr) {
         return;
     }
 
-    log("%d, %d, %d", entityState.hp, entityState.moveState, entityState.attackState);
+    log("%s, %d, %d, %d, %s, %d", entityState.target.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.target.c_str(), entityState.damage.volume);
     target->setHp(entityState.hp);
     target->setPosition(entityState.position);
     target->stateMachine->move(entityState.moveState);
@@ -92,21 +90,44 @@ void GameScene::onEnter()
 {
     Layer::onEnter();
 
-    cocos2d::Vector<Entity*> opponents;
-    opponents.pushBack(this->character);
-    this->enemyAI = new EnemyAI(this->enemy, opponents);
-    this->addChild(this->enemyAI);
-
     if (this->networkedSession) {
+        bool isHost = SceneManager::getInstance()->isHost();
+
         this->friendCharacter = dynamic_cast<Character*>(CSLoader::createNode("Character.csb"));
         // TODO: magic number
         this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
         this->friendCharacter->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-        this->friendCharacter->setIsSendData(false);
         this->field->addChild(this->friendCharacter);
 
-        this->enemy->setIsSendData(SceneManager::getInstance()->isHost());
+        // sync settings for myself
+        this->character->setIdentifier("Player");
+        this->character->synchronizer->setIsSendData(true);
+        this->character->synchronizer->setIsHost(isHost);
+        this->character->synchronizer->setIsMyself(true);
+
+        // sync settigns for another player
+        // TODO: player は二人だと思ってる
+        this->friendCharacter->synchronizer->setIsSendData(false); // receive only
+        this->friendCharacter->synchronizer->setIsHost(! isHost);
+        this->friendCharacter->synchronizer->setIsMyself(false);
+
+        // sync settings for an enemy
         this->enemy->setIdentifier("Enemy");
+        this->enemy->synchronizer->setIsSendData(isHost);
+        this->enemy->synchronizer->setIsHost(false);
+        this->enemy->synchronizer->setIsMyself(false);
+
+        if (isHost) {
+            cocos2d::Vector<Entity*> opponents;
+            opponents.pushBack(this->character);
+            this->enemyAI = new EnemyAI(this->enemy, opponents);
+            this->addChild(this->enemyAI);
+        }
+    } else {
+        cocos2d::Vector<Entity*> opponents;
+        opponents.pushBack(this->character);
+        this->enemyAI = new EnemyAI(this->enemy, opponents);
+        this->addChild(this->enemyAI);
     }
 
     this->setupTouchHandling();
@@ -205,13 +226,21 @@ void GameScene::update(float dt)
     // TODO: magic number
     if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
         enemyRect.origin.distance(characterRect.origin) < 160.0f) {
-        this->character->stateMachine->hitAttack();
+        JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
+        currentEntityState.damage.target = "Enemy";
+        currentEntityState.damage.target = 10;
+        this->character->synchronizer->sendData(currentEntityState);
 
-        if (SceneManager::getInstance()->isHost()) {
+        if (this->character->synchronizer->getIsHost()) {
             // TODO: magic number
             this->enemy->receiveDamage(10, Vec2::ZERO);
-        } else {
+
+            JSONPacker::EntityState currentEntityState = this->enemy->currentEntityState();
+            this->enemy->synchronizer->sendDataIfNotHost(currentEntityState);
         }
+
+        // Change attack state at last
+        this->character->stateMachine->hitAttack();
     }
     // TODO: magic number
     else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
@@ -230,11 +259,15 @@ void GameScene::checkGameOver()
         if (this->character->isDead() && this->friendCharacter->isDead()) {
             SceneManager::getInstance()->exitGameScene();
             MessageBox("Player hit point is 0", "YOU LOSE");
-        } else if (this->character->isDead()) {
+        }
+    } else {
+        if (this->character->isDead()) {
             SceneManager::getInstance()->exitGameScene();
             MessageBox("Player hit point is 0", "YOU LOSE");
         }
-    } else if (this->enemy->isDead()) {
+    }
+
+    if (this->enemy->isDead()) {
         SceneManager::getInstance()->exitGameScene();
         MessageBox("Enemy hit point is 0", "YOU WIN");
     }
@@ -243,7 +276,9 @@ void GameScene::checkGameOver()
 void GameScene::startGame(Ref* pSender, ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        this->enemyAI->start();
+        if (this->enemyAI) {
+            this->enemyAI->start();
+        }
         this->background->removeChildByName("Overlay");
         this->background = nullptr;
     }
@@ -254,7 +289,7 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
     // TODO: 2人対戦までしかできないようになってる
     // できることなら、Entity::identifier に UUID を突っ込んで、誰がどれを操作してるのかを明確にしたい
     // そうすれば、3人以上の対戦に対応できる
-    Entity* target;
+    Entity* target = nullptr;
 
     if (targetString == "Enemy") {
         target = this->enemy;

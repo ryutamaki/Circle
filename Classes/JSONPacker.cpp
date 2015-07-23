@@ -25,7 +25,7 @@ EntityState unpackEntityStateJSON(std::string json)
     entityState.target = document["target"].GetString();
     entityState.hp = document["hp"].GetInt();
 
-    rapidjson::Value & positionJson = document["position"];
+    rapidjson::Value& positionJson = document["position"];
     Vec2 position;
     position.x = positionJson["x"].GetDouble();
     position.y = positionJson["y"].GetDouble();
@@ -33,6 +33,12 @@ EntityState unpackEntityStateJSON(std::string json)
 
     entityState.moveState = (EntityMoveState)document["moveState"].GetInt();
     entityState.attackState = (EntityAttackState)document["attackState"].GetInt();
+
+    rapidjson::Value& damageJson = document["damage"];
+    EntityState::Damage damage;
+    damage.target = damageJson["target"].GetString();
+    damage.volume = damageJson["volume"].GetInt();
+    entityState.damage = damage;
 
     return entityState;
 }
@@ -53,6 +59,12 @@ std::string packEntityState(const EntityState entityState)
 
     document.AddMember("moveState", (int)entityState.moveState, document.GetAllocator());
     document.AddMember("attackState", (int)entityState.attackState, document.GetAllocator());
+
+    EntityState::Damage damage = entityState.damage;
+    rapidjson::Value damageJson(rapidjson::kObjectType);
+    damageJson.AddMember("target", damage.target.c_str(), document.GetAllocator());
+    damageJson.AddMember("volume", damage.volume, document.GetAllocator());
+    document.AddMember("damage", damageJson, document.GetAllocator());
 
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);

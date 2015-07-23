@@ -8,9 +8,6 @@
 
 #include "Entity.h"
 
-#include "EntityConstants.h"
-
-#include "SceneManager.h"
 #include "JSONPacker.h"
 
 USING_NS_CC;
@@ -27,8 +24,9 @@ bool Entity::init()
     this->stateMachine = new EntityStateMachine();
     this->stateMachine->setDelegate(this);
 
+    this->synchronizer = new EntitySynchronizer();
+
     this->velocity = Vec2::ZERO;
-    this->isSendData = false;
 
     return true;
 }
@@ -69,9 +67,9 @@ Rect Entity::getRect()
     return returnRect;
 }
 
-void Entity::setIsSendData(bool isSendData)
+std::string Entity::getIdentifier()
 {
-    this->isSendData = isSendData;
+    return this->identifier;
 }
 
 void Entity::setIdentifier(std::string identifier)
@@ -92,6 +90,21 @@ bool Entity::isDead()
     } else {
         return false;
     }
+}
+
+JSONPacker::EntityState Entity::currentEntityState()
+{
+    JSONPacker::EntityState entityState;
+    entityState.target = this->identifier;
+    entityState.hp = this->getHp();
+    entityState.position = this->getPosition();
+    entityState.moveState = this->stateMachine->getMoveState();
+    entityState.attackState = this->stateMachine->getAttackState();
+
+    entityState.damage.target = "";
+    entityState.damage.volume = 0;
+
+    return entityState;
 }
 
 #pragma mark Game logic
@@ -130,8 +143,6 @@ void Entity::receiveDamage(const int damage, const Vec2 knockback)
     this->stateMachine->move(EntityHelper::moveStateFromVector(knockback));
     this->setHp(this->getHp() - damage);
 
-    this->sendCurrentEntityData();
-
     // override point
 }
 
@@ -143,11 +154,8 @@ void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attack
 
 void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState)
 {
-    if (! this->isSendData) {
-        return;
-    }
-
-    this->sendCurrentEntityData();
+    JSONPacker::EntityState currentEntityState = this->currentEntityState();
+    this->synchronizer->sendData(currentEntityState);
 }
 
 #pragma mark - Protected method
@@ -177,17 +185,4 @@ void Entity::update(float dt)
     Vec2 direction = EntityHelper::directionFromMoveState(currentMoveState);
     this->velocity = this->velocityFactor * direction * dt;
     this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
-}
-
-void Entity::sendCurrentEntityData()
-{
-    JSONPacker::EntityState entityState;
-    entityState.target = this->identifier;
-    entityState.hp = this->getHp();
-    entityState.position = this->getPosition();
-    entityState.moveState = this->stateMachine->getMoveState();
-    entityState.attackState = this->stateMachine->getAttackState();
-
-    std::string json = JSONPacker::packEntityState(entityState);
-    SceneManager::getInstance()->sendData(json.c_str(), json.length());
 }

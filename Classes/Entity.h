@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 
 #include "EntityStateMachine.h"
+#include "EntitySynchronizer.h"
 #include "EntityHelper.h"
 
 #include "cocostudio/CocoStudio.h"
@@ -21,6 +22,8 @@ class Entity : public cocos2d::Node, public EntityStateMachineDelegate
 public:
     // This stateMachine is opened to the public
     EntityStateMachine* stateMachine;
+    // This synchronizer manage data synchronizing when you play multiplayer mode
+    EntitySynchronizer* synchronizer;
 
     CREATE_FUNC(Entity);
 
@@ -30,11 +33,13 @@ public:
     cocos2d::Vec2 getVelocity();
     cocos2d::Rect getRect();
 
-    void setIsSendData(bool isSendData);
+    std::string getIdentifier();
     void setIdentifier(std::string identifier);
 
     cocos2d::Size getBodySize();
     virtual bool isDead();
+
+    JSONPacker::EntityState currentEntityState();
 
     // Behavior
     virtual void attack(const std::string attackName);
@@ -47,7 +52,6 @@ public:
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
     std::string identifier;
-    bool isSendData;
 
     int hp, initialHp;
     float velocityFactor;
@@ -58,7 +62,7 @@ protected:
     void onExit() override;
 
     void update(float dt) override;
-    void sendCurrentEntityData();
+
 };
 
 #endif /* defined(__DotWar__Entity__) */

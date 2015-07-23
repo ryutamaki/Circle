@@ -17,11 +17,19 @@ namespace JSONPacker
 {
     struct EntityState
     {
+        struct Damage
+        {
+            std::string target;
+            int volume;
+        };
+
         std::string target;
         int hp;
         cocos2d::Vec2 position;
         EntityMoveState moveState;
         EntityAttackState attackState;
+        Damage damage;
+
     };
 
     EntityState unpackEntityStateJSON(std::string json);
