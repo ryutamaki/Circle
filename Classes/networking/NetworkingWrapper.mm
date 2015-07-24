@@ -79,10 +79,24 @@ void NetworkingWrapper::disconnect()
     [this->networkManager disconnect];
 }
 
-const char* NetworkingWrapper::getDeviceName()
+const std::string NetworkingWrapper::getDeviceName()
 {
     NSString* deviceName = [UIDevice currentDevice].name;
-    return [deviceName UTF8String];
+    return std::string([deviceName UTF8String]);
+}
+
+const std::string NetworkingWrapper::getUUID()
+{
+    NSString* uuid = [UIDevice currentDevice].identifierForVendor.UUIDString;
+    return std::string([uuid UTF8String]);
+}
+
+const std::string NetworkingWrapper::getUniqueIdentifier()
+{
+    std::string deviceName = NetworkingWrapper::getDeviceName();
+    std::string uuid = NetworkingWrapper::getUUID();
+
+    return deviceName + uuid;
 }
 
 #pragma mark -

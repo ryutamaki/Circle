@@ -2,8 +2,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "GameConstants.h"
-
 #include "Character.h"
 #include "CharacterReader.h"
 #include "Enemy.h"
@@ -39,12 +37,13 @@ bool GameScene::init()
     this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
     this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
 
-    ui::Button* overlayButton = dynamic_cast<ui::Button*>(this->background->getChildByName("Overlay"));
-    overlayButton->addTouchEventListener(CC_CALLBACK_2(GameScene::startGame, this));
+    this->lobbyButton = dynamic_cast<ui::Button*>(this->background->getChildByName("LobbyButton"));
+    this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
 
     addChild(rootNode);
 
     this->networkedSession = false;
+    this->gameState = GameState::PREPARE;
 
     return true;
 }
@@ -64,21 +63,41 @@ void GameScene::receivedData(const void* data, unsigned long length)
 
     const char* cstr = reinterpret_cast<const char*>(data);
     std::string json = std::string(cstr, length);
-    JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
 
-    Entity* target = this->getTargetEntityByTargetString(entityState.target);
+    if (this->gameState == GameState::PREPARE) {
+        JSONPacker::EntityReadyState entityReadyState = JSONPacker::unpackEntityReadyStateJSON(json);
 
-    if (target == nullptr) {
-        return;
-    }
+        if (this->friendCharacter) {
+            this->friendCharacter->setIdentifier(entityReadyState.identifier);
+            this->friendCharacter->synchronizer->setIsReadyToPlay(entityReadyState.isReady);
+        }
 
-    log("%s, %d, %d, %d, %s, %d", entityState.target.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.target.c_str(), entityState.damage.volume);
-    target->setHp(entityState.hp);
-    target->setPosition(entityState.position);
-    target->stateMachine->move(entityState.moveState);
+        this->tryToStart();
+    } else if (this->gameState == GameState::PLAYING) {
+        JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
 
-    if (entityState.attackState == EntityAttackState::READY) {
-        target->attack("Attack");
+        Entity* target = this->getTargetEntityByTargetString(entityState.identifier);
+
+        if (target == nullptr) {
+            return;
+        }
+
+        log("%s, %d, %d, %d, %s, %d", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume);
+        target->setHp(entityState.hp);
+        target->setPosition(entityState.position);
+        target->stateMachine->move(entityState.moveState);
+
+        if (entityState.attackState == EntityAttackState::READY) {
+            target->attack("Attack");
+        }
+
+        if (entityState.damage.volume != 0) {
+            Entity* damagedTarget = this->getTargetEntityByTargetString(entityState.damage.identifier);
+
+            if (damagedTarget != nullptr) {
+                damagedTarget->receiveDamage(entityState.damage.volume);
+            }
+        }
     }
 }
 
@@ -100,7 +119,6 @@ void GameScene::onEnter()
         this->field->addChild(this->friendCharacter);
 
         // sync settings for myself
-        this->character->setIdentifier("Player");
         this->character->synchronizer->setIsSendData(true);
         this->character->synchronizer->setIsHost(isHost);
         this->character->synchronizer->setIsMyself(true);
@@ -227,13 +245,13 @@ void GameScene::update(float dt)
     if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
         enemyRect.origin.distance(characterRect.origin) < 160.0f) {
         JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
-        currentEntityState.damage.target = "Enemy";
-        currentEntityState.damage.target = 10;
+        currentEntityState.damage.identifier = "Enemy";
+        currentEntityState.damage.volume = 10;
         this->character->synchronizer->sendData(currentEntityState);
 
         if (this->character->synchronizer->getIsHost()) {
             // TODO: magic number
-            this->enemy->receiveDamage(10, Vec2::ZERO);
+            this->enemy->receiveDamage(10);
 
             JSONPacker::EntityState currentEntityState = this->enemy->currentEntityState();
             this->enemy->synchronizer->sendDataIfNotHost(currentEntityState);
@@ -247,7 +265,9 @@ void GameScene::update(float dt)
              enemyRect.origin.distance(characterRect.origin) < 160.0f) {
         this->enemy->stateMachine->hitAttack();
         // TODO: magic number
-        this->character->receiveDamage(10, this->character->getPosition() - this->enemy->getPosition());
+        this->character->receiveDamage(10);
+        JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
+        this->character->synchronizer->sendData(currentCharacterState);
     }
 
     this->checkGameOver();
@@ -256,46 +276,118 @@ void GameScene::update(float dt)
 void GameScene::checkGameOver()
 {
     if (this->networkedSession) {
-        if (this->character->isDead() && this->friendCharacter->isDead()) {
-            SceneManager::getInstance()->exitGameScene();
-            MessageBox("Player hit point is 0", "YOU LOSE");
+        if (this->character->getIsDead() && this->friendCharacter->getIsDead()) {
+            this->showResultLayerWithString("YOU LOSE");
         }
     } else {
-        if (this->character->isDead()) {
-            SceneManager::getInstance()->exitGameScene();
-            MessageBox("Player hit point is 0", "YOU LOSE");
+        if (this->character->getIsDead()) {
+            this->showResultLayerWithString("YOU LOSE");
         }
     }
 
-    if (this->enemy->isDead()) {
-        SceneManager::getInstance()->exitGameScene();
-        MessageBox("Enemy hit point is 0", "YOU WIN");
-    }
-}
-
-void GameScene::startGame(Ref* pSender, ui::Widget::TouchEventType eEventType)
-{
-    if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        if (this->enemyAI) {
-            this->enemyAI->start();
-        }
-        this->background->removeChildByName("Overlay");
-        this->background = nullptr;
+    if (this->enemy->getIsDead()) {
+        this->showResultLayerWithString("YOU WIN");
     }
 }
 
 Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
 {
-    // TODO: 2人対戦までしかできないようになってる
-    // できることなら、Entity::identifier に UUID を突っ込んで、誰がどれを操作してるのかを明確にしたい
-    // そうすれば、3人以上の対戦に対応できる
     Entity* target = nullptr;
+    Vector<Node*> fieldChildren = this->field->getChildren();
 
-    if (targetString == "Enemy") {
-        target = this->enemy;
-    } else if (targetString == "Player") {
-        target = this->friendCharacter;
+    for (int index = 0; index < fieldChildren.size(); ++index) {
+        Entity* entity = dynamic_cast<Entity*>(fieldChildren.at(index));
+
+        if (! entity) {
+            continue;
+        }
+
+        std::string identifier = entity->getIdentifier();
+
+        if (identifier == targetString) {
+            target = entity;
+            return target;
+        }
     }
 
     return target;
+}
+
+void GameScene::showResultLayerWithString(std::string result)
+{
+    Node* gameResult = dynamic_cast<Node*>(CSLoader::createNode("GameResult.csb"));
+    gameResult->setPosition(Vec2::ZERO);
+    ui::TextBMFont* resultLabel = dynamic_cast<ui::TextBMFont*>(gameResult->getChildByName("ResultLabel"));
+    resultLabel->setString(result);
+    ui::Button* backButton = dynamic_cast<ui::Button*>(gameResult->getChildByName("BackButton"));
+    backButton->addTouchEventListener(CC_CALLBACK_2(GameScene::backToMenu, this));
+    this->background->addChild(gameResult);
+}
+
+void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType)
+{
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
+        this->character->synchronizer->setIsReadyToPlay(true);
+
+        JSONPacker::EntityReadyState entityReadyState;
+        entityReadyState.identifier = SceneManager::getInstance()->getUniqueIdentifier();
+        entityReadyState.isReady = this->character->synchronizer->getIsReadyToPlay();
+
+        this->character->setIdentifier(SceneManager::getInstance()->getUniqueIdentifier());
+        this->character->synchronizer->sendData(entityReadyState);
+        this->tryToStart();
+    }
+}
+
+void GameScene::backToMenu(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
+{
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
+        SceneManager::getInstance()->exitGameScene();
+    }
+}
+
+void GameScene::tryToStart()
+{
+    if (this->gameState != GameState::PREPARE) {
+        return;
+    }
+
+    if (this->networkedSession) {
+        if (this->character->synchronizer->getIsReadyToPlay() &&
+            this->friendCharacter->synchronizer->getIsReadyToPlay()) {
+            this->start();
+        }
+    } else {
+        if (this->character->synchronizer->getIsReadyToPlay()) {
+            this->start();
+        }
+    }
+}
+
+void GameScene::start()
+{
+    this->gameState = GameState::PLAYING;
+
+    if (this->enemyAI) {
+        this->enemyAI->start();
+    }
+    this->background->removeChildByName("LobbyButton");
+
+    if (this->character) {
+        log("%s, host: %d, myself: %d, senddata: %d, isdead: %d",
+            this->character->getIdentifier().c_str(),
+            this->character->synchronizer->getIsHost(),
+            this->character->synchronizer->getIsMyself(),
+            this->character->synchronizer->getIsSendData(),
+            this->character->getIsDead());
+    }
+
+    if (this->friendCharacter) {
+        log("%s, host: %d, myself: %d, senddata: %d, isdead: %d",
+            this->friendCharacter->getIdentifier().c_str(),
+            this->friendCharacter->synchronizer->getIsHost(),
+            this->friendCharacter->synchronizer->getIsMyself(),
+            this->friendCharacter->synchronizer->getIsSendData(),
+            this->friendCharacter->getIsDead());
+    }
 }

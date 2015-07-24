@@ -46,7 +46,10 @@ public:
 
     void sendData(const void* data, unsigned long length);
 
-    static const char* getDeviceName();
+    static const std::string getDeviceName();
+    static const std::string getUUID();
+
+    static const std::string getUniqueIdentifier();
 
     void disconnect();
 

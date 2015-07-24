@@ -28,6 +28,7 @@ public:
     std::vector<std::string> getPeerNameList();
     std::string getMyName();
     std::string getHostUserName();
+    std::string getUniqueIdentifier();
     bool isHost();
 
 protected:

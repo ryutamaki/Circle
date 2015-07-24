@@ -37,13 +37,16 @@ public:
     void setIdentifier(std::string identifier);
 
     cocos2d::Size getBodySize();
-    virtual bool isDead();
+    bool getIsDead();
 
     JSONPacker::EntityState currentEntityState();
 
+    void activate();
+    void deactivate();
+
     // Behavior
-    virtual void attack(const std::string attackName);
-    virtual void receiveDamage(const int damage, const cocos2d::Vec2 knockback);
+    void attack(const std::string attackName);
+    void receiveDamage(const int damage);
 
     // EntityStateMachineDelegate
     void willStateChange(EntityMoveState moveState, EntityAttackState attackState) override;
@@ -56,6 +59,7 @@ protected:
     int hp, initialHp;
     float velocityFactor;
     cocos2d::Vec2 velocity;
+    bool isDead;
 
     bool init() override;
     void onEnter() override;

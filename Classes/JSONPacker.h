@@ -19,11 +19,11 @@ namespace JSONPacker
     {
         struct Damage
         {
-            std::string target;
+            std::string identifier;
             int volume;
         };
 
-        std::string target;
+        std::string identifier;
         int hp;
         cocos2d::Vec2 position;
         EntityMoveState moveState;
@@ -34,6 +34,15 @@ namespace JSONPacker
 
     EntityState unpackEntityStateJSON(std::string json);
     std::string packEntityState(const EntityState entityState);
+
+    struct EntityReadyState
+    {
+        std::string identifier;
+        bool isReady;
+    };
+
+    EntityReadyState unpackEntityReadyStateJSON(std::string json);
+    std::string packEntityReadyState(const EntityReadyState entityReadyState);
 }
 
 #endif /* defined(__DotWar__JSONPacker__) */

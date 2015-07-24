@@ -30,7 +30,9 @@ SceneManager::SceneManager()
     this->gameScene = nullptr;
 }
 
-SceneManager::~SceneManager() {}
+SceneManager::~SceneManager()
+{
+}
 
 #pragma mark - Public methods
 
@@ -84,6 +86,12 @@ std::string SceneManager::getHostUserName()
     peerList.push_back(this->getMyName());
     std::sort(peerList.begin(), peerList.end());
     return peerList[0];
+}
+
+std::string SceneManager::getUniqueIdentifier()
+{
+    std::string uniqueIdentifier = this->networkingWrapper->getUniqueIdentifier();
+    return uniqueIdentifier;
 }
 
 bool SceneManager::isHost()

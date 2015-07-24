@@ -7,7 +7,6 @@
         <Folder Name="Assets">
           <Folder Name="Images">
             <Folder Name="Resources-1x">
-              <Image Name="Background.png" />
               <Image Name="Field.png" />
               <Image Name="GrayRobot.png" />
               <Image Name="GreenRobot.png" />
@@ -18,9 +17,11 @@
               <Image Name="SinglePlayerButtonPushed.png" />
               <Image Name="YellowRobot.png" />
               <Image Name="Shadow.png" />
-              <Image Name="TutorialOverlay.png" />
               <Image Name="HpBar.png" />
               <Image Name="HpFrame.png" />
+              <Image Name="Background.png" />
+              <Image Name="TutorialOverlay.png" />
+              <Image Name="Overlay.png" />
             </Folder>
             <Folder Name="Resources-2x">
               <Image Name="Field@2x.png" />
@@ -29,9 +30,11 @@
               <Image Name="RedRobot@2x.png" />
               <Image Name="YellowRobot@2x.png" />
               <Image Name="Shadow@2x.png" />
-              <Image Name="TutorialOverlay@2x.png" />
               <Image Name="HpBar@2x.png" />
               <Image Name="HpFrame@2x.png" />
+              <Image Name="Background@2x.png" />
+              <Image Name="TutorialOverlay@2x.png" />
+              <Image Name="Overlay@2x.png" />
             </Folder>
             <Folder Name="Resources-3x">
               <Image Name="Field@3x.png" />
@@ -40,9 +43,11 @@
               <Image Name="RedRobot@3x.png" />
               <Image Name="YellowRobot@3x.png" />
               <Image Name="Shadow@3x.png" />
-              <Image Name="TutorialOverlay@3x.png" />
               <Image Name="HpBar@3x.png" />
               <Image Name="HpFrame@3x.png" />
+              <Image Name="Background@3x.png" />
+              <Image Name="TutorialOverlay@3x.png" />
+              <Image Name="Overlay@3x.png" />
             </Folder>
             <Folder Name="Resources-4x">
               <Image Name="Field@4x.png" />
@@ -51,15 +56,18 @@
               <Image Name="RedRobot@4x.png" />
               <Image Name="YellowRobot@4x.png" />
               <Image Name="Shadow@4x.png" />
-              <Image Name="TutorialOverlay@4x.png" />
               <Image Name="HpBar@4x.png" />
               <Image Name="HpFrame@4x.png" />
+              <Image Name="Background@4x.png" />
+              <Image Name="TutorialOverlay@4x.png" />
+              <Image Name="Overlay@4x.png" />
             </Folder>
           </Folder>
         </Folder>
         <Project Name="Character.csd" Type="Node" />
         <Project Name="Enemy.csd" Type="Node" />
         <Project Name="MenuScene.csd" Type="Scene" />
+        <Project Name="GameResult.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

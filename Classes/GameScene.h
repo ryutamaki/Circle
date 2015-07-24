@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "CocosGUI.h"
+#include "GameConstants.h"
 
 #include "EnemyAI.h"
 
@@ -21,9 +22,11 @@ public:
 
 private:
     bool networkedSession;
+    GameState gameState;
 
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;
+    cocos2d::ui::Button* lobbyButton;
 
     Character* character;
     Character* friendCharacter;
@@ -36,9 +39,14 @@ private:
     void update(float dt) override;
     void checkGameOver();
 
-    void startGame(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
-
     Entity* getTargetEntityByTargetString(std::string targetString);
+    void showResultLayerWithString(std::string result);
+
+    void readyToStart(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+    void backToMenu(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+    void tryToStart();
+    void start();
+
 };
 
 #endif // __GAME_SCENE_H__

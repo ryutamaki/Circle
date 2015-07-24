@@ -40,12 +40,16 @@ int Entity::getHp()
 
 void Entity::setHp(int hp)
 {
-    this->hp = hp;
+    this->hp = MAX(hp, 0);
 
     Sprite* hpBar = dynamic_cast<Sprite*>(this->getChildByName("Bar"));
 
     if (hpBar && this->initialHp != 0) {
         hpBar->setScaleX(float(this->hp) / float(this->initialHp));
+    }
+
+    if (this->hp <= 0) {
+        this->deactivate();
     }
 }
 
@@ -83,25 +87,21 @@ Size Entity::getBodySize()
     return body->getContentSize();
 }
 
-bool Entity::isDead()
+bool Entity::getIsDead()
 {
-    if (this->getHp() <= 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return this->isDead;
 }
 
 JSONPacker::EntityState Entity::currentEntityState()
 {
     JSONPacker::EntityState entityState;
-    entityState.target = this->identifier;
+    entityState.identifier = this->identifier;
     entityState.hp = this->getHp();
     entityState.position = this->getPosition();
     entityState.moveState = this->stateMachine->getMoveState();
     entityState.attackState = this->stateMachine->getAttackState();
 
-    entityState.damage.target = "";
+    entityState.damage.identifier = "";
     entityState.damage.volume = 0;
 
     return entityState;
@@ -109,9 +109,27 @@ JSONPacker::EntityState Entity::currentEntityState()
 
 #pragma mark Game logic
 
+void Entity::activate()
+{
+    this->isDead = false;
+    this->scheduleUpdate();
+    this->runAction(this->timeline);
+}
+
+void Entity::deactivate()
+{
+    this->isDead = true;
+    this->unscheduleUpdate();
+    this->stopAllActions();
+}
+
 void Entity::attack(const std::string attackName)
 {
     if (! this->stateMachine->canAttack()) {
+        return;
+    }
+
+    if (this->getIsDead()) {
         return;
     }
 
@@ -135,14 +153,15 @@ void Entity::attack(const std::string attackName)
     // override point
 }
 
-void Entity::receiveDamage(const int damage, const Vec2 knockback)
+void Entity::receiveDamage(const int damage)
 {
+    if (this->getIsDead()) {
+        return;
+    }
     // std::string animationName = "Damaged";
     // this->timeline->play(animationName, false);
 
-    this->stateMachine->move(EntityHelper::moveStateFromVector(knockback));
     this->setHp(this->getHp() - damage);
-
     // override point
 }
 
@@ -154,6 +173,10 @@ void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attack
 
 void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState)
 {
+    if (this->getIsDead()) {
+        return;
+    }
+
     JSONPacker::EntityState currentEntityState = this->currentEntityState();
     this->synchronizer->sendData(currentEntityState);
 }
@@ -166,13 +189,14 @@ void Entity::onEnter()
 {
     Node::onEnter();
 
-    this->scheduleUpdate();
-    this->runAction(this->timeline);
+    this->activate();
 }
 
 void Entity::onExit()
 {
     Node::onExit();
+
+    this->deactivate();
 }
 
 #pragma mark Game logic

@@ -20,6 +20,8 @@ public:
     ~EntitySynchronizer();
 
     // Accessor
+    bool getIsReadyToPlay();
+    void setIsReadyToPlay(bool isReadyToPlay);
     bool getIsHost();
     void setIsHost(bool isHost);
     bool getIsMyself();
@@ -31,7 +33,10 @@ public:
     void sendData(JSONPacker::EntityState entityState);
     void sendDataIfNotHost(JSONPacker::EntityState entityState);
 
+    void sendData(JSONPacker::EntityReadyState entityReadyState);
+
 private:
+    bool isReadyToPlay;
     // The entity which has this object acts as a host or not.
     // If single player mode, the player should be the host.
     bool isHost;

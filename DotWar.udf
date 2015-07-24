@@ -31,8 +31,9 @@
           <FilePathData Path="Character.csd" />
           <FilePathData Path="MenuScene.csd" />
           <FilePathData Path="GameScene.csd" />
+          <FilePathData Path="GameResult.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="GameScene.csd" />
+        <ActiveDocument Path="MenuScene.csd" />
       </Value>
     </Item>
   </Properties>
