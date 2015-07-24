@@ -262,7 +262,7 @@ void GameScene::update(float dt)
     }
     // TODO: magic number
     else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
-             enemyRect.origin.distance(characterRect.origin) < 160.0f) {
+             enemyRect.origin.distance(characterRect.origin) < 120.0f) {
         this->enemy->stateMachine->hitAttack();
         // TODO: magic number
         this->character->receiveDamage(10);
@@ -371,6 +371,13 @@ void GameScene::start()
     if (this->enemyAI) {
         this->enemyAI->start();
     }
+    this->character->activate();
+    this->enemy->activate();
+
+    if (this->friendCharacter) {
+        this->friendCharacter->activate();
+    }
+
     this->background->removeChildByName("LobbyButton");
 
     if (this->character) {

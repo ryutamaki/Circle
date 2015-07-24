@@ -1,73 +1,67 @@
 <Solution>
-  <PropertyGroup Name="DotWar" Version="2.3.0.1" Type="CocosStudio" />
+  <PropertyGroup Name="DotWar" Version="2.3.1.1" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
         <Project Name="GameScene.csd" Type="Scene" />
-        <Folder Name="Assets">
-          <Folder Name="Images">
-            <Folder Name="Resources-1x">
-              <Image Name="Field.png" />
-              <Image Name="GrayRobot.png" />
-              <Image Name="GreenRobot.png" />
-              <Image Name="MultiplayerButtonNormal.png" />
-              <Image Name="MultiplayerButtonPushed.png" />
-              <Image Name="RedRobot.png" />
-              <Image Name="SinglePlayerButtonNormal.png" />
-              <Image Name="SinglePlayerButtonPushed.png" />
-              <Image Name="YellowRobot.png" />
-              <Image Name="Shadow.png" />
-              <Image Name="HpBar.png" />
-              <Image Name="HpFrame.png" />
-              <Image Name="Background.png" />
-              <Image Name="TutorialOverlay.png" />
-              <Image Name="Overlay.png" />
-            </Folder>
-            <Folder Name="Resources-2x">
-              <Image Name="Field@2x.png" />
-              <Image Name="GrayRobot@2x.png" />
-              <Image Name="GreenRobot@2x.png" />
-              <Image Name="RedRobot@2x.png" />
-              <Image Name="YellowRobot@2x.png" />
-              <Image Name="Shadow@2x.png" />
-              <Image Name="HpBar@2x.png" />
-              <Image Name="HpFrame@2x.png" />
-              <Image Name="Background@2x.png" />
-              <Image Name="TutorialOverlay@2x.png" />
-              <Image Name="Overlay@2x.png" />
-            </Folder>
-            <Folder Name="Resources-3x">
-              <Image Name="Field@3x.png" />
-              <Image Name="GrayRobot@3x.png" />
-              <Image Name="GreenRobot@3x.png" />
-              <Image Name="RedRobot@3x.png" />
-              <Image Name="YellowRobot@3x.png" />
-              <Image Name="Shadow@3x.png" />
-              <Image Name="HpBar@3x.png" />
-              <Image Name="HpFrame@3x.png" />
-              <Image Name="Background@3x.png" />
-              <Image Name="TutorialOverlay@3x.png" />
-              <Image Name="Overlay@3x.png" />
-            </Folder>
-            <Folder Name="Resources-4x">
-              <Image Name="Field@4x.png" />
-              <Image Name="GrayRobot@4x.png" />
-              <Image Name="GreenRobot@4x.png" />
-              <Image Name="RedRobot@4x.png" />
-              <Image Name="YellowRobot@4x.png" />
-              <Image Name="Shadow@4x.png" />
-              <Image Name="HpBar@4x.png" />
-              <Image Name="HpFrame@4x.png" />
-              <Image Name="Background@4x.png" />
-              <Image Name="TutorialOverlay@4x.png" />
-              <Image Name="Overlay@4x.png" />
-            </Folder>
-          </Folder>
-        </Folder>
         <Project Name="Character.csd" Type="Node" />
         <Project Name="Enemy.csd" Type="Node" />
         <Project Name="MenuScene.csd" Type="Scene" />
         <Project Name="GameResult.csd" Type="Layer" />
+        <Folder Name="Images">
+          <Image Name="Background.png" />
+          <Image Name="Background@2x.png" />
+          <Image Name="Background@3x.png" />
+          <Image Name="Background@4x.png" />
+          <Image Name="Bar.png" />
+          <Image Name="Bar@2x.png" />
+          <Image Name="Bar@3x.png" />
+          <Image Name="Bar@4x.png" />
+          <Image Name="Body.png" />
+          <Image Name="Body@2x.png" />
+          <Image Name="Body@3x.png" />
+          <Image Name="Body@4x.png" />
+          <Image Name="Field.png" />
+          <Image Name="Field@2x.png" />
+          <Image Name="Field@3x.png" />
+          <Image Name="Field@4x.png" />
+          <Image Name="Logo.png" />
+          <Image Name="Logo@2x.png" />
+          <Image Name="Logo@3x.png" />
+          <Image Name="Logo@4x.png" />
+          <Image Name="MultiplayerButtonNormal.png" />
+          <Image Name="MultiplayerButtonNormal@2x.png" />
+          <Image Name="MultiplayerButtonNormal@3x.png" />
+          <Image Name="MultiplayerButtonNormal@4x.png" />
+          <Image Name="MultiplayerButtonPushed.png" />
+          <Image Name="MultiplayerButtonPushed@2x.png" />
+          <Image Name="MultiplayerButtonPushed@3x.png" />
+          <Image Name="MultiplayerButtonPushed@4x.png" />
+          <Image Name="Needle.png" />
+          <Image Name="Needle@2x.png" />
+          <Image Name="Needle@3x.png" />
+          <Image Name="Needle@4x.png" />
+          <Image Name="Shadow.png" />
+          <Image Name="Shadow@2x.png" />
+          <Image Name="Shadow@3x.png" />
+          <Image Name="Shadow@4x.png" />
+          <Image Name="StageSelectButtonNormal.png" />
+          <Image Name="StageSelectButtonNormal@2x.png" />
+          <Image Name="StageSelectButtonNormal@3x.png" />
+          <Image Name="StageSelectButtonNormal@4x.png" />
+          <Image Name="StageSelectButtonPushed.png" />
+          <Image Name="StageSelectButtonPushed@2x.png" />
+          <Image Name="StageSelectButtonPushed@3x.png" />
+          <Image Name="StageSelectButtonPushed@4x.png" />
+          <Image Name="TutorialButton.png" />
+          <Image Name="TutorialButton@2x.png" />
+          <Image Name="TutorialButton@3x.png" />
+          <Image Name="TutorialButton@4x.png" />
+          <Image Name="Frame.png" />
+          <Image Name="Frame@2x.png" />
+          <Image Name="Frame@3x.png" />
+          <Image Name="Frame@4x.png" />
+        </Folder>
       </RootFolder>
     </Group>
   </SolutionFolder>

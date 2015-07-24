@@ -8,8 +8,6 @@
 
 #include "Entity.h"
 
-#include "JSONPacker.h"
-
 USING_NS_CC;
 using namespace cocostudio::timeline;
 
@@ -188,8 +186,6 @@ void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState new
 void Entity::onEnter()
 {
     Node::onEnter();
-
-    this->activate();
 }
 
 void Entity::onExit()

@@ -1,4 +1,4 @@
-<UserData>
+<UserData Version="2.3.1.1">
   <Properties>
     <Item Key="PackageParamsKey">
       <Value ctype="PackageParams">
@@ -11,6 +11,7 @@
         <iOS_Target Value="DotWar iOS" />
         <iOS_BundleID Value="iPhone Developer: Ryu Tamaki (PNYZW2H6A6)" />
         <Platform Value="None" />
+        <RunPlatform Value="None" />
         <FrameworkVersion Value="cocos2d-x-3.6" />
         <IsDebugKeystore Value="True" />
         <EnableSourceMap Value="False" />
@@ -22,18 +23,6 @@
         <LastPublishType Value="XCode" />
         <IsLastPublish Value="True" />
         <LastRunType Value="Unknown" />
-      </Value>
-    </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="Enemy.csd" />
-          <FilePathData Path="Character.csd" />
-          <FilePathData Path="MenuScene.csd" />
-          <FilePathData Path="GameScene.csd" />
-          <FilePathData Path="GameResult.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="MenuScene.csd" />
       </Value>
     </Item>
   </Properties>
