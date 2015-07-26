@@ -25,5 +25,17 @@
         <LastRunType Value="Unknown" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="Enemy.csd" />
+          <FilePathData Path="Character.csd" />
+          <FilePathData Path="MenuScene.csd" />
+          <FilePathData Path="GameScene.csd" />
+          <FilePathData Path="GameResult.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="Enemy.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

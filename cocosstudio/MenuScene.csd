@@ -12,14 +12,14 @@
               <AbstractNodeData Name="Field" ActionTag="-1788363951" Tag="10" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="88.0000" RightMargin="88.0000" TopMargin="64.0000" BottomMargin="64.0000" ctype="SpriteObjectData">
                 <Size X="960.0000" Y="640.0000" />
                 <Children>
-                  <AbstractNodeData Name="MultiplayerButton" ActionTag="1168036884" Tag="20" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="501.0000" RightMargin="117.0000" TopMargin="463.5000" BottomMargin="143.5000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="10" BottomEage="10" Scale9OriginX="15" Scale9OriginY="10" Scale9Width="312" Scale9Height="13" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
-                    <Size X="342.0000" Y="33.0000" />
+                  <AbstractNodeData Name="MultiplayerButton" ActionTag="1168036884" Tag="20" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="497.0000" RightMargin="113.0000" TopMargin="455.0000" BottomMargin="135.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="10" BottomEage="10" Scale9OriginX="15" Scale9OriginY="10" Scale9Width="320" Scale9Height="30" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                    <Size X="350.0000" Y="50.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="672.0000" Y="160.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.7000" Y="0.2500" />
-                    <PreSize X="0.3562" Y="0.0516" />
+                    <PreSize X="0.3646" Y="0.0781" />
                     <TextColor A="255" R="65" G="65" B="70" />
                     <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                     <PressedFileData Type="Normal" Path="Images/MultiplayerButtonPushed@2x.png" Plist="" />
@@ -27,14 +27,14 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="SinglePlayerButton" ActionTag="-191975881" Tag="19" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="121.5000" RightMargin="505.5000" TopMargin="463.5000" BottomMargin="143.5000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="10" BottomEage="10" Scale9OriginX="15" Scale9OriginY="10" Scale9Width="303" Scale9Height="13" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
-                    <Size X="333.0000" Y="33.0000" />
+                  <AbstractNodeData Name="SinglePlayerButton" ActionTag="-191975881" Tag="19" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="113.0000" RightMargin="497.0000" TopMargin="455.0000" BottomMargin="135.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="10" BottomEage="10" Scale9OriginX="15" Scale9OriginY="10" Scale9Width="320" Scale9Height="30" OutlineSize="0" ShadowOffsetX="0.0000" ShadowOffsetY="0.0000" ctype="ButtonObjectData">
+                    <Size X="350.0000" Y="50.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="288.0000" Y="160.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.3000" Y="0.2500" />
-                    <PreSize X="0.3469" Y="0.0516" />
+                    <PreSize X="0.3646" Y="0.0781" />
                     <TextColor A="255" R="65" G="65" B="70" />
                     <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
                     <PressedFileData Type="Normal" Path="Images/StageSelectButtonPushed@2x.png" Plist="" />
@@ -42,8 +42,8 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Sprite_2" ActionTag="167790728" Tag="11" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="396.0000" RightMargin="396.0000" TopMargin="141.0000" BottomMargin="461.0000" ctype="SpriteObjectData">
-                    <Size X="168.0000" Y="38.0000" />
+                  <AbstractNodeData Name="Sprite_2" ActionTag="167790728" Tag="11" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="395.0000" RightMargin="395.0000" TopMargin="140.0000" BottomMargin="460.0000" ctype="SpriteObjectData">
+                    <Size X="170.0000" Y="40.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="480.0000" Y="480.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />

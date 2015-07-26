@@ -29,14 +29,6 @@
           <Image Name="Logo@2x.png" />
           <Image Name="Logo@3x.png" />
           <Image Name="Logo@4x.png" />
-          <Image Name="MultiplayerButtonNormal.png" />
-          <Image Name="MultiplayerButtonNormal@2x.png" />
-          <Image Name="MultiplayerButtonNormal@3x.png" />
-          <Image Name="MultiplayerButtonNormal@4x.png" />
-          <Image Name="MultiplayerButtonPushed.png" />
-          <Image Name="MultiplayerButtonPushed@2x.png" />
-          <Image Name="MultiplayerButtonPushed@3x.png" />
-          <Image Name="MultiplayerButtonPushed@4x.png" />
           <Image Name="Needle.png" />
           <Image Name="Needle@2x.png" />
           <Image Name="Needle@3x.png" />
@@ -45,14 +37,6 @@
           <Image Name="Shadow@2x.png" />
           <Image Name="Shadow@3x.png" />
           <Image Name="Shadow@4x.png" />
-          <Image Name="StageSelectButtonNormal.png" />
-          <Image Name="StageSelectButtonNormal@2x.png" />
-          <Image Name="StageSelectButtonNormal@3x.png" />
-          <Image Name="StageSelectButtonNormal@4x.png" />
-          <Image Name="StageSelectButtonPushed.png" />
-          <Image Name="StageSelectButtonPushed@2x.png" />
-          <Image Name="StageSelectButtonPushed@3x.png" />
-          <Image Name="StageSelectButtonPushed@4x.png" />
           <Image Name="TutorialButton.png" />
           <Image Name="TutorialButton@2x.png" />
           <Image Name="TutorialButton@3x.png" />
@@ -61,6 +45,22 @@
           <Image Name="Frame@2x.png" />
           <Image Name="Frame@3x.png" />
           <Image Name="Frame@4x.png" />
+          <Image Name="StageSelectButtonNormal.png" />
+          <Image Name="StageSelectButtonNormal@2x.png" />
+          <Image Name="StageSelectButtonNormal@3x.png" />
+          <Image Name="StageSelectButtonNormal@4x.png" />
+          <Image Name="StageSelectButtonPushed.png" />
+          <Image Name="StageSelectButtonPushed@2x.png" />
+          <Image Name="StageSelectButtonPushed@3x.png" />
+          <Image Name="StageSelectButtonPushed@4x.png" />
+          <Image Name="MultiplayerButtonNormal.png" />
+          <Image Name="MultiplayerButtonNormal@2x.png" />
+          <Image Name="MultiplayerButtonNormal@3x.png" />
+          <Image Name="MultiplayerButtonNormal@4x.png" />
+          <Image Name="MultiplayerButtonPushed.png" />
+          <Image Name="MultiplayerButtonPushed@2x.png" />
+          <Image Name="MultiplayerButtonPushed@3x.png" />
+          <Image Name="MultiplayerButtonPushed@4x.png" />
         </Folder>
       </RootFolder>
     </Group>
