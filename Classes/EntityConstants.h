@@ -9,4 +9,11 @@
 #ifndef DotWar_EntityConstants_h
 #define DotWar_EntityConstants_h
 
+enum class EntityType
+{
+    CIRCLE = 0,
+    TRIANGLE,
+    NONE, // This is not good way but I dont no some of better way.
+};
+
 #endif

@@ -61,7 +61,17 @@
           <Image Name="MultiplayerButtonPushed@2x.png" />
           <Image Name="MultiplayerButtonPushed@3x.png" />
           <Image Name="MultiplayerButtonPushed@4x.png" />
+          <Image Name="StageButtonNormal.png" />
+          <Image Name="StageButtonNormal@2x.png" />
+          <Image Name="StageButtonNormal@3x.png" />
+          <Image Name="StageButtonNormal@4x.png" />
+          <Image Name="StageButtonPushed.png" />
+          <Image Name="StageButtonPushed@2x.png" />
+          <Image Name="StageButtonPushed@3x.png" />
+          <Image Name="StageButtonPushed@4x.png" />
         </Folder>
+        <Project Name="StageButton.csd" Type="Node" />
+        <Project Name="StageSelectScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

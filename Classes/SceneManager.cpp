@@ -7,6 +7,7 @@
 //
 
 #include "SceneManager.h"
+#include "MenuScene.h"
 #include "GameScene.h"
 
 using namespace cocos2d;
@@ -49,7 +50,8 @@ void SceneManager::enterGameScene(bool networked)
 void SceneManager::exitGameScene()
 {
     if (gameScene) {
-        Director::getInstance()->popScene();
+        auto menuScene = MenuScene::createScene();
+        Director::getInstance()->replaceScene(menuScene);
         this->gameScene = nullptr;
         this->networkingWrapper->disconnect();
     }

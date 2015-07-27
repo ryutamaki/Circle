@@ -12,6 +12,7 @@
 
 #include "GameScene.h"
 #include "SceneManager.h"
+#include "StageSelectScene.h"
 
 USING_NS_CC;
 
@@ -74,7 +75,8 @@ void MenuScene::onEnter()
 void MenuScene::singlePlayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        SceneManager::getInstance()->enterGameScene(false);
+        auto scene = StageSelectScene::createScene();
+        Director::getInstance()->replaceScene(scene);
     }
 }
 
