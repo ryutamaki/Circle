@@ -28,6 +28,7 @@ private:
     cocos2d::ui::PageView* pageView;
     
     void onEnter() override;
+    void setupStageSelectButtons();
 
 };
 

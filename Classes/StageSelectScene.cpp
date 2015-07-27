@@ -59,6 +59,11 @@ void StageSelectScene::onEnter()
 {
     Layer::onEnter();
 
+    this->setupStageSelectButtons();
+}
+
+void StageSelectScene::setupStageSelectButtons()
+{
     const Size visibleSize = Director::getInstance()->getVisibleSize();
 
     const std::vector<Vec2> buttonPositionList = {
