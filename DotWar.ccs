@@ -73,9 +73,14 @@
           <Image Name="TriangleBody@2x.png" />
           <Image Name="TriangleBody@3x.png" />
           <Image Name="TriangleBody@4x.png" />
+          <Image Name="Coin.png" />
+          <Image Name="Coin@2x.png" />
+          <Image Name="Coin@3x.png" />
+          <Image Name="Coin@4x.png" />
         </Folder>
         <Project Name="StageButton.csd" Type="Node" />
         <Project Name="StageSelectScene.csd" Type="Scene" />
+        <Project Name="Coin.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

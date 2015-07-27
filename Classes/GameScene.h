@@ -8,6 +8,7 @@
 #include "EntityConstants.h"
 
 #include "Entity.h"
+#include "CoinContainer.h"
 
 class EnemyAI;
 
@@ -33,6 +34,8 @@ private:
 
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;
+
+    std::unique_ptr<CoinContainer> coinContainer;
 
     Entity* character;
     Entity* friendCharacter;

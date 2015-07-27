@@ -3,6 +3,7 @@
 #include "ui/CocosGUI.h"
 
 #include "EnemyAI.h"
+#include "Coin.h"
 
 #include "JSONPacker.h"
 #include "EntityFactory.h"
@@ -26,6 +27,7 @@ bool GameScene::init()
 
     this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
     this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
+    this->coinContainer = std::unique_ptr<CoinContainer>(new CoinContainer());
 
     ui::Button* lobbyButton = dynamic_cast<ui::Button*>(this->background->getChildByName("LobbyButton"));
     lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
@@ -249,6 +251,12 @@ void GameScene::update(float dt)
         currentEntityState.damage.volume = 10;
         this->character->synchronizer->sendData(currentEntityState);
 
+        // for (int i = 0; i < 10; ++i) {
+        // Coin* coin = this->coinContainer->fetchCoin();
+        // coin->setPosition(Vec2(enemyRect.getMidX() + CCRANDOM_MINUS1_1() * 10.0f, enemyRect.getMidY() + CCRANDOM_MINUS1_1() * 10.0f));
+        // this->field->addChild(coin);
+        // }
+
         if (this->character->synchronizer->getIsHost()) {
             // TODO: magic number
             this->currentEnemy->receiveDamage(10);
@@ -370,6 +378,9 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
 
 void GameScene::showResultLayerWithString(std::string result)
 {
+    // TODO: ここにあるべきではない。もっと GameOver 的な関数の中にあるべき。Rename してもいい。
+    this->unscheduleUpdate();
+
     Node* gameResult = dynamic_cast<Node*>(CSLoader::createNode("GameResult.csb"));
     gameResult->setPosition(Vec2::ZERO);
     ui::TextBMFont* resultLabel = dynamic_cast<ui::TextBMFont*>(gameResult->getChildByName("ResultLabel"));
