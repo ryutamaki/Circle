@@ -52,7 +52,7 @@ void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked
     }
 
     scene->addChild(this->gameScene);
-    Director::getInstance()->pushScene(scene);
+    Director::getInstance()->replaceScene(scene);
 }
 
 void GameSceneManager::exitGameScene()

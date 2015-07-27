@@ -62,6 +62,13 @@ void StageSelectScene::onEnter()
     this->setupStageSelectButtons();
 }
 
+void StageSelectScene::onExit()
+{
+    Layer::onExit();
+
+    this->pageView = nullptr;
+}
+
 void StageSelectScene::setupStageSelectButtons()
 {
     const Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -79,6 +86,7 @@ void StageSelectScene::setupStageSelectButtons()
 
     for (int page = 0, last = totalPageCount; page < last; ++page) {
         ui::Layout* pageLayout = ui::Layout::create();
+        // TODO: magic number
         pageLayout->setSize(Size(960, 640));
 
         for (Vec2 buttonPosition : buttonPositionList) {
@@ -97,8 +105,11 @@ void StageSelectScene::setupStageSelectButtons()
             ui::Button* stageButtonBase = dynamic_cast<ui::Button*>(stageButton->getChildByName("StageButtonBase"));
 
             if (entityType != EntityType::NONE) {
-                stageButtonBase->addTouchEventListener([&](Ref* pSender, ui::Widget::TouchEventType eEventType) {
-                    GameSceneManager::getInstance()->enterGameScene(entityType, false);
+                stageButtonBase->addTouchEventListener([entityType](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+                    if (eEventType == ui::Widget::TouchEventType::ENDED) {
+                        GameSceneManager::getInstance()->enterGameScene(entityType, false);
+                        log("entity type: %d", entityType);
+                    }
                 });
             }
 

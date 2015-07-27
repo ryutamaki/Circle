@@ -2,11 +2,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "Circle.h"
-#include "CircleReader.h"
-#include "Triangle.h"
-#include "TriangleReader.h"
-
 #include "EnemyAI.h"
 
 #include "JSONPacker.h"
@@ -26,10 +21,6 @@ bool GameScene::init()
     if (! Layer::init()) {
         return false;
     }
-
-    CSLoader* instance = CSLoader::getInstance();
-    instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
-    instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
@@ -64,7 +55,7 @@ void GameScene::setFriendCharacter(EntityType entityType)
 {
     const Size fieldSize = this->field->getContentSize();
 
-    this->friendCharacter = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
+    this->friendCharacter = EntityFactory::createEntityWithEntityType(entityType);
     this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->friendCharacter->setPosition(Size(fieldSize.width * 0.2f, fieldSize.height * 0.4f));
     this->friendCharacter->setRotation(0.0f);

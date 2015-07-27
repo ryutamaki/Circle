@@ -41,7 +41,7 @@
       <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Finish" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />
@@ -49,7 +49,7 @@
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="Normal" Path="Images/Body@2x.png" Plist="" />
+            <FileData Type="Normal" Path="Images/CircleBody@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
           <AbstractNodeData Name="Frame" ActionTag="-576101947" Tag="36" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-55.0000" BottomMargin="45.0000" ctype="SpriteObjectData">

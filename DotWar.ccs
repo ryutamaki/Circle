@@ -17,10 +17,6 @@
           <Image Name="Bar@2x.png" />
           <Image Name="Bar@3x.png" />
           <Image Name="Bar@4x.png" />
-          <Image Name="Body.png" />
-          <Image Name="Body@2x.png" />
-          <Image Name="Body@3x.png" />
-          <Image Name="Body@4x.png" />
           <Image Name="Field.png" />
           <Image Name="Field@2x.png" />
           <Image Name="Field@3x.png" />
@@ -29,10 +25,6 @@
           <Image Name="Logo@2x.png" />
           <Image Name="Logo@3x.png" />
           <Image Name="Logo@4x.png" />
-          <Image Name="Needle.png" />
-          <Image Name="Needle@2x.png" />
-          <Image Name="Needle@3x.png" />
-          <Image Name="Needle@4x.png" />
           <Image Name="Shadow.png" />
           <Image Name="Shadow@2x.png" />
           <Image Name="Shadow@3x.png" />
@@ -69,6 +61,18 @@
           <Image Name="StageButtonPushed@2x.png" />
           <Image Name="StageButtonPushed@3x.png" />
           <Image Name="StageButtonPushed@4x.png" />
+          <Image Name="CircleBody.png" />
+          <Image Name="CircleBody@2x.png" />
+          <Image Name="CircleBody@3x.png" />
+          <Image Name="CircleBody@4x.png" />
+          <Image Name="CircleNeedle.png" />
+          <Image Name="CircleNeedle@2x.png" />
+          <Image Name="CircleNeedle@3x.png" />
+          <Image Name="CircleNeedle@4x.png" />
+          <Image Name="TriangleBody.png" />
+          <Image Name="TriangleBody@2x.png" />
+          <Image Name="TriangleBody@3x.png" />
+          <Image Name="TriangleBody@4x.png" />
         </Folder>
         <Project Name="StageButton.csd" Type="Node" />
         <Project Name="StageSelectScene.csd" Type="Scene" />
