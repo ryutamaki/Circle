@@ -7,8 +7,8 @@
 
 #include "EnemyAI.h"
 
-class Character;
-class Enemy;
+class Circle;
+class Triangle;
 
 class GameScene : public cocos2d::Layer
 {
@@ -28,9 +28,9 @@ private:
     cocos2d::Sprite* field;
     cocos2d::ui::Button* lobbyButton;
 
-    Character* character;
-    Character* friendCharacter;
-    Enemy* enemy;
+    Circle* character;
+    Circle* friendCharacter;
+    Triangle* enemy;
     EnemyAI* enemyAI;
 
     void onEnter() override;

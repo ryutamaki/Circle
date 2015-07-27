@@ -20,7 +20,7 @@
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.8000" Y="0.3500" />
                     <PreSize X="0.0000" Y="0.0000" />
-                    <FileData Type="Normal" Path="Enemy.csd" Plist="" />
+                    <FileData Type="Normal" Path="Triangle.csd" Plist="" />
                   </AbstractNodeData>
                   <AbstractNodeData Name="Character" ActionTag="-609994384" Tag="65" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="9.2000" RightMargin="36.8000" TopMargin="29.9000" BottomMargin="16.1000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
                     <Size X="0.0000" Y="0.0000" />
@@ -30,7 +30,7 @@
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.2000" Y="0.3500" />
                     <PreSize X="0.0000" Y="0.0000" />
-                    <FileData Type="Normal" Path="Character.csd" Plist="" />
+                    <FileData Type="Normal" Path="Circle.csd" Plist="" />
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />

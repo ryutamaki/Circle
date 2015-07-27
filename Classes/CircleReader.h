@@ -1,22 +1,22 @@
 //
-//  EnemyReader.h
+//  CircleReader.h
 //  DotWar
 //
 //  Created by ryutamaki on 2015/07/15.
 //
 //
 
-#ifndef __DotWar__EnemyReader__
-#define __DotWar__EnemyReader__
+#ifndef __DotWar__CircleReader__
+#define __DotWar__CircleReader__
 
 #include "cocos2d.h"
 #include "cocostudio/WidgetReader/NodeReader/NodeReader.h"
 
-class EnemyReader : public cocostudio::NodeReader {
+class CircleReader : public cocostudio::NodeReader {
 public:
-    static EnemyReader* getInstance();
+    static CircleReader* getInstance();
     static void purge();
     cocos2d::Node* createNodeWithFlatBuffers(const flatbuffers::Table* nodeOptions);
 };
 
-#endif /* defined(__DotWar__Enemy__) */
+#endif /* defined(__DotWar__Circle__) */

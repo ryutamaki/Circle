@@ -1,28 +1,26 @@
 //
-// Enemy.cpp
+// Circle.cpp
 // DotWar
 //
 // Created by ryutamaki on 2015/07/15.
 //
 //
 
-#include "Enemy.h"
-
-using namespace cocostudio::timeline;
+#include "Circle.h"
 
 #pragma mark - Public methods
 
 #pragma mark Initializer
 
-bool Enemy::init()
+bool Circle::init()
 {
     if (! Entity::init()) {
         return false;
     }
 
     // load the character animation timeline
-    this->timeline = CSLoader::createTimeline("Enemy.csb");
-    // retain the character animation timeline so it doesn't get deallocated
+    this->timeline = CSLoader::createTimeline("Circle.csb");
+    // retain the haracter animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
     return true;
@@ -30,15 +28,15 @@ bool Enemy::init()
 
 #pragma mark Game logic
 
-#pragma mark - Private methods
+#pragma mark - Prvate methods
 
 #pragma mark View lifecycle
 
-void Enemy::onEnter()
+void Circle::onEnter()
 {
     Entity::onEnter();
 
-    this->initialHp = 300;
+    this->initialHp = 20;
     this->setHp(this->initialHp);
-    this->velocityFactor = 200.0f;
+    this->velocityFactor = 300.0f;
 }

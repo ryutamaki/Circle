@@ -2,10 +2,10 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "Character.h"
-#include "CharacterReader.h"
-#include "Enemy.h"
-#include "EnemyReader.h"
+#include "Circle.h"
+#include "CircleReader.h"
+#include "Triangle.h"
+#include "TriangleReader.h"
 
 #include "EnemyAI.h"
 
@@ -27,15 +27,15 @@ bool GameScene::init()
     }
 
     CSLoader* instance = CSLoader::getInstance();
-    instance->registReaderObject("CharacterReader", (ObjectFactory::Instance)CharacterReader::getInstance);
-    instance->registReaderObject("EnemyReader", (ObjectFactory::Instance)EnemyReader::getInstance);
+    instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
+    instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
     this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
     this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
-    this->character = dynamic_cast<Character*>(this->field->getChildByName("Character"));
-    this->enemy = dynamic_cast<Enemy*>(this->field->getChildByName("Enemy"));
+    this->character = dynamic_cast<Circle*>(this->field->getChildByName("Character"));
+    this->enemy = dynamic_cast<Triangle*>(this->field->getChildByName("Enemy"));
 
     this->lobbyButton = dynamic_cast<ui::Button*>(this->background->getChildByName("LobbyButton"));
     this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
@@ -112,7 +112,7 @@ void GameScene::onEnter()
     if (this->networkedSession) {
         bool isHost = SceneManager::getInstance()->isHost();
 
-        this->friendCharacter = dynamic_cast<Character*>(CSLoader::createNode("Character.csb"));
+        this->friendCharacter = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
         // TODO: magic number
         this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
         this->friendCharacter->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
@@ -176,7 +176,13 @@ void GameScene::setupTouchHandling()
                 return;
             }
 
-            this->character->setMoveStateByStartPositionAndCurrentPosition(lastTouchPosition, currentTouchPosition);
+            EntityMoveState moveState = EntityHelper::moveStateFromStartPositionAndEndPosition(lastTouchPosition, currentTouchPosition);
+
+            if (moveState == this->character->stateMachine->getMoveState()) {
+                return;
+            }
+
+            this->character->stateMachine->move(moveState);
 
             lastTouchPosition = currentTouchPosition;
         };

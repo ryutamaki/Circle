@@ -1,24 +1,24 @@
 //
-// Enemy.h
+// Triangle.h
 // DotWar
 //
 // Created by ryutamaki on 2015/07/15.
 //
 //
 
-#ifndef __DotWar__Enemy__
-#define __DotWar__Enemy__
+#ifndef __DotWar__Triangle__
+#define __DotWar__Triangle__
 
 #include "cocos2d.h"
 #include "Entity.h"
 
-class Enemy: public Entity {
+class Triangle: public Entity {
 public:
-    CREATE_FUNC(Enemy);
+    CREATE_FUNC(Triangle);
     bool init() override;
 
 private:
     void onEnter() override;
 };
 
-#endif /* defined(__DotWar__Enemy__) */
+#endif /* defined(__DotWar__Triangle__) */

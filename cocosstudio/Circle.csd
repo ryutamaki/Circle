@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Character" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.1" />
+  <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.1" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="20" Speed="1.0000" ActivedAnimationName="Damaged">
@@ -38,7 +38,7 @@
           <RenderColor A="255" R="255" G="239" B="213" />
         </AnimationInfo>
       </AnimationList>
-      <ObjectData Name="Node" CustomClassName="Character" Tag="8" ctype="GameNodeObjectData">
+      <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
           <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
