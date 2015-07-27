@@ -22,7 +22,7 @@ public:
     ~EntityFactory();
 
     static Entity* createEntityWithEntityType(EntityType entityType);
-private:
+    static cocos2d::Vector<Entity*> createEntityList(int countOfSequence, EntityType entityType);
 };
 
 #endif /* defined(__DotWar__EntityFactory__) */

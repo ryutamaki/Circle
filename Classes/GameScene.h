@@ -7,7 +7,8 @@
 #include "GameConstants.h"
 #include "EntityConstants.h"
 
-class Entity;
+#include "Entity.h"
+
 class EnemyAI;
 
 class GameScene : public cocos2d::Layer
@@ -20,7 +21,7 @@ public:
     // setup entities
     void setCharacterByEntityType(EntityType entityType);
     void setFriendCharacter(EntityType entityType);
-    void setEnemyByEntityType(EntityType entityType);
+    void setEnemyListByEntityType(EntityType entityType);
 
     // networking
     void setNetworkedSession(bool networkedSession);
@@ -35,13 +36,18 @@ private:
 
     Entity* character;
     Entity* friendCharacter;
-    Entity* enemy;
+    cocos2d::Vector<Entity*> enemyList;
+    Entity* currentEnemy;
+    int currentEnemyIndex;
     EnemyAI* enemyAI;
 
     void onEnter() override;
     void setupTouchHandling();
 
     void update(float dt) override;
+    void spawnNextEnemy();
+    void checkSpawnNextEnemy();
+    bool isLastEnemy();
     void checkGameOver();
 
     Entity* getTargetEntityByTargetString(std::string targetString);

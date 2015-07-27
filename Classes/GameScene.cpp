@@ -43,33 +43,25 @@ bool GameScene::init()
 // TODO: multi の時の味方のポジション同期をなんとかする
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
-    const Size fieldSize = this->field->getContentSize();
-
     this->character = EntityFactory::createEntityWithEntityType(entityType);
-    this->character->setPosition(Size(fieldSize.width * 0.2f, fieldSize.height * 0.5f));
+    this->character->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character);
 }
 
 void GameScene::setFriendCharacter(EntityType entityType)
 {
-    const Size fieldSize = this->field->getContentSize();
-
     this->friendCharacter = EntityFactory::createEntityWithEntityType(entityType);
     this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
-    this->friendCharacter->setPosition(Size(fieldSize.width * 0.2f, fieldSize.height * 0.4f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter);
 }
 
-void GameScene::setEnemyByEntityType(EntityType entityType)
+void GameScene::setEnemyListByEntityType(EntityType entityType)
 {
-    const Size fieldSize = this->field->getContentSize();
-
-    this->enemy = EntityFactory::createEntityWithEntityType(entityType);
-    this->enemy->setPosition(Size(fieldSize.width * 0.8f, fieldSize.height * 0.5f));
-    this->enemy->setRotation(180.0f);
-    this->field->addChild(this->enemy);
+    // TODO: magic number
+    this->enemyList = EntityFactory::createEntityList(5, entityType);
+    this->currentEnemyIndex = 0;
 }
 
 #pragma mark Networking
@@ -147,27 +139,12 @@ void GameScene::onEnter()
         this->friendCharacter->synchronizer->setIsMyself(false);
 
         // sync settings for an enemy
-        this->enemy->setIdentifier("Enemy");
-        this->enemy->synchronizer->setIsSendData(isHost);
-        this->enemy->synchronizer->setIsHost(false);
-        this->enemy->synchronizer->setIsMyself(false);
-
-        if (isHost) {
-            cocos2d::Vector<Entity*> opponents;
-            opponents.pushBack(this->character);
-            this->enemyAI = new EnemyAI(this->enemy, opponents);
-            this->addChild(this->enemyAI);
-        }
-    } else {
-        cocos2d::Vector<Entity*> opponents;
-        opponents.pushBack(this->character);
-        this->enemyAI = new EnemyAI(this->enemy, opponents);
-        this->addChild(this->enemyAI);
+        this->currentEnemy->synchronizer->setIsSendData(isHost);
+        this->currentEnemy->synchronizer->setIsHost(false);
+        this->currentEnemy->synchronizer->setIsMyself(false);
     }
 
     this->setupTouchHandling();
-
-    this->scheduleUpdate();
 }
 
 void GameScene::setupTouchHandling()
@@ -262,7 +239,7 @@ void GameScene::update(float dt)
 
     // this rects does not effected by animations
     Rect characterRect = this->character->getRect();
-    Rect enemyRect = this->enemy->getRect();
+    Rect enemyRect = this->currentEnemy->getRect();
 
     // TODO: magic number
     if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
@@ -274,26 +251,81 @@ void GameScene::update(float dt)
 
         if (this->character->synchronizer->getIsHost()) {
             // TODO: magic number
-            this->enemy->receiveDamage(10);
+            this->currentEnemy->receiveDamage(10);
 
-            JSONPacker::EntityState currentEntityState = this->enemy->currentEntityState();
-            this->enemy->synchronizer->sendDataIfNotHost(currentEntityState);
+            JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
+            this->currentEnemy->synchronizer->sendDataIfNotHost(currentEntityState);
         }
 
         // Change attack state at last
         this->character->stateMachine->hitAttack();
     }
     // TODO: magic number
-    else if (this->enemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
+    else if (this->currentEnemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
              enemyRect.origin.distance(characterRect.origin) < 120.0f) {
-        this->enemy->stateMachine->hitAttack();
+        this->currentEnemy->stateMachine->hitAttack();
         // TODO: magic number
         this->character->receiveDamage(10);
         JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
         this->character->synchronizer->sendData(currentCharacterState);
     }
 
+    this->checkSpawnNextEnemy();
     this->checkGameOver();
+}
+
+void GameScene::spawnNextEnemy()
+{
+    if (this->isLastEnemy()) {
+        return;
+    }
+
+    // Flash current enemy first
+    if (this->currentEnemy) {
+        this->currentEnemy->removeFromParent();
+        this->currentEnemy = nullptr;
+        this->enemyAI->removeFromParent();
+        this->enemyAI = nullptr;
+    }
+
+    // pop next enemy from enemy queue
+    this->currentEnemy = this->enemyList.at(this->currentEnemyIndex);
+
+    // set properties
+    // TODO: magic number
+    this->currentEnemy->setIdentifier("Enemy");
+    this->currentEnemy->setNormalizedPosition(Vec2(0.8f, 0.5f));
+    this->currentEnemy->setRotation(180.0f);
+    this->field->addChild(this->currentEnemy);
+
+    // setup enemyAI
+    if (GameSceneManager::getInstance()->isHost()) {
+        cocos2d::Vector<Entity*> opponents;
+        opponents.pushBack(this->character);
+        this->enemyAI = new EnemyAI(this->currentEnemy, opponents);
+        this->addChild(this->enemyAI);
+    }
+
+    // activate enemy
+    this->currentEnemy->activate();
+    this->enemyAI->start();
+
+    ++this->currentEnemyIndex;
+}
+
+void GameScene::checkSpawnNextEnemy()
+{
+    if (this->currentEnemy->getIsDead()) {
+        this->spawnNextEnemy();
+    }
+}
+
+bool GameScene::isLastEnemy()
+{
+    if (this->currentEnemyIndex >= this->enemyList.size()) {
+        return true;
+    }
+    return false;
 }
 
 void GameScene::checkGameOver()
@@ -308,7 +340,7 @@ void GameScene::checkGameOver()
         }
     }
 
-    if (this->enemy->getIsDead()) {
+    if (this->isLastEnemy() && this->currentEnemy->getIsDead()) {
         this->showResultLayerWithString("YOU WIN");
     }
 }
@@ -391,17 +423,17 @@ void GameScene::start()
 {
     this->gameState = GameState::PLAYING;
 
-    if (this->enemyAI) {
-        this->enemyAI->start();
-    }
     this->character->activate();
-    this->enemy->activate();
 
     if (this->friendCharacter) {
         this->friendCharacter->activate();
     }
 
+    this->spawnNextEnemy();
+
     this->background->removeChildByName("LobbyButton");
+
+    this->scheduleUpdate();
 
     if (this->character) {
         log("%s, host: %d, myself: %d, senddata: %d, isdead: %d",

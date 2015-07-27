@@ -19,10 +19,10 @@ bool Entity::init()
         return false;
     }
 
-    this->stateMachine = new EntityStateMachine();
+    this->stateMachine = std::unique_ptr<EntityStateMachine>(new EntityStateMachine());
     this->stateMachine->setDelegate(this);
 
-    this->synchronizer = new EntitySynchronizer();
+    this->synchronizer = std::unique_ptr<EntitySynchronizer>(new EntitySynchronizer());
 
     this->velocity = Vec2::ZERO;
 

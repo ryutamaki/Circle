@@ -21,9 +21,9 @@ class Entity : public cocos2d::Node, public EntityStateMachineDelegate
 {
 public:
     // This stateMachine is opened to the public
-    EntityStateMachine* stateMachine;
+    std::unique_ptr<EntityStateMachine> stateMachine;
     // This synchronizer manage data synchronizing when you play multiplayer mode
-    EntitySynchronizer* synchronizer;
+    std::unique_ptr<EntitySynchronizer> synchronizer;
 
     CREATE_FUNC(Entity);
 

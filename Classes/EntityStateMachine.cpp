@@ -16,10 +16,12 @@
 EntityStateMachine::EntityStateMachine()
     : moveState(EntityMoveState::NONE)
     , attackState(EntityAttackState::NONE)
-{}
+{
+}
 
 EntityStateMachine::~EntityStateMachine()
-{}
+{
+}
 
 #pragma mark Accessor
 

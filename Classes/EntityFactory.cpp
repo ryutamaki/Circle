@@ -51,4 +51,14 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
     return nullptr;
 }
 
-#pragma mark - Private methods
+Vector<Entity*> EntityFactory::createEntityList(int countOfSequence, EntityType entityType)
+{
+    Vector<Entity*> entityQueue;
+
+    for (int i = 0; i < countOfSequence; ++i) {
+        Entity* entity = EntityFactory::createEntityWithEntityType(entityType);
+        entityQueue.pushBack(entity);
+    }
+
+    return entityQueue;
+}
