@@ -292,14 +292,8 @@
 			children = (
 				03917D661B56F7FC0068BCA6 /* MenuScene.cpp */,
 				03917D671B56F7FC0068BCA6 /* MenuScene.h */,
-				46880B8619C43A87006E1F66 /* GameScene.cpp */,
-				46880B8719C43A87006E1F66 /* GameScene.h */,
-				0399AB4C1B655C590069507F /* StageSelectScene.cpp */,
-				0399AB4D1B655C590069507F /* StageSelectScene.h */,
-				03D709921B657BD70056912B /* StageButton.cpp */,
-				03D709931B657BD70056912B /* StageButton.h */,
-				03D709941B657BD70056912B /* StageButtonReader.cpp */,
-				03D709951B657BD70056912B /* StageButtonReader.h */,
+				03D709A01B6606450056912B /* GameScene */,
+				03D709A11B6606500056912B /* SelectStageScene */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -335,6 +329,30 @@
 				03B167C21B59C085005D1FF6 /* libcocos2d iOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		03D709A01B6606450056912B /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				03917D791B56FE220068BCA6 /* GameSceneManager.cpp */,
+				03917D7A1B56FE220068BCA6 /* GameSceneManager.h */,
+				46880B8619C43A87006E1F66 /* GameScene.cpp */,
+				46880B8719C43A87006E1F66 /* GameScene.h */,
+			);
+			name = GameScene;
+			sourceTree = "<group>";
+		};
+		03D709A11B6606500056912B /* SelectStageScene */ = {
+			isa = PBXGroup;
+			children = (
+				0399AB4C1B655C590069507F /* StageSelectScene.cpp */,
+				0399AB4D1B655C590069507F /* StageSelectScene.h */,
+				03D709921B657BD70056912B /* StageButton.cpp */,
+				03D709931B657BD70056912B /* StageButton.h */,
+				03D709941B657BD70056912B /* StageButtonReader.cpp */,
+				03D709951B657BD70056912B /* StageButtonReader.h */,
+			);
+			name = SelectStageScene;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* ios */ = {
@@ -415,8 +433,6 @@
 				03B167B91B59928F005D1FF6 /* GameConstants.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				03917D791B56FE220068BCA6 /* GameSceneManager.cpp */,
-				03917D7A1B56FE220068BCA6 /* GameSceneManager.h */,
 				03917D771B56FD610068BCA6 /* Scenes */,
 				03917D761B56FD510068BCA6 /* Entities */,
 				03917D7D1B57126A0068BCA6 /* Utility */,
