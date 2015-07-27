@@ -8,6 +8,9 @@
 
 #include "StageButton.h"
 
+#include "EntityFactory.h"
+#include "Entity.h"
+
 #pragma mark - Public methods
 
 #pragma mark Initializer
@@ -31,6 +34,8 @@ bool StageButton::init()
 void StageButton::setEntityType(EntityType entityType)
 {
     this->entityType = entityType;
+
+    this->attachEntity(entityType);
 }
 
 EntityType StageButton::getEntityType()
@@ -39,3 +44,14 @@ EntityType StageButton::getEntityType()
 }
 
 #pragma mark - Private methods
+
+void StageButton::attachEntity(EntityType eEntityType)
+{
+    Entity* entity = EntityFactory::createEntityWithEntityType(eEntityType);
+
+    if (entity != nullptr) {
+        this->addChild(entity);
+    } else {
+        // TODO: no object
+    }
+}

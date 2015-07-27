@@ -11,28 +11,6 @@
             <Children>
               <AbstractNodeData Name="Field" ActionTag="-1430883737" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="88.0000" RightMargin="88.0000" TopMargin="64.0000" BottomMargin="64.0000" ctype="SpriteObjectData">
                 <Size X="960.0000" Y="640.0000" />
-                <Children>
-                  <AbstractNodeData Name="Enemy" ActionTag="-834347652" Tag="54" Rotation="180.0000" RotationSkewX="180.0000" RotationSkewY="180.0000" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="36.8000" RightMargin="9.2000" TopMargin="29.9000" BottomMargin="16.1000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
-                    <Size X="0.0000" Y="0.0000" />
-                    <AnchorPoint />
-                    <Position X="767.9999" Y="224.0000" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.8000" Y="0.3500" />
-                    <PreSize X="0.0000" Y="0.0000" />
-                    <FileData Type="Normal" Path="Triangle.csd" Plist="" />
-                  </AbstractNodeData>
-                  <AbstractNodeData Name="Character" ActionTag="-609994384" Tag="65" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="9.2000" RightMargin="36.8000" TopMargin="29.9000" BottomMargin="16.1000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
-                    <Size X="0.0000" Y="0.0000" />
-                    <AnchorPoint />
-                    <Position X="192.0000" Y="224.0000" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.2000" Y="0.3500" />
-                    <PreSize X="0.0000" Y="0.0000" />
-                    <FileData Type="Normal" Path="Circle.csd" Plist="" />
-                  </AbstractNodeData>
-                </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="568.0000" Y="384.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />

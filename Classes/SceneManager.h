@@ -12,6 +12,8 @@
 #include "cocos2d.h"
 #include "NetworkingWrapper.h"
 
+#include "EntityConstants.h"
+
 class GameScene;
 
 class SceneManager : public NetworkingDelegate
@@ -19,7 +21,7 @@ class SceneManager : public NetworkingDelegate
 public:
     static SceneManager* getInstance();
 
-    void enterGameScene(bool networked);
+    void enterGameScene(EntityType enemyEntityType, bool networked);
     void exitGameScene();
     void showPeerList();
     void receiveMultiplayerInvitations();

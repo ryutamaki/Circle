@@ -10,7 +10,6 @@
 #define __DotWar__Circle__
 
 #include "cocos2d.h"
-#include "EntityConstants.h"
 
 #include "Entity.h"
 

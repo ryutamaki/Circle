@@ -3,12 +3,12 @@
 
 #include "cocos2d.h"
 #include "CocosGUI.h"
+
 #include "GameConstants.h"
+#include "EntityConstants.h"
 
-#include "EnemyAI.h"
-
-class Circle;
-class Triangle;
+class Entity;
+class EnemyAI;
 
 class GameScene : public cocos2d::Layer
 {
@@ -17,6 +17,11 @@ public:
 
     CREATE_FUNC(GameScene);
 
+    //
+    void setCharacterByEntityType(EntityType entityType);
+    void setEnemyByEntityType(EntityType entityType);
+
+    // networking
     void setNetworkedSession(bool networkedSession);
     void receivedData(const void* data, unsigned long length);
 
@@ -26,11 +31,10 @@ private:
 
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;
-    cocos2d::ui::Button* lobbyButton;
 
-    Circle* character;
-    Circle* friendCharacter;
-    Triangle* enemy;
+    Entity* character;
+    Entity* friendCharacter;
+    Entity* enemy;
     EnemyAI* enemyAI;
 
     void onEnter() override;

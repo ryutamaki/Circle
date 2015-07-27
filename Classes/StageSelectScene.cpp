@@ -83,7 +83,7 @@ void StageSelectScene::setupStageSelectButtons()
 
         for (Vec2 buttonPosition : buttonPositionList) {
             auto it = std::find(buttonPositionList.begin(), buttonPositionList.end(), buttonPosition);
-            long buttonPositionIndex = std::distance(buttonPositionList.begin(), it) - 1;
+            long buttonPositionIndex = std::distance(buttonPositionList.begin(), it);
             CCASSERT(buttonPositionIndex != buttonPositionList.size(), "Index out of range");
 
             EntityType entityType = (EntityType)(page * buttonPositionList.size() + buttonPositionIndex);
@@ -95,9 +95,12 @@ void StageSelectScene::setupStageSelectButtons()
             StageButton* stageButton = dynamic_cast<StageButton*>(CSLoader::createNode("StageButton.csb"));
             stageButton->setEntityType(entityType);
             ui::Button* stageButtonBase = dynamic_cast<ui::Button*>(stageButton->getChildByName("StageButtonBase"));
-            stageButtonBase->addTouchEventListener([&](Ref* pSender, ui::Widget::TouchEventType eEventType) {
-                SceneManager::getInstance()->enterGameScene(false);
-            });
+
+            if (entityType != EntityType::NONE) {
+                stageButtonBase->addTouchEventListener([&](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+                    SceneManager::getInstance()->enterGameScene(entityType, false);
+                });
+            }
 
             stageButton->setPosition(buttonPosition);
             pageLayout->addChild(stageButton);

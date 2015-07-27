@@ -37,11 +37,13 @@ SceneManager::~SceneManager()
 
 #pragma mark - Public methods
 
-void SceneManager::enterGameScene(bool networked)
+void SceneManager::enterGameScene(EntityType enemyEntityType, bool networked)
 {
     Scene* scene = Scene::create();
     this->gameScene = GameScene::create();
     this->gameScene->setNetworkedSession(networked);
+    this->gameScene->setCharacterByEntityType(EntityType::CIRCLE);
+    this->gameScene->setEnemyByEntityType(enemyEntityType);
 
     scene->addChild(this->gameScene);
     Director::getInstance()->pushScene(scene);
@@ -129,7 +131,7 @@ void SceneManager::stateChanged(ConnectionState state)
 
             if (! this->gameScene) {
                 this->networkingWrapper->stopAdvertisingAvailability();
-                this->enterGameScene(true);
+                this->enterGameScene(EntityType::TRIANGLE, true);
             }
             break;
 

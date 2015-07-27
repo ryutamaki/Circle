@@ -276,6 +276,8 @@
 				038DE7691B60A71B00F1C861 /* EntitySynchronizer.h */,
 				039659B71B5F113E006E587B /* EntityHelper.cpp */,
 				039659B81B5F113E006E587B /* EntityHelper.h */,
+				03D7099C1B6582210056912B /* EntityFactory.cpp */,
+				03D7099D1B6582210056912B /* EntityFactory.h */,
 				03917D821B57230B0068BCA6 /* Entity.cpp */,
 				03917D831B57230B0068BCA6 /* Entity.h */,
 				034F41061B5D529E00167F16 /* EnemyAI.cpp */,
@@ -629,6 +631,7 @@
 				03917D841B57230B0068BCA6 /* Entity.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				0399AB4E1B655C590069507F /* StageSelectScene.cpp in Sources */,
+				03D7099E1B6582210056912B /* EntityFactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +641,7 @@
 			files = (
 				03917D631B56EDC60068BCA6 /* Triangle.cpp in Sources */,
 				03917D691B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
+				03D7099F1B6582210056912B /* EntityFactory.cpp in Sources */,
 				034F41091B5D529E00167F16 /* EnemyAI.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,

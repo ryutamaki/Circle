@@ -10,6 +10,7 @@
 #include "EnemyAI.h"
 
 #include "JSONPacker.h"
+#include "EntityFactory.h"
 #include "SceneManager.h"
 
 USING_NS_CC;
@@ -34,11 +35,9 @@ bool GameScene::init()
 
     this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
     this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
-    this->character = dynamic_cast<Circle*>(this->field->getChildByName("Character"));
-    this->enemy = dynamic_cast<Triangle*>(this->field->getChildByName("Enemy"));
 
-    this->lobbyButton = dynamic_cast<ui::Button*>(this->background->getChildByName("LobbyButton"));
-    this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
+    ui::Button* lobbyButton = dynamic_cast<ui::Button*>(this->background->getChildByName("LobbyButton"));
+    lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
 
     addChild(rootNode);
 
@@ -46,6 +45,28 @@ bool GameScene::init()
     this->gameState = GameState::PREPARE;
 
     return true;
+}
+
+#pragma mark Entity setup
+
+void GameScene::setCharacterByEntityType(EntityType entityType)
+{
+    const Size fieldSize = this->field->getContentSize();
+
+    this->character = EntityFactory::createEntityWithEntityType(entityType);
+    this->character->setPosition(Size(fieldSize.width * 0.2f, fieldSize.height * 0.5f));
+    this->character->setRotation(0.0f);
+    this->field->addChild(this->character);
+}
+
+void GameScene::setEnemyByEntityType(EntityType entityType)
+{
+    const Size fieldSize = this->field->getContentSize();
+
+    this->enemy = EntityFactory::createEntityWithEntityType(entityType);
+    this->enemy->setPosition(Size(fieldSize.width * 0.8f, fieldSize.height * 0.5f));
+    this->enemy->setRotation(180.0f);
+    this->field->addChild(this->enemy);
 }
 
 #pragma mark Networking

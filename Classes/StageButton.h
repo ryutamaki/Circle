@@ -27,6 +27,8 @@ protected:
 
     EntityType entityType;
 
+    void attachEntity(EntityType entityType);
+
 };
 
 #endif /* defined(__DotWar__StageButton__) */
