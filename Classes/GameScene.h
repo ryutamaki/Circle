@@ -47,17 +47,19 @@ private:
     void onEnter() override;
     void setupTouchHandling();
 
+    // game logic
     void update(float dt) override;
     void spawnNextEnemy();
     void checkSpawnNextEnemy();
     bool isLastEnemy();
+    void gameover(bool isWin);
     void checkGameOver();
-
     Entity* getTargetEntityByTargetString(std::string targetString);
-    void showResultLayerWithString(std::string result);
+
+    // transitions
+    void showResultLayer(bool isWin);
 
     void readyToStart(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
-    void backToMenu(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void tryToStart();
     void start();
 

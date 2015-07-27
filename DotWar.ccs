@@ -7,7 +7,7 @@
         <Project Name="Circle.csd" Type="Node" />
         <Project Name="Triangle.csd" Type="Node" />
         <Project Name="MenuScene.csd" Type="Scene" />
-        <Project Name="GameResult.csd" Type="Layer" />
+        <Project Name="GameResultLayer.csd" Type="Layer" />
         <Folder Name="Images">
           <Image Name="Background.png" />
           <Image Name="Background@2x.png" />

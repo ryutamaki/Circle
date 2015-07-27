@@ -4,6 +4,8 @@
 
 #include "EnemyAI.h"
 #include "Coin.h"
+#include "GameResultLayer.h"
+#include "GameResultLayerReader.h"
 
 #include "JSONPacker.h"
 #include "EntityFactory.h"
@@ -156,6 +158,9 @@ void GameScene::setupTouchHandling()
 
     EventListenerTouchOneByOne* touchListenerForMove = EventListenerTouchOneByOne::create();
     touchListenerForMove->onTouchBegan = [this](Touch* touch, Event* event) {
+            if (this->gameState == GameState::RESULT) {
+                return false;
+            }
             Vec2 position = this->convertTouchToNodeSpace(touch);
 
             if (position.x < Director::getInstance()->getVisibleSize().width * 0.5f) {
@@ -192,6 +197,9 @@ void GameScene::setupTouchHandling()
 
     EventListenerTouchOneByOne* touchListenerForAttack = EventListenerTouchOneByOne::create();
     touchListenerForAttack->onTouchBegan = [&](Touch* touch, Event* event) {
+            if (this->gameState == GameState::RESULT) {
+                return false;
+            }
             Vec2 position = this->convertTouchToNodeSpace(touch);
 
             if (position.x >= Director::getInstance()->getVisibleSize().width * 0.5f) {
@@ -336,20 +344,28 @@ bool GameScene::isLastEnemy()
     return false;
 }
 
+void GameScene::gameover(bool isWin)
+{
+    this->gameState = GameState::RESULT;
+    this->unscheduleUpdate();
+
+    this->showResultLayer(isWin);
+}
+
 void GameScene::checkGameOver()
 {
     if (this->networkedSession) {
         if (this->character->getIsDead() && this->friendCharacter->getIsDead()) {
-            this->showResultLayerWithString("YOU LOSE");
+            this->gameover(false);
         }
     } else {
         if (this->character->getIsDead()) {
-            this->showResultLayerWithString("YOU LOSE");
+            this->gameover(false);
         }
     }
 
     if (this->isLastEnemy() && this->currentEnemy->getIsDead()) {
-        this->showResultLayerWithString("YOU WIN");
+        this->gameover(true);
     }
 }
 
@@ -376,17 +392,14 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
     return target;
 }
 
-void GameScene::showResultLayerWithString(std::string result)
-{
-    // TODO: ここにあるべきではない。もっと GameOver 的な関数の中にあるべき。Rename してもいい。
-    this->unscheduleUpdate();
+#pragma mark Transitions
 
-    Node* gameResult = dynamic_cast<Node*>(CSLoader::createNode("GameResult.csb"));
+void GameScene::showResultLayer(bool isWin)
+{
+    CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
+    GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
     gameResult->setPosition(Vec2::ZERO);
-    ui::TextBMFont* resultLabel = dynamic_cast<ui::TextBMFont*>(gameResult->getChildByName("ResultLabel"));
-    resultLabel->setString(result);
-    ui::Button* backButton = dynamic_cast<ui::Button*>(gameResult->getChildByName("BackButton"));
-    backButton->addTouchEventListener(CC_CALLBACK_2(GameScene::backToMenu, this));
+    gameResult->setIsWin(isWin);
     this->background->addChild(gameResult);
 }
 
@@ -402,13 +415,6 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
         this->character->setIdentifier(GameSceneManager::getInstance()->getUniqueIdentifier());
         this->character->synchronizer->sendData(entityReadyState);
         this->tryToStart();
-    }
-}
-
-void GameScene::backToMenu(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
-{
-    if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        GameSceneManager::getInstance()->exitGameScene();
     }
 }
 
