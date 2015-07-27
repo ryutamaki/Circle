@@ -12,7 +12,7 @@
 #include "StageButtonReader.h"
 
 #include "EntityConstants.h"
-#include "SceneManager.h"
+#include "GameSceneManager.h"
 
 USING_NS_CC;
 
@@ -98,7 +98,7 @@ void StageSelectScene::setupStageSelectButtons()
 
             if (entityType != EntityType::NONE) {
                 stageButtonBase->addTouchEventListener([&](Ref* pSender, ui::Widget::TouchEventType eEventType) {
-                    SceneManager::getInstance()->enterGameScene(entityType, false);
+                    GameSceneManager::getInstance()->enterGameScene(entityType, false);
                 });
             }
 

@@ -26,8 +26,8 @@
 		03917D721B56FD030068BCA6 /* NetworkManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03917D6E1B56FD030068BCA6 /* NetworkManager.mm */; };
 		03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 03917D6E1B56FD030068BCA6 /* NetworkManager.mm */; };
 		03917D751B56FD2C0068BCA6 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03917D741B56FD2C0068BCA6 /* MultipeerConnectivity.framework */; };
-		03917D7B1B56FE220068BCA6 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D791B56FE220068BCA6 /* SceneManager.cpp */; };
-		03917D7C1B56FE220068BCA6 /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D791B56FE220068BCA6 /* SceneManager.cpp */; };
+		03917D7B1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D791B56FE220068BCA6 /* GameSceneManager.cpp */; };
+		03917D7C1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D791B56FE220068BCA6 /* GameSceneManager.cpp */; };
 		03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D7E1B5712800068BCA6 /* JSONPacker.cpp */; };
 		03917D811B5712800068BCA6 /* JSONPacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D7E1B5712800068BCA6 /* JSONPacker.cpp */; };
 		03917D841B57230B0068BCA6 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03917D821B57230B0068BCA6 /* Entity.cpp */; };
@@ -137,8 +137,8 @@
 		03917D6E1B56FD030068BCA6 /* NetworkManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkManager.mm; sourceTree = "<group>"; };
 		03917D6F1B56FD030068BCA6 /* NetworkManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManagerDelegate.h; sourceTree = "<group>"; };
 		03917D741B56FD2C0068BCA6 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = DEVELOPER_DIR; };
-		03917D791B56FE220068BCA6 /* SceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneManager.cpp; sourceTree = "<group>"; };
-		03917D7A1B56FE220068BCA6 /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
+		03917D791B56FE220068BCA6 /* GameSceneManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameSceneManager.cpp; sourceTree = "<group>"; };
+		03917D7A1B56FE220068BCA6 /* GameSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSceneManager.h; sourceTree = "<group>"; };
 		03917D7E1B5712800068BCA6 /* JSONPacker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONPacker.cpp; sourceTree = "<group>"; };
 		03917D7F1B5712800068BCA6 /* JSONPacker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONPacker.h; sourceTree = "<group>"; };
 		03917D821B57230B0068BCA6 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
@@ -415,8 +415,8 @@
 				03B167B91B59928F005D1FF6 /* GameConstants.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				03917D791B56FE220068BCA6 /* SceneManager.cpp */,
-				03917D7A1B56FE220068BCA6 /* SceneManager.h */,
+				03917D791B56FE220068BCA6 /* GameSceneManager.cpp */,
+				03917D7A1B56FE220068BCA6 /* GameSceneManager.h */,
 				03917D771B56FD610068BCA6 /* Scenes */,
 				03917D761B56FD510068BCA6 /* Entities */,
 				03917D7D1B57126A0068BCA6 /* Utility */,
@@ -627,7 +627,7 @@
 				03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				03917D721B56FD030068BCA6 /* NetworkManager.mm in Sources */,
-				03917D7B1B56FE220068BCA6 /* SceneManager.cpp in Sources */,
+				03917D7B1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */,
 				03917D841B57230B0068BCA6 /* Entity.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				0399AB4E1B655C590069507F /* StageSelectScene.cpp in Sources */,
@@ -653,7 +653,7 @@
 				03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				03917D651B56EDC60068BCA6 /* TriangleReader.cpp in Sources */,
 				03917D5A1B56C9B90068BCA6 /* CircleReader.cpp in Sources */,
-				03917D7C1B56FE220068BCA6 /* SceneManager.cpp in Sources */,
+				03917D7C1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */,
 				03917D851B57230B0068BCA6 /* Entity.cpp in Sources */,
 				03917D711B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D581B56C9B90068BCA6 /* Circle.cpp in Sources */,

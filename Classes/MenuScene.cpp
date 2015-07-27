@@ -11,7 +11,7 @@
 #include "ui/CocosGUI.h"
 
 #include "GameScene.h"
-#include "SceneManager.h"
+#include "GameSceneManager.h"
 #include "StageSelectScene.h"
 
 USING_NS_CC;
@@ -67,7 +67,7 @@ void MenuScene::onEnter()
 
     // This will start observing to find peers.
     // Set self.peerID in NetworkManager also.
-    SceneManager::getInstance()->receiveMultiplayerInvitations();
+    GameSceneManager::getInstance()->receiveMultiplayerInvitations();
 }
 
 #pragma mark Callbacks
@@ -83,6 +83,6 @@ void MenuScene::singlePlayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Wid
 void MenuScene::multiplayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        SceneManager::getInstance()->showPeerList();
+        GameSceneManager::getInstance()->showPeerList();
     }
 }

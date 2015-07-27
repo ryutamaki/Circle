@@ -1,13 +1,13 @@
 //
-//  SceneManager.h
+//  GameSceneManager.h
 //  Tetrominos
 //
 //  Created by ryutamaki on 2015/07/01.
 //
 //
 
-#ifndef __Tetrominos___SceneManager__
-#define __Tetrominos___SceneManager__
+#ifndef __Tetrominos___GameSceneManager__
+#define __Tetrominos___GameSceneManager__
 
 #include "cocos2d.h"
 #include "NetworkingWrapper.h"
@@ -16,10 +16,10 @@
 
 class GameScene;
 
-class SceneManager : public NetworkingDelegate
+class GameSceneManager : public NetworkingDelegate
 {
 public:
-    static SceneManager* getInstance();
+    static GameSceneManager* getInstance();
 
     void enterGameScene(EntityType enemyEntityType, bool networked);
     void exitGameScene();
@@ -37,12 +37,12 @@ protected:
     std::unique_ptr<NetworkingWrapper> networkingWrapper;
     GameScene* gameScene;
 
-    SceneManager();
-    ~SceneManager();
+    GameSceneManager();
+    ~GameSceneManager();
 
     void receivedData(const void* data, unsigned long length);
     void stateChanged(ConnectionState state) override;
 
 };
 
-#endif /* defined(__Tetrominos___SceneManager__) */
+#endif /* defined(__Tetrominos___GameSceneManager__) */

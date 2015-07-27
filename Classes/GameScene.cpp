@@ -11,7 +11,7 @@
 
 #include "JSONPacker.h"
 #include "EntityFactory.h"
-#include "SceneManager.h"
+#include "GameSceneManager.h"
 
 USING_NS_CC;
 
@@ -131,7 +131,7 @@ void GameScene::onEnter()
     Layer::onEnter();
 
     if (this->networkedSession) {
-        bool isHost = SceneManager::getInstance()->isHost();
+        bool isHost = GameSceneManager::getInstance()->isHost();
 
         this->friendCharacter = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
         // TODO: magic number
@@ -357,10 +357,10 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
         this->character->synchronizer->setIsReadyToPlay(true);
 
         JSONPacker::EntityReadyState entityReadyState;
-        entityReadyState.identifier = SceneManager::getInstance()->getUniqueIdentifier();
+        entityReadyState.identifier = GameSceneManager::getInstance()->getUniqueIdentifier();
         entityReadyState.isReady = this->character->synchronizer->getIsReadyToPlay();
 
-        this->character->setIdentifier(SceneManager::getInstance()->getUniqueIdentifier());
+        this->character->setIdentifier(GameSceneManager::getInstance()->getUniqueIdentifier());
         this->character->synchronizer->sendData(entityReadyState);
         this->tryToStart();
     }
@@ -369,7 +369,7 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
 void GameScene::backToMenu(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        SceneManager::getInstance()->exitGameScene();
+        GameSceneManager::getInstance()->exitGameScene();
     }
 }
 

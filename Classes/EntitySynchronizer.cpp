@@ -8,7 +8,7 @@
 
 #include "EntitySynchronizer.h"
 
-#include "SceneManager.h"
+#include "GameSceneManager.h"
 
 #pragma mark - Public methods
 
@@ -83,13 +83,13 @@ void EntitySynchronizer::sendData(JSONPacker::EntityState entityState)
     }
 
     std::string json = JSONPacker::packEntityState(entityState);
-    SceneManager::getInstance()->sendData(json.c_str(), json.length());
+    GameSceneManager::getInstance()->sendData(json.c_str(), json.length());
 }
 
 void EntitySynchronizer::sendData(JSONPacker::EntityReadyState entityReadyState)
 {
     std::string json = JSONPacker::packEntityReadyState(entityReadyState);
-    SceneManager::getInstance()->sendData(json.c_str(), json.length());
+    GameSceneManager::getInstance()->sendData(json.c_str(), json.length());
 }
 
 void EntitySynchronizer::sendDataIfNotHost(JSONPacker::EntityState entityState)
@@ -105,7 +105,7 @@ void EntitySynchronizer::sendDataIfNotHost(JSONPacker::EntityState entityState)
     }
 
     std::string json = JSONPacker::packEntityState(entityState);
-    SceneManager::getInstance()->sendData(json.c_str(), json.length());
+    GameSceneManager::getInstance()->sendData(json.c_str(), json.length());
 }
 
 #pragma mark - Private methods

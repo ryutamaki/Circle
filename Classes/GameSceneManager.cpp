@@ -1,29 +1,29 @@
 //
-// SceneManager.cpp
+// GameSceneManager.cpp
 // Tetrominos
 //
 // Created by ryutamaki on 2015/07/01.
 //
 //
 
-#include "SceneManager.h"
+#include "GameSceneManager.h"
 #include "MenuScene.h"
 #include "GameScene.h"
 
 using namespace cocos2d;
 
-static SceneManager* sharedSceneManager;
+static GameSceneManager* sharedGameSceneManager;
 
-SceneManager* SceneManager::getInstance()
+GameSceneManager* GameSceneManager::getInstance()
 {
-    if (! sharedSceneManager) {
-        sharedSceneManager = new (std::nothrow)SceneManager();
+    if (! sharedGameSceneManager) {
+        sharedGameSceneManager = new (std::nothrow)GameSceneManager();
     }
 
-    return sharedSceneManager;
+    return sharedGameSceneManager;
 }
 
-SceneManager::SceneManager()
+GameSceneManager::GameSceneManager()
 {
     this->networkingWrapper = std::unique_ptr<NetworkingWrapper>(new NetworkingWrapper());
     this->networkingWrapper->setDelegate(this);
@@ -31,13 +31,13 @@ SceneManager::SceneManager()
     this->gameScene = nullptr;
 }
 
-SceneManager::~SceneManager()
+GameSceneManager::~GameSceneManager()
 {
 }
 
 #pragma mark - Public methods
 
-void SceneManager::enterGameScene(EntityType enemyEntityType, bool networked)
+void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked)
 {
     Scene* scene = Scene::create();
     this->gameScene = GameScene::create();
@@ -49,7 +49,7 @@ void SceneManager::enterGameScene(EntityType enemyEntityType, bool networked)
     Director::getInstance()->pushScene(scene);
 }
 
-void SceneManager::exitGameScene()
+void GameSceneManager::exitGameScene()
 {
     if (gameScene) {
         auto menuScene = MenuScene::createScene();
@@ -59,32 +59,32 @@ void SceneManager::exitGameScene()
     }
 }
 
-void SceneManager::showPeerList()
+void GameSceneManager::showPeerList()
 {
     this->networkingWrapper->showPeerList();
 }
 
-void SceneManager::receiveMultiplayerInvitations()
+void GameSceneManager::receiveMultiplayerInvitations()
 {
     this->networkingWrapper->startAdvertisingAvailability();
 }
 
-void SceneManager::sendData(const void* data, unsigned long length)
+void GameSceneManager::sendData(const void* data, unsigned long length)
 {
     this->networkingWrapper->sendData(data, length);
 }
 
-std::vector<std::string> SceneManager::getPeerNameList()
+std::vector<std::string> GameSceneManager::getPeerNameList()
 {
     return this->networkingWrapper->getPeerList();
 }
 
-std::string SceneManager::getMyName()
+std::string GameSceneManager::getMyName()
 {
     return this->networkingWrapper->getMyPeerId();
 }
 
-std::string SceneManager::getHostUserName()
+std::string GameSceneManager::getHostUserName()
 {
     std::vector<std::string> peerList = this->getPeerNameList();
     peerList.push_back(this->getMyName());
@@ -92,13 +92,13 @@ std::string SceneManager::getHostUserName()
     return peerList[0];
 }
 
-std::string SceneManager::getUniqueIdentifier()
+std::string GameSceneManager::getUniqueIdentifier()
 {
     std::string uniqueIdentifier = this->networkingWrapper->getUniqueIdentifier();
     return uniqueIdentifier;
 }
 
-bool SceneManager::isHost()
+bool GameSceneManager::isHost()
 {
     if (this->getMyName().compare(this->getHostUserName()) == 0) {
         return true;
@@ -108,14 +108,14 @@ bool SceneManager::isHost()
 
 #pragma mark - Private methods
 
-void SceneManager::receivedData(const void* data, unsigned long length)
+void GameSceneManager::receivedData(const void* data, unsigned long length)
 {
     if (this->gameScene) {
         this->gameScene->receivedData(data, length);
     }
 }
 
-void SceneManager::stateChanged(ConnectionState state)
+void GameSceneManager::stateChanged(ConnectionState state)
 {
     switch (state) {
         case ConnectionState::CONNECTING:
