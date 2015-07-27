@@ -17,8 +17,9 @@ public:
 
     CREATE_FUNC(GameScene);
 
-    //
+    // setup entities
     void setCharacterByEntityType(EntityType entityType);
+    void setFriendCharacter(EntityType entityType);
     void setEnemyByEntityType(EntityType entityType);
 
     // networking

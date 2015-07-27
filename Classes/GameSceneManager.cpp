@@ -37,6 +37,8 @@ GameSceneManager::~GameSceneManager()
 
 #pragma mark - Public methods
 
+#pragma mark Scene transition methods
+
 void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked)
 {
     Scene* scene = Scene::create();
@@ -44,6 +46,10 @@ void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked
     this->gameScene->setNetworkedSession(networked);
     this->gameScene->setCharacterByEntityType(EntityType::CIRCLE);
     this->gameScene->setEnemyByEntityType(enemyEntityType);
+
+    if (networked) {
+        this->gameScene->setFriendCharacter(EntityType::CIRCLE);
+    }
 
     scene->addChild(this->gameScene);
     Director::getInstance()->pushScene(scene);
@@ -59,6 +65,8 @@ void GameSceneManager::exitGameScene()
     }
 }
 
+#pragma mark Networking
+
 void GameSceneManager::showPeerList()
 {
     this->networkingWrapper->showPeerList();
@@ -73,6 +81,8 @@ void GameSceneManager::sendData(const void* data, unsigned long length)
 {
     this->networkingWrapper->sendData(data, length);
 }
+
+#pragma mark Networking utilities
 
 std::vector<std::string> GameSceneManager::getPeerNameList()
 {
@@ -107,6 +117,8 @@ bool GameSceneManager::isHost()
 }
 
 #pragma mark - Private methods
+
+#pragma mark NetworkingDelegate
 
 void GameSceneManager::receivedData(const void* data, unsigned long length)
 {

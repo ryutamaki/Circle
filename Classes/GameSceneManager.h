@@ -21,12 +21,16 @@ class GameSceneManager : public NetworkingDelegate
 public:
     static GameSceneManager* getInstance();
 
+    // scene transitions
     void enterGameScene(EntityType enemyEntityType, bool networked);
     void exitGameScene();
+
+    // networking
     void showPeerList();
     void receiveMultiplayerInvitations();
     void sendData(const void* data, unsigned long length);
 
+    // networking utilities
     std::vector<std::string> getPeerNameList();
     std::string getMyName();
     std::string getHostUserName();

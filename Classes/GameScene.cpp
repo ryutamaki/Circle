@@ -49,6 +49,7 @@ bool GameScene::init()
 
 #pragma mark Entity setup
 
+// TODO: multi の時の味方のポジション同期をなんとかする
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
     const Size fieldSize = this->field->getContentSize();
@@ -57,6 +58,17 @@ void GameScene::setCharacterByEntityType(EntityType entityType)
     this->character->setPosition(Size(fieldSize.width * 0.2f, fieldSize.height * 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character);
+}
+
+void GameScene::setFriendCharacter(EntityType entityType)
+{
+    const Size fieldSize = this->field->getContentSize();
+
+    this->friendCharacter = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
+    this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
+    this->friendCharacter->setPosition(Size(fieldSize.width * 0.2f, fieldSize.height * 0.4f));
+    this->friendCharacter->setRotation(0.0f);
+    this->field->addChild(this->friendCharacter);
 }
 
 void GameScene::setEnemyByEntityType(EntityType entityType)
@@ -132,13 +144,6 @@ void GameScene::onEnter()
 
     if (this->networkedSession) {
         bool isHost = GameSceneManager::getInstance()->isHost();
-
-        this->friendCharacter = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
-        // TODO: magic number
-        this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
-        this->friendCharacter->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-        this->field->addChild(this->friendCharacter);
-
         // sync settings for myself
         this->character->synchronizer->setIsSendData(true);
         this->character->synchronizer->setIsHost(isHost);
