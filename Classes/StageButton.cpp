@@ -11,6 +11,8 @@
 #include "EntityFactory.h"
 #include "Entity.h"
 
+#include "UserDataManager.h"
+
 #pragma mark - Public methods
 
 #pragma mark Initializer
@@ -36,6 +38,7 @@ void StageButton::setEntityType(EntityType entityType)
     this->entityType = entityType;
 
     this->attachEntity(entityType);
+    this->attachHighScoreLabel();
 }
 
 EntityType StageButton::getEntityType()
@@ -54,4 +57,13 @@ void StageButton::attachEntity(EntityType eEntityType)
     } else {
         // TODO: no object
     }
+}
+
+void StageButton::attachHighScoreLabel()
+{
+    int highScore = UserDataManager::getInstance()->getHighScoreByEntityType(this->getEntityType());
+
+    std::string highScoreString = "HIGHSCORE: " + std::to_string(highScore);
+    Label* highScoreLabel = Label::createWithBMFont("Fonts/myFont.fnt", highScoreString);
+    this->addChild(highScoreLabel);
 }

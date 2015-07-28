@@ -12,6 +12,7 @@
 #include "JSONPacker.h"
 #include "EntityFactory.h"
 #include "GameSceneManager.h"
+#include "UserDataManager.h"
 
 USING_NS_CC;
 
@@ -345,6 +346,10 @@ void GameScene::spawnNextEnemy()
             )
         );
 
+        // update score
+        ++this->defeatEnemyCount;
+        this->scoreLabel->setScore(this->defeatEnemyCount);
+
         isRightSide = CCRANDOM_MINUS1_1() < 0.0f;
     }
 
@@ -401,9 +406,6 @@ void GameScene::spawnNextEnemy()
         this->currentEnemy->synchronizer->setIsHost(false);
         this->currentEnemy->synchronizer->setIsMyself(false);
     }
-
-    ++this->defeatEnemyCount;
-    this->scoreLabel->setScore(this->defeatEnemyCount);
 }
 
 void GameScene::checkSpawnNextEnemy()
@@ -419,6 +421,8 @@ void GameScene::gameover(bool isWin)
     this->unscheduleUpdate();
     this->enemyAI->stop();
     this->showResultLayer(isWin);
+
+    UserDataManager::getInstance()->setHighScoreByEntityType(this->defeatEnemyCount, this->enemyEntityType);
 }
 
 void GameScene::checkGameOver()

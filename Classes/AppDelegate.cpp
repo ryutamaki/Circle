@@ -1,12 +1,16 @@
 #include "AppDelegate.h"
 #include "MenuScene.h"
+#include "UserDataManager.h"
 
 USING_NS_CC;
 
-AppDelegate::AppDelegate() {}
+AppDelegate::AppDelegate()
+{
+}
 
 AppDelegate::~AppDelegate()
-{}
+{
+}
 
 // if you want a different context,just modify the value of glContextAttrs
 // it will takes effect on all platforms
@@ -62,6 +66,9 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // run
     director->runWithScene(scene);
+
+    // load user data
+    UserDataManager::getInstance()->load();
 
     return true;
 }

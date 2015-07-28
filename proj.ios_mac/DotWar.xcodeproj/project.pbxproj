@@ -11,6 +11,8 @@
 		031C156D1B68292C007D0FEC /* ScoreLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031C15681B68292C007D0FEC /* ScoreLabel.cpp */; };
 		031C156E1B68292C007D0FEC /* ScoreLabelReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031C156A1B68292C007D0FEC /* ScoreLabelReader.cpp */; };
 		031C156F1B68292C007D0FEC /* ScoreLabelReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031C156A1B68292C007D0FEC /* ScoreLabelReader.cpp */; };
+		031C15721B683DE7007D0FEC /* UserDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031C15701B683DE7007D0FEC /* UserDataManager.cpp */; };
+		031C15731B683DE7007D0FEC /* UserDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031C15701B683DE7007D0FEC /* UserDataManager.cpp */; };
 		0342E5C41B66CBEB009B737E /* Coin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0342E5C01B66CBEB009B737E /* Coin.cpp */; };
 		0342E5C51B66CBEB009B737E /* Coin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0342E5C01B66CBEB009B737E /* Coin.cpp */; };
 		0342E5C61B66CBEB009B737E /* CoinReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0342E5C21B66CBEB009B737E /* CoinReader.cpp */; };
@@ -138,6 +140,8 @@
 		031C15691B68292C007D0FEC /* ScoreLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreLabel.h; sourceTree = "<group>"; };
 		031C156A1B68292C007D0FEC /* ScoreLabelReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreLabelReader.cpp; sourceTree = "<group>"; };
 		031C156B1B68292C007D0FEC /* ScoreLabelReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreLabelReader.h; sourceTree = "<group>"; };
+		031C15701B683DE7007D0FEC /* UserDataManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserDataManager.cpp; sourceTree = "<group>"; };
+		031C15711B683DE7007D0FEC /* UserDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataManager.h; sourceTree = "<group>"; };
 		0342E5C01B66CBEB009B737E /* Coin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Coin.cpp; sourceTree = "<group>"; };
 		0342E5C11B66CBEB009B737E /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 		0342E5C21B66CBEB009B737E /* CoinReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinReader.cpp; sourceTree = "<group>"; };
@@ -478,6 +482,8 @@
 				031C15661B67F747007D0FEC /* ColorConstants.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
+				031C15701B683DE7007D0FEC /* UserDataManager.cpp */,
+				031C15711B683DE7007D0FEC /* UserDataManager.h */,
 				0342E5CA1B66CC3D009B737E /* CoinContainer.cpp */,
 				0342E5CB1B66CC3D009B737E /* CoinContainer.h */,
 				0342E5C01B66CBEB009B737E /* Coin.cpp */,
@@ -700,6 +706,7 @@
 				03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */,
 				03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				031C15721B683DE7007D0FEC /* UserDataManager.cpp in Sources */,
 				03917D721B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				0342E5C41B66CBEB009B737E /* Coin.cpp in Sources */,
 				0342E5DC1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */,
@@ -739,6 +746,7 @@
 				031C156F1B68292C007D0FEC /* ScoreLabelReader.cpp in Sources */,
 				03917D711B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D581B56C9B90068BCA6 /* Circle.cpp in Sources */,
+				031C15731B683DE7007D0FEC /* UserDataManager.cpp in Sources */,
 				039659BA1B5F113E006E587B /* EntityHelper.cpp in Sources */,
 				038DE76B1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */,
 				0342E5C51B66CBEB009B737E /* Coin.cpp in Sources */,

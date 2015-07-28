@@ -28,6 +28,7 @@ protected:
     EntityType entityType;
 
     void attachEntity(EntityType entityType);
+    void attachHighScoreLabel();
 
 };
 
