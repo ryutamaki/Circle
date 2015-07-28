@@ -37,8 +37,11 @@ public:
     int getHp();
     void setHp(int hp);
     cocos2d::Vec2 getVelocity();
+
     std::string getCurrentAttackName();
+    std::vector<std::string> getAttackNameList();
     AttackParams getAttackParamsByName(std::string attackName);
+
     cocos2d::Rect getBodyRect();
     cocos2d::Rect getBodyRectInWorldSpace();
     cocos2d::Vec2 getCenter();
@@ -77,6 +80,8 @@ protected:
     void onEnter() override;
     void onExit() override;
     virtual void setupAttackMap();
+
+    void setBodyColorByCurrentHp();
 
     void update(float dt) override;
 

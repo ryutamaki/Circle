@@ -53,17 +53,6 @@
                     <FileData Type="Normal" Path="Images/Logo@2x.png" Plist="" />
                     <BlendFunc Src="1" Dst="771" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Sprite_3" ActionTag="-430406749" Tag="12" Rotation="-135.0000" RotationSkewX="-135.0000" RotationSkewY="-135.0000" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="440.0000" RightMargin="440.0000" TopMargin="280.0000" BottomMargin="280.0000" ctype="SpriteObjectData">
-                    <Size X="80.0000" Y="80.0000" />
-                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="480.0000" Y="320.0000" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5000" Y="0.5000" />
-                    <PreSize X="0.0834" Y="0.1266" />
-                    <FileData Type="Normal" Path="Images/CircleBody@2x.png" Plist="" />
-                    <BlendFunc Src="1" Dst="771" />
-                  </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="568.0000" Y="384.0000" />

@@ -129,6 +129,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031C15661B67F747007D0FEC /* ColorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorConstants.h; sourceTree = "<group>"; };
 		0342E5C01B66CBEB009B737E /* Coin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Coin.cpp; sourceTree = "<group>"; };
 		0342E5C11B66CBEB009B737E /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 		0342E5C21B66CBEB009B737E /* CoinReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinReader.cpp; sourceTree = "<group>"; };
@@ -462,6 +463,7 @@
 			isa = PBXGroup;
 			children = (
 				03B167B91B59928F005D1FF6 /* GameConstants.h */,
+				031C15661B67F747007D0FEC /* ColorConstants.h */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				0342E5CA1B66CC3D009B737E /* CoinContainer.cpp */,

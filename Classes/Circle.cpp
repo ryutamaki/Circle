@@ -23,8 +23,7 @@ bool Circle::init()
     // retain the haracter animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
-    this->initialHp = 20;
-    this->setHp(this->initialHp);
+    this->initialHp = 50;
     this->velocityFactor = 300.0f;
 
     return true;
@@ -37,7 +36,8 @@ bool Circle::init()
 void Circle::setupAttackMap()
 {
     this->attackMap = {
-        {"Attack", {10, Rect(0.0f, -20.0f, 160.0f, 80.0f)}},
+        {"Attack",		 {5,  Rect(0.0f, -20.0f, 160.0f, 80.0f)}},
+        {"AttackNeedle", {10, Rect(0.0f, -20.0f, 160.0f, 80.0f)}},
     };
 }
 
@@ -48,4 +48,6 @@ void Circle::setupAttackMap()
 void Circle::onEnter()
 {
     Entity::onEnter();
+
+    this->setHp(this->initialHp);
 }

@@ -13,10 +13,6 @@
           <Image Name="Background@2x.png" />
           <Image Name="Background@3x.png" />
           <Image Name="Background@4x.png" />
-          <Image Name="Bar.png" />
-          <Image Name="Bar@2x.png" />
-          <Image Name="Bar@3x.png" />
-          <Image Name="Bar@4x.png" />
           <Image Name="Field.png" />
           <Image Name="Field@2x.png" />
           <Image Name="Field@3x.png" />
@@ -25,18 +21,10 @@
           <Image Name="Logo@2x.png" />
           <Image Name="Logo@3x.png" />
           <Image Name="Logo@4x.png" />
-          <Image Name="Shadow.png" />
-          <Image Name="Shadow@2x.png" />
-          <Image Name="Shadow@3x.png" />
-          <Image Name="Shadow@4x.png" />
           <Image Name="TutorialButton.png" />
           <Image Name="TutorialButton@2x.png" />
           <Image Name="TutorialButton@3x.png" />
           <Image Name="TutorialButton@4x.png" />
-          <Image Name="Frame.png" />
-          <Image Name="Frame@2x.png" />
-          <Image Name="Frame@3x.png" />
-          <Image Name="Frame@4x.png" />
           <Image Name="StageSelectButtonNormal.png" />
           <Image Name="StageSelectButtonNormal@2x.png" />
           <Image Name="StageSelectButtonNormal@3x.png" />
@@ -77,6 +65,14 @@
           <Image Name="Coin@2x.png" />
           <Image Name="Coin@3x.png" />
           <Image Name="Coin@4x.png" />
+          <Image Name="CircleEyes.png" />
+          <Image Name="CircleEyes@2x.png" />
+          <Image Name="CircleEyes@3x.png" />
+          <Image Name="CircleEyes@4x.png" />
+          <Image Name="TriangleEyes.png" />
+          <Image Name="TriangleEyes@2x.png" />
+          <Image Name="TriangleEyes@3x.png" />
+          <Image Name="TriangleEyes@4x.png" />
         </Folder>
         <Project Name="StageButton.csd" Type="Node" />
         <Project Name="StageSelectScene.csd" Type="Scene" />

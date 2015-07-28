@@ -26,7 +26,6 @@ bool Triangle::init()
     this->timeline->retain();
 
     this->initialHp = 100;
-    this->setHp(this->initialHp);
     this->velocityFactor = 150.0f;
 
     return true;
@@ -50,4 +49,6 @@ void Triangle::setupAttackMap()
 void Triangle::onEnter()
 {
     Entity::onEnter();
+
+    this->setHp(this->initialHp);
 }

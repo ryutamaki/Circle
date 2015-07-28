@@ -2,12 +2,40 @@
   <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.1" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="20" Speed="1.0000" ActivedAnimationName="Damaged">
+      <Animation Duration="100" Speed="1.0000" ActivedAnimationName="Damaged">
+        <Timeline ActionTag="629999460" Property="Scale">
+          <ScaleFrame FrameIndex="31" X="0.5000" Y="0.5000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="60" X="0.5000" Y="0.5000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="61" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="70" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="99" X="0.5000" Y="0.5000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+        </Timeline>
+        <Timeline ActionTag="629999460" Property="VisibleForFrame">
+          <BoolFrame FrameIndex="1" Tween="False" Value="False" />
+          <BoolFrame FrameIndex="11" Tween="False" Value="False" />
+          <BoolFrame FrameIndex="20" Tween="False" Value="False" />
+          <BoolFrame FrameIndex="31" Tween="False" Value="True" />
+          <BoolFrame FrameIndex="100" Tween="False" Value="False" />
+        </Timeline>
         <Timeline ActionTag="-1773017991" Property="FrameEvent">
           <EventFrame FrameIndex="11" Tween="False" Value="Ready" />
           <EventFrame FrameIndex="12" Tween="False" Value="Attack" />
           <EventFrame FrameIndex="19" Tween="False" Value="Cooldown" />
           <EventFrame FrameIndex="20" Tween="False" Value="Finish" />
+          <EventFrame FrameIndex="31" Tween="False" Value="Ready" />
+          <EventFrame FrameIndex="61" Tween="False" Value="Attack" />
+          <EventFrame FrameIndex="71" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="100" Tween="False" Value="Finish" />
         </Timeline>
         <Timeline ActionTag="-1773017991" Property="Position">
           <PointFrame FrameIndex="11" X="0.0000" Y="0.0000">
@@ -29,6 +57,23 @@
           <BoolFrame FrameIndex="3" Tween="False" Value="True" />
           <BoolFrame FrameIndex="4" Tween="False" Value="True" />
         </Timeline>
+        <Timeline ActionTag="-1773017991" Property="Scale">
+          <ScaleFrame FrameIndex="31" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="60" X="0.8000" Y="0.8000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="61" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="70" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="99" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+        </Timeline>
       </Animation>
       <AnimationList>
         <AnimationInfo Name="Attack" StartIndex="10" EndIndex="21">
@@ -37,12 +82,39 @@
         <AnimationInfo Name="Damaged" StartIndex="0" EndIndex="5">
           <RenderColor A="255" R="255" G="239" B="213" />
         </AnimationInfo>
+        <AnimationInfo Name="AttackNeedle" StartIndex="30" EndIndex="101">
+          <RenderColor A="150" R="233" G="150" B="122" />
+        </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Finish" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Needle" ActionTag="629999460" Tag="49" VisibleForFrame="False" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-78.0000" RightMargin="-78.0000" TopMargin="-78.0000" BottomMargin="-78.0000" ctype="SpriteObjectData">
+            <Size X="156.0000" Y="156.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position />
+            <Scale ScaleX="0.5000" ScaleY="0.5000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="1.9500" Y="1.9500" />
+            <FileData Type="Normal" Path="Images/CircleNeedle@2x.png" Plist="" />
+            <BlendFunc Src="1" Dst="771" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
+            <Children>
+              <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" LeftMargin="58.8608" RightMargin="13.1392" TopMargin="25.1362" BottomMargin="22.8638" ctype="SpriteObjectData">
+                <Size X="8.0000" Y="32.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="62.8608" Y="38.8638" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.7858" Y="0.4858" />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="Images/CircleEyes@2x.png" Plist="" />
+                <BlendFunc Src="1" Dst="771" />
+              </AbstractNodeData>
+            </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -50,28 +122,6 @@
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="Normal" Path="Images/CircleBody@2x.png" Plist="" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="Frame" ActionTag="-576101947" Tag="36" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-55.0000" BottomMargin="45.0000" ctype="SpriteObjectData">
-            <Size X="80.0000" Y="10.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position Y="50.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="Normal" Path="Images/Frame@2x.png" Plist="" />
-            <BlendFunc Src="1" Dst="771" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="Bar" ActionTag="-1882435512" Tag="35" IconVisible="False" LeftMargin="-38.0000" RightMargin="-38.0000" TopMargin="-53.0000" BottomMargin="47.0000" ctype="SpriteObjectData">
-            <Size X="76.0000" Y="6.0000" />
-            <AnchorPoint ScaleY="0.5000" />
-            <Position X="-38.0000" Y="50.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition />
-            <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="Normal" Path="Images/Bar@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>

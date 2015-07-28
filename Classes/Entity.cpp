@@ -8,6 +8,8 @@
 
 #include "Entity.h"
 
+#include "ColorConstants.h"
+
 USING_NS_CC;
 using namespace cocostudio::timeline;
 
@@ -39,11 +41,7 @@ void Entity::setHp(int hp)
 {
     this->hp = MAX(hp, 0);
 
-    Sprite* hpBar = dynamic_cast<Sprite*>(this->getChildByName("Bar"));
-
-    if (hpBar && this->initialHp != 0) {
-        hpBar->setScaleX(float(this->hp) / float(this->initialHp));
-    }
+    this->setBodyColorByCurrentHp();
 
     if (this->hp <= 0) {
         this->deactivate();
@@ -58,6 +56,17 @@ Vec2 Entity::getVelocity()
 std::string Entity::getCurrentAttackName()
 {
     return this->currentAttackName;
+}
+
+std::vector<std::string> Entity::getAttackNameList()
+{
+    std::vector<std::string> attackNameList;
+
+    for (std::map<std::string, AttackParams>::iterator it = this->attackMap.begin(); it != this->attackMap.end(); ++it) {
+        attackNameList.push_back(it->first);
+    }
+
+    return attackNameList;
 }
 
 AttackParams Entity::getAttackParamsByName(std::string attackName)
@@ -86,18 +95,33 @@ Rect Entity::getBodyRect()
 
 Rect Entity::getBodyRectInWorldSpace()
 {
-    Size size = this->getBodySize();
-    Vec2 position = this->getPosition();
+    Rect returnRect;
+    Vector<Node*> children = this->getChildren();
 
-    Sprite* body = dynamic_cast<Sprite*>(this->getChildByName("Body"));
-    Vec2 bodyPosition = body->getPosition();
-    Vec2 bodyPositionInWorld = this->convertToWorldSpace(bodyPosition);
+    for (int i = 0, last = (int)children.size(); i < last; ++i) {
+        Sprite* sprite = dynamic_cast<Sprite*>(children.at(i));
 
-    Rect returnRect = Rect(
-            bodyPositionInWorld.x - size.width * body->getAnchorPoint().x,
-            bodyPositionInWorld.y - size.height * body->getAnchorPoint().y,
-            size.width, size.height
-        );
+        if (! sprite || ! sprite->isVisible()) {
+            continue;
+        }
+
+        Size size = sprite->getContentSize();
+        Vec2 bodyPosition = sprite->getPosition();
+        Vec2 bodyPositionInWorld = this->convertToWorldSpace(bodyPosition);
+
+        Rect spriteRect = Rect(
+                bodyPositionInWorld.x - size.width * sprite->getAnchorPoint().x,
+                bodyPositionInWorld.y - size.height * sprite->getAnchorPoint().y,
+                size.width, size.height
+            );
+
+        if (returnRect.equals(Rect::ZERO)) {
+            returnRect = spriteRect;
+        } else {
+            returnRect.merge(spriteRect);
+        }
+    }
+
     return returnRect;
 }
 
@@ -228,6 +252,17 @@ void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState new
 void Entity::onEnter()
 {
     Node::onEnter();
+
+    Vector<Node*> children = this->getChildren();
+
+    for (int i = 0, last = (int)children.size(); i < last; ++i) {
+        Sprite* sprite = dynamic_cast<Sprite*>(children.at(i));
+
+        if (! sprite) {
+            continue;
+        }
+        sprite->setCascadeColorEnabled(false);
+    }
 }
 
 void Entity::onExit()
@@ -243,6 +278,29 @@ void Entity::setupAttackMap()
 }
 
 #pragma mark Game logic
+
+void Entity::setBodyColorByCurrentHp()
+{
+    Vector<Node*> children = this->getChildren();
+
+    for (int i = 0, last = (int)children.size(); i < last; ++i) {
+        Sprite* sprite = dynamic_cast<Sprite*>(children.at(i));
+
+        if (! sprite) {
+            continue;
+        }
+
+        if (this->initialHp * 0.75 < this->hp) {
+            sprite->setColor(Color3B(DARK_BLUE));
+        } else if (this->initialHp * 0.5 < this->hp && this->hp <= this->initialHp * 0.75) {
+            sprite->setColor(Color3B(LIGHT_BLUE));
+        } else if (this->initialHp * 0.25 < this->hp && this->hp <= this->initialHp * 0.5) {
+            sprite->setColor(Color3B(LIGHT_RED));
+        } else if (this->hp <= this->initialHp * 0.25f) {
+            sprite->setColor(Color3B(DARK_RED));
+        }
+    }
+}
 
 void Entity::update(float dt)
 {

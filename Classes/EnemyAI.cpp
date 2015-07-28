@@ -50,10 +50,13 @@ void EnemyAI::running(float dt)
 
     EntityMoveState moveState = EntityHelper::moveStateFromStartPositionAndEndPosition(myPosition, targetPosition);
 
+    std::vector<std::string> attackNameList = this->entity->getAttackNameList();
+    int index = std::rand() % attackNameList.size();
+
     // TODO: magic number
     if (distance < 120.0f) {
         this->move(moveState, 0.01f);
-        this->attack("Attack");
+        this->attack(attackNameList.at(index));
     } else {
         this->move(moveState, 0.5f);
     }
