@@ -17,6 +17,12 @@
 
 #include "cocostudio/CocoStudio.h"
 
+struct AttackParams {
+    int damage;
+    cocos2d::Rect range;
+};
+
+
 class Entity : public cocos2d::Node, public EntityStateMachineDelegate
 {
 public:
@@ -31,6 +37,8 @@ public:
     int getHp();
     void setHp(int hp);
     cocos2d::Vec2 getVelocity();
+    std::string getCurrentAttackName();
+    AttackParams getAttackParamsByName(std::string attackName);
     cocos2d::Rect getRect();
     cocos2d::Vec2 getCenter();
 
@@ -60,11 +68,14 @@ protected:
     int hp, initialHp;
     float velocityFactor;
     cocos2d::Vec2 velocity;
+    std::string currentAttackName;
+    std::map<std::string, AttackParams> attackMap;
     bool isDead;
 
     bool init() override;
     void onEnter() override;
     void onExit() override;
+    virtual void setupAttackMap();
 
     void update(float dt) override;
 

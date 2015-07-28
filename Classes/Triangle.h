@@ -17,6 +17,9 @@ public:
     CREATE_FUNC(Triangle);
     bool init() override;
 
+protected:
+    void setupAttackMap() override;
+
 private:
     void onEnter() override;
 };

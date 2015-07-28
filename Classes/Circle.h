@@ -19,6 +19,9 @@ public:
     CREATE_FUNC(Circle);
     bool init() override;
 
+protected:
+    void setupAttackMap() override;
+
 private:
     void onEnter() override;
 };

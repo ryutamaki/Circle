@@ -34,6 +34,15 @@ bool Triangle::init()
 
 #pragma mark Game logic
 
+#pragma mark - Protected methods
+
+void Triangle::setupAttackMap()
+{
+    this->attackMap = {
+        {"Attack", {10, Rect(0.0f, -20.0f, 160.0f, 80.0f)}},
+    };
+}
+
 #pragma mark - Private methods
 
 #pragma mark View lifecycle

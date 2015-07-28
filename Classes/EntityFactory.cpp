@@ -45,10 +45,13 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
             return triangle;
         }
 
-        default:
-            CCASSERT(true, "Undefined entity type is passed.");
+        case EntityType::NONE:
+        {
+            return nullptr;
+        }
     }
-    return nullptr;
+
+    CCASSERT(false, "Undefined entity type is passed.");
 }
 
 Vector<Entity*> EntityFactory::createEntityList(int countOfSequence, EntityType entityType)

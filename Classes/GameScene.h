@@ -49,6 +49,10 @@ private:
 
     // game logic
     void update(float dt) override;
+
+    void damageEnemyFromCharacter();
+    void damageCharacterFromEntity();
+
     void spawnNextEnemy();
     void checkSpawnNextEnemy();
     bool isLastEnemy();

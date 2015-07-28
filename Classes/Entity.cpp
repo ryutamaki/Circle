@@ -21,10 +21,9 @@ bool Entity::init()
 
     this->stateMachine = std::unique_ptr<EntityStateMachine>(new EntityStateMachine());
     this->stateMachine->setDelegate(this);
-
     this->synchronizer = std::unique_ptr<EntitySynchronizer>(new EntitySynchronizer());
-
     this->velocity = Vec2::ZERO;
+    this->setupAttackMap();
 
     return true;
 }
@@ -54,6 +53,23 @@ void Entity::setHp(int hp)
 Vec2 Entity::getVelocity()
 {
     return this->velocity;
+}
+
+std::string Entity::getCurrentAttackName()
+{
+    return this->currentAttackName;
+}
+
+AttackParams Entity::getAttackParamsByName(std::string attackName)
+{
+    auto itr = this->attackMap.find(attackName);
+    log("%s", attackName.c_str());
+
+    if (itr != this->attackMap.end()) {
+        return this->attackMap[attackName];
+    }
+
+    CCASSERT(false, "Undefined attack is selected");
 }
 
 Rect Entity::getRect()
@@ -140,19 +156,21 @@ void Entity::attack(const std::string attackName)
     }
 
     this->timeline->play(attackName, false);
-    this->timeline->setFrameEventCallFunc([this](Frame* frame) {
+    this->timeline->setFrameEventCallFunc([this, attackName](Frame* frame) {
         EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
         auto eventName = frameEvent->getEvent();
 
         // log("---- %s ----", eventName.c_str());
         if (eventName == "Ready") {
             this->stateMachine->readyToAttack();
+            this->currentAttackName = attackName;
         } else if (eventName == "Attack") {
             this->stateMachine->startToAttack();
         } else if (eventName == "Cooldown") {
             this->stateMachine->coolDownAttaking();
         } else if (eventName == "Finish") {
             this->stateMachine->finishAttaking();
+            this->currentAttackName = "";
         }
     });
 
@@ -207,6 +225,11 @@ void Entity::onExit()
     Node::onExit();
 
     this->deactivate();
+}
+
+void Entity::setupAttackMap()
+{
+    // override point
 }
 
 #pragma mark Game logic

@@ -251,43 +251,90 @@ void GameScene::update(float dt)
     Rect characterRect = this->character->getRect();
     Rect enemyRect = this->currentEnemy->getRect();
 
-    // TODO: magic number
-    if (this->character->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
-        enemyRect.origin.distance(characterRect.origin) < 160.0f) {
-        JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
-        currentEntityState.damage.identifier = "Enemy";
-        currentEntityState.damage.volume = 10;
-        this->character->synchronizer->sendData(currentEntityState);
-
-        // for (int i = 0; i < 10; ++i) {
-        // Coin* coin = this->coinContainer->fetchCoin();
-        // coin->setPosition(this->currentEnemy->getCenter() + Vec2(CCRANDOM_MINUS1_1() * 10.0f, CCRANDOM_MINUS1_1() * 10.0f)));
-        // this->field->addChild(coin);
-        // }
-
-        if (this->character->synchronizer->getIsHost()) {
-            // TODO: magic number
-            this->currentEnemy->receiveDamage(10);
-
-            JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
-            this->currentEnemy->synchronizer->sendDataIfNotHost(currentEntityState);
-        }
-
-        // Change attack state at last
-        this->character->stateMachine->hitAttack();
-    }
-    // TODO: magic number
-    else if (this->currentEnemy->stateMachine->getAttackState() == EntityAttackState::ATTACKING &&
-             enemyRect.origin.distance(characterRect.origin) < 120.0f) {
-        this->currentEnemy->stateMachine->hitAttack();
-        // TODO: magic number
-        this->character->receiveDamage(10);
-        JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
-        this->character->synchronizer->sendData(currentCharacterState);
-    }
+    this->damageEnemyFromCharacter();
 
     this->checkSpawnNextEnemy();
     this->checkGameOver();
+}
+
+void GameScene::damageEnemyFromCharacter()
+{
+    // そもそも攻撃していなかった
+    if (this->character->stateMachine->getAttackState() != EntityAttackState::ATTACKING) {
+        return;
+    }
+
+    // this rects does not effected by animations
+    Rect enemyRect = this->currentEnemy->getRect();
+
+    std::string currentAttackName = this->character->getCurrentAttackName();
+    AttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
+    Vec2 characterCenter = this->character->getCenter();
+    Rect damageRect = Rect(
+            characterCenter.x + attackParams.range.origin.x,
+            characterCenter.y + attackParams.range.origin.y,
+            attackParams.range.size.width, attackParams.range.size.height
+        );
+
+    // 攻撃していたけど、範囲外
+    if (! enemyRect.intersectsRect(damageRect)) {
+        return;
+    }
+    log("%f,%f,%f,%f", enemyRect.origin.x, enemyRect.origin.y, enemyRect.size.width, enemyRect.size.height);
+    log("%f,%f,%f,%f", damageRect.origin.x, damageRect.origin.y, damageRect.size.width, damageRect.size.height);
+
+    // 攻撃が当たった！
+    JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
+    currentEntityState.damage.identifier = "Enemy";
+    currentEntityState.damage.volume = attackParams.damage;
+    this->character->synchronizer->sendData(currentEntityState);
+
+    // for (int i = 0; i < 10; ++i) {
+    // Coin* coin = this->coinContainer->fetchCoin();
+    // coin->setPosition(this->currentEnemy->getCenter() + Vec2(CCRANDOM_MINUS1_1() * 10.0f, CCRANDOM_MINUS1_1() * 10.0f)));
+    // this->field->addChild(coin);
+    // }
+
+    if (this->character->synchronizer->getIsHost()) {
+        this->currentEnemy->receiveDamage(attackParams.damage);
+
+        JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
+        this->currentEnemy->synchronizer->sendDataIfNotHost(currentEntityState);
+    }
+
+    // Change attack state at last
+    this->character->stateMachine->hitAttack();
+}
+
+void GameScene::damageCharacterFromEntity()
+{
+    // そもそも攻撃していなかった
+    if (this->currentEnemy->stateMachine->getAttackState() != EntityAttackState::ATTACKING) {
+        return;
+    }
+
+    // this rects does not effected by animations
+    Rect characterRect = this->character->getRect();
+    Rect enemyRect = this->currentEnemy->getRect();
+
+    std::string currentAttackName = this->currentEnemy->getCurrentAttackName();
+    AttackParams attackParams = this->currentEnemy->getAttackParamsByName(currentAttackName);
+    Vec2 enemyCenter = this->currentEnemy->getCenter();
+    Rect damageRect = Rect(
+            enemyCenter.x + attackParams.range.origin.x,
+            enemyCenter.y + attackParams.range.origin.y,
+            attackParams.range.size.width, attackParams.range.size.height
+        );
+
+    // 攻撃していたけど、範囲外
+    if (! characterRect.intersectsRect(damageRect)) {
+        return;
+    }
+
+    this->currentEnemy->stateMachine->hitAttack();
+    this->character->receiveDamage(attackParams.damage);
+    JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
+    this->character->synchronizer->sendData(currentCharacterState);
 }
 
 void GameScene::spawnNextEnemy()
@@ -322,13 +369,13 @@ void GameScene::spawnNextEnemy()
     this->currentEnemy = this->enemyList.at(this->currentEnemyIndex);
 
     // set properties
-    // TODO: magic number
     Size fieldSize = this->field->getContentSize();
     this->currentEnemy->setIdentifier("Enemy");
 
     Vec2 initialPosition;
     float rotation;
 
+    // TODO: magic number
     if (isRightSide) {
         initialPosition = Vec2(fieldSize.width * 0.8f, fieldSize.height * 2.0f);
         rotation = 180.0f;
@@ -358,7 +405,7 @@ void GameScene::spawnNextEnemy()
 
     // activate enemy
     this->currentEnemy->activate();
-    this->enemyAI->start();
+    // this->enemyAI->start();
 
     ++this->currentEnemyIndex;
 }
