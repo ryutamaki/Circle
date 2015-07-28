@@ -18,6 +18,8 @@
 		0342E5DB1B66ED80009B737E /* GameResultLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0342E5D61B66ED80009B737E /* GameResultLayer.cpp */; };
 		0342E5DC1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0342E5D81B66ED80009B737E /* GameResultLayerReader.cpp */; };
 		0342E5DD1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0342E5D81B66ED80009B737E /* GameResultLayerReader.cpp */; };
+		0342E5E21B674697009B737E /* Damage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0342E5E11B674697009B737E /* Damage.plist */; };
+		0342E5E31B674697009B737E /* Damage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0342E5E11B674697009B737E /* Damage.plist */; };
 		034F41081B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
 		034F41091B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
 		038DE76A1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */; };
@@ -138,6 +140,7 @@
 		0342E5D71B66ED80009B737E /* GameResultLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResultLayer.h; sourceTree = "<group>"; };
 		0342E5D81B66ED80009B737E /* GameResultLayerReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameResultLayerReader.cpp; sourceTree = "<group>"; };
 		0342E5D91B66ED80009B737E /* GameResultLayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResultLayerReader.h; sourceTree = "<group>"; };
+		0342E5E11B674697009B737E /* Damage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Damage.plist; sourceTree = "<group>"; };
 		034F41061B5D529E00167F16 /* EnemyAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyAI.cpp; sourceTree = "<group>"; };
 		034F41071B5D529E00167F16 /* EnemyAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyAI.h; sourceTree = "<group>"; };
 		038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntitySynchronizer.cpp; sourceTree = "<group>"; };
@@ -447,6 +450,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0342E5E11B674697009B737E /* Damage.plist */,
 				0342E5D41B66D8CC009B737E /* Images.xcassets */,
 				FA144D09A52357282113E0F8 /* res */,
 			);
@@ -636,6 +640,7 @@
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				0342E5E21B674697009B737E /* Damage.plist in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
@@ -648,6 +653,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
+				0342E5E31B674697009B737E /* Damage.plist in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

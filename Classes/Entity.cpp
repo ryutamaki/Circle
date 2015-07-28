@@ -160,6 +160,12 @@ void Entity::receiveDamage(const int damage)
     // this->timeline->play(animationName, false);
 
     this->setHp(this->getHp() - damage);
+
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Damage.plist");
+    particle->setScaleX(-1.0f);
+    particle->setPosition(Vec2(0.0f, 0.0f));
+    this->addChild(particle);
+
     // override point
 }
 
