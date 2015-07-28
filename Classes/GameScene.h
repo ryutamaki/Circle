@@ -23,6 +23,7 @@ public:
     // setup entities
     void setCharacterByEntityType(EntityType entityType);
     void setFriendCharacter(EntityType entityType);
+    void setEnemyEntityType(EntityType entityType);
 
     // networking
     void setNetworkedSession(bool networkedSession);
@@ -40,6 +41,7 @@ private:
 
     Entity* character;
     Entity* friendCharacter;
+    EntityType enemyEntityType;
     Entity* currentEnemy;
     int defeatEnemyCount;
     EnemyAI* enemyAI;

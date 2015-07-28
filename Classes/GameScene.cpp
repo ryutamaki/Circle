@@ -64,6 +64,11 @@ void GameScene::setFriendCharacter(EntityType entityType)
     this->field->addChild(this->friendCharacter);
 }
 
+void GameScene::setEnemyEntityType(EntityType entityType)
+{
+    this->enemyEntityType = entityType;
+}
+
 #pragma mark Networking
 
 void GameScene::setNetworkedSession(bool networkedSession)
@@ -344,7 +349,7 @@ void GameScene::spawnNextEnemy()
     }
 
     // pop next enemy from enemy queue
-    this->currentEnemy = EntityFactory::createEntityWithEntityType(EntityType::TRIANGLE);
+    this->currentEnemy = EntityFactory::createEntityWithEntityType(this->enemyEntityType);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
