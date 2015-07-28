@@ -32,6 +32,8 @@ private:
     void move(EntityMoveState moveState, float dulation);
     void attack(std::string attackName);
 
+    void decideTarget();
+
 };
 
 #endif /* defined(__DotWar__EnemyAI__) */

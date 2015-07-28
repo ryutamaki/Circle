@@ -8,14 +8,18 @@
 
 #include "EnemyAI.h"
 
+#include "EntityHelper.h"
+
 USING_NS_CC;
 
 #pragma mark - Public methods
 
-EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*>opponents)
+EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*> opponents)
 {
     this->entity = entity;
     this->opponents = opponents;
+
+    this->decideTarget();
 }
 
 EnemyAI::~EnemyAI()
@@ -40,11 +44,18 @@ void EnemyAI::stop()
 
 void EnemyAI::running(float dt)
 {
-    if (CCRANDOM_0_1() * 8 < 2.0f) {
+    Vec2 targetPosition = this->target->getPosition();
+    Vec2 myPosition = this->entity->getPosition();
+    float distance = targetPosition.distance(myPosition);
+
+    EntityMoveState moveState = EntityHelper::moveStateFromStartPositionAndEndPosition(myPosition, targetPosition);
+
+    // TODO: magic number
+    if (distance < 120.0f) {
+        this->move(moveState, 0.01f);
         this->attack("Attack");
     } else {
-        int random = CCRANDOM_0_1() * 8;
-        this->move((EntityMoveState)random, 3.0f);
+        this->move(moveState, 0.5f);
     }
 }
 
@@ -63,4 +74,9 @@ void EnemyAI::move(EntityMoveState moveState, float dulation)
 void EnemyAI::attack(std::string attackName)
 {
     this->entity->attack(attackName);
+}
+
+void EnemyAI::decideTarget()
+{
+    this->target = opponents.at(0);
 }

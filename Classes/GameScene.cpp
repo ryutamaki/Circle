@@ -102,7 +102,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
             return;
         }
 
-        log("%s, %d, %d, %d, %s, %d", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume);
+        log("identifier: %s, hp: %d, move: %d, attack: %d, damage target: %s, damage volume: %d, position: {%f, %f}", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume, entityState.position.x, entityState.position.y);
         target->setHp(entityState.hp);
         target->setPosition(entityState.position);
         target->stateMachine->move(entityState.moveState);
@@ -140,12 +140,6 @@ void GameScene::onEnter()
         // TODO: player は二人だと思ってる
         this->friendCharacter->synchronizer->setIsSendData(false); // receive only
         this->friendCharacter->synchronizer->setIsHost(! isHost);
-        this->friendCharacter->synchronizer->setIsMyself(false);
-
-        // sync settings for an enemy
-        this->currentEnemy->synchronizer->setIsSendData(isHost);
-        this->currentEnemy->synchronizer->setIsHost(false);
-        this->currentEnemy->synchronizer->setIsMyself(false);
     }
 
     this->setupTouchHandling();
@@ -217,8 +211,6 @@ void GameScene::setupTouchHandling()
 
 void GameScene::update(float dt)
 {
-    // log("%f, %f", this->friendCharacter->getVelocity().x, this->friendCharacter->getVelocity().y);
-
     Vector<Node*> fieldChildren = this->field->getChildren();
 
     for (int index = 0; index < fieldChildren.size(); ++index) {
@@ -248,6 +240,7 @@ void GameScene::update(float dt)
     }
 
     this->damageEnemyFromCharacter();
+    this->damageCharacterFromEntity();
 
     this->checkSpawnNextEnemy();
     this->checkGameOver();
@@ -271,8 +264,6 @@ void GameScene::damageEnemyFromCharacter()
     if (! enemyRect.intersectsRect(characterRect)) {
         return;
     }
-    log("%f,%f,%f,%f", enemyRect.origin.x, enemyRect.origin.y, enemyRect.size.width, enemyRect.size.height);
-    log("%f,%f,%f,%f", characterRect.origin.x, characterRect.origin.y, characterRect.size.width, characterRect.size.height);
 
     // 攻撃が当たった！
     JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
@@ -380,17 +371,29 @@ void GameScene::spawnNextEnemy()
     auto bounceEaseOut = EaseBounceInOut::create(spawn);
     this->currentEnemy->runAction(bounceEaseOut);
 
+    // activate enemy
+    this->currentEnemy->activate();
+
     // setup enemyAI
     if (GameSceneManager::getInstance()->isHost()) {
         cocos2d::Vector<Entity*> opponents;
         opponents.pushBack(this->character);
+
+        if (this->networkedSession) {
+            opponents.pushBack(this->friendCharacter);
+        }
         this->enemyAI = new EnemyAI(this->currentEnemy, opponents);
         this->addChild(this->enemyAI);
+
+        this->enemyAI->start();
     }
 
-    // activate enemy
-    this->currentEnemy->activate();
-    // this->enemyAI->start();
+    // sync settings for an enemy
+    if (this->networkedSession) {
+        this->currentEnemy->synchronizer->setIsSendData(GameSceneManager::getInstance()->isHost());
+        this->currentEnemy->synchronizer->setIsHost(false);
+        this->currentEnemy->synchronizer->setIsMyself(false);
+    }
 
     ++this->currentEnemyIndex;
 }

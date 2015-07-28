@@ -25,9 +25,9 @@ bool Triangle::init()
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
-    this->initialHp = 300;
+    this->initialHp = 100;
     this->setHp(this->initialHp);
-    this->velocityFactor = 200.0f;
+    this->velocityFactor = 150.0f;
 
     return true;
 }

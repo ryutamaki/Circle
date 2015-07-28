@@ -63,7 +63,6 @@ std::string Entity::getCurrentAttackName()
 AttackParams Entity::getAttackParamsByName(std::string attackName)
 {
     auto itr = this->attackMap.find(attackName);
-    log("%s", attackName.c_str());
 
     if (itr != this->attackMap.end()) {
         return this->attackMap[attackName];
