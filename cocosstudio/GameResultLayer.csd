@@ -30,15 +30,15 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="ResultLabel" ActionTag="-1933879219" Tag="43" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="514.0000" RightMargin="514.0000" TopMargin="212.4000" BottomMargin="519.6000" LabelText="YOU WIN" ctype="TextBMFontObjectData">
-            <Size X="108.0000" Y="36.0000" />
+          <AbstractNodeData Name="ResultLabel" ActionTag="-1933879219" Tag="43" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="421.0000" RightMargin="421.0000" TopMargin="189.9000" BottomMargin="497.1000" LabelText="YOU WIN" ctype="TextBMFontObjectData">
+            <Size X="294.0000" Y="81.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="568.0000" Y="537.6000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="0" G="0" B="0" />
             <PrePosition X="0.5000" Y="0.7000" />
-            <PreSize X="0.0000" Y="0.0000" />
-            <LabelBMFontFile_CNB Type="Default" Path="Default/defaultBMFont.fnt" Plist="" />
+            <PreSize X="0.2588" Y="0.1055" />
+            <LabelBMFontFile_CNB Type="Normal" Path="Fonts/myFont.fnt" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

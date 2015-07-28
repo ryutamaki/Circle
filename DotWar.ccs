@@ -17,10 +17,6 @@
           <Image Name="Field@2x.png" />
           <Image Name="Field@3x.png" />
           <Image Name="Field@4x.png" />
-          <Image Name="Logo.png" />
-          <Image Name="Logo@2x.png" />
-          <Image Name="Logo@3x.png" />
-          <Image Name="Logo@4x.png" />
           <Image Name="TutorialButton.png" />
           <Image Name="TutorialButton@2x.png" />
           <Image Name="TutorialButton@3x.png" />
@@ -77,6 +73,10 @@
         <Project Name="StageButton.csd" Type="Node" />
         <Project Name="StageSelectScene.csd" Type="Scene" />
         <Project Name="Coin.csd" Type="Node" />
+        <Project Name="Node.csd" Type="Node" />
+        <Folder Name="Fonts">
+          <Fnt Name="myFont.fnt" />
+        </Folder>
       </RootFolder>
     </Group>
   </SolutionFolder>
