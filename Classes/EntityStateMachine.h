@@ -65,6 +65,7 @@ public:
     void hitAttack();
     void coolDownAttaking();
     void finishAttaking();
+    void cancelAttack();
 
     bool canAttack();
 

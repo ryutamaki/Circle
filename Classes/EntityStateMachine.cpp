@@ -132,6 +132,15 @@ void EntityStateMachine::finishAttaking()
     this->delegate->didStateChanged(this->moveState, this->attackState);
 }
 
+void EntityStateMachine::cancelAttack()
+{
+    this->delegate->willStateChange(this->moveState, this->attackState);
+
+    this->setAttackState(EntityAttackState::NONE);
+
+    this->delegate->didStateChanged(this->moveState, this->attackState);
+}
+
 bool EntityStateMachine::canAttack()
 {
     if (this->attackState == EntityAttackState::NONE) {

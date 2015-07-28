@@ -296,12 +296,26 @@ void GameScene::spawnNextEnemy()
         return;
     }
 
+    // decide a side enemy is spawn
+    bool isRightSide = true;
+
     // Flash current enemy first
     if (this->currentEnemy) {
-        this->currentEnemy->removeFromParent();
+        Entity* tmpEntity = this->currentEnemy;
+        tmpEntity->deactivate();
+
         this->currentEnemy = nullptr;
         this->enemyAI->removeFromParent();
         this->enemyAI = nullptr;
+        tmpEntity->runAction(
+            Sequence::create(
+                FadeOut::create(1.0f),
+                CallFunc::create([tmpEntity]() {tmpEntity->removeFromParent(); }),
+                NULL
+            )
+        );
+
+        isRightSide = CCRANDOM_MINUS1_1() < 0.0f;
     }
 
     // pop next enemy from enemy queue
@@ -309,10 +323,30 @@ void GameScene::spawnNextEnemy()
 
     // set properties
     // TODO: magic number
+    Size fieldSize = this->field->getContentSize();
     this->currentEnemy->setIdentifier("Enemy");
-    this->currentEnemy->setNormalizedPosition(Vec2(0.8f, 0.5f));
-    this->currentEnemy->setRotation(180.0f);
+
+    Vec2 initialPosition;
+    float rotation;
+
+    if (isRightSide) {
+        initialPosition = Vec2(fieldSize.width * 0.8f, fieldSize.height * 2.0f);
+        rotation = 180.0f;
+    } else {
+        initialPosition = Vec2(fieldSize.width * 0.2f, fieldSize.height * 2.0f);
+        rotation = 0.0f;
+    }
+    this->currentEnemy->setPosition(initialPosition);
+    this->currentEnemy->setRotation(rotation);
     this->field->addChild(this->currentEnemy);
+
+    // animate next entity
+    this->currentEnemy->setScale(3.0f);
+    auto moveTo = MoveTo::create(2.0f, Vec2(this->currentEnemy->getPosition().x, fieldSize.height * 0.5f));
+    auto scaleTo = ScaleTo::create(2.0f, 1.0f);
+    auto spawn = Spawn::create(moveTo, scaleTo, NULL);
+    auto bounceEaseOut = EaseBounceInOut::create(spawn);
+    this->currentEnemy->runAction(bounceEaseOut);
 
     // setup enemyAI
     if (GameSceneManager::getInstance()->isHost()) {
@@ -348,7 +382,7 @@ void GameScene::gameover(bool isWin)
 {
     this->gameState = GameState::RESULT;
     this->unscheduleUpdate();
-
+    this->enemyAI->stop();
     this->showResultLayer(isWin);
 }
 

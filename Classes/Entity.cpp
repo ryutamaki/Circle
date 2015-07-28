@@ -117,6 +117,8 @@ void Entity::activate()
 void Entity::deactivate()
 {
     this->isDead = true;
+    this->stateMachine->move(EntityMoveState::NONE);
+    this->stateMachine->cancelAttack();
     this->unscheduleUpdate();
     this->stopAllActions();
 }
