@@ -228,7 +228,7 @@ void GameScene::update(float dt)
             return;
         }
 
-        Rect entityRect = entity->getRect();
+        Rect entityRect = entity->getBodyRect();
         Rect entityNextRect = Rect(
                 entityRect.origin.x + entity->getVelocity().x,
                 entityRect.origin.y + entity->getVelocity().y,
@@ -247,10 +247,6 @@ void GameScene::update(float dt)
         }
     }
 
-    // this rects does not effected by animations
-    Rect characterRect = this->character->getRect();
-    Rect enemyRect = this->currentEnemy->getRect();
-
     this->damageEnemyFromCharacter();
 
     this->checkSpawnNextEnemy();
@@ -265,23 +261,18 @@ void GameScene::damageEnemyFromCharacter()
     }
 
     // this rects does not effected by animations
-    Rect enemyRect = this->currentEnemy->getRect();
+    Rect characterRect = this->character->getBodyRectInWorldSpace();
+    Rect enemyRect = this->currentEnemy->getBodyRectInWorldSpace();
 
     std::string currentAttackName = this->character->getCurrentAttackName();
     AttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
-    Vec2 characterCenter = this->character->getCenter();
-    Rect damageRect = Rect(
-            characterCenter.x + attackParams.range.origin.x,
-            characterCenter.y + attackParams.range.origin.y,
-            attackParams.range.size.width, attackParams.range.size.height
-        );
 
     // 攻撃していたけど、範囲外
-    if (! enemyRect.intersectsRect(damageRect)) {
+    if (! enemyRect.intersectsRect(characterRect)) {
         return;
     }
     log("%f,%f,%f,%f", enemyRect.origin.x, enemyRect.origin.y, enemyRect.size.width, enemyRect.size.height);
-    log("%f,%f,%f,%f", damageRect.origin.x, damageRect.origin.y, damageRect.size.width, damageRect.size.height);
+    log("%f,%f,%f,%f", characterRect.origin.x, characterRect.origin.y, characterRect.size.width, characterRect.size.height);
 
     // 攻撃が当たった！
     JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
@@ -314,20 +305,14 @@ void GameScene::damageCharacterFromEntity()
     }
 
     // this rects does not effected by animations
-    Rect characterRect = this->character->getRect();
-    Rect enemyRect = this->currentEnemy->getRect();
+    Rect characterRect = this->character->getBodyRectInWorldSpace();
+    Rect enemyRect = this->currentEnemy->getBodyRectInWorldSpace();
 
     std::string currentAttackName = this->currentEnemy->getCurrentAttackName();
     AttackParams attackParams = this->currentEnemy->getAttackParamsByName(currentAttackName);
-    Vec2 enemyCenter = this->currentEnemy->getCenter();
-    Rect damageRect = Rect(
-            enemyCenter.x + attackParams.range.origin.x,
-            enemyCenter.y + attackParams.range.origin.y,
-            attackParams.range.size.width, attackParams.range.size.height
-        );
 
     // 攻撃していたけど、範囲外
-    if (! characterRect.intersectsRect(damageRect)) {
+    if (! characterRect.intersectsRect(enemyRect)) {
         return;
     }
 

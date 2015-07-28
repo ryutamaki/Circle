@@ -72,7 +72,7 @@ AttackParams Entity::getAttackParamsByName(std::string attackName)
     CCASSERT(false, "Undefined attack is selected");
 }
 
-Rect Entity::getRect()
+Rect Entity::getBodyRect()
 {
     Size size = this->getBodySize();
     Vec2 position = this->getPosition();
@@ -85,10 +85,21 @@ Rect Entity::getRect()
     return returnRect;
 }
 
-Vec2 Entity::getCenter()
+Rect Entity::getBodyRectInWorldSpace()
 {
-    Rect rect = this->getRect();
-    return Vec2(rect.getMidX(), rect.getMidY());
+    Size size = this->getBodySize();
+    Vec2 position = this->getPosition();
+
+    Sprite* body = dynamic_cast<Sprite*>(this->getChildByName("Body"));
+    Vec2 bodyPosition = body->getPosition();
+    Vec2 bodyPositionInWorld = this->convertToWorldSpace(bodyPosition);
+
+    Rect returnRect = Rect(
+            bodyPositionInWorld.x - size.width * body->getAnchorPoint().x,
+            bodyPositionInWorld.y - size.height * body->getAnchorPoint().y,
+            size.width, size.height
+        );
+    return returnRect;
 }
 
 std::string Entity::getIdentifier()

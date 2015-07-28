@@ -39,7 +39,8 @@ public:
     cocos2d::Vec2 getVelocity();
     std::string getCurrentAttackName();
     AttackParams getAttackParamsByName(std::string attackName);
-    cocos2d::Rect getRect();
+    cocos2d::Rect getBodyRect();
+    cocos2d::Rect getBodyRectInWorldSpace();
     cocos2d::Vec2 getCenter();
 
     std::string getIdentifier();
