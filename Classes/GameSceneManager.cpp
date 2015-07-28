@@ -45,7 +45,6 @@ void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked
     this->gameScene = GameScene::create();
     this->gameScene->setNetworkedSession(networked);
     this->gameScene->setCharacterByEntityType(EntityType::CIRCLE);
-    this->gameScene->setEnemyListByEntityType(enemyEntityType);
 
     if (networked) {
         this->gameScene->setFriendCharacter(EntityType::CIRCLE);

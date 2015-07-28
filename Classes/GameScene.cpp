@@ -6,6 +6,8 @@
 #include "Coin.h"
 #include "GameResultLayer.h"
 #include "GameResultLayerReader.h"
+#include "ScoreLabel.h"
+#include "ScoreLabelReader.h"
 
 #include "JSONPacker.h"
 #include "EntityFactory.h"
@@ -38,6 +40,7 @@ bool GameScene::init()
 
     this->networkedSession = false;
     this->gameState = GameState::PREPARE;
+    this->defeatEnemyCount = 0;
 
     return true;
 }
@@ -59,13 +62,6 @@ void GameScene::setFriendCharacter(EntityType entityType)
     this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter);
-}
-
-void GameScene::setEnemyListByEntityType(EntityType entityType)
-{
-    // TODO: magic number
-    this->enemyList = EntityFactory::createEntityList(5, entityType);
-    this->currentEnemyIndex = 0;
 }
 
 #pragma mark Networking
@@ -142,7 +138,17 @@ void GameScene::onEnter()
         this->friendCharacter->synchronizer->setIsHost(! isHost);
     }
 
+    this->setupUI();
     this->setupTouchHandling();
+}
+
+void GameScene::setupUI()
+{
+    CSLoader::getInstance()->registReaderObject("ScoreLabelReader", (ObjectFactory::Instance)ScoreLabelReader::getInstance);
+
+    this->scoreLabel = dynamic_cast<ScoreLabel*>(CSLoader::createNode("ScoreLabel.csb"));
+    this->scoreLabel->setNormalizedPosition(Vec2(0.5f, 0.9f));
+    this->field->addChild(this->scoreLabel);
 }
 
 void GameScene::setupTouchHandling()
@@ -217,7 +223,7 @@ void GameScene::update(float dt)
         Entity* entity = dynamic_cast<Entity*>(fieldChildren.at(index));
 
         if (! entity) {
-            return;
+            continue;
         }
 
         Rect entityRect = entity->getBodyRect();
@@ -315,10 +321,6 @@ void GameScene::damageCharacterFromEntity()
 
 void GameScene::spawnNextEnemy()
 {
-    if (this->isLastEnemy()) {
-        return;
-    }
-
     // decide a side enemy is spawn
     bool isRightSide = true;
 
@@ -342,7 +344,7 @@ void GameScene::spawnNextEnemy()
     }
 
     // pop next enemy from enemy queue
-    this->currentEnemy = this->enemyList.at(this->currentEnemyIndex);
+    this->currentEnemy = EntityFactory::createEntityWithEntityType(EntityType::TRIANGLE);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
@@ -395,7 +397,8 @@ void GameScene::spawnNextEnemy()
         this->currentEnemy->synchronizer->setIsMyself(false);
     }
 
-    ++this->currentEnemyIndex;
+    ++this->defeatEnemyCount;
+    this->scoreLabel->setScore(this->defeatEnemyCount);
 }
 
 void GameScene::checkSpawnNextEnemy()
@@ -403,14 +406,6 @@ void GameScene::checkSpawnNextEnemy()
     if (this->currentEnemy->getIsDead()) {
         this->spawnNextEnemy();
     }
-}
-
-bool GameScene::isLastEnemy()
-{
-    if (this->currentEnemyIndex >= this->enemyList.size()) {
-        return true;
-    }
-    return false;
 }
 
 void GameScene::gameover(bool isWin)
@@ -431,10 +426,6 @@ void GameScene::checkGameOver()
         if (this->character->getIsDead()) {
             this->gameover(false);
         }
-    }
-
-    if (this->isLastEnemy() && this->currentEnemy->getIsDead()) {
-        this->gameover(true);
     }
 }
 

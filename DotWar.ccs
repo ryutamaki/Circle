@@ -73,7 +73,7 @@
         <Project Name="StageButton.csd" Type="Node" />
         <Project Name="StageSelectScene.csd" Type="Scene" />
         <Project Name="Coin.csd" Type="Node" />
-        <Project Name="Node.csd" Type="Node" />
+        <Project Name="ScoreLabel.csd" Type="Node" />
         <Folder Name="Fonts">
           <Fnt Name="myFont.fnt" />
         </Folder>

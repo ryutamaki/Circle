@@ -11,6 +11,7 @@
 #include "CoinContainer.h"
 
 class EnemyAI;
+class ScoreLabel;
 
 class GameScene : public cocos2d::Layer
 {
@@ -22,7 +23,6 @@ public:
     // setup entities
     void setCharacterByEntityType(EntityType entityType);
     void setFriendCharacter(EntityType entityType);
-    void setEnemyListByEntityType(EntityType entityType);
 
     // networking
     void setNetworkedSession(bool networkedSession);
@@ -34,17 +34,18 @@ private:
 
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;
+    ScoreLabel* scoreLabel;
 
     std::unique_ptr<CoinContainer> coinContainer;
 
     Entity* character;
     Entity* friendCharacter;
-    cocos2d::Vector<Entity*> enemyList;
     Entity* currentEnemy;
-    int currentEnemyIndex;
+    int defeatEnemyCount;
     EnemyAI* enemyAI;
 
     void onEnter() override;
+    void setupUI();
     void setupTouchHandling();
 
     // game logic
@@ -55,7 +56,6 @@ private:
 
     void spawnNextEnemy();
     void checkSpawnNextEnemy();
-    bool isLastEnemy();
     void gameover(bool isWin);
     void checkGameOver();
     Entity* getTargetEntityByTargetString(std::string targetString);
