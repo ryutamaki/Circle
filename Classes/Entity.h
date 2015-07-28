@@ -32,6 +32,7 @@ public:
     void setHp(int hp);
     cocos2d::Vec2 getVelocity();
     cocos2d::Rect getRect();
+    cocos2d::Vec2 getCenter();
 
     std::string getIdentifier();
     void setIdentifier(std::string identifier);

@@ -69,6 +69,12 @@ Rect Entity::getRect()
     return returnRect;
 }
 
+Vec2 Entity::getCenter()
+{
+    Rect rect = this->getRect();
+    return Vec2(rect.getMidX(), rect.getMidY());
+}
+
 std::string Entity::getIdentifier()
 {
     return this->identifier;

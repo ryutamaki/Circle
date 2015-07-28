@@ -261,7 +261,7 @@ void GameScene::update(float dt)
 
         // for (int i = 0; i < 10; ++i) {
         // Coin* coin = this->coinContainer->fetchCoin();
-        // coin->setPosition(Vec2(enemyRect.getMidX() + CCRANDOM_MINUS1_1() * 10.0f, enemyRect.getMidY() + CCRANDOM_MINUS1_1() * 10.0f));
+        // coin->setPosition(this->currentEnemy->getCenter() + Vec2(CCRANDOM_MINUS1_1() * 10.0f, CCRANDOM_MINUS1_1() * 10.0f)));
         // this->field->addChild(coin);
         // }
 
