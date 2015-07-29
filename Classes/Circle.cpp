@@ -23,9 +23,6 @@ bool Circle::init()
     // retain the haracter animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
-    this->initialHp = 50;
-    this->velocityFactor = 300.0f;
-
     return true;
 }
 

@@ -48,6 +48,26 @@ void Entity::setHp(int hp)
     }
 }
 
+void Entity::setInitialHp(int initialHp)
+{
+    this->initialHp = initialHp;
+}
+
+int Entity::getAttackFactor()
+{
+    return this->attackFactor;
+}
+
+void Entity::setAttackFactor(int attackFactor)
+{
+    this->attackFactor = attackFactor;
+}
+
+void Entity::setVelocityFactor(float velocityFactor)
+{
+    this->velocityFactor = velocityFactor;
+}
+
 Vec2 Entity::getVelocity()
 {
     return this->velocity;

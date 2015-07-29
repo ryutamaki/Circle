@@ -36,6 +36,12 @@ public:
     // Accessors
     int getHp();
     void setHp(int hp);
+    void setInitialHp(int initialHp);
+
+    int getAttackFactor();
+    void setAttackFactor(int attackFactor);
+
+    void setVelocityFactor(float velocityFactor);
     cocos2d::Vec2 getVelocity();
 
     std::string getCurrentAttackName();
