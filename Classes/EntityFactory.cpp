@@ -35,9 +35,8 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
         {
             instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
-            circle->setInitialHp(50);
-            circle->setAttackFactor(1);
-            circle->setVelocityFactor(300.0f);
+            EntityParameter parameter = {50, 1, 300.0f};
+            circle->setEntityParameter(parameter);
             return circle;
         }
 
@@ -45,9 +44,8 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
         {
             instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            triangle->setInitialHp(100);
-            triangle->setAttackFactor(1);
-            triangle->setVelocityFactor(150.0f);
+            EntityParameter parameter = {100, 1, 150.0f};
+            triangle->setEntityParameter(parameter);
             return triangle;
         }
 

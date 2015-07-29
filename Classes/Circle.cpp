@@ -46,5 +46,5 @@ void Circle::onEnter()
 {
     Entity::onEnter();
 
-    this->setHp(this->initialHp);
+    this->setHp(this->entityParameter.initialHp);
 }

@@ -14,6 +14,7 @@
 #include "EntityStateMachine.h"
 #include "EntitySynchronizer.h"
 #include "EntityHelper.h"
+#include "EntityConstants.h"
 
 #include "cocostudio/CocoStudio.h"
 
@@ -34,14 +35,11 @@ public:
     CREATE_FUNC(Entity);
 
     // Accessors
+    EntityParameter getEntityParameter();
+    void setEntityParameter(EntityParameter entityParameter);
+
     int getHp();
     void setHp(int hp);
-    void setInitialHp(int initialHp);
-
-    int getAttackFactor();
-    void setAttackFactor(int attackFactor);
-
-    void setVelocityFactor(float velocityFactor);
     cocos2d::Vec2 getVelocity();
 
     std::string getCurrentAttackName();
@@ -75,9 +73,9 @@ protected:
     cocostudio::timeline::ActionTimeline* timeline;
     std::string identifier;
 
-    int hp, initialHp;
-    int attackFactor;
-    float velocityFactor;
+    EntityParameter entityParameter;
+
+    int hp;
     cocos2d::Vec2 velocity;
     std::string currentAttackName;
     std::map<std::string, AttackParams> attackMap;

@@ -32,6 +32,16 @@ bool Entity::init()
 
 #pragma mark Accessor
 
+EntityParameter Entity::getEntityParameter()
+{
+    return entityParameter;
+}
+
+void Entity::setEntityParameter(EntityParameter entityParameter)
+{
+    this->entityParameter = entityParameter;
+}
+
 int Entity::getHp()
 {
     return this->hp;
@@ -46,26 +56,6 @@ void Entity::setHp(int hp)
     if (this->hp <= 0) {
         this->deactivate();
     }
-}
-
-void Entity::setInitialHp(int initialHp)
-{
-    this->initialHp = initialHp;
-}
-
-int Entity::getAttackFactor()
-{
-    return this->attackFactor;
-}
-
-void Entity::setAttackFactor(int attackFactor)
-{
-    this->attackFactor = attackFactor;
-}
-
-void Entity::setVelocityFactor(float velocityFactor)
-{
-    this->velocityFactor = velocityFactor;
 }
 
 Vec2 Entity::getVelocity()
@@ -310,13 +300,13 @@ void Entity::setBodyColorByCurrentHp()
             continue;
         }
 
-        if (this->initialHp * 0.75 < this->hp) {
+        if (this->entityParameter.initialHp * 0.75 < this->hp) {
             sprite->setColor(Color3B(DARK_BLUE));
-        } else if (this->initialHp * 0.5 < this->hp && this->hp <= this->initialHp * 0.75) {
+        } else if (this->entityParameter.initialHp * 0.5 < this->hp && this->hp <= this->entityParameter.initialHp * 0.75) {
             sprite->setColor(Color3B(LIGHT_BLUE));
-        } else if (this->initialHp * 0.25 < this->hp && this->hp <= this->initialHp * 0.5) {
+        } else if (this->entityParameter.initialHp * 0.25 < this->hp && this->hp <= this->entityParameter.initialHp * 0.5) {
             sprite->setColor(Color3B(LIGHT_RED));
-        } else if (this->hp <= this->initialHp * 0.25f) {
+        } else if (this->hp <= this->entityParameter.initialHp * 0.25f) {
             sprite->setColor(Color3B(DARK_RED));
         }
     }
@@ -328,6 +318,6 @@ void Entity::update(float dt)
 
     EntityMoveState currentMoveState = this->stateMachine->getMoveState();
     Vec2 direction = EntityHelper::directionFromMoveState(currentMoveState);
-    this->velocity = this->velocityFactor * direction * dt;
+    this->velocity = this->entityParameter.velocityFactor * direction * dt;
     this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
 }
