@@ -70,6 +70,7 @@ protected:
     std::string identifier;
 
     int hp, initialHp;
+    int attackFactor;
     float velocityFactor;
     cocos2d::Vec2 velocity;
     std::string currentAttackName;

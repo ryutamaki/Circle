@@ -293,7 +293,7 @@ void GameScene::damageEnemyFromCharacter()
     // }
 
     if (this->character->synchronizer->getIsHost()) {
-        this->currentEnemy->receiveDamage(attackParams.damage);
+        this->currentEnemy->receiveDamage(attackParams.damage * this->character->getAttackFactor());
 
         JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
         this->currentEnemy->synchronizer->sendDataIfNotHost(currentEntityState);
@@ -323,7 +323,7 @@ void GameScene::damageCharacterFromEntity()
     }
 
     this->currentEnemy->stateMachine->hitAttack();
-    this->character->receiveDamage(attackParams.damage);
+    this->character->receiveDamage(attackParams.damage * this->currentEnemy->getAttackFactor());
     JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
     this->character->synchronizer->sendData(currentCharacterState);
 }
