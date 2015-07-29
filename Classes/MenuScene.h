@@ -25,6 +25,7 @@ public:
     CREATE_FUNC(MenuScene);
 
 private:
+    cocos2d::Sprite* field; // TODO: it should be removed
 
     void onEnter() override;
 

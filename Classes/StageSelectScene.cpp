@@ -46,6 +46,10 @@ bool StageSelectScene::init()
 
     auto rootNode = CSLoader::createNode("StageSelectScene.csb");
 
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    rootNode->setContentSize(visibleSize);
+    ui::Helper::doLayout(rootNode);
+
     this->pageView = rootNode->getChildByName<ui::PageView*>("PageView");
 
     addChild(rootNode);
@@ -74,10 +78,10 @@ void StageSelectScene::setupStageSelectButtons()
     const Size visibleSize = Director::getInstance()->getVisibleSize();
 
     const std::vector<Vec2> buttonPositionList = {
-        Vec2(visibleSize.width * 0.3f, visibleSize.height * 0.7f),
-        Vec2(visibleSize.width * 0.7f, visibleSize.height * 0.7f),
-        Vec2(visibleSize.width * 0.3f, visibleSize.height * 0.35f),
-        Vec2(visibleSize.width * 0.7f, visibleSize.height * 0.35f),
+        Vec2(visibleSize.width * 0.3f, visibleSize.height * 0.65f),
+        Vec2(visibleSize.width * 0.7f, visibleSize.height * 0.65f),
+        Vec2(visibleSize.width * 0.3f, visibleSize.height * 0.25f),
+        Vec2(visibleSize.width * 0.7f, visibleSize.height * 0.25f),
     };
 
     const unsigned int entityTypeCount = (int)EntityType::NONE;

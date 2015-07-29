@@ -32,6 +32,9 @@ bool GameScene::init()
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    rootNode->setContentSize(visibleSize);
+    ui::Helper::doLayout(rootNode);
 
     this->field = rootNode->getChildByName<Sprite*>("Field");
     this->coinContainer = std::unique_ptr<CoinContainer>(new CoinContainer());
@@ -133,6 +136,14 @@ void GameScene::onEnter()
 {
     Layer::onEnter();
 
+    // TODO: field should be a custom object
+    float fieldScaleFactor = 1.0f;
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Size fieldSize = this->field->getContentSize();
+
+    fieldScaleFactor = MIN(visibleSize.height / fieldSize.height, visibleSize.width / fieldSize.width);
+    this->field->setScale(fieldScaleFactor);
+
     if (this->networkedSession) {
         bool isHost = GameSceneManager::getInstance()->isHost();
         // sync settings for myself
@@ -191,7 +202,7 @@ void GameScene::setupTouchHandling()
     touchListenerForMove->onTouchEnded = [this](Touch* touch, Event* event) {
             this->character->stateMachine->move(EntityMoveState::NONE);
         };
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForMove, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForMove, this->field);
 
     EventListenerTouchOneByOne* touchListenerForAttack = EventListenerTouchOneByOne::create();
     touchListenerForAttack->onTouchBegan = [&](Touch* touch, Event* event) {
@@ -208,7 +219,7 @@ void GameScene::setupTouchHandling()
     touchListenerForAttack->onTouchEnded = [&](Touch* touch, Event* event) {
             this->character->attack("Attack");
         };
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForAttack, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForAttack, this->field);
 }
 
 #pragma mark Game logic
@@ -459,9 +470,10 @@ void GameScene::showResultLayer(bool isWin)
 {
     CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
     GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
-    gameResult->setPosition(Vec2::ZERO);
+    gameResult->setNormalizedPosition(Vec2(0.5f, 0.5f));
+    gameResult->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     gameResult->setIsWin(isWin);
-    this->background->addChild(gameResult);
+    this->addChild(gameResult);
 }
 
 void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType)

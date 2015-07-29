@@ -43,6 +43,10 @@ bool MenuScene::init()
 
     auto rootNode = CSLoader::createNode("MenuScene.csb");
 
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    rootNode->setContentSize(visibleSize);
+    ui::Helper::doLayout(rootNode);
+
     this->field = rootNode->getChildByName<Sprite*>("Field");
     ui::Button* singlePlayerButton = rootNode->getChildByName<ui::Button*>("SinglePlayerButton");
     ui::Button* multiplayerButton = rootNode->getChildByName<ui::Button*>("MultiplayerButton");
@@ -64,6 +68,14 @@ bool MenuScene::init()
 void MenuScene::onEnter()
 {
     Layer::onEnter();
+
+    // TODO: field should be a custom object
+    float fieldScaleFactor = 1.0f;
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    Size fieldSize = this->field->getContentSize();
+
+    fieldScaleFactor = MIN(visibleSize.height / fieldSize.height, visibleSize.width / fieldSize.width);
+    this->field->setScale(fieldScaleFactor);
 
     // This will start observing to find peers.
     // Set self.peerID in NetworkManager also.
