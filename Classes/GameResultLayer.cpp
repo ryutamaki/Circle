@@ -35,17 +35,16 @@ bool GameResultLayer::init()
 
 #pragma mark Accessors
 
-void GameResultLayer::setIsWin(bool isWin)
+void GameResultLayer::setScore(int score)
 {
-    this->isWin = isWin;
+    ui::TextBMFont* scoreLabel = this->getChildByName<ui::TextBMFont*>("ScoreLabel");
+    scoreLabel->setString(scoreLabel->getString() + std::to_string(score));
+}
 
-    ui::TextBMFont* resultLabel = this->getChildByName<ui::TextBMFont*>("ResultLabel");
-
-    if (isWin) {
-        resultLabel->setString("YOU WIN");
-    } else {
-        resultLabel->setString("YOU LOSE");
-    }
+void GameResultLayer::setHighScore(int highScore)
+{
+    ui::TextBMFont* highScoreLabel = this->getChildByName<ui::TextBMFont*>("HighScoreLabel");
+    highScoreLabel->setString(highScoreLabel->getString() + std::to_string(highScore));
 }
 
 #pragma mark - Private methods

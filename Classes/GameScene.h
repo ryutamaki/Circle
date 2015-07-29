@@ -58,12 +58,12 @@ private:
 
     void spawnNextEnemy();
     void checkSpawnNextEnemy();
-    void gameover(bool isWin);
+    void gameover();
     void checkGameOver();
     Entity* getTargetEntityByTargetString(std::string targetString);
 
     // transitions
-    void showResultLayer(bool isWin);
+    void showResultLayer();
 
     void readyToStart(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void tryToStart();

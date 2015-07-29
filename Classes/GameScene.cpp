@@ -418,12 +418,12 @@ void GameScene::checkSpawnNextEnemy()
     }
 }
 
-void GameScene::gameover(bool isWin)
+void GameScene::gameover()
 {
     this->gameState = GameState::RESULT;
     this->unscheduleUpdate();
     this->enemyAI->stop();
-    this->showResultLayer(isWin);
+    this->showResultLayer();
 
     UserDataManager::getInstance()->setHighScoreByEntityType(this->defeatEnemyCount, this->enemyEntityType);
 }
@@ -432,11 +432,11 @@ void GameScene::checkGameOver()
 {
     if (this->networkedSession) {
         if (this->character->getIsDead() && this->friendCharacter->getIsDead()) {
-            this->gameover(false);
+            this->gameover();
         }
     } else {
         if (this->character->getIsDead()) {
-            this->gameover(false);
+            this->gameover();
         }
     }
 }
@@ -466,14 +466,15 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
 
 #pragma mark Transitions
 
-void GameScene::showResultLayer(bool isWin)
+void GameScene::showResultLayer()
 {
     CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
     GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
-    gameResult->setNormalizedPosition(Vec2(0.5f, 0.5f));
+    gameResult->setNormalizedPosition(Vec2::ZERO);
     gameResult->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    gameResult->setIsWin(isWin);
-    this->addChild(gameResult);
+    gameResult->setScore(this->defeatEnemyCount);
+    gameResult->setHighScore(UserDataManager::getInstance()->getHighScoreByEntityType(this->enemyEntityType));
+    this->field->addChild(gameResult);
 }
 
 void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType)

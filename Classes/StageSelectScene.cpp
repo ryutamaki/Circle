@@ -90,8 +90,6 @@ void StageSelectScene::setupStageSelectButtons()
 
     for (int page = 0, last = totalPageCount; page < last; ++page) {
         ui::Layout* pageLayout = ui::Layout::create();
-        // TODO: magic number
-        pageLayout->setSize(Size(960, 640));
 
         for (Vec2 buttonPosition : buttonPositionList) {
             auto it = std::find(buttonPositionList.begin(), buttonPositionList.end(), buttonPosition);

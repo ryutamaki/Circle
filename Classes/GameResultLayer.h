@@ -17,12 +17,11 @@ public:
     CREATE_FUNC(GameResultLayer);
     bool init() override;
 
-    void setIsWin(bool isWin);
+    void setScore(int score);
+    void setHighScore(int highScore);
 
 private:
     cocostudio::timeline::ActionTimeline* timeline;
-
-    bool isWin;
 
     void onEnter() override;
 

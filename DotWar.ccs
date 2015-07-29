@@ -69,6 +69,10 @@
           <Image Name="TriangleEyes@2x.png" />
           <Image Name="TriangleEyes@3x.png" />
           <Image Name="TriangleEyes@4x.png" />
+          <Image Name="Overlay.png" />
+          <Image Name="Overlay@2x.png" />
+          <Image Name="Overlay@3x.png" />
+          <Image Name="Overlay@4x.png" />
         </Folder>
         <Project Name="StageButton.csd" Type="Node" />
         <Project Name="StageSelectScene.csd" Type="Scene" />
