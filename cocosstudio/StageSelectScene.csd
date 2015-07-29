@@ -11,6 +11,18 @@
             <Children>
               <AbstractNodeData Name="Field" ActionTag="1640991626" Tag="142" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="88.0000" RightMargin="88.0000" TopMargin="64.0000" BottomMargin="64.0000" ctype="SpriteObjectData">
                 <Size X="960.0000" Y="640.0000" />
+                <Children>
+                  <AbstractNodeData Name="StageSelectLabel" ActionTag="-742054735" Tag="55" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="348.0000" RightMargin="348.0000" TopMargin="75.0000" BottomMargin="523.0000" LabelText="STAGE SELECT" ctype="TextBMFontObjectData">
+                    <Size X="264.0000" Y="42.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="480.0000" Y="544.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.8500" />
+                    <PreSize X="0.2750" Y="0.0656" />
+                    <LabelBMFontFile_CNB Type="Normal" Path="Fonts/Menlo36.fnt" Plist="" />
+                  </AbstractNodeData>
+                </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="568.0000" Y="384.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />

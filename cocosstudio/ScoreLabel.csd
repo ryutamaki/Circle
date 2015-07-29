@@ -5,7 +5,7 @@
       <Animation Duration="180" Speed="1.0000" ActivedAnimationName="Appear">
         <Timeline ActionTag="-1925254411" Property="Position">
           <PointFrame FrameIndex="1" X="0.0000" Y="150.0000">
-            <EasingData Type="0" />
+            <EasingData Type="29" />
           </PointFrame>
           <PointFrame FrameIndex="30" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
@@ -55,15 +55,15 @@
       <ObjectData Name="Node" CustomClassName="ScoreLabel" Tag="51" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="ScoreLabel" ActionTag="-1925254411" Tag="52" IconVisible="False" LeftMargin="-21.0000" RightMargin="-21.0000" TopMargin="-190.5000" BottomMargin="109.5000" LabelText="0" ctype="TextBMFontObjectData">
+          <AbstractNodeData Name="ScoreLabel" ActionTag="-1925254411" Tag="52" IconVisible="False" LeftMargin="-21.0000" RightMargin="-21.0000" TopMargin="-40.5000" BottomMargin="-40.5000" LabelText="0" ctype="TextBMFontObjectData">
             <Size X="42.0000" Y="81.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position Y="150.0000" />
+            <Position />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <LabelBMFontFile_CNB Type="Normal" Path="Fonts/myFont.fnt" Plist="" />
+            <LabelBMFontFile_CNB Type="Normal" Path="Fonts/Menlo70.fnt" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

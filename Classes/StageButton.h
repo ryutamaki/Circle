@@ -27,6 +27,8 @@ protected:
 
     EntityType entityType;
 
+    void onEnter() override;
+
     void attachEntity(EntityType entityType);
     void attachHighScoreLabel();
 

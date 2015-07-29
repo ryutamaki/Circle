@@ -38,7 +38,7 @@
             <CColor A="255" R="0" G="0" B="0" />
             <PrePosition X="0.5000" Y="0.7000" />
             <PreSize X="0.2588" Y="0.1055" />
-            <LabelBMFontFile_CNB Type="Normal" Path="Fonts/myFont.fnt" Plist="" />
+            <LabelBMFontFile_CNB Type="Normal" Path="Fonts/Menlo70.fnt" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

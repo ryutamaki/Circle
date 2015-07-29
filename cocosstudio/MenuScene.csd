@@ -50,7 +50,7 @@
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5000" Y="0.7500" />
                     <PreSize X="0.2625" Y="0.1266" />
-                    <LabelBMFontFile_CNB Type="Normal" Path="Fonts/myFont.fnt" Plist="" />
+                    <LabelBMFontFile_CNB Type="Normal" Path="Fonts/Menlo70.fnt" Plist="" />
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />

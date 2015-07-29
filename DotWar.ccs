@@ -75,7 +75,9 @@
         <Project Name="Coin.csd" Type="Node" />
         <Project Name="ScoreLabel.csd" Type="Node" />
         <Folder Name="Fonts">
-          <Fnt Name="myFont.fnt" />
+          <Fnt Name="Menlo20.fnt" />
+          <Fnt Name="Menlo36.fnt" />
+          <Fnt Name="Menlo70.fnt" />
         </Folder>
       </RootFolder>
     </Group>
