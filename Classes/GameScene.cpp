@@ -28,11 +28,14 @@ bool GameScene::init()
         return false;
     }
 
+    CSLoader::getInstance()->registReaderObject("ScoreLabelReader", (ObjectFactory::Instance)ScoreLabelReader::getInstance);
+
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
     this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
     this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
     this->coinContainer = std::unique_ptr<CoinContainer>(new CoinContainer());
+    this->scoreLabel = dynamic_cast<ScoreLabel*>(this->field->getChildByName("ScoreLabel"));
 
     ui::Button* lobbyButton = dynamic_cast<ui::Button*>(this->background->getChildByName("LobbyButton"));
     lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
@@ -144,17 +147,7 @@ void GameScene::onEnter()
         this->friendCharacter->synchronizer->setIsHost(! isHost);
     }
 
-    this->setupUI();
     this->setupTouchHandling();
-}
-
-void GameScene::setupUI()
-{
-    CSLoader::getInstance()->registReaderObject("ScoreLabelReader", (ObjectFactory::Instance)ScoreLabelReader::getInstance);
-
-    this->scoreLabel = dynamic_cast<ScoreLabel*>(CSLoader::createNode("ScoreLabel.csb"));
-    this->scoreLabel->setNormalizedPosition(Vec2(0.5f, 0.9f));
-    this->field->addChild(this->scoreLabel);
 }
 
 void GameScene::setupTouchHandling()

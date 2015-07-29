@@ -47,7 +47,6 @@ private:
     EnemyAI* enemyAI;
 
     void onEnter() override;
-    void setupUI();
     void setupTouchHandling();
 
     // game logic

@@ -6,11 +6,23 @@
       <ObjectData Name="Scene" ctype="GameNodeObjectData">
         <Size X="960.0000" Y="640.0000" />
         <Children>
-          <AbstractNodeData Name="Background" ActionTag="93126980" Tag="53" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="0.0001" RightMargin="-176.0001" TopMargin="-60.1123" BottomMargin="-67.8877" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Background" ActionTag="93126980" Tag="53" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" RightMargin="-176.0000" TopMargin="-60.0960" BottomMargin="-67.9040" ctype="SpriteObjectData">
             <Size X="1136.0000" Y="768.0000" />
             <Children>
               <AbstractNodeData Name="Field" ActionTag="-1430883737" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="88.0000" RightMargin="88.0000" TopMargin="64.0000" BottomMargin="64.0000" ctype="SpriteObjectData">
                 <Size X="960.0000" Y="640.0000" />
+                <Children>
+                  <AbstractNodeData Name="ScoreLabel" ActionTag="-1096191250" Tag="59" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="480.0000" RightMargin="480.0000" TopMargin="64.0000" BottomMargin="576.0000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+                    <Size X="0.0000" Y="0.0000" />
+                    <AnchorPoint />
+                    <Position X="480.0000" Y="576.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.9000" />
+                    <PreSize X="0.0000" Y="0.0000" />
+                    <FileData Type="Normal" Path="ScoreLabel.csd" Plist="" />
+                  </AbstractNodeData>
+                </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="568.0000" Y="384.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -37,10 +49,10 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleY="0.5000" />
-            <Position X="0.0001" Y="316.1123" />
+            <Position Y="316.0960" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.0000" Y="0.4939" />
+            <PrePosition Y="0.4939" />
             <PreSize X="1.1833" Y="1.2000" />
             <FileData Type="Normal" Path="Images/Background@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />

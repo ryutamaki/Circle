@@ -33,21 +33,14 @@ bool ScoreLabel::init()
 
 void ScoreLabel::setScore(int score)
 {
-    this->timeline->play("Appear", false);
-    this->timeline->setLastFrameCallFunc([this, score]() {
-        this->timeline->clearLastFrameCallFunc();
-        this->timeline->play("Change", false);
-        this->timeline->setFrameEventCallFunc([this, score](Frame* frame) {
-            EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
-            auto eventName = frameEvent->getEvent();
+    this->timeline->play("CountUp", false);
+    this->timeline->setFrameEventCallFunc([this, score](Frame* frame) {
+        EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
+        auto eventName = frameEvent->getEvent();
 
-            if (eventName == "Fire") {
-                this->scoreLabel->setString(std::to_string(score));
-            } else if (eventName == "End") {
-                // FIXME: something straing
-                this->timeline->play("Disappear", false);
-            }
-        });
+        if (eventName == "CountUp") {
+            this->scoreLabel->setString(std::to_string(score));
+        }
     });
 }
 
