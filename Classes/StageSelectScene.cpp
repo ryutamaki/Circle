@@ -45,8 +45,8 @@ bool StageSelectScene::init()
     instance->registReaderObject("StageButtonReader", (ObjectFactory::Instance)StageButtonReader::getInstance);
 
     auto rootNode = CSLoader::createNode("StageSelectScene.csb");
-    Sprite* background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
-    this->pageView = dynamic_cast<ui::PageView*>(background->getChildByName("PageView"));
+
+    this->pageView = rootNode->getChildByName<ui::PageView*>("PageView");
 
     addChild(rootNode);
 
@@ -102,7 +102,7 @@ void StageSelectScene::setupStageSelectButtons()
 
             StageButton* stageButton = dynamic_cast<StageButton*>(CSLoader::createNode("StageButton.csb"));
             stageButton->setEntityType(entityType);
-            ui::Button* stageButtonBase = dynamic_cast<ui::Button*>(stageButton->getChildByName("StageButtonBase"));
+            ui::Button* stageButtonBase = stageButton->getChildByName<ui::Button*>("StageButtonBase");
 
             if (entityType != EntityType::NONE) {
                 stageButtonBase->addTouchEventListener([entityType](Ref* pSender, ui::Widget::TouchEventType eEventType) {

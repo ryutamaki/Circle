@@ -36,6 +36,7 @@ private:
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;
     ScoreLabel* scoreLabel;
+    cocos2d::ui::Button* lobbyButton;
 
     std::unique_ptr<CoinContainer> coinContainer;
 

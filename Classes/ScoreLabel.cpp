@@ -53,7 +53,7 @@ void ScoreLabel::onEnter()
     Node::onEnter();
     this->runAction(this->timeline);
 
-    this->scoreLabel = dynamic_cast<ui::TextBMFont*>(this->getChildByName("ScoreLabel"));
+    this->scoreLabel = this->getChildByName<ui::TextBMFont*>("ScoreLabel");
 }
 
 void ScoreLabel::onExit()

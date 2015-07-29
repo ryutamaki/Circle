@@ -39,7 +39,7 @@ void GameResultLayer::setIsWin(bool isWin)
 {
     this->isWin = isWin;
 
-    ui::TextBMFont* resultLabel = dynamic_cast<ui::TextBMFont*>(this->getChildByName("ResultLabel"));
+    ui::TextBMFont* resultLabel = this->getChildByName<ui::TextBMFont*>("ResultLabel");
 
     if (isWin) {
         resultLabel->setString("YOU WIN");
@@ -56,7 +56,7 @@ void GameResultLayer::onEnter()
 {
     Layer::onEnter();
 
-    ui::Button* backButton = dynamic_cast<ui::Button*>(this->getChildByName("BackButton"));
+    ui::Button* backButton = this->getChildByName<ui::Button*>("BackButton");
     backButton->addTouchEventListener(CC_CALLBACK_2(GameResultLayer::backToMenu, this));
 }
 

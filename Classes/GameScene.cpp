@@ -32,13 +32,12 @@ bool GameScene::init()
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
-    this->background = dynamic_cast<Sprite*>(rootNode->getChildByName("Background"));
-    this->field = dynamic_cast<Sprite*>(this->background->getChildByName("Field"));
-    this->coinContainer = std::unique_ptr<CoinContainer>(new CoinContainer());
-    this->scoreLabel = dynamic_cast<ScoreLabel*>(this->field->getChildByName("ScoreLabel"));
 
-    ui::Button* lobbyButton = dynamic_cast<ui::Button*>(this->background->getChildByName("LobbyButton"));
-    lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
+    this->field = rootNode->getChildByName<Sprite*>("Field");
+    this->coinContainer = std::unique_ptr<CoinContainer>(new CoinContainer());
+    this->scoreLabel = this->field->getChildByName<ScoreLabel*>("ScoreLabel");
+    this->lobbyButton = rootNode->getChildByName<ui::Button*>("LobbyButton");
+    this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
 
     addChild(rootNode);
 
@@ -510,7 +509,8 @@ void GameScene::start()
 
     this->spawnNextEnemy();
 
-    this->background->removeChildByName("LobbyButton");
+    this->lobbyButton->removeFromParent();
+    this->lobbyButton = nullptr;
 
     this->scheduleUpdate();
 

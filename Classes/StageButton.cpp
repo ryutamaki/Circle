@@ -53,7 +53,7 @@ void StageButton::onEnter()
 {
     Node::onEnter();
 
-    ui::Button* buttonBase = dynamic_cast<ui::Button*>(this->getChildByName("StageButtonBase"));
+    ui::Button* buttonBase = this->getChildByName<ui::Button*>("StageButtonBase");
     this->setContentSize(buttonBase->getContentSize());
     this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
 
