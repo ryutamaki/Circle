@@ -12,7 +12,11 @@
 
 #include "GameScene.h"
 #include "GameSceneManager.h"
+
+#include "PowerUpScene.h"
+
 #include "StageSelectScene.h"
+#include "EntityFactory.h"
 
 USING_NS_CC;
 
@@ -59,8 +63,6 @@ bool MenuScene::init()
     return true;
 }
 
-#pragma mark Networking
-
 #pragma mark - Private methods
 
 #pragma mark View lifecycle
@@ -77,9 +79,34 @@ void MenuScene::onEnter()
     fieldScaleFactor = MIN(visibleSize.height / fieldSize.height, visibleSize.width / fieldSize.width);
     this->field->setScale(fieldScaleFactor);
 
+    // put character
+    this->putEntityByEntityType(EntityType::CIRCLE);
+
     // This will start observing to find peers.
     // Set self.peerID in NetworkManager also.
     GameSceneManager::getInstance()->receiveMultiplayerInvitations();
+}
+
+void MenuScene::putEntityByEntityType(EntityType entityType)
+{
+    // put character
+    Entity* entity = EntityFactory::createUserEntityWityEntityType(entityType);
+    entity->setNormalizedPosition(Vec2(0.5f, 0.5f));
+
+    this->field->addChild(entity);
+
+    EventListenerTouchOneByOne* eventListerner = EventListenerTouchOneByOne::create();
+    eventListerner->onTouchBegan = [this](Touch* touch, Event* event) {
+            return true;
+        };
+    eventListerner->onTouchEnded = [this](Touch* touch, Event* evetn) {
+            PowerUpScene* powerUpScene = PowerUpScene::create();
+            powerUpScene->setEntityType(EntityType::CIRCLE);
+            Scene* scene = Scene::create();
+            scene->addChild(powerUpScene);
+            Director::getInstance()->pushScene(scene);
+        };
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListerner, this->field);
 }
 
 #pragma mark Callbacks

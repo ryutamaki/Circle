@@ -112,7 +112,13 @@ void UserDataManager::setEntityParameterByEntityTypeAndEntityParameter(EntityTyp
     }
 
     std::string entityTypeString = this->getEntityTypeStringByEntityType(entityType);
-    ValueMap entityParameterMap = entityListParameterMap[entityTypeString].asValueMap();
+    ValueMap entityParameterMap;
+
+    if (entityListParameterMap.find(entityTypeString) == entityListParameterMap.end()) {
+        entityParameterMap = ValueMap();
+    } else {
+        entityParameterMap = entityListParameterMap[entityTypeString].asValueMap();
+    }
 
     entityParameterMap["initialHp"] = entityParameter.initialHp;
     entityParameterMap["attackFactor"] = entityParameter.attackFactor;

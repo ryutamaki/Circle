@@ -83,6 +83,7 @@
           <Fnt Name="Menlo36.fnt" />
           <Fnt Name="Menlo70.fnt" />
         </Folder>
+        <Project Name="PowerUpScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

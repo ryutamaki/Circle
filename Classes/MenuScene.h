@@ -12,6 +12,8 @@
 #include "cocos2d.h"
 #include "CocosGUI.h"
 
+#include "EntityConstants.h"
+
 class MenuScene : public cocos2d::Layer
 {
 public:
@@ -28,6 +30,8 @@ private:
     cocos2d::Sprite* field; // TODO: it should be removed
 
     void onEnter() override;
+
+    void putEntityByEntityType(EntityType entityType);
 
     void singlePlayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void multiplayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
