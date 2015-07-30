@@ -13,6 +13,7 @@
 
 #include "EntityConstants.h"
 
+static const std::string USER_DATA_COIN_COUNT = "CoinCount";
 static const std::string USER_DATA_HIGHSCORE = "HighScore";
 static const std::string USER_DATA_ENTITY_PARAMETER = "EntityParameter";
 
@@ -23,6 +24,9 @@ public:
 
     void load();
     bool save();
+
+    void setCoinCount(int coinCount);
+    int getCoinCount();
 
     void setHighScoreByEntityType(int highScore, EntityType entityType);
     int getHighScoreByEntityType(EntityType entityType);

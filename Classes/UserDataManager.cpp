@@ -58,6 +58,28 @@ bool UserDataManager::save()
 
 #pragma mark Accessor
 
+#pragma mark Coin
+
+void UserDataManager::setCoinCount(int coinCount)
+{
+    this->userData[USER_DATA_COIN_COUNT] = coinCount;
+
+    this->save();
+}
+
+int UserDataManager::getCoinCount()
+{
+    this->load();
+
+    if (this->userData.find(USER_DATA_COIN_COUNT) == this->userData.end()) {
+        int initialCoinCount = 0;
+        return initialCoinCount;
+    }
+
+    int coinCount = this->userData[USER_DATA_COIN_COUNT].asInt();
+    return coinCount;
+}
+
 #pragma mark High score
 
 void UserDataManager::setHighScoreByEntityType(int highScore, EntityType entityType)
