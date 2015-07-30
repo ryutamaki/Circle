@@ -65,7 +65,7 @@ void StageButton::onEnter()
 
 void StageButton::attachEntity(EntityType eEntityType)
 {
-    Entity* entity = EntityFactory::createEntityWithEntityType(eEntityType);
+    Entity* entity = EntityFactory::createEntity(eEntityType);
 
     if (entity != nullptr) {
         entity->setNormalizedPosition(Vec2(0.5f, 0.6f));

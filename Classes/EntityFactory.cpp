@@ -29,7 +29,7 @@ EntityFactory::~EntityFactory()
 
 #pragma mark Factory methods
 
-Entity* EntityFactory::createUserEntityWityEntityType(EntityType entityType)
+Entity* EntityFactory::createUserEntity(EntityType entityType)
 {
     CSLoader* instance = CSLoader::getInstance();
     switch (entityType) {
@@ -60,7 +60,13 @@ Entity* EntityFactory::createUserEntityWityEntityType(EntityType entityType)
     CCASSERT(false, "Undefined entity type is passed.");
 }
 
-Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
+Entity* EntityFactory::createEntity(EntityType entityType)
+{
+    unsigned int defeatCount = 0;
+    return EntityFactory::createEntity(entityType, defeatCount);
+}
+
+Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCount)
 {
     CSLoader* instance = CSLoader::getInstance();
     switch (entityType) {
@@ -69,6 +75,10 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
             instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
             EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+            // TODO: magic number and game logic here
+            parameter.levelHp += defeatCount;
+            parameter.levelAttack += defeatCount;
+            parameter.levelSpeed += floor(defeatCount * 0.5f);
             circle->setEntityLevelParameter(parameter);
             return circle;
         }
@@ -78,6 +88,10 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
             instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
             EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+            // TODO: magic number and game logic here
+            parameter.levelHp += defeatCount;
+            parameter.levelAttack += defeatCount;
+            parameter.levelSpeed += floor(defeatCount * 0.5f);
             triangle->setEntityLevelParameter(parameter);
             return triangle;
         }
@@ -89,16 +103,4 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
     }
 
     CCASSERT(false, "Undefined entity type is passed.");
-}
-
-Vector<Entity*> EntityFactory::createEntityList(int countOfSequence, EntityType entityType)
-{
-    Vector<Entity*> entityQueue;
-
-    for (int i = 0; i < countOfSequence; ++i) {
-        Entity* entity = EntityFactory::createEntityWithEntityType(entityType);
-        entityQueue.pushBack(entity);
-    }
-
-    return entityQueue;
 }

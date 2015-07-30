@@ -22,10 +22,10 @@ public:
     ~EntityFactory();
 
     // This function refer to user data
-    static Entity* createUserEntityWityEntityType(EntityType entityType);
+    static Entity* createUserEntity(EntityType entityType);
 
-    static Entity* createEntityWithEntityType(EntityType entityType);
-    static cocos2d::Vector<Entity*> createEntityList(int countOfSequence, EntityType entityType);
+    static Entity* createEntity(EntityType entityType);
+    static Entity* createEntity(EntityType entityType, unsigned int defeatCount);
 };
 
 #endif /* defined(__DotWar__EntityFactory__) */

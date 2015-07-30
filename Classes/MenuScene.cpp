@@ -90,7 +90,7 @@ void MenuScene::onEnter()
 void MenuScene::putEntityByEntityType(EntityType entityType)
 {
     // put character
-    Entity* entity = EntityFactory::createUserEntityWityEntityType(entityType);
+    Entity* entity = EntityFactory::createUserEntity(entityType);
     entity->setNormalizedPosition(Vec2(0.5f, 0.5f));
 
     this->field->addChild(entity);

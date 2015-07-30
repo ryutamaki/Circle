@@ -56,7 +56,7 @@ bool GameScene::init()
 // TODO: multi の時の味方のポジション同期をなんとかする
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
-    this->character = EntityFactory::createUserEntityWityEntityType(entityType);
+    this->character = EntityFactory::createUserEntity(entityType);
     this->character->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character);
@@ -64,7 +64,7 @@ void GameScene::setCharacterByEntityType(EntityType entityType)
 
 void GameScene::setFriendCharacter(EntityType entityType)
 {
-    this->friendCharacter = EntityFactory::createEntityWithEntityType(entityType);
+    this->friendCharacter = EntityFactory::createEntity(entityType);
     this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter);
@@ -359,7 +359,7 @@ void GameScene::spawnNextEnemy()
     }
 
     // pop next enemy from enemy queue
-    this->currentEnemy = EntityFactory::createEntityWithEntityType(this->enemyEntityType);
+    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, this->defeatEnemyCount);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
