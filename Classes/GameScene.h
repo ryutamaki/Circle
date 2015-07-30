@@ -60,6 +60,7 @@ private:
     void checkSpawnNextEnemy();
     void gameover();
     void checkGameOver();
+    void giveCoin();
     Entity* getTargetEntityByTargetString(std::string targetString);
 
     // transitions

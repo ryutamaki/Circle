@@ -428,6 +428,8 @@ void GameScene::gameover()
     this->showResultLayer();
 
     UserDataManager::getInstance()->setHighScoreByEntityType(this->defeatEnemyCount, this->enemyEntityType);
+
+    this->giveCoin();
 }
 
 void GameScene::checkGameOver()
@@ -441,6 +443,14 @@ void GameScene::checkGameOver()
             this->gameover();
         }
     }
+}
+
+void GameScene::giveCoin()
+{
+    int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
+    int newCoinCount = currentCoinCount + this->defeatEnemyCount;
+    log("pre: %d, new: %d", currentCoinCount, newCoinCount);
+    UserDataManager::getInstance()->setCoinCount(newCoinCount);
 }
 
 Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
