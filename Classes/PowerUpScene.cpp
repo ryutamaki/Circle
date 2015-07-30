@@ -35,6 +35,7 @@ bool PowerUpScene::init()
 
     this->field = rootNode->getChildByName<Sprite*>("Field");
     this->entityType = EntityType::NONE;
+    this->coinCount = UserDataManager::getInstance()->getCoinCount();
 
     this->setupUI(rootNode);
     this->addChild(rootNode);
@@ -51,7 +52,7 @@ void PowerUpScene::setEntityType(EntityType entityType)
     Entity* entity = EntityFactory::createUserEntityWityEntityType(this->entityType);
     this->entityLevelParameter = entity->getEntityLevelParameter();
 
-    this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
+    this->setEntityLevelParameterLabelText(this->entityLevelParameter);
 }
 
 #pragma mark - Private methods
@@ -79,30 +80,48 @@ void PowerUpScene::setupUI(Node* rootNode)
     this->attackLabel = rootNode->getChildByName<ui::TextBMFont*>("AttackLabel");
     this->speedLabel = rootNode->getChildByName<ui::TextBMFont*>("SpeedLabel");
 
+    this->coinCountLabel = rootNode->getChildByName<ui::TextBMFont*>("CoinCountLabel");
+    this->setCoinCountLabelText(this->coinCount);
+
     ui::Button* hpButton = rootNode->getChildByName<ui::Button*>("HpButton");
     hpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            this->entityLevelParameter.levelHp++;
-            UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
-            this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
+            if (this->canUseCoin(1)) {
+                this->entityLevelParameter.levelHp++;
+                UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
+                this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+
+                // TODO: magic number
+                this->useCoin(1);
+            }
         }
     });
 
     ui::Button* attackButton = rootNode->getChildByName<ui::Button*>("AttackButton");
     attackButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            this->entityLevelParameter.levelAttack++;
-            UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
-            this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
+            if (this->canUseCoin(1)) {
+                this->entityLevelParameter.levelAttack++;
+                UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
+                this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+
+                // TODO: magic number
+                this->useCoin(1);
+            }
         }
     });
 
     ui::Button* speedButton = rootNode->getChildByName<ui::Button*>("SpeedButton");
     speedButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            this->entityLevelParameter.levelSpeed++;
-            UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
-            this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
+            if (this->canUseCoin(1)) {
+                this->entityLevelParameter.levelSpeed++;
+                UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
+                this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+
+                // TODO: magic number
+                this->useCoin(1);
+            }
         }
     });
 
@@ -114,7 +133,31 @@ void PowerUpScene::setupUI(Node* rootNode)
     });
 }
 
-void PowerUpScene::setLabelTextByEntityLevelParameter(EntityLevelParameter entityLevelParameter)
+bool PowerUpScene::canUseCoin(int useCoinCount)
+{
+    if (this->coinCount - useCoinCount < 0) {
+        return false;
+    }
+    return true;
+}
+
+void PowerUpScene::useCoin(int useCoinCount)
+{
+    CCASSERT(this->coinCount - useCoinCount >= 0, "You can not use coin because your coin count is not enough");
+
+    int newCoinCount = this->coinCount - useCoinCount;
+    this->coinCount = newCoinCount;
+    UserDataManager::getInstance()->setCoinCount(newCoinCount);
+
+    this->setCoinCountLabelText(newCoinCount);
+}
+
+void PowerUpScene::setCoinCountLabelText(int coinCount)
+{
+    this->coinCountLabel->setString(std::to_string(coinCount));
+}
+
+void PowerUpScene::setEntityLevelParameterLabelText(EntityLevelParameter entityLevelParameter)
 {
     this->hpLabel->setString(std::to_string(entityLevelParameter.levelHp));
     this->attackLabel->setString(std::to_string(entityLevelParameter.levelAttack));
