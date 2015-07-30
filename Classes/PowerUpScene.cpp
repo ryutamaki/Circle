@@ -49,9 +49,9 @@ void PowerUpScene::setEntityType(EntityType entityType)
     this->entityType = entityType;
 
     Entity* entity = EntityFactory::createUserEntityWityEntityType(this->entityType);
-    this->entityParameter = entity->getEntityParameter();
+    this->entityLevelParameter = entity->getEntityLevelParameter();
 
-    this->setLabelTextByEntityParameter(this->entityParameter);
+    this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
 }
 
 #pragma mark - Private methods
@@ -82,27 +82,27 @@ void PowerUpScene::setupUI(Node* rootNode)
     ui::Button* hpButton = rootNode->getChildByName<ui::Button*>("HpButton");
     hpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            this->entityParameter.initialHp++;
-            UserDataManager::getInstance()->setEntityParameterByEntityTypeAndEntityParameter(this->entityType, this->entityParameter);
-            this->setLabelTextByEntityParameter(this->entityParameter);
+            this->entityLevelParameter.levelHp++;
+            UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
+            this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
         }
     });
 
     ui::Button* attackButton = rootNode->getChildByName<ui::Button*>("AttackButton");
     attackButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            this->entityParameter.attackFactor++;
-            UserDataManager::getInstance()->setEntityParameterByEntityTypeAndEntityParameter(this->entityType, this->entityParameter);
-            this->setLabelTextByEntityParameter(this->entityParameter);
+            this->entityLevelParameter.levelAttack++;
+            UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
+            this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
         }
     });
 
     ui::Button* speedButton = rootNode->getChildByName<ui::Button*>("SpeedButton");
     speedButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            this->entityParameter.velocityFactor++;
-            UserDataManager::getInstance()->setEntityParameterByEntityTypeAndEntityParameter(this->entityType, this->entityParameter);
-            this->setLabelTextByEntityParameter(this->entityParameter);
+            this->entityLevelParameter.levelSpeed++;
+            UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
+            this->setLabelTextByEntityLevelParameter(this->entityLevelParameter);
         }
     });
 
@@ -114,9 +114,9 @@ void PowerUpScene::setupUI(Node* rootNode)
     });
 }
 
-void PowerUpScene::setLabelTextByEntityParameter(EntityParameter entityParameter)
+void PowerUpScene::setLabelTextByEntityLevelParameter(EntityLevelParameter entityLevelParameter)
 {
-    this->hpLabel->setString(std::to_string(entityParameter.initialHp));
-    this->attackLabel->setString(std::to_string(entityParameter.attackFactor));
-    this->speedLabel->setString(std::to_string(entityParameter.velocityFactor));
+    this->hpLabel->setString(std::to_string(entityLevelParameter.levelHp));
+    this->attackLabel->setString(std::to_string(entityLevelParameter.levelAttack));
+    this->speedLabel->setString(std::to_string(entityLevelParameter.levelSpeed));
 }

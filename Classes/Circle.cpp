@@ -30,6 +30,8 @@ bool Circle::init()
 
 #pragma mark - Protected methods
 
+#pragma mark Override methods
+
 void Circle::setupAttackMap()
 {
     this->attackMap = {
@@ -38,13 +40,11 @@ void Circle::setupAttackMap()
     };
 }
 
-#pragma mark - Prvate methods
-
-#pragma mark View lifecycle
-
-void Circle::onEnter()
+void Circle::setEntityParamerterByLevel(EntityLevelParameter levelParameter)
 {
-    Entity::onEnter();
-
-    this->setHp(this->entityParameter.initialHp);
+    this->entityParameter = {
+        this->entityLevelParameter.levelHp * 10,
+        this->entityLevelParameter.levelAttack * 1,
+        this->entityLevelParameter.levelSpeed * 20.0f,
+    };
 }

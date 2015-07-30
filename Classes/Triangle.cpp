@@ -39,13 +39,11 @@ void Triangle::setupAttackMap()
     };
 }
 
-#pragma mark - Private methods
-
-#pragma mark View lifecycle
-
-void Triangle::onEnter()
+void Triangle::setEntityParamerterByLevel(EntityLevelParameter levelParameter)
 {
-    Entity::onEnter();
-
-    this->setHp(this->entityParameter.initialHp);
+    this->entityParameter = {
+        this->entityLevelParameter.levelHp * 15,
+        this->entityLevelParameter.levelAttack * 1,
+        this->entityLevelParameter.levelSpeed * 15.0f,
+    };
 }

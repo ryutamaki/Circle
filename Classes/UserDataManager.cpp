@@ -101,7 +101,7 @@ int UserDataManager::getHighScoreByEntityType(EntityType entityType)
 
 #pragma mark Entity parameter
 
-void UserDataManager::setEntityParameterByEntityTypeAndEntityParameter(EntityType entityType, EntityParameter entityParameter)
+void UserDataManager::setEntityLevelParameter(EntityType entityType, EntityLevelParameter entityLevelParameter)
 {
     ValueMap entityListParameterMap;
 
@@ -120,9 +120,9 @@ void UserDataManager::setEntityParameterByEntityTypeAndEntityParameter(EntityTyp
         entityParameterMap = entityListParameterMap[entityTypeString].asValueMap();
     }
 
-    entityParameterMap["initialHp"] = entityParameter.initialHp;
-    entityParameterMap["attackFactor"] = entityParameter.attackFactor;
-    entityParameterMap["velocityFactor"] = entityParameter.velocityFactor;
+    entityParameterMap["levelHp"] = entityLevelParameter.levelHp;
+    entityParameterMap["levelAttack"] = entityLevelParameter.levelAttack;
+    entityParameterMap["levelSpeed"] = entityLevelParameter.levelSpeed;
 
     entityListParameterMap[entityTypeString] = entityParameterMap;
     this->userData[USER_DATA_ENTITY_PARAMETER] = entityListParameterMap;
@@ -130,14 +130,14 @@ void UserDataManager::setEntityParameterByEntityTypeAndEntityParameter(EntityTyp
     this->save();
 }
 
-EntityParameter UserDataManager::getEntityParameterByEntityType(EntityType entityType)
+EntityLevelParameter UserDataManager::getEntityLevelParameter(EntityType entityType)
 {
     this->load();
 
     // Return initial params if there are no data for entity parameters
     if (this->userData.find(USER_DATA_ENTITY_PARAMETER) == this->userData.end()) {
-        EntityParameter entityParameter = ENTITY_INITIAL_PARAMETER.at(entityType);
-        return entityParameter;
+        EntityLevelParameter levelParameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+        return levelParameter;
     }
 
     std::string entityTypeString = std::to_string((int)entityType);
@@ -145,15 +145,15 @@ EntityParameter UserDataManager::getEntityParameterByEntityType(EntityType entit
 
     // Return initial params if there are no data for a selected entity
     if (entityListParameterMap.find(entityTypeString) == this->userData.end()) {
-        EntityParameter entityParameter = ENTITY_INITIAL_PARAMETER.at(entityType);
-        return entityParameter;
+        EntityLevelParameter levelParameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+        return levelParameter;
     }
 
     ValueMap data = entityListParameterMap[entityTypeString].asValueMap();
-    return EntityParameter {
-               data["initialHp"].asInt(),
-               data["attackFactor"].asInt(),
-               data["velocityFactor"].asFloat(),
+    return EntityLevelParameter {
+               data["levelHp"].asInt(),
+               data["levelAttack"].asInt(),
+               data["levelSpeed"].asInt(),
     };
 }
 

@@ -36,7 +36,8 @@ public:
 
     // Accessors
     EntityParameter getEntityParameter();
-    void setEntityParameter(EntityParameter entityParameter);
+    EntityLevelParameter getEntityLevelParameter();
+    void setEntityLevelParameter(EntityLevelParameter entityParameter);
 
     int getHp();
     void setHp(int hp);
@@ -74,6 +75,7 @@ protected:
     std::string identifier;
 
     EntityParameter entityParameter;
+    EntityLevelParameter entityLevelParameter;
 
     int hp;
     cocos2d::Vec2 velocity;
@@ -84,9 +86,11 @@ protected:
     bool init() override;
     void onEnter() override;
     void onExit() override;
-    virtual void setupAttackMap();
 
     void setBodyColorByCurrentHp();
+
+    virtual void setupAttackMap();
+    virtual void setEntityParamerterByLevel(EntityLevelParameter levelParameter);
 
     void update(float dt) override;
 

@@ -37,8 +37,8 @@ Entity* EntityFactory::createUserEntityWityEntityType(EntityType entityType)
         {
             instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
-            EntityParameter parameter = UserDataManager::getInstance()->getEntityParameterByEntityType(entityType);
-            circle->setEntityParameter(parameter);
+            EntityLevelParameter parameter = UserDataManager::getInstance()->getEntityLevelParameter(entityType);
+            circle->setEntityLevelParameter(parameter);
             return circle;
         }
 
@@ -46,8 +46,8 @@ Entity* EntityFactory::createUserEntityWityEntityType(EntityType entityType)
         {
             instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            EntityParameter parameter = UserDataManager::getInstance()->getEntityParameterByEntityType(entityType);
-            triangle->setEntityParameter(parameter);
+            EntityLevelParameter parameter = UserDataManager::getInstance()->getEntityLevelParameter(entityType);
+            triangle->setEntityLevelParameter(parameter);
             return triangle;
         }
 
@@ -68,8 +68,8 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
         {
             instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
-            EntityParameter parameter = ENTITY_INITIAL_PARAMETER.at(entityType);
-            circle->setEntityParameter(parameter);
+            EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+            circle->setEntityLevelParameter(parameter);
             return circle;
         }
 
@@ -77,8 +77,8 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
         {
             instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            EntityParameter parameter = ENTITY_INITIAL_PARAMETER.at(entityType);
-            triangle->setEntityParameter(parameter);
+            EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+            triangle->setEntityLevelParameter(parameter);
             return triangle;
         }
 

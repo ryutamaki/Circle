@@ -16,11 +16,24 @@ enum class EntityType
     NONE, // This is not good way but I dont no some of better way.
 };
 
+struct EntityLevelParameter
+{
+    int levelHp;
+    int levelAttack;
+    int levelSpeed;
+};
+
 struct EntityParameter
 {
     int initialHp;
     int attackFactor;
     float velocityFactor;
+};
+
+static const std::map<EntityType, EntityLevelParameter> ENTITY_INITIAL_LEVEL_PARAMETER = {
+    {EntityType::CIRCLE, {1, 1, 1}},
+    {EntityType::TRIANGLE, {1, 1, 1}},
+    {EntityType::NONE, {0, 0, 0}},
 };
 
 static const std::map<EntityType, EntityParameter> ENTITY_INITIAL_PARAMETER = {

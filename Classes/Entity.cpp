@@ -37,9 +37,16 @@ EntityParameter Entity::getEntityParameter()
     return entityParameter;
 }
 
-void Entity::setEntityParameter(EntityParameter entityParameter)
+EntityLevelParameter Entity::getEntityLevelParameter()
 {
-    this->entityParameter = entityParameter;
+    return entityLevelParameter;
+}
+
+void Entity::setEntityLevelParameter(EntityLevelParameter entityLevelParameter)
+{
+    this->entityLevelParameter = entityLevelParameter;
+
+    this->setEntityParamerterByLevel(entityLevelParameter);
 }
 
 int Entity::getHp()
@@ -263,6 +270,8 @@ void Entity::onEnter()
 {
     Node::onEnter();
 
+    this->setHp(this->entityParameter.initialHp);
+
     Vector<Node*> children = this->getChildren();
 
     for (int i = 0, last = (int)children.size(); i < last; ++i) {
@@ -287,8 +296,6 @@ void Entity::setupAttackMap()
     // override point
 }
 
-#pragma mark Game logic
-
 void Entity::setBodyColorByCurrentHp()
 {
     Vector<Node*> children = this->getChildren();
@@ -311,6 +318,13 @@ void Entity::setBodyColorByCurrentHp()
         }
     }
 }
+
+void Entity::setEntityParamerterByLevel(EntityLevelParameter levelParameter)
+{
+    // override point
+}
+
+#pragma mark Game logic
 
 void Entity::update(float dt)
 {

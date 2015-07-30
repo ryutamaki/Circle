@@ -28,7 +28,7 @@ public:
 private:
     cocos2d::Sprite* field; // TODO: it should be removed
     EntityType entityType;
-    EntityParameter entityParameter;
+    EntityLevelParameter entityLevelParameter;
 
     cocos2d::ui::TextBMFont* hpLabel;
     cocos2d::ui::TextBMFont* attackLabel;
@@ -37,7 +37,7 @@ private:
     void onEnter() override;
     void setupUI(Node* rootNode);
 
-    void setLabelTextByEntityParameter(EntityParameter entityParameter);
+    void setLabelTextByEntityLevelParameter(EntityLevelParameter entityLevelParameter);
 
 };
 
