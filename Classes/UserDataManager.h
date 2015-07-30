@@ -14,6 +14,7 @@
 #include "EntityConstants.h"
 
 static const std::string USER_DATA_HIGHSCORE = "HighScore";
+static const std::string USER_DATA_ENTITY_PARAMETER = "EntityParameter";
 
 class UserDataManager
 {
@@ -26,6 +27,9 @@ public:
     void setHighScoreByEntityType(int highScore, EntityType entityType);
     int getHighScoreByEntityType(EntityType entityType);
 
+    void setEntityParameterByEntityTypeAndEntityParameter(EntityType entityType, EntityParameter entityParameter);
+    EntityParameter getEntityParameterByEntityType(EntityType entityType);
+
 private:
     UserDataManager();
     ~UserDataManager();
@@ -33,6 +37,7 @@ private:
     cocos2d::ValueMap userData;
 
     std::string getFilePath();
+    std::string getEntityTypeStringByEntityType(EntityType entityType);
 };
 
 #endif /* defined(__DotWar__UserDataManager__) */

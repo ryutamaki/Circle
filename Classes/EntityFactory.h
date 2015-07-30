@@ -21,6 +21,9 @@ public:
     EntityFactory();
     ~EntityFactory();
 
+    // This function refer to user data
+    static Entity* createUserEntityWityEntityType(EntityType entityType);
+
     static Entity* createEntityWithEntityType(EntityType entityType);
     static cocos2d::Vector<Entity*> createEntityList(int countOfSequence, EntityType entityType);
 };

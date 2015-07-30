@@ -8,6 +8,8 @@
 
 #include "EntityFactory.h"
 
+#include "UserDataManager.h"
+
 #include "Circle.h"
 #include "CircleReader.h"
 #include "Triangle.h"
@@ -27,7 +29,7 @@ EntityFactory::~EntityFactory()
 
 #pragma mark Factory methods
 
-Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
+Entity* EntityFactory::createUserEntityWityEntityType(EntityType entityType)
 {
     CSLoader* instance = CSLoader::getInstance();
     switch (entityType) {
@@ -35,7 +37,7 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
         {
             instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
-            EntityParameter parameter = {50, 1, 300.0f};
+            EntityParameter parameter = UserDataManager::getInstance()->getEntityParameterByEntityType(entityType);
             circle->setEntityParameter(parameter);
             return circle;
         }
@@ -44,7 +46,38 @@ Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
         {
             instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            EntityParameter parameter = {100, 1, 150.0f};
+            EntityParameter parameter = UserDataManager::getInstance()->getEntityParameterByEntityType(entityType);
+            triangle->setEntityParameter(parameter);
+            return triangle;
+        }
+
+        case EntityType::NONE:
+        {
+            return nullptr;
+        }
+    }
+
+    CCASSERT(false, "Undefined entity type is passed.");
+}
+
+Entity* EntityFactory::createEntityWithEntityType(EntityType entityType)
+{
+    CSLoader* instance = CSLoader::getInstance();
+    switch (entityType) {
+        case EntityType::CIRCLE:
+        {
+            instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
+            Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
+            EntityParameter parameter = ENTITY_INITIAL_PARAMETER.at(entityType);
+            circle->setEntityParameter(parameter);
+            return circle;
+        }
+
+        case EntityType::TRIANGLE:
+        {
+            instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
+            Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
+            EntityParameter parameter = ENTITY_INITIAL_PARAMETER.at(entityType);
             triangle->setEntityParameter(parameter);
             return triangle;
         }

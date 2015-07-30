@@ -23,4 +23,10 @@ struct EntityParameter
     float velocityFactor;
 };
 
+static const std::map<EntityType, EntityParameter> ENTITY_INITIAL_PARAMETER = {
+    {EntityType::CIRCLE, {50, 10, 500.0f}},
+    {EntityType::TRIANGLE, {100, 1, 150.0f}},
+    {EntityType::NONE, {0, 0, 0.0f}},
+};
+
 #endif

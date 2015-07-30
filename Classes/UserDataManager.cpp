@@ -58,6 +58,8 @@ bool UserDataManager::save()
 
 #pragma mark Accessor
 
+#pragma mark High score
+
 void UserDataManager::setHighScoreByEntityType(int highScore, EntityType entityType)
 {
     int currentHighScore = this->getHighScoreByEntityType(entityType);
@@ -74,7 +76,7 @@ void UserDataManager::setHighScoreByEntityType(int highScore, EntityType entityT
         highScoreMap = this->userData[USER_DATA_HIGHSCORE].asValueMap();
     }
 
-    std::string entityTypeString = std::to_string((int)entityType);
+    std::string entityTypeString = this->getEntityTypeStringByEntityType(entityType);
     highScoreMap[entityTypeString] = highScore;
     this->userData[USER_DATA_HIGHSCORE] = highScoreMap;
 
@@ -90,11 +92,63 @@ int UserDataManager::getHighScoreByEntityType(EntityType entityType)
         return initialHighScore;
     }
 
-    std::string entityTypeString = std::to_string((int)entityType);
+    std::string entityTypeString = this->getEntityTypeStringByEntityType(entityType);
     ValueMap highScoreMap = this->userData[USER_DATA_HIGHSCORE].asValueMap();
     int highScore = highScoreMap[entityTypeString].asInt();
 
     return highScore;
+}
+
+#pragma mark Entity parameter
+
+void UserDataManager::setEntityParameterByEntityTypeAndEntityParameter(EntityType entityType, EntityParameter entityParameter)
+{
+    ValueMap entityListParameterMap;
+
+    if (this->userData.find(USER_DATA_ENTITY_PARAMETER) == this->userData.end()) {
+        entityListParameterMap = ValueMap();
+    } else {
+        entityListParameterMap = this->userData[USER_DATA_ENTITY_PARAMETER].asValueMap();
+    }
+
+    std::string entityTypeString = this->getEntityTypeStringByEntityType(entityType);
+    ValueMap entityParameterMap = entityListParameterMap[entityTypeString].asValueMap();
+
+    entityParameterMap["initialHp"] = entityParameter.initialHp;
+    entityParameterMap["attackFactor"] = entityParameter.attackFactor;
+    entityParameterMap["velocityFactor"] = entityParameter.velocityFactor;
+
+    entityListParameterMap[entityTypeString] = entityParameterMap;
+    this->userData[USER_DATA_ENTITY_PARAMETER] = entityListParameterMap;
+
+    this->save();
+}
+
+EntityParameter UserDataManager::getEntityParameterByEntityType(EntityType entityType)
+{
+    this->load();
+
+    // Return initial params if there are no data for entity parameters
+    if (this->userData.find(USER_DATA_ENTITY_PARAMETER) == this->userData.end()) {
+        EntityParameter entityParameter = ENTITY_INITIAL_PARAMETER.at(entityType);
+        return entityParameter;
+    }
+
+    std::string entityTypeString = std::to_string((int)entityType);
+    ValueMap entityListParameterMap = this->userData[USER_DATA_ENTITY_PARAMETER].asValueMap();
+
+    // Return initial params if there are no data for a selected entity
+    if (entityListParameterMap.find(entityTypeString) == this->userData.end()) {
+        EntityParameter entityParameter = ENTITY_INITIAL_PARAMETER.at(entityType);
+        return entityParameter;
+    }
+
+    ValueMap data = entityListParameterMap[entityTypeString].asValueMap();
+    return EntityParameter {
+               data["initialHp"].asInt(),
+               data["attackFactor"].asInt(),
+               data["velocityFactor"].asFloat(),
+    };
 }
 
 #pragma mark - Private methods
@@ -104,4 +158,10 @@ int UserDataManager::getHighScoreByEntityType(EntityType entityType)
 std::string UserDataManager::getFilePath()
 {
     return FileUtils::getInstance()->getWritablePath() + "user_data";
+}
+
+std::string UserDataManager::getEntityTypeStringByEntityType(EntityType entityType)
+{
+    std::string entityTypeString = std::to_string((int)entityType);
+    return entityTypeString;
 }

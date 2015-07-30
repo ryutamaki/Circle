@@ -56,7 +56,7 @@ bool GameScene::init()
 // TODO: multi の時の味方のポジション同期をなんとかする
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
-    this->character = EntityFactory::createEntityWithEntityType(entityType);
+    this->character = EntityFactory::createUserEntityWityEntityType(entityType);
     this->character->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character);
@@ -324,7 +324,7 @@ void GameScene::damageCharacterFromEntity()
     }
 
     this->currentEnemy->stateMachine->hitAttack();
-    int damage = attackParams.damage * this->character->getEntityParameter().attackFactor;
+    int damage = attackParams.damage * this->currentEnemy->getEntityParameter().attackFactor;
     this->character->receiveDamage(damage);
     JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
     this->character->synchronizer->sendData(currentCharacterState);
