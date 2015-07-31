@@ -37,6 +37,7 @@ private:
     cocos2d::Sprite* field;
     ScoreLabel* scoreLabel;
     cocos2d::ui::Button* lobbyButton;
+    cocos2d::ui::Button* pauseButton;
 
     std::unique_ptr<CoinContainer> coinContainer;
 
@@ -62,6 +63,8 @@ private:
     void checkGameOver();
     void giveCoin();
     Entity* getTargetEntityByTargetString(std::string targetString);
+
+    void pause(Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
     // transitions
     void showResultLayer(int score, int highscore, bool isNewRecord);

@@ -44,7 +44,10 @@ bool GameScene::init()
     this->lobbyButton = rootNode->getChildByName<ui::Button*>("LobbyButton");
     this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
 
-    addChild(rootNode);
+    this->pauseButton = rootNode->getChildByName<ui::Button*>("PauseButton");
+    this->pauseButton->addTouchEventListener(CC_CALLBACK_2(GameScene::pause, this));
+
+    this->addChild(rootNode);
 
     this->networkedSession = false;
     this->gameState = GameState::PREPARE;
@@ -479,6 +482,17 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
     }
 
     return target;
+}
+
+#pragma mark Game lifecycle
+
+void GameScene::pause(Ref* pSender, ui::Widget::TouchEventType eEventType)
+{
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
+        this->character->pause();
+        this->currentEnemy->pause();
+        this->enemyAI->stop();
+    }
 }
 
 #pragma mark Transitions
