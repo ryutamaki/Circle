@@ -1,12 +1,12 @@
 //
-// StageButton.cpp
+// StageComponent.cpp
 // DotWar
 //
 // Created by ryutamaki on 2015/07/26.
 //
 //
 
-#include "StageButton.h"
+#include "StageComponent.h"
 #include "CocosGUI.h"
 
 #include "ColorConstants.h"
@@ -20,14 +20,14 @@
 
 #pragma mark Initializer
 
-bool StageButton::init()
+bool StageComponent::init()
 {
     if (! Node::init()) {
         return false;
     }
 
     // load the character animation timeline
-    this->timeline = CSLoader::createTimeline("StageButton.csb");
+    this->timeline = CSLoader::createTimeline("StageComponent.csb");
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
@@ -36,12 +36,12 @@ bool StageButton::init()
 
 #pragma mark Accessor
 
-void StageButton::setEntityType(EntityType entityType)
+void StageComponent::setEntityType(EntityType entityType)
 {
     this->entityType = entityType;
 }
 
-EntityType StageButton::getEntityType()
+EntityType StageComponent::getEntityType() const
 {
     return this->entityType;
 }
@@ -50,13 +50,14 @@ EntityType StageButton::getEntityType()
 
 #pragma mark View lifecycle
 
-void StageButton::onEnter()
+void StageComponent::onEnter()
 {
     Node::onEnter();
 
-    ui::Button* buttonBase = this->getChildByName<ui::Button*>("StageButtonBase");
-    this->setContentSize(buttonBase->getContentSize());
-    this->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    this->componentFrame = this->getChildByName<ui::Layout*>("StageComponent");
+    this->componentFrame->setSwallowTouches(false);
+    this->componentFrame->setPropagateTouchEvents(true);
+    this->setContentSize(this->componentFrame->getContentSize());
 
     if (this->entityType != EntityType::NONE) {
         this->attachEntity(entityType);
@@ -64,24 +65,24 @@ void StageButton::onEnter()
     }
 }
 
-void StageButton::attachEntity(EntityType eEntityType)
+void StageComponent::attachEntity(EntityType eEntityType)
 {
     Entity* entity = EntityFactory::createEntity(eEntityType, 0, CIRCLE_ORANGE);
 
     if (entity != nullptr) {
         entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
-        this->addChild(entity);
+        this->componentFrame->addChild(entity);
     } else {
         // TODO: no object
     }
 }
 
-void StageButton::attachHighScoreLabel()
+void StageComponent::attachHighScoreLabel()
 {
     int highScore = UserDataManager::getInstance()->getHighScoreByEntityType(this->getEntityType());
 
     std::string highScoreString = "HIGHSCORE: " + std::to_string(highScore);
     Label* highScoreLabel = Label::createWithBMFont("Fonts/Menlo36.fnt", highScoreString);
     highScoreLabel->setNormalizedPosition(Vec2(0.5f, 0.2f));
-    this->addChild(highScoreLabel);
+    this->componentFrame->addChild(highScoreLabel);
 }

@@ -61,10 +61,10 @@
 		03B167C41B59C0B8005D1FF6 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B167C01B59C085005D1FF6 /* libcocos2d Mac.a */; };
 		03D3DD6A1B6B026F0086BA79 /* Damage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03D3DD691B6B026F0086BA79 /* Damage.plist */; };
 		03D3DD6B1B6B026F0086BA79 /* Damage.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03D3DD691B6B026F0086BA79 /* Damage.plist */; };
-		03D709961B657BD70056912B /* StageButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709921B657BD70056912B /* StageButton.cpp */; };
-		03D709971B657BD70056912B /* StageButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709921B657BD70056912B /* StageButton.cpp */; };
-		03D709981B657BD70056912B /* StageButtonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709941B657BD70056912B /* StageButtonReader.cpp */; };
-		03D709991B657BD70056912B /* StageButtonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709941B657BD70056912B /* StageButtonReader.cpp */; };
+		03D709961B657BD70056912B /* StageComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709921B657BD70056912B /* StageComponent.cpp */; };
+		03D709971B657BD70056912B /* StageComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709921B657BD70056912B /* StageComponent.cpp */; };
+		03D709981B657BD70056912B /* StageComponentReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709941B657BD70056912B /* StageComponentReader.cpp */; };
+		03D709991B657BD70056912B /* StageComponentReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709941B657BD70056912B /* StageComponentReader.cpp */; };
 		03D7099E1B6582210056912B /* EntityFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D7099C1B6582210056912B /* EntityFactory.cpp */; };
 		03D7099F1B6582210056912B /* EntityFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D7099C1B6582210056912B /* EntityFactory.cpp */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -193,10 +193,10 @@
 		03B167B91B59928F005D1FF6 /* GameConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConstants.h; sourceTree = "<group>"; };
 		03B167BA1B59C085005D1FF6 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		03D3DD691B6B026F0086BA79 /* Damage.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Damage.plist; sourceTree = "<group>"; };
-		03D709921B657BD70056912B /* StageButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageButton.cpp; sourceTree = "<group>"; };
-		03D709931B657BD70056912B /* StageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageButton.h; sourceTree = "<group>"; };
-		03D709941B657BD70056912B /* StageButtonReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageButtonReader.cpp; sourceTree = "<group>"; };
-		03D709951B657BD70056912B /* StageButtonReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageButtonReader.h; sourceTree = "<group>"; };
+		03D709921B657BD70056912B /* StageComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageComponent.cpp; sourceTree = "<group>"; };
+		03D709931B657BD70056912B /* StageComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageComponent.h; sourceTree = "<group>"; };
+		03D709941B657BD70056912B /* StageComponentReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageComponentReader.cpp; sourceTree = "<group>"; };
+		03D709951B657BD70056912B /* StageComponentReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageComponentReader.h; sourceTree = "<group>"; };
 		03D7099C1B6582210056912B /* EntityFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityFactory.cpp; sourceTree = "<group>"; };
 		03D7099D1B6582210056912B /* EntityFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityFactory.h; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
@@ -399,10 +399,10 @@
 			children = (
 				0399AB4C1B655C590069507F /* StageSelectScene.cpp */,
 				0399AB4D1B655C590069507F /* StageSelectScene.h */,
-				03D709921B657BD70056912B /* StageButton.cpp */,
-				03D709931B657BD70056912B /* StageButton.h */,
-				03D709941B657BD70056912B /* StageButtonReader.cpp */,
-				03D709951B657BD70056912B /* StageButtonReader.h */,
+				03D709921B657BD70056912B /* StageComponent.cpp */,
+				03D709931B657BD70056912B /* StageComponent.h */,
+				03D709941B657BD70056912B /* StageComponentReader.cpp */,
+				03D709951B657BD70056912B /* StageComponentReader.h */,
 			);
 			name = SelectStageScene;
 			sourceTree = "<group>";
@@ -703,13 +703,13 @@
 				031C156E1B68292C007D0FEC /* ScoreLabelReader.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				0342E5DA1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
-				03D709981B657BD70056912B /* StageButtonReader.cpp in Sources */,
+				03D709981B657BD70056912B /* StageComponentReader.cpp in Sources */,
 				039659B91B5F113E006E587B /* EntityHelper.cpp in Sources */,
 				03917D571B56C9B90068BCA6 /* Circle.cpp in Sources */,
 				0342E5C61B66CBEB009B737E /* CoinReader.cpp in Sources */,
 				031C156C1B68292C007D0FEC /* ScoreLabel.cpp in Sources */,
 				03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
-				03D709961B657BD70056912B /* StageButton.cpp in Sources */,
+				03D709961B657BD70056912B /* StageComponent.cpp in Sources */,
 				03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */,
 				03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
@@ -737,14 +737,14 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				038EE8D71B6AAC3200D6A928 /* PowerUpScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				03D709971B657BD70056912B /* StageButton.cpp in Sources */,
+				03D709971B657BD70056912B /* StageComponent.cpp in Sources */,
 				031C156D1B68292C007D0FEC /* ScoreLabel.cpp in Sources */,
 				0399AB4F1B655C590069507F /* StageSelectScene.cpp in Sources */,
 				0342E5DD1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */,
 				0342E5DB1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
 				03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				46880B8B19C43A87006E1F66 /* GameScene.cpp in Sources */,
-				03D709991B657BD70056912B /* StageButtonReader.cpp in Sources */,
+				03D709991B657BD70056912B /* StageComponentReader.cpp in Sources */,
 				03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				03917D651B56EDC60068BCA6 /* TriangleReader.cpp in Sources */,
 				03917D5A1B56C9B90068BCA6 /* CircleReader.cpp in Sources */,

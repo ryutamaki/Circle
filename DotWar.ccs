@@ -8,7 +8,7 @@
         <Project Name="Triangle.csd" Type="Node" />
         <Project Name="MenuScene.csd" Type="Scene" />
         <Project Name="GameResultLayer.csd" Type="Layer" />
-        <Project Name="StageButton.csd" Type="Node" />
+        <Project Name="StageComponent.csd" Type="Node" />
         <Project Name="StageSelectScene.csd" Type="Scene" />
         <Project Name="Coin.csd" Type="Node" />
         <Project Name="ScoreLabel.csd" Type="Node" />

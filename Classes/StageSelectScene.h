@@ -26,10 +26,13 @@ public:
 
 private:
     cocos2d::ui::PageView* pageView;
+    cocos2d::ui::Button* playButton;
 
     void onEnter() override;
     void onExit() override;
     void setupStageSelectButtons();
+    void setupPlayButton();
+    void expandPageViewTouchHandler();
 
 };
 

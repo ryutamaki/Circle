@@ -8,8 +8,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "StageButton.h"
-#include "StageButtonReader.h"
+#include "StageComponent.h"
+#include "StageComponentReader.h"
 
 #include "EntityConstants.h"
 #include "GameSceneManager.h"
@@ -43,7 +43,7 @@ bool StageSelectScene::init()
     }
 
     CSLoader* instance = CSLoader::getInstance();
-    instance->registReaderObject("StageButtonReader", (ObjectFactory::Instance)StageButtonReader::getInstance);
+    instance->registReaderObject("StageComponentReader", (ObjectFactory::Instance)StageComponentReader::getInstance);
 
     auto rootNode = CSLoader::createNode("StageSelectScene.csb");
 
@@ -52,7 +52,10 @@ bool StageSelectScene::init()
     ui::Helper::doLayout(rootNode);
 
     this->pageView = rootNode->getChildByName<ui::PageView*>("PageView");
+    this->pageView->setSizePercent(Vec2(0.5f, 1.0f));
     this->pageView->setCustomScrollThreshold(visibleSize.width * 0.1f);
+
+    this->playButton = rootNode->getChildByName<ui::Button*>("PlayButton");
 
     ui::Button* backButton = rootNode->getChildByName<ui::Button*>("BackButton");
     backButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
@@ -74,6 +77,8 @@ void StageSelectScene::onEnter()
     Layer::onEnter();
 
     this->setupStageSelectButtons();
+    this->setupPlayButton();
+    this->expandPageViewTouchHandler();
 }
 
 void StageSelectScene::onExit()
@@ -87,32 +92,64 @@ void StageSelectScene::setupStageSelectButtons()
 {
     const unsigned int entityTypeCount = (int)EntityType::NONE;
     const unsigned int totalPageCount = ceil(entityTypeCount);
-    this->pageView->setSizePercent(Vec2(0.5f, 2.0f));
-    this->pageView->setColor(Color3B::GRAY);
 
     for (int page = 0, last = totalPageCount; page < last; ++page) {
-        ui::Layout* pageLayout = ui::Layout::create();
         EntityType entityType = (EntityType)(page);
 
         if (entityType >= EntityType::NONE) {
             entityType = EntityType::NONE;
         }
 
-        StageButton* stageButton = dynamic_cast<StageButton*>(CSLoader::createNode("StageButton.csb"));
-        stageButton->setEntityType(entityType);
-        ui::Button* stageButtonBase = stageButton->getChildByName<ui::Button*>("StageButtonBase");
+        StageComponent* stageComponent = dynamic_cast<StageComponent*>(CSLoader::createNode("StageComponent.csb"));
+        stageComponent->setName("Component");
+        stageComponent->setEntityType(entityType);
+        stageComponent->setNormalizedPosition(Vec2(0.5f, 0.5f));
 
-        if (entityType != EntityType::NONE) {
-            stageButtonBase->addTouchEventListener([entityType](Ref* pSender, ui::Widget::TouchEventType eEventType) {
-                if (eEventType == ui::Widget::TouchEventType::ENDED) {
-                    GameSceneManager::getInstance()->enterGameScene(entityType, false);
-                    log("entity type: %d", entityType);
-                }
-            });
-        }
-        stageButton->setNormalizedPosition(Vec2(0.5f, 0.5f));
-        pageLayout->addChild(stageButton);
+        ui::Layout* pageLayout = ui::Layout::create();
+        pageLayout->setSwallowTouches(false);
+        pageLayout->setPropagateTouchEvents(true);
+        pageLayout->addChild(stageComponent);
 
         this->pageView->addPage(pageLayout);
     }
+}
+
+void StageSelectScene::setupPlayButton()
+{
+    this->playButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            const size_t currentPageIndex = this->pageView->getCurPageIndex();
+            const ui::Layout* currenPage = this->pageView->getPage(currentPageIndex);
+            const StageComponent* component = currenPage->getChildByName<StageComponent*>("Component");
+            const EntityType entityType = component->getEntityType();
+
+            GameSceneManager::getInstance()->enterGameScene(entityType, false);
+        }
+    });
+}
+
+void StageSelectScene::expandPageViewTouchHandler()
+{
+    EventListenerTouchOneByOne* touchListener = EventListenerTouchOneByOne::create();
+
+    touchListener->onTouchBegan = [this](Touch* touch, Event* event) {
+            return true;
+        };
+    touchListener->onTouchMoved = [this](Touch* touch, Event* event) {
+            if (this->pageView) {
+                pageView->onTouchMoved(touch, event);
+            }
+        };
+    touchListener->onTouchCancelled = [this](Touch* touch, Event* event) {
+            if (this->pageView) {
+                pageView->onTouchCancelled(touch, event);
+            }
+        };
+    touchListener->onTouchEnded = [this](Touch* touch, Event* event) {
+            if (this->pageView) {
+                pageView->onTouchEnded(touch, event);
+            }
+        };
+
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
