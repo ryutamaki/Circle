@@ -81,8 +81,8 @@ void StageComponent::attachHighScoreLabel()
 {
     int highScore = UserDataManager::getInstance()->getHighScoreByEntityType(this->getEntityType());
 
-    std::string highScoreString = "HIGHSCORE: " + std::to_string(highScore);
-    Label* highScoreLabel = Label::createWithBMFont("Fonts/Menlo36.fnt", highScoreString);
+    std::string highScoreString = "BEST: " + std::to_string(highScore);
+    Label* highScoreLabel = Label::createWithBMFont("Fonts/Menlo48.fnt", highScoreString);
     highScoreLabel->setNormalizedPosition(Vec2(0.5f, 0.2f));
     this->componentFrame->addChild(highScoreLabel);
 }
