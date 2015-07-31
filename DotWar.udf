@@ -1,4 +1,4 @@
-<UserData Version="2.3.1.1">
+<UserData Version="2.3.1.2">
   <Properties>
     <Item Key="PackageParamsKey">
       <Value ctype="PackageParams">
@@ -26,18 +26,6 @@
         <LastPublishType Value="XCode" />
         <IsLastPublish Value="True" />
         <LastRunType Value="Unknown" />
-      </Value>
-    </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="GameResultLayer.csd" />
-          <FilePathData Path="GameScene.csd" />
-          <FilePathData Path="PowerUpScene.csd" />
-          <FilePathData Path="MenuScene.csd" />
-          <FilePathData Path="StageSelectScene.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="PowerUpScene.csd" />
       </Value>
     </Item>
   </Properties>

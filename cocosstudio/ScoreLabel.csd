@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="ScoreLabel" ID="4837d213-e158-48fb-a1ae-d2be045d73bf" Version="2.3.1.1" />
+  <PropertyGroup Type="Node" Name="ScoreLabel" ID="4837d213-e158-48fb-a1ae-d2be045d73bf" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="120" Speed="1.0000" ActivedAnimationName="CountUp">
@@ -49,7 +49,7 @@
       </Animation>
       <AnimationList>
         <AnimationInfo Name="CountUp" StartIndex="0" EndIndex="121">
-          <RenderColor A="150" R="0" G="0" B="139" />
+          <RenderColor A="255" R="0" G="0" B="139" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="ScoreLabel" Tag="51" ctype="GameNodeObjectData">

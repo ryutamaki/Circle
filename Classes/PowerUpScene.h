@@ -26,24 +26,23 @@ public:
     void setEntityType(EntityType entityType);
 
 private:
-    cocos2d::Sprite* field; // TODO: it should be removed
     int coinCount;
     EntityType entityType;
     EntityLevelParameter entityLevelParameter;
 
-    cocos2d::ui::TextBMFont* coinCountLabel;
-
     cocos2d::ui::TextBMFont* hpLabel;
     cocos2d::ui::TextBMFont* attackLabel;
     cocos2d::ui::TextBMFont* speedLabel;
+    cocos2d::ui::TextBMFont* coinCountLabel;
 
     void onEnter() override;
     void setupUI(Node* rootNode);
 
-    bool canUseCoin(int useCoinCount);
-    void useCoin(int useCoinCount);
     void setCoinCountLabelText(int coinCount);
     void setEntityLevelParameterLabelText(EntityLevelParameter entityLevelParameter);
+
+    bool canUseCoin(int useCoinCount);
+    void useCoin(int useCoinCount);
 
 };
 

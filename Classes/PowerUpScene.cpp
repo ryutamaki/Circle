@@ -33,7 +33,6 @@ bool PowerUpScene::init()
     rootNode->setContentSize(visibleSize);
     ui::Helper::doLayout(rootNode);
 
-    this->field = rootNode->getChildByName<Sprite*>("Field");
     this->entityType = EntityType::NONE;
     this->coinCount = UserDataManager::getInstance()->getCoinCount();
 
@@ -63,27 +62,23 @@ void PowerUpScene::onEnter()
 {
     Layer::onEnter();
 
-    // TODO: field should be a custom object
-    float fieldScaleFactor = 1.0f;
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Size fieldSize = this->field->getContentSize();
-
-    fieldScaleFactor = MIN(visibleSize.height / fieldSize.height, visibleSize.width / fieldSize.width);
-    this->field->setScale(fieldScaleFactor);
-
     CCASSERT(this->entityType != EntityType::NONE, "You MUST set entityType before onEnter().");
 }
 
 void PowerUpScene::setupUI(Node* rootNode)
 {
-    this->hpLabel = rootNode->getChildByName<ui::TextBMFont*>("HpLabel");
-    this->attackLabel = rootNode->getChildByName<ui::TextBMFont*>("AttackLabel");
-    this->speedLabel = rootNode->getChildByName<ui::TextBMFont*>("SpeedLabel");
+    ui::Layout* hpPanel = rootNode->getChildByName<ui::Layout*>("HpComponent");
+    ui::Layout* attackPanel = rootNode->getChildByName<ui::Layout*>("AttackComponent");
+    ui::Layout* speedPanel = rootNode->getChildByName<ui::Layout*>("SpeedComponent");
+    ui::Layout* coinPanel = rootNode->getChildByName<ui::Layout*>("CoinComponent");
 
-    this->coinCountLabel = rootNode->getChildByName<ui::TextBMFont*>("CoinCountLabel");
+    this->hpLabel = hpPanel->getChildByName<ui::TextBMFont*>("HpLevelLabel");
+    this->attackLabel = attackPanel->getChildByName<ui::TextBMFont*>("AttackLevelLabel");
+    this->speedLabel = speedPanel->getChildByName<ui::TextBMFont*>("SpeedLevelLabel");
+    this->coinCountLabel = coinPanel->getChildByName<ui::TextBMFont*>("CoinCountLabel");
     this->setCoinCountLabelText(this->coinCount);
 
-    ui::Button* hpButton = rootNode->getChildByName<ui::Button*>("HpButton");
+    ui::Button* hpButton = hpPanel->getChildByName<ui::Button*>("HpLevelUpButton");
     hpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
@@ -97,7 +92,7 @@ void PowerUpScene::setupUI(Node* rootNode)
         }
     });
 
-    ui::Button* attackButton = rootNode->getChildByName<ui::Button*>("AttackButton");
+    ui::Button* attackButton = attackPanel->getChildByName<ui::Button*>("AttackLevelUpButton");
     attackButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
@@ -111,7 +106,7 @@ void PowerUpScene::setupUI(Node* rootNode)
         }
     });
 
-    ui::Button* speedButton = rootNode->getChildByName<ui::Button*>("SpeedButton");
+    ui::Button* speedButton = speedPanel->getChildByName<ui::Button*>("SpeedLevelUpButton");
     speedButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
@@ -133,6 +128,20 @@ void PowerUpScene::setupUI(Node* rootNode)
     });
 }
 
+void PowerUpScene::setCoinCountLabelText(int coinCount)
+{
+    this->coinCountLabel->setString(std::to_string(coinCount));
+}
+
+void PowerUpScene::setEntityLevelParameterLabelText(EntityLevelParameter entityLevelParameter)
+{
+    this->hpLabel->setString(std::to_string(entityLevelParameter.levelHp));
+    this->attackLabel->setString(std::to_string(entityLevelParameter.levelAttack));
+    this->speedLabel->setString(std::to_string(entityLevelParameter.levelSpeed));
+}
+
+#pragma mark Logic
+
 bool PowerUpScene::canUseCoin(int useCoinCount)
 {
     if (this->coinCount - useCoinCount < 0) {
@@ -150,16 +159,4 @@ void PowerUpScene::useCoin(int useCoinCount)
     UserDataManager::getInstance()->setCoinCount(newCoinCount);
 
     this->setCoinCountLabelText(newCoinCount);
-}
-
-void PowerUpScene::setCoinCountLabelText(int coinCount)
-{
-    this->coinCountLabel->setString(std::to_string(coinCount));
-}
-
-void PowerUpScene::setEntityLevelParameterLabelText(EntityLevelParameter entityLevelParameter)
-{
-    this->hpLabel->setString(std::to_string(entityLevelParameter.levelHp));
-    this->attackLabel->setString(std::to_string(entityLevelParameter.levelAttack));
-    this->speedLabel->setString(std::to_string(entityLevelParameter.levelSpeed));
 }

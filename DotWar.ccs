@@ -1,5 +1,5 @@
 <Solution>
-  <PropertyGroup Name="DotWar" Version="2.3.1.1" Type="CocosStudio" />
+  <PropertyGroup Name="DotWar" Version="2.3.1.2" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
@@ -8,27 +8,44 @@
         <Project Name="Triangle.csd" Type="Node" />
         <Project Name="MenuScene.csd" Type="Scene" />
         <Project Name="GameResultLayer.csd" Type="Layer" />
+        <Project Name="StageButton.csd" Type="Node" />
+        <Project Name="StageSelectScene.csd" Type="Scene" />
+        <Project Name="Coin.csd" Type="Node" />
+        <Project Name="ScoreLabel.csd" Type="Node" />
+        <Project Name="PowerUpScene.csd" Type="Scene" />
         <Folder Name="Images">
           <Image Name="Background.png" />
           <Image Name="Background@2x.png" />
           <Image Name="Background@3x.png" />
           <Image Name="Background@4x.png" />
+          <Image Name="CircleBody.png" />
+          <Image Name="CircleBody@2x.png" />
+          <Image Name="CircleBody@3x.png" />
+          <Image Name="CircleBody@4x.png" />
+          <Image Name="CircleEyes.png" />
+          <Image Name="CircleEyes@2x.png" />
+          <Image Name="CircleEyes@3x.png" />
+          <Image Name="CircleEyes@4x.png" />
+          <Image Name="CircleNeedle.png" />
+          <Image Name="CircleNeedle@2x.png" />
+          <Image Name="CircleNeedle@3x.png" />
+          <Image Name="CircleNeedle@4x.png" />
           <Image Name="Field.png" />
           <Image Name="Field@2x.png" />
           <Image Name="Field@3x.png" />
           <Image Name="Field@4x.png" />
-          <Image Name="TutorialButton.png" />
-          <Image Name="TutorialButton@2x.png" />
-          <Image Name="TutorialButton@3x.png" />
-          <Image Name="TutorialButton@4x.png" />
-          <Image Name="StageSelectButtonNormal.png" />
-          <Image Name="StageSelectButtonNormal@2x.png" />
-          <Image Name="StageSelectButtonNormal@3x.png" />
-          <Image Name="StageSelectButtonNormal@4x.png" />
-          <Image Name="StageSelectButtonPushed.png" />
-          <Image Name="StageSelectButtonPushed@2x.png" />
-          <Image Name="StageSelectButtonPushed@3x.png" />
-          <Image Name="StageSelectButtonPushed@4x.png" />
+          <Image Name="LevelUpButtonNormal.png" />
+          <Image Name="LevelUpButtonNormal@2x.png" />
+          <Image Name="LevelUpButtonNormal@3x.png" />
+          <Image Name="LevelUpButtonNormal@4x.png" />
+          <Image Name="LevelUpButtonPushed.png" />
+          <Image Name="LevelUpButtonPushed@2x.png" />
+          <Image Name="LevelUpButtonPushed@3x.png" />
+          <Image Name="LevelUpButtonPushed@4x.png" />
+          <Image Name="Line.png" />
+          <Image Name="Line@2x.png" />
+          <Image Name="Line@3x.png" />
+          <Image Name="Line@4x.png" />
           <Image Name="MultiplayerButtonNormal.png" />
           <Image Name="MultiplayerButtonNormal@2x.png" />
           <Image Name="MultiplayerButtonNormal@3x.png" />
@@ -37,53 +54,55 @@
           <Image Name="MultiplayerButtonPushed@2x.png" />
           <Image Name="MultiplayerButtonPushed@3x.png" />
           <Image Name="MultiplayerButtonPushed@4x.png" />
-          <Image Name="StageButtonNormal.png" />
-          <Image Name="StageButtonNormal@2x.png" />
-          <Image Name="StageButtonNormal@3x.png" />
-          <Image Name="StageButtonNormal@4x.png" />
-          <Image Name="StageButtonPushed.png" />
-          <Image Name="StageButtonPushed@2x.png" />
-          <Image Name="StageButtonPushed@3x.png" />
-          <Image Name="StageButtonPushed@4x.png" />
-          <Image Name="CircleBody.png" />
-          <Image Name="CircleBody@2x.png" />
-          <Image Name="CircleBody@3x.png" />
-          <Image Name="CircleBody@4x.png" />
-          <Image Name="CircleNeedle.png" />
-          <Image Name="CircleNeedle@2x.png" />
-          <Image Name="CircleNeedle@3x.png" />
-          <Image Name="CircleNeedle@4x.png" />
+          <Image Name="PlayButtonNormal.png" />
+          <Image Name="PlayButtonNormal@2x.png" />
+          <Image Name="PlayButtonNormal@3x.png" />
+          <Image Name="PlayButtonNormal@4x.png" />
+          <Image Name="PushedButtonPushed.png" />
+          <Image Name="PushedButtonPushed@2x.png" />
+          <Image Name="PushedButtonPushed@3x.png" />
+          <Image Name="PushedButtonPushed@4x.png" />
+          <Image Name="RankUpButtonNormal.png" />
+          <Image Name="RankUpButtonNormal@2x.png" />
+          <Image Name="RankUpButtonNormal@3x.png" />
+          <Image Name="RankUpButtonNormal@4x.png" />
+          <Image Name="RankUpButtonPushed.png" />
+          <Image Name="RankUpButtonPushed@2x.png" />
+          <Image Name="RankUpButtonPushed@3x.png" />
+          <Image Name="RankUpButtonPushed@4x.png" />
+          <Image Name="StageSelectButtonNormal.png" />
+          <Image Name="StageSelectButtonNormal@2x.png" />
+          <Image Name="StageSelectButtonNormal@3x.png" />
+          <Image Name="StageSelectButtonNormal@4x.png" />
+          <Image Name="StageSelectButtonPushed.png" />
+          <Image Name="StageSelectButtonPushed@2x.png" />
+          <Image Name="StageSelectButtonPushed@3x.png" />
+          <Image Name="StageSelectButtonPushed@4x.png" />
           <Image Name="TriangleBody.png" />
           <Image Name="TriangleBody@2x.png" />
           <Image Name="TriangleBody@3x.png" />
           <Image Name="TriangleBody@4x.png" />
-          <Image Name="Coin.png" />
-          <Image Name="Coin@2x.png" />
-          <Image Name="Coin@3x.png" />
-          <Image Name="Coin@4x.png" />
-          <Image Name="CircleEyes.png" />
-          <Image Name="CircleEyes@2x.png" />
-          <Image Name="CircleEyes@3x.png" />
-          <Image Name="CircleEyes@4x.png" />
           <Image Name="TriangleEyes.png" />
           <Image Name="TriangleEyes@2x.png" />
           <Image Name="TriangleEyes@3x.png" />
           <Image Name="TriangleEyes@4x.png" />
-          <Image Name="Overlay.png" />
-          <Image Name="Overlay@2x.png" />
-          <Image Name="Overlay@3x.png" />
-          <Image Name="Overlay@4x.png" />
+          <Image Name="ComponentFrame.png" />
+          <Image Name="ComponentFrame@2x.png" />
+          <Image Name="ComponentFrame@3x.png" />
+          <Image Name="ComponentFrame@4x.png" />
+          <Image Name="BackButtonNormal.png" />
+          <Image Name="BackButtonNormal@2x.png" />
+          <Image Name="BackButtonNormal@3x.png" />
+          <Image Name="BackButtonNormal@4x.png" />
+          <Image Name="BackButtonPushed.png" />
+          <Image Name="BackButtonPushed@2x.png" />
+          <Image Name="BackButtonPushed@3x.png" />
+          <Image Name="BackButtonPushed@4x.png" />
         </Folder>
-        <Project Name="StageButton.csd" Type="Node" />
-        <Project Name="StageSelectScene.csd" Type="Scene" />
-        <Project Name="Coin.csd" Type="Node" />
-        <Project Name="ScoreLabel.csd" Type="Node" />
         <Folder Name="Fonts">
-          <Fnt Name="Menlo20.fnt" />
-          <Fnt Name="Menlo36.fnt" />
+          <Fnt Name="Menlo48.fnt" />
           <Fnt Name="Menlo70.fnt" />
         </Folder>
-        <Project Name="PowerUpScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

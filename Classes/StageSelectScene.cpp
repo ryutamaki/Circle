@@ -13,6 +13,7 @@
 
 #include "EntityConstants.h"
 #include "GameSceneManager.h"
+#include "MenuScene.h"
 
 USING_NS_CC;
 
@@ -51,6 +52,15 @@ bool StageSelectScene::init()
     ui::Helper::doLayout(rootNode);
 
     this->pageView = rootNode->getChildByName<ui::PageView*>("PageView");
+    this->pageView->setCustomScrollThreshold(visibleSize.width * 0.1f);
+
+    ui::Button* backButton = rootNode->getChildByName<ui::Button*>("BackButton");
+    backButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            Scene* menuScene = MenuScene::createScene();
+            Director::getInstance()->replaceScene(menuScene);
+        }
+    });
 
     addChild(rootNode);
 
@@ -75,49 +85,33 @@ void StageSelectScene::onExit()
 
 void StageSelectScene::setupStageSelectButtons()
 {
-    const Size visibleSize = Director::getInstance()->getVisibleSize();
-
-    const std::vector<Vec2> buttonPositionList = {
-        Vec2(visibleSize.width * 0.3f, visibleSize.height * 0.65f),
-        Vec2(visibleSize.width * 0.7f, visibleSize.height * 0.65f),
-        Vec2(visibleSize.width * 0.3f, visibleSize.height * 0.25f),
-        Vec2(visibleSize.width * 0.7f, visibleSize.height * 0.25f),
-    };
-
     const unsigned int entityTypeCount = (int)EntityType::NONE;
-    const unsigned int totalPageCount = ceil(entityTypeCount / (float)buttonPositionList.size());
-    this->pageView->setSizePercent(Vec2(1.0f, 1.0f));
+    const unsigned int totalPageCount = ceil(entityTypeCount);
+    this->pageView->setSizePercent(Vec2(0.5f, 2.0f));
+    this->pageView->setColor(Color3B::GRAY);
 
     for (int page = 0, last = totalPageCount; page < last; ++page) {
         ui::Layout* pageLayout = ui::Layout::create();
+        EntityType entityType = (EntityType)(page);
 
-        for (Vec2 buttonPosition : buttonPositionList) {
-            auto it = std::find(buttonPositionList.begin(), buttonPositionList.end(), buttonPosition);
-            long buttonPositionIndex = std::distance(buttonPositionList.begin(), it);
-            CCASSERT(buttonPositionIndex != buttonPositionList.size(), "Index out of range");
-
-            EntityType entityType = (EntityType)(page * buttonPositionList.size() + buttonPositionIndex);
-
-            if (entityType >= EntityType::NONE) {
-                entityType = EntityType::NONE;
-            }
-
-            StageButton* stageButton = dynamic_cast<StageButton*>(CSLoader::createNode("StageButton.csb"));
-            stageButton->setEntityType(entityType);
-            ui::Button* stageButtonBase = stageButton->getChildByName<ui::Button*>("StageButtonBase");
-
-            if (entityType != EntityType::NONE) {
-                stageButtonBase->addTouchEventListener([entityType](Ref* pSender, ui::Widget::TouchEventType eEventType) {
-                    if (eEventType == ui::Widget::TouchEventType::ENDED) {
-                        GameSceneManager::getInstance()->enterGameScene(entityType, false);
-                        log("entity type: %d", entityType);
-                    }
-                });
-            }
-
-            stageButton->setPosition(buttonPosition);
-            pageLayout->addChild(stageButton);
+        if (entityType >= EntityType::NONE) {
+            entityType = EntityType::NONE;
         }
+
+        StageButton* stageButton = dynamic_cast<StageButton*>(CSLoader::createNode("StageButton.csb"));
+        stageButton->setEntityType(entityType);
+        ui::Button* stageButtonBase = stageButton->getChildByName<ui::Button*>("StageButtonBase");
+
+        if (entityType != EntityType::NONE) {
+            stageButtonBase->addTouchEventListener([entityType](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+                if (eEventType == ui::Widget::TouchEventType::ENDED) {
+                    GameSceneManager::getInstance()->enterGameScene(entityType, false);
+                    log("entity type: %d", entityType);
+                }
+            });
+        }
+        stageButton->setNormalizedPosition(Vec2(0.5f, 0.5f));
+        pageLayout->addChild(stageButton);
 
         this->pageView->addPage(pageLayout);
     }

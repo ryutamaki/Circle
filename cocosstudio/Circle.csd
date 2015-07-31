@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.1" />
+  <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="100" Speed="1.0000" ActivedAnimationName="Damaged">
@@ -83,7 +83,7 @@
           <RenderColor A="255" R="255" G="239" B="213" />
         </AnimationInfo>
         <AnimationInfo Name="AttackNeedle" StartIndex="30" EndIndex="101">
-          <RenderColor A="150" R="233" G="150" B="122" />
+          <RenderColor A="255" R="233" G="150" B="122" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">
@@ -103,13 +103,13 @@
           <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
-              <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" LeftMargin="58.8608" RightMargin="13.1392" TopMargin="25.1362" BottomMargin="22.8638" ctype="SpriteObjectData">
+              <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" LeftMargin="58.8608" RightMargin="-20.8608" TopMargin="-8.8638" BottomMargin="22.8638" ctype="SpriteObjectData">
                 <Size X="8.0000" Y="32.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="62.8608" Y="38.8638" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.7858" Y="0.4858" />
+                <PrePosition X="1.3665" Y="0.8449" />
                 <PreSize X="0.0000" Y="0.0000" />
                 <FileData Type="Normal" Path="Images/CircleEyes@2x.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />

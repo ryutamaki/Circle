@@ -51,7 +51,6 @@ bool MenuScene::init()
     rootNode->setContentSize(visibleSize);
     ui::Helper::doLayout(rootNode);
 
-    this->field = rootNode->getChildByName<Sprite*>("Field");
     ui::Button* singlePlayerButton = rootNode->getChildByName<ui::Button*>("SinglePlayerButton");
     ui::Button* multiplayerButton = rootNode->getChildByName<ui::Button*>("MultiplayerButton");
 
@@ -71,14 +70,6 @@ void MenuScene::onEnter()
 {
     Layer::onEnter();
 
-    // TODO: field should be a custom object
-    float fieldScaleFactor = 1.0f;
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Size fieldSize = this->field->getContentSize();
-
-    fieldScaleFactor = MIN(visibleSize.height / fieldSize.height, visibleSize.width / fieldSize.width);
-    this->field->setScale(fieldScaleFactor);
-
     // put character
     this->putEntityByEntityType(EntityType::CIRCLE);
 
@@ -93,7 +84,7 @@ void MenuScene::putEntityByEntityType(EntityType entityType)
     Entity* entity = EntityFactory::createUserEntity(entityType);
     entity->setNormalizedPosition(Vec2(0.5f, 0.5f));
 
-    this->field->addChild(entity);
+    this->addChild(entity);
 
     EventListenerTouchOneByOne* eventListerner = EventListenerTouchOneByOne::create();
     eventListerner->onTouchBegan = [this](Touch* touch, Event* event) {
@@ -106,7 +97,7 @@ void MenuScene::putEntityByEntityType(EntityType entityType)
             scene->addChild(powerUpScene);
             Director::getInstance()->pushScene(scene);
         };
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListerner, this->field);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListerner, this);
 }
 
 #pragma mark Callbacks

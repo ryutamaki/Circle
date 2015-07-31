@@ -1,5 +1,5 @@
 <GameProjectFile>
-  <PropertyGroup Type="Node" Name="Coin" ID="8f1d1515-aacf-4dde-b6ac-4bfc4cc68c15" Version="2.3.1.1" />
+  <PropertyGroup Type="Node" Name="Coin" ID="8f1d1515-aacf-4dde-b6ac-4bfc4cc68c15" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="59" Speed="1.0000" ActivedAnimationName="Drop">
@@ -36,14 +36,14 @@
         <Size X="0.0000" Y="0.0000" />
         <Children>
           <AbstractNodeData Name="Coin" ActionTag="1592479325" Tag="19" IconVisible="False" LeftMargin="-30.0000" RightMargin="-30.0000" BottomMargin="-60.0000" ctype="SpriteObjectData">
-            <Size X="60.0000" Y="60.0000" />
+            <Size X="46.0000" Y="46.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position Y="-30.0000" />
             <Scale ScaleX="0.5000" ScaleY="0.5000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />
-            <FileData Type="Normal" Path="Images/Coin@2x.png" Plist="" />
+            <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
         </Children>
