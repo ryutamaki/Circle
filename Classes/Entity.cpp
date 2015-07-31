@@ -25,6 +25,8 @@ bool Entity::init()
     this->stateMachine->setDelegate(this);
     this->synchronizer = std::unique_ptr<EntitySynchronizer>(new EntitySynchronizer());
     this->velocity = Vec2::ZERO;
+    this->initialColor = CIRCLE_BLUE;
+
     this->setupAttackMap();
 
     return true;
@@ -68,6 +70,11 @@ void Entity::setHp(int hp)
 Vec2 Entity::getVelocity()
 {
     return this->velocity;
+}
+
+void Entity::setInitialColor(Color4B initialColor)
+{
+    this->initialColor = initialColor;
 }
 
 std::string Entity::getCurrentAttackName()
@@ -311,15 +318,13 @@ void Entity::setBodyColorByCurrentHp()
             continue;
         }
 
-        if (this->entityParameter.initialHp * 0.75 < this->hp) {
-            sprite->setColor(Color3B(DARK_BLUE));
-        } else if (this->entityParameter.initialHp * 0.5 < this->hp && this->hp <= this->entityParameter.initialHp * 0.75) {
-            sprite->setColor(Color3B(LIGHT_BLUE));
-        } else if (this->entityParameter.initialHp * 0.25 < this->hp && this->hp <= this->entityParameter.initialHp * 0.5) {
-            sprite->setColor(Color3B(LIGHT_RED));
-        } else if (this->hp <= this->entityParameter.initialHp * 0.25f) {
-            sprite->setColor(Color3B(DARK_RED));
-        }
+        // TODO: わかりにくいから、なんか考える
+        this->setColor(Color3B(this->initialColor));
+
+        float minimumOpacity = 0.1f;
+        float remainHpPercent = this->hp / static_cast<float>(this->entityParameter.initialHp);
+        float opacity = remainHpPercent * ((1.0f - minimumOpacity) / 1.0f) + minimumOpacity;
+        this->setOpacity(static_cast<GLubyte>(opacity * 255));
     }
 }
 

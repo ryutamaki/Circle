@@ -13,9 +13,7 @@
 
 USING_NS_CC;
 
-static const Color4B LIGHT_BLUE = Color4B(118, 143, 181, 100);
-static const Color4B DARK_BLUE = Color4B(45, 54, 89, 100);
-static const Color4B LIGHT_RED = Color4B(238, 103, 100, 100);
-static const Color4B DARK_RED = Color4B(178, 58, 68, 100);
+static const Color4B CIRCLE_ORANGE = Color4B(238, 103, 100, 100);
+static const Color4B CIRCLE_BLUE = Color4B(61, 73, 106, 100);
 
 #endif

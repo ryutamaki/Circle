@@ -8,6 +8,7 @@
 
 #include "EntityFactory.h"
 
+#include "ColorConstants.h"
 #include "UserDataManager.h"
 
 #include "Circle.h"
@@ -68,6 +69,12 @@ Entity* EntityFactory::createEntity(EntityType entityType)
 
 Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCount)
 {
+    Color4B initialColor = CIRCLE_BLUE;
+    return EntityFactory::createEntity(entityType, defeatCount, initialColor);
+}
+
+Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCount, cocos2d::Color4B initialColor)
+{
     CSLoader* instance = CSLoader::getInstance();
     switch (entityType) {
         case EntityType::CIRCLE:
@@ -80,6 +87,7 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             parameter.levelAttack += defeatCount;
             parameter.levelSpeed += floor(defeatCount * 0.5f);
             circle->setEntityLevelParameter(parameter);
+            circle->setInitialColor(initialColor);
             return circle;
         }
 
@@ -93,6 +101,7 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             parameter.levelAttack += defeatCount;
             parameter.levelSpeed += floor(defeatCount * 0.5f);
             triangle->setEntityLevelParameter(parameter);
+            triangle->setInitialColor(initialColor);
             return triangle;
         }
 

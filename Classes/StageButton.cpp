@@ -7,8 +7,9 @@
 //
 
 #include "StageButton.h"
-
 #include "CocosGUI.h"
+
+#include "ColorConstants.h"
 
 #include "EntityFactory.h"
 #include "Entity.h"
@@ -65,7 +66,7 @@ void StageButton::onEnter()
 
 void StageButton::attachEntity(EntityType eEntityType)
 {
-    Entity* entity = EntityFactory::createEntity(eEntityType);
+    Entity* entity = EntityFactory::createEntity(eEntityType, 0, CIRCLE_ORANGE);
 
     if (entity != nullptr) {
         entity->setNormalizedPosition(Vec2(0.5f, 0.6f));

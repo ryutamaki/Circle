@@ -42,6 +42,7 @@ public:
     int getHp();
     void setHp(int hp);
     cocos2d::Vec2 getVelocity();
+    void setInitialColor(cocos2d::Color4B initialColor);
 
     std::string getCurrentAttackName();
     std::vector<std::string> getAttackNameList();
@@ -81,6 +82,7 @@ protected:
     cocos2d::Vec2 velocity;
     std::string currentAttackName;
     std::map<std::string, AttackParams> attackMap;
+    Color4B initialColor;
     bool isDead;
 
     bool init() override;

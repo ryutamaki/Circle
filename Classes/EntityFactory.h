@@ -26,6 +26,7 @@ public:
 
     static Entity* createEntity(EntityType entityType);
     static Entity* createEntity(EntityType entityType, unsigned int defeatCount);
+    static Entity* createEntity(EntityType entityType, unsigned int defeatCount, cocos2d::Color4B initialColor);
 };
 
 #endif /* defined(__DotWar__EntityFactory__) */

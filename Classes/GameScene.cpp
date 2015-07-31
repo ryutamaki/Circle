@@ -2,6 +2,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+#include "ColorConstants.h"
+
 #include "EnemyAI.h"
 #include "Coin.h"
 #include "GameResultLayer.h"
@@ -235,6 +237,10 @@ void GameScene::update(float dt)
             continue;
         }
 
+        if (entity->getIsDead()) {
+            continue;
+        }
+
         Rect entityRect = entity->getBodyRect();
         Rect entityNextRect = Rect(
                 entityRect.origin.x + entity->getVelocity().x,
@@ -343,13 +349,6 @@ void GameScene::spawnNextEnemy()
         this->currentEnemy = nullptr;
         this->enemyAI->removeFromParent();
         this->enemyAI = nullptr;
-        tmpEntity->runAction(
-            Sequence::create(
-                FadeOut::create(1.0f),
-                CallFunc::create([tmpEntity]() {tmpEntity->removeFromParent(); }),
-                NULL
-            )
-        );
 
         // update score
         ++this->defeatEnemyCount;
@@ -359,7 +358,7 @@ void GameScene::spawnNextEnemy()
     }
 
     // pop next enemy from enemy queue
-    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, this->defeatEnemyCount);
+    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, this->defeatEnemyCount, CIRCLE_ORANGE);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
@@ -381,9 +380,10 @@ void GameScene::spawnNextEnemy()
     this->field->addChild(this->currentEnemy);
 
     // animate next entity
+    float spawnDuration = 1.5f;
     this->currentEnemy->setScale(3.0f);
-    auto moveTo = MoveTo::create(2.0f, Vec2(this->currentEnemy->getPosition().x, fieldSize.height * 0.5f));
-    auto scaleTo = ScaleTo::create(2.0f, 1.0f);
+    auto moveTo = MoveTo::create(spawnDuration, Vec2(this->currentEnemy->getPosition().x, fieldSize.height * 0.5f));
+    auto scaleTo = ScaleTo::create(spawnDuration, 1.0f);
     auto spawn = Spawn::create(moveTo, scaleTo, NULL);
     auto bounceEaseOut = EaseBounceInOut::create(spawn);
     this->currentEnemy->runAction(bounceEaseOut);
