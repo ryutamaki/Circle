@@ -98,10 +98,31 @@
           <Image Name="BackButtonPushed@2x.png" />
           <Image Name="BackButtonPushed@3x.png" />
           <Image Name="BackButtonPushed@4x.png" />
+          <Image Name="QuitButtonNormal.png" />
+          <Image Name="QuitButtonNormal@2x.png" />
+          <Image Name="QuitButtonNormal@3x.png" />
+          <Image Name="QuitButtonNormal@4x.png" />
+          <Image Name="QuitButtonPushed.png" />
+          <Image Name="QuitButtonPushed@2x.png" />
+          <Image Name="QuitButtonPushed@3x.png" />
+          <Image Name="QuitButtonPushed@4x.png" />
+          <Image Name="RetryButtonNormal.png" />
+          <Image Name="RetryButtonNormal@2x.png" />
+          <Image Name="RetryButtonNormal@3x.png" />
+          <Image Name="RetryButtonNormal@4x.png" />
+          <Image Name="RetryButtonPushed.png" />
+          <Image Name="RetryButtonPushed@2x.png" />
+          <Image Name="RetryButtonPushed@3x.png" />
+          <Image Name="RetryButtonPushed@4x.png" />
+          <Image Name="Overlay.png" />
+          <Image Name="Overlay@2x.png" />
+          <Image Name="Overlay@3x.png" />
+          <Image Name="Overlay@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />
           <Fnt Name="Menlo70.fnt" />
+          <Fnt Name="CircleFont30.fnt" />
         </Folder>
       </RootFolder>
     </Group>

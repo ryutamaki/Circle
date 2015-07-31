@@ -425,7 +425,12 @@ void GameScene::gameover()
     this->gameState = GameState::RESULT;
     this->unscheduleUpdate();
     this->enemyAI->stop();
-    this->showResultLayer();
+
+    int score = this->defeatEnemyCount;
+    int currentHighScore = UserDataManager::getInstance()->getHighScoreByEntityType(this->enemyEntityType);
+    bool isNewRecord = score > currentHighScore ? true : false;
+    int highScore = isNewRecord ? score : currentHighScore;
+    this->showResultLayer(score, highScore, isNewRecord);
 
     UserDataManager::getInstance()->setHighScoreByEntityType(this->defeatEnemyCount, this->enemyEntityType);
 
@@ -478,15 +483,17 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
 
 #pragma mark Transitions
 
-void GameScene::showResultLayer()
+void GameScene::showResultLayer(int score, int highscore, bool isNewRecord)
 {
     CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
     GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
     gameResult->setNormalizedPosition(Vec2::ZERO);
     gameResult->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
-    gameResult->setScore(this->defeatEnemyCount);
-    gameResult->setHighScore(UserDataManager::getInstance()->getHighScoreByEntityType(this->enemyEntityType));
     this->field->addChild(gameResult);
+
+    gameResult->setScore(score);
+    gameResult->setHighScore(highscore, isNewRecord);
+    gameResult->setCoinCount(score);
 }
 
 void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType)

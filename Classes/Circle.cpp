@@ -45,6 +45,6 @@ void Circle::setEntityParamerterByLevel(EntityLevelParameter levelParameter)
     this->entityParameter = {
         this->entityLevelParameter.levelHp * 10,
         this->entityLevelParameter.levelAttack * 1,
-        this->entityLevelParameter.levelSpeed * 20.0f,
+        this->entityLevelParameter.levelSpeed * 100.0f,
     };
 }

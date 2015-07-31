@@ -18,14 +18,16 @@ public:
     bool init() override;
 
     void setScore(int score);
-    void setHighScore(int highScore);
+    void setHighScore(int highScore, bool isNewRecord);
+    void setCoinCount(int coinCount);
 
 private:
     cocostudio::timeline::ActionTimeline* timeline;
 
+    cocos2d::ui::Layout* resultLayout;
+
     void onEnter() override;
 
-    void backToMenu(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 };
 
 #endif /* defined(__DotWar__GameResultLayer__) */

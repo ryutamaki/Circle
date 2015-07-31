@@ -64,7 +64,7 @@ private:
     Entity* getTargetEntityByTargetString(std::string targetString);
 
     // transitions
-    void showResultLayer();
+    void showResultLayer(int score, int highscore, bool isNewRecord);
 
     void readyToStart(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void tryToStart();

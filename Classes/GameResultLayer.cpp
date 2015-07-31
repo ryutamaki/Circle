@@ -11,6 +11,8 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
+#include "ColorConstants.h"
+
 #include "GameSceneManager.h"
 
 USING_NS_CC;
@@ -30,6 +32,8 @@ bool GameResultLayer::init()
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
+    this->setSwallowsTouches(true);
+
     return true;
 }
 
@@ -37,14 +41,24 @@ bool GameResultLayer::init()
 
 void GameResultLayer::setScore(int score)
 {
-    ui::TextBMFont* scoreLabel = this->getChildByName<ui::TextBMFont*>("ScoreLabel");
-    scoreLabel->setString(scoreLabel->getString() + std::to_string(score));
+    ui::TextBMFont* scoreCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("ScoreCountLabel");
+    scoreCountLabel->setString(std::to_string(score));
 }
 
-void GameResultLayer::setHighScore(int highScore)
+void GameResultLayer::setHighScore(int highScore, bool isNewRecord)
 {
-    ui::TextBMFont* highScoreLabel = this->getChildByName<ui::TextBMFont*>("HighScoreLabel");
-    highScoreLabel->setString(highScoreLabel->getString() + std::to_string(highScore));
+    ui::TextBMFont* highScoreCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("HighScoreCountLabel");
+    highScoreCountLabel->setString(std::to_string(highScore));
+
+    if (isNewRecord) {
+        highScoreCountLabel->setColor(Color3B(CIRCLE_DARK_BLUE));
+    }
+}
+
+void GameResultLayer::setCoinCount(int coinCount)
+{
+    ui::TextBMFont* coinCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("CoinCountLabel");
+    coinCountLabel->setString(std::to_string(coinCount));
 }
 
 #pragma mark - Private methods
@@ -55,15 +69,20 @@ void GameResultLayer::onEnter()
 {
     Layer::onEnter();
 
-    ui::Button* backButton = this->getChildByName<ui::Button*>("BackButton");
-    backButton->addTouchEventListener(CC_CALLBACK_2(GameResultLayer::backToMenu, this));
-}
+    this->resultLayout = this->getChildByName<ui::Layout*>("ResultLayout");
 
-#pragma mark Callbacks
+    ui::Button* quitButton = this->resultLayout->getChildByName<ui::Button*>("QuitButton");
+    quitButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            GameSceneManager::getInstance()->exitGameScene();
+        }
+    });
 
-void GameResultLayer::backToMenu(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
-{
-    if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        GameSceneManager::getInstance()->exitGameScene();
-    }
+    ui::Button* retryButton = this->resultLayout->getChildByName<ui::Button*>("RetryButton");
+    retryButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            // TODO: もう一度始まるようにする
+            GameSceneManager::getInstance()->exitGameScene();
+        }
+    });
 }

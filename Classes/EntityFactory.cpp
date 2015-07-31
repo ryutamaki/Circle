@@ -69,7 +69,7 @@ Entity* EntityFactory::createEntity(EntityType entityType)
 
 Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCount)
 {
-    Color4B initialColor = CIRCLE_BLUE;
+    Color4B initialColor = CIRCLE_DARK_BLUE;
     return EntityFactory::createEntity(entityType, defeatCount, initialColor);
 }
 
