@@ -250,8 +250,6 @@ void Entity::receiveDamage(const int damage)
     ParticleSystemQuad* particle = ParticleSystemQuad::create("Damage.plist");
     particle->setStartColor(Color4F(body->getColor()));
     particle->setEndColor(Color4F(body->getColor()));
-    particle->setScaleX(-1.0f);
-    particle->setPosition(Vec2(0.0f, 0.0f));
     this->addChild(particle);
 
     // override point
@@ -319,12 +317,12 @@ void Entity::setBodyColorByCurrentHp()
         }
 
         // TODO: わかりにくいから、なんか考える
-        this->setColor(Color3B(this->initialColor));
+        sprite->setColor(Color3B(this->initialColor));
 
         float minimumOpacity = 0.1f;
         float remainHpPercent = this->hp / static_cast<float>(this->entityParameter.initialHp);
         float opacity = remainHpPercent * ((1.0f - minimumOpacity) / 1.0f) + minimumOpacity;
-        this->setOpacity(static_cast<GLubyte>(opacity * 255));
+        sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
     }
 }
 

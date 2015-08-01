@@ -5,7 +5,7 @@
 	<key>absolutePosition</key>
 	<false/>
 	<key>angle</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>angleVariance</key>
 	<real>360</real>
 	<key>blendFuncDestination</key>
@@ -13,101 +13,101 @@
 	<key>blendFuncSource</key>
 	<integer>1</integer>
 	<key>configName</key>
-	<string>Untitled 2</string>
+	<string>Damage</string>
 	<key>duration</key>
-	<real>0.2000000029802322</real>
+	<real>0.10000000000000001</real>
 	<key>emitterType</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>finishColorAlpha</key>
-	<real>0.5</real>
+	<real>1</real>
 	<key>finishColorBlue</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>finishColorGreen</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>finishColorRed</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>finishColorVarianceAlpha</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>finishColorVarianceBlue</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>finishColorVarianceGreen</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>finishColorVarianceRed</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>finishParticleSize</key>
-	<integer>15</integer>
+	<real>15</real>
 	<key>finishParticleSizeVariance</key>
-	<integer>0</integer>
+	<real>0.0</real>
 	<key>gravityx</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>gravityy</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>maxParticles</key>
-	<real>8</real>
+	<real>10</real>
 	<key>maxRadius</key>
-	<integer>0</integer>
+	<real>25</real>
 	<key>maxRadiusVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>minRadius</key>
-	<integer>300</integer>
+	<real>60</real>
 	<key>minRadiusVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>particleLifespan</key>
-	<real>0.2</real>
+	<real>0.29999999999999999</real>
 	<key>particleLifespanVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>positionType</key>
 	<integer>0</integer>
 	<key>radialAccelVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>radialAcceleration</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>rotatePerSecond</key>
-	<integer>360</integer>
+	<real>0.0</real>
 	<key>rotatePerSecondVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>rotationEnd</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>rotationEndVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>rotationStart</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>rotationStartVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>sourcePositionVariancex</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>sourcePositionVariancey</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>speed</key>
 	<real>230</real>
 	<key>speedVariance</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startColorAlpha</key>
 	<real>1</real>
 	<key>startColorBlue</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startColorGreen</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startColorRed</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startColorVarianceAlpha</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startColorVarianceBlue</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startColorVarianceGreen</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startColorVarianceRed</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>startParticleSize</key>
-	<integer>15</integer>
+	<real>15</real>
 	<key>startParticleSizeVariance</key>
-	<integer>0</integer>
+	<real>0.0</real>
 	<key>tangentialAccelVariance</key>
-	<integer>0</integer>
+	<real>0.0</real>
 	<key>tangentialAcceleration</key>
-	<real>0</real>
+	<real>0.0</real>
 	<key>textureFileName</key>
-	<string>Untitled 2.png</string>
+	<string>Damage.png</string>
 	<key>textureImageData</key>
 	<string>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</string>
 	<key>yCoordFlipped</key>
