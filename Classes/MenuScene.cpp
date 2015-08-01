@@ -86,18 +86,19 @@ void MenuScene::putEntityByEntityType(EntityType entityType)
 
     this->addChild(entity);
 
-    EventListenerTouchOneByOne* eventListerner = EventListenerTouchOneByOne::create();
-    eventListerner->onTouchBegan = [this](Touch* touch, Event* event) {
+    EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
+    eventListener->setSwallowTouches(true);
+    eventListener->onTouchBegan = [this](Touch* touch, Event* event) {
             return true;
         };
-    eventListerner->onTouchEnded = [this](Touch* touch, Event* evetn) {
+    eventListener->onTouchEnded = [this](Touch* touch, Event* event) {
             PowerUpScene* powerUpScene = PowerUpScene::create();
             powerUpScene->setEntityType(EntityType::CIRCLE);
             Scene* scene = Scene::create();
             scene->addChild(powerUpScene);
             Director::getInstance()->pushScene(scene);
         };
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListerner, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 }
 
 #pragma mark Callbacks
