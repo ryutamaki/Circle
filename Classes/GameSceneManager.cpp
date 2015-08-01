@@ -65,6 +65,20 @@ void GameSceneManager::exitGameScene()
     }
 }
 
+void GameSceneManager::pauseGameScene()
+{
+    if (this->gameScene) {
+        this->gameScene->pauseGame();
+    }
+}
+
+void GameSceneManager::resumeGameScene()
+{
+    if (this->gameScene) {
+        this->gameScene->resumeGame();
+    }
+}
+
 #pragma mark Networking
 
 void GameSceneManager::showPeerList()

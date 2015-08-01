@@ -6,6 +6,8 @@
 
 #include "EnemyAI.h"
 #include "Coin.h"
+#include "GamePauseLayer.h"
+#include "GamePauseLayerReader.h"
 #include "GameResultLayer.h"
 #include "GameResultLayerReader.h"
 #include "ScoreLabel.h"
@@ -44,8 +46,13 @@ bool GameScene::init()
     this->lobbyButton = rootNode->getChildByName<ui::Button*>("LobbyButton");
     this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
 
-    this->pauseButton = rootNode->getChildByName<ui::Button*>("PauseButton");
-    this->pauseButton->addTouchEventListener(CC_CALLBACK_2(GameScene::pause, this));
+    this->pauseButton = this->field->getChildByName<ui::Button*>("PauseButton");
+    this->pauseButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            GameSceneManager::getInstance()->pauseGameScene();
+            this->showPauseLayer();
+        }
+    });
 
     this->addChild(rootNode);
 
@@ -78,6 +85,42 @@ void GameScene::setFriendCharacter(EntityType entityType)
 void GameScene::setEnemyEntityType(EntityType entityType)
 {
     this->enemyEntityType = entityType;
+}
+
+#pragma mark Game lifecycle
+
+void GameScene::pauseGame()
+{
+    if (this->gameState != GameState::PLAYING) {
+        return;
+    }
+
+    this->pause();
+
+    this->character->pause();
+    this->currentEnemy->pause();
+    this->enemyAI->stop();
+
+    if (this->friendCharacter && ! this->friendCharacter->getIsDead()) {
+        this->friendCharacter->pause();
+    }
+}
+
+void GameScene::resumeGame()
+{
+    if (this->gameState != GameState::PLAYING) {
+        return;
+    }
+
+    this->resume();
+
+    this->character->resume();
+    this->currentEnemy->resume();
+    this->enemyAI->start();
+
+    if (this->friendCharacter && ! this->friendCharacter->getIsDead()) {
+        this->friendCharacter->resume();
+    }
 }
 
 #pragma mark Networking
@@ -484,25 +527,19 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
     return target;
 }
 
-#pragma mark Game lifecycle
-
-void GameScene::pause(Ref* pSender, ui::Widget::TouchEventType eEventType)
-{
-    if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        this->character->pause();
-        this->currentEnemy->pause();
-        this->enemyAI->stop();
-    }
-}
-
 #pragma mark Transitions
+
+void GameScene::showPauseLayer()
+{
+    CSLoader::getInstance()->registReaderObject("GamePauseLayerReader", (ObjectFactory::Instance)GamePauseLayerReader::getInstance);
+    GamePauseLayer* pauseLayer = dynamic_cast<GamePauseLayer*>(CSLoader::createNode("GamePauseLayer.csb"));
+    this->field->addChild(pauseLayer);
+}
 
 void GameScene::showResultLayer(int score, int highscore, bool isNewRecord)
 {
     CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
     GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
-    gameResult->setNormalizedPosition(Vec2::ZERO);
-    gameResult->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     this->field->addChild(gameResult);
 
     gameResult->setScore(score);

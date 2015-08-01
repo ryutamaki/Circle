@@ -24,6 +24,8 @@ public:
     // scene transitions
     void enterGameScene(EntityType enemyEntityType, bool networked);
     void exitGameScene();
+    void pauseGameScene();
+    void resumeGameScene();
 
     // networking
     void showPeerList();

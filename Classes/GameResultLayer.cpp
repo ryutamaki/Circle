@@ -32,7 +32,13 @@ bool GameResultLayer::init()
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
-    this->setSwallowsTouches(true);
+    // Prevent propagation into the layers below
+    EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
+    eventListener->setSwallowTouches(true);
+    eventListener->onTouchBegan = [](Touch* touch, Event* event) -> bool {
+            return true;
+        };
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 
     return true;
 }
@@ -68,6 +74,9 @@ void GameResultLayer::setCoinCount(int coinCount)
 void GameResultLayer::onEnter()
 {
     Layer::onEnter();
+
+    Sprite* overlay = this->getChildByName<Sprite*>("Overlay");
+    this->setContentSize(overlay->getContentSize());
 
     this->resultLayout = this->getChildByName<ui::Layout*>("ResultLayout");
 

@@ -134,12 +134,21 @@
           <Image Name="PauseButtonPushed@2x.png" />
           <Image Name="PauseButtonPushed@3x.png" />
           <Image Name="PauseButtonPushed@4x.png" />
+          <Image Name="ResumeButtonNormal.png" />
+          <Image Name="ResumeButtonNormal@2x.png" />
+          <Image Name="ResumeButtonNormal@3x.png" />
+          <Image Name="ResumeButtonNormal@4x.png" />
+          <Image Name="ResumeButtonPushed.png" />
+          <Image Name="ResumeButtonPushed@2x.png" />
+          <Image Name="ResumeButtonPushed@3x.png" />
+          <Image Name="ResumeButtonPushed@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />
           <Fnt Name="Menlo70.fnt" />
           <Fnt Name="CircleFont30.fnt" />
         </Folder>
+        <Project Name="GamePauseLayer.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

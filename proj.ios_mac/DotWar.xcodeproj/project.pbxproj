@@ -55,6 +55,10 @@
 		039659BA1B5F113E006E587B /* EntityHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039659B71B5F113E006E587B /* EntityHelper.cpp */; };
 		0399AB4E1B655C590069507F /* StageSelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0399AB4C1B655C590069507F /* StageSelectScene.cpp */; };
 		0399AB4F1B655C590069507F /* StageSelectScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0399AB4C1B655C590069507F /* StageSelectScene.cpp */; };
+		039EB4D21B6C240700884C73 /* GamePauseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039EB4CE1B6C240700884C73 /* GamePauseLayer.cpp */; };
+		039EB4D31B6C240700884C73 /* GamePauseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039EB4CE1B6C240700884C73 /* GamePauseLayer.cpp */; };
+		039EB4D41B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039EB4D01B6C240700884C73 /* GamePauseLayerReader.cpp */; };
+		039EB4D51B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039EB4D01B6C240700884C73 /* GamePauseLayerReader.cpp */; };
 		03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
 		03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
 		03B167C31B59C0B0005D1FF6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B167C21B59C085005D1FF6 /* libcocos2d iOS.a */; };
@@ -188,6 +192,10 @@
 		039659B81B5F113E006E587B /* EntityHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityHelper.h; sourceTree = "<group>"; };
 		0399AB4C1B655C590069507F /* StageSelectScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StageSelectScene.cpp; sourceTree = "<group>"; };
 		0399AB4D1B655C590069507F /* StageSelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageSelectScene.h; sourceTree = "<group>"; };
+		039EB4CE1B6C240700884C73 /* GamePauseLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePauseLayer.cpp; sourceTree = "<group>"; };
+		039EB4CF1B6C240700884C73 /* GamePauseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePauseLayer.h; sourceTree = "<group>"; };
+		039EB4D01B6C240700884C73 /* GamePauseLayerReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePauseLayerReader.cpp; sourceTree = "<group>"; };
+		039EB4D11B6C240700884C73 /* GamePauseLayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePauseLayerReader.h; sourceTree = "<group>"; };
 		03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityStateMachine.cpp; sourceTree = "<group>"; };
 		03B167B21B58301C005D1FF6 /* EntityStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityStateMachine.h; sourceTree = "<group>"; };
 		03B167B91B59928F005D1FF6 /* GameConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConstants.h; sourceTree = "<group>"; };
@@ -382,6 +390,10 @@
 				03917D7A1B56FE220068BCA6 /* GameSceneManager.h */,
 				46880B8619C43A87006E1F66 /* GameScene.cpp */,
 				46880B8719C43A87006E1F66 /* GameScene.h */,
+				039EB4CE1B6C240700884C73 /* GamePauseLayer.cpp */,
+				039EB4CF1B6C240700884C73 /* GamePauseLayer.h */,
+				039EB4D01B6C240700884C73 /* GamePauseLayerReader.cpp */,
+				039EB4D11B6C240700884C73 /* GamePauseLayerReader.h */,
 				0342E5D61B66ED80009B737E /* GameResultLayer.cpp */,
 				0342E5D71B66ED80009B737E /* GameResultLayer.h */,
 				0342E5D81B66ED80009B737E /* GameResultLayerReader.cpp */,
@@ -698,6 +710,7 @@
 				034F41081B5D529E00167F16 /* EnemyAI.cpp in Sources */,
 				03917D591B56C9B90068BCA6 /* CircleReader.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				039EB4D41B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */,
 				03917D641B56EDC60068BCA6 /* TriangleReader.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* GameScene.cpp in Sources */,
 				031C156E1B68292C007D0FEC /* ScoreLabelReader.cpp in Sources */,
@@ -717,6 +730,7 @@
 				03917D721B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				0342E5C41B66CBEB009B737E /* Coin.cpp in Sources */,
 				0342E5DC1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */,
+				039EB4D21B6C240700884C73 /* GamePauseLayer.cpp in Sources */,
 				0342E5CC1B66CC3D009B737E /* CoinContainer.cpp in Sources */,
 				03917D7B1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */,
 				03917D841B57230B0068BCA6 /* Entity.cpp in Sources */,
@@ -747,7 +761,9 @@
 				03D709991B657BD70056912B /* StageComponentReader.cpp in Sources */,
 				03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				03917D651B56EDC60068BCA6 /* TriangleReader.cpp in Sources */,
+				039EB4D51B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */,
 				03917D5A1B56C9B90068BCA6 /* CircleReader.cpp in Sources */,
+				039EB4D31B6C240700884C73 /* GamePauseLayer.cpp in Sources */,
 				0342E5CD1B66CC3D009B737E /* CoinContainer.cpp in Sources */,
 				03917D7C1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */,
 				03917D851B57230B0068BCA6 /* Entity.cpp in Sources */,

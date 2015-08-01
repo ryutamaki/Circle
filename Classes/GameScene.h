@@ -25,6 +25,10 @@ public:
     void setFriendCharacter(EntityType entityType);
     void setEnemyEntityType(EntityType entityType);
 
+    // Pause and Restart
+    void pauseGame();
+    void resumeGame();
+
     // networking
     void setNetworkedSession(bool networkedSession);
     void receivedData(const void* data, unsigned long length);
@@ -64,9 +68,8 @@ private:
     void giveCoin();
     Entity* getTargetEntityByTargetString(std::string targetString);
 
-    void pause(Ref *pSender, cocos2d::ui::Widget::TouchEventType eEventType);
-
     // transitions
+    void showPauseLayer();
     void showResultLayer(int score, int highscore, bool isNewRecord);
 
     void readyToStart(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
