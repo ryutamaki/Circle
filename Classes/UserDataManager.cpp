@@ -142,9 +142,9 @@ void UserDataManager::setEntityLevelParameter(EntityType entityType, EntityLevel
         entityParameterMap = entityListParameterMap[entityTypeString].asValueMap();
     }
 
-    entityParameterMap["levelHp"] = entityLevelParameter.levelHp;
-    entityParameterMap["levelAttack"] = entityLevelParameter.levelAttack;
-    entityParameterMap["levelSpeed"] = entityLevelParameter.levelSpeed;
+    entityParameterMap["levelHp"] = entityLevelParameter.hp;
+    entityParameterMap["levelAttack"] = entityLevelParameter.attack;
+    entityParameterMap["levelSpeed"] = entityLevelParameter.speed;
 
     entityListParameterMap[entityTypeString] = entityParameterMap;
     this->userData[USER_DATA_ENTITY_PARAMETER] = entityListParameterMap;

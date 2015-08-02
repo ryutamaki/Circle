@@ -82,9 +82,9 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
             EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
             // TODO: magic number and game logic here
-            parameter.levelHp += defeatCount;
-            parameter.levelAttack += defeatCount;
-            parameter.levelSpeed += floor(defeatCount * 0.5f);
+            parameter.hp += defeatCount;
+            parameter.attack += defeatCount;
+            parameter.speed += defeatCount * 1;
             circle->setEntityLevelParameter(parameter);
             circle->setInitialColor(initialColor);
             return circle;
@@ -96,9 +96,9 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
             EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
             // TODO: magic number and game logic here
-            parameter.levelHp += defeatCount;
-            parameter.levelAttack += defeatCount;
-            parameter.levelSpeed += floor(defeatCount * 0.5f);
+            parameter.hp += defeatCount;
+            parameter.attack += defeatCount;
+            parameter.speed += defeatCount * 1;
             triangle->setEntityLevelParameter(parameter);
             triangle->setInitialColor(initialColor);
             return triangle;

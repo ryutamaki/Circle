@@ -82,7 +82,7 @@ void PowerUpScene::setupUI(Node* rootNode)
     hpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
-                this->entityLevelParameter.levelHp++;
+                this->entityLevelParameter.hp++;
                 UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
                 this->setEntityLevelParameterLabelText(this->entityLevelParameter);
 
@@ -96,7 +96,7 @@ void PowerUpScene::setupUI(Node* rootNode)
     attackButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
-                this->entityLevelParameter.levelAttack++;
+                this->entityLevelParameter.attack++;
                 UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
                 this->setEntityLevelParameterLabelText(this->entityLevelParameter);
 
@@ -110,7 +110,7 @@ void PowerUpScene::setupUI(Node* rootNode)
     speedButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
-                this->entityLevelParameter.levelSpeed++;
+                this->entityLevelParameter.speed++;
                 UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
                 this->setEntityLevelParameterLabelText(this->entityLevelParameter);
 
@@ -135,9 +135,9 @@ void PowerUpScene::setCoinCountLabelText(int coinCount)
 
 void PowerUpScene::setEntityLevelParameterLabelText(EntityLevelParameter entityLevelParameter)
 {
-    this->hpLabel->setString(std::to_string(entityLevelParameter.levelHp));
-    this->attackLabel->setString(std::to_string(entityLevelParameter.levelAttack));
-    this->speedLabel->setString(std::to_string(entityLevelParameter.levelSpeed));
+    this->hpLabel->setString(std::to_string(entityLevelParameter.hp));
+    this->attackLabel->setString(std::to_string(entityLevelParameter.attack));
+    this->speedLabel->setString(std::to_string(entityLevelParameter.speed));
 }
 
 #pragma mark Logic

@@ -346,6 +346,6 @@ void Entity::update(float dt)
 
     EntityMoveState currentMoveState = this->stateMachine->getMoveState();
     Vec2 direction = EntityHelper::directionFromMoveState(currentMoveState);
-    this->velocity = this->entityParameter.velocityFactor * direction * dt;
+    this->velocity = (float)this->entityParameter.velocityFactor * direction * dt;
     this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
 }

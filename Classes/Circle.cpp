@@ -43,8 +43,8 @@ void Circle::setupAttackMap()
 void Circle::setupEntityParamerterByLevel(EntityLevelParameter levelParameter)
 {
     this->entityParameter = {
-        this->entityLevelParameter.levelHp * 10,
-        this->entityLevelParameter.levelAttack * 1,
-        this->entityLevelParameter.levelSpeed * 100.0f,
+        this->entityLevelParameter.hp * 10,
+        this->entityLevelParameter.attack * 1,
+        this->entityLevelParameter.speed * 100,
     };
 }
