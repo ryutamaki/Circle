@@ -21,6 +21,9 @@ public:
     void setHighScore(int highScore, bool isNewRecord);
     void setCoinCount(int coinCount);
 
+    void show(Node* parent);
+    void hide(std::function<void()> lastFrameCallback);
+
 private:
     cocostudio::timeline::ActionTimeline* timeline;
 

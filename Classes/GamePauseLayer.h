@@ -15,13 +15,16 @@
 class GamePauseLayer : public cocos2d::Layer {
 public:
     CREATE_FUNC(GamePauseLayer);
-    bool init() override;
+
+    void show(Node* parent);
+    void hide(std::function<void()> lastFrameCallback);
 
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
 
     cocos2d::ui::Layout* pauseLayout;
 
+    bool init() override;
     void onEnter() override;
 
 };

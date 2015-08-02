@@ -531,14 +531,15 @@ void GameScene::showPauseLayer()
 {
     CSLoader::getInstance()->registReaderObject("GamePauseLayerReader", (ObjectFactory::Instance)GamePauseLayerReader::getInstance);
     GamePauseLayer* pauseLayer = dynamic_cast<GamePauseLayer*>(CSLoader::createNode("GamePauseLayer.csb"));
-    this->field->addChild(pauseLayer);
+    pauseLayer->show(this->field);
 }
 
 void GameScene::showResultLayer(int score, int highscore, bool isNewRecord)
 {
     CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
     GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
-    this->field->addChild(gameResult);
+
+    gameResult->show(this->field);
 
     gameResult->setScore(score);
     gameResult->setHighScore(highscore, isNewRecord);

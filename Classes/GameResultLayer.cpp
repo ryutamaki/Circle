@@ -41,6 +41,18 @@ bool GameResultLayer::init()
     return true;
 }
 
+void GameResultLayer::show(Node* parent)
+{
+    parent->addChild(this);
+    this->timeline->play("Show", false);
+}
+
+void GameResultLayer::hide(std::function<void()> lastFrameCallback)
+{
+    this->timeline->play("Hide", false);
+    this->timeline->setLastFrameCallFunc(lastFrameCallback);
+}
+
 #pragma mark Accessors
 
 void GameResultLayer::setScore(int score)
@@ -72,6 +84,8 @@ void GameResultLayer::setCoinCount(int coinCount)
 void GameResultLayer::onEnter()
 {
     Layer::onEnter();
+
+    this->runAction(this->timeline);
 
     Sprite* overlay = this->getChildByName<Sprite*>("Overlay");
     this->setContentSize(overlay->getContentSize());

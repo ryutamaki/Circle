@@ -2,7 +2,58 @@
   <PropertyGroup Type="Layer" Name="GamePauseLayer" ID="d92b263c-6160-4c9a-802b-bc94d9a899ab" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="0" Speed="1.0000" />
+      <Animation Duration="90" Speed="1.0000" ActivedAnimationName="Hide">
+        <Timeline ActionTag="-1478764077" Property="Alpha">
+          <IntFrame FrameIndex="1" Value="0">
+            <EasingData Type="0" />
+          </IntFrame>
+          <IntFrame FrameIndex="20" Value="255">
+            <EasingData Type="0" />
+          </IntFrame>
+          <IntFrame FrameIndex="70" Value="255">
+            <EasingData Type="0" />
+          </IntFrame>
+          <IntFrame FrameIndex="90" Value="0">
+            <EasingData Type="0" />
+          </IntFrame>
+        </Timeline>
+        <Timeline ActionTag="-1478764077" Property="CColor">
+          <ColorFrame FrameIndex="1" Alpha="255">
+            <EasingData Type="0" />
+            <Color A="255" R="255" G="255" B="255" />
+          </ColorFrame>
+        </Timeline>
+        <Timeline ActionTag="844789466" Property="Position">
+          <PointFrame FrameIndex="1" X="667.0000" Y="974.9999">
+            <EasingData Type="27" />
+          </PointFrame>
+          <PointFrame FrameIndex="40" X="667.0000" Y="375.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="51" X="667.0000" Y="375.0000">
+            <EasingData Type="27" />
+          </PointFrame>
+          <PointFrame FrameIndex="90" X="667.0000" Y="-225.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+        </Timeline>
+        <Timeline ActionTag="844789466" Property="RotationSkew">
+          <ScaleFrame FrameIndex="51" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="90" X="-20.0000" Y="-20.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+        </Timeline>
+      </Animation>
+      <AnimationList>
+        <AnimationInfo Name="Show" StartIndex="0" EndIndex="41">
+          <RenderColor A="150" R="127" G="255" B="212" />
+        </AnimationInfo>
+        <AnimationInfo Name="Hide" StartIndex="50" EndIndex="91">
+          <RenderColor A="150" R="255" G="255" B="0" />
+        </AnimationInfo>
+      </AnimationList>
       <ObjectData Name="Layer" CustomClassName="GamePauseLayer" Tag="32" ctype="GameLayerObjectData">
         <Size X="1334.0000" Y="750.0000" />
         <Children>

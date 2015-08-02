@@ -11,6 +11,8 @@
 
 #include "GameSceneManager.h"
 
+#pragma mark - Public methods
+
 bool GamePauseLayer::init()
 {
     if (! Layer::init()) {
@@ -33,6 +35,18 @@ bool GamePauseLayer::init()
     return true;
 }
 
+void GamePauseLayer::show(Node* parent)
+{
+    parent->addChild(this);
+    this->timeline->play("Show", false);
+}
+
+void GamePauseLayer::hide(std::function<void()> lastFrameCallback)
+{
+    this->timeline->play("Hide", false);
+    this->timeline->setLastFrameCallFunc(lastFrameCallback);
+}
+
 #pragma mark - Private methods
 
 #pragma mark View lifecycle
@@ -40,6 +54,8 @@ bool GamePauseLayer::init()
 void GamePauseLayer::onEnter()
 {
     Layer::onEnter();
+
+    this->runAction(this->timeline);
 
     Sprite* overlay = this->getChildByName<Sprite*>("Overlay");
     this->setContentSize(overlay->getContentSize());
@@ -49,7 +65,6 @@ void GamePauseLayer::onEnter()
     ui::Button* quitButton = this->pauseLayout->getChildByName<ui::Button*>("QuitButton");
     quitButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            this->removeFromParent();
             GameSceneManager::getInstance()->exitGameScene();
         }
     });
@@ -57,8 +72,10 @@ void GamePauseLayer::onEnter()
     ui::Button* resumeButton = this->pauseLayout->getChildByName<ui::Button*>("ResumeButton");
     resumeButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            GameSceneManager::getInstance()->resumeGameScene();
-            this->removeFromParent();
+            this->hide([this]() {
+                GameSceneManager::getInstance()->resumeGameScene();
+                this->removeFromParent();
+            });
         }
     });
 }

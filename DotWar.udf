@@ -28,18 +28,5 @@
         <LastRunType Value="Unknown" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="StageComponent.csd" />
-          <FilePathData Path="StageSelectScene.csd" />
-          <FilePathData Path="GameResultLayer.csd" />
-          <FilePathData Path="GameScene.csd" />
-          <FilePathData Path="GamePauseLayer.csd" />
-          <FilePathData Path="Coin.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="GameScene.csd" />
-      </Value>
-    </Item>
   </Properties>
 </UserData>
