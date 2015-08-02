@@ -42,8 +42,8 @@ void Triangle::setupAttackMap()
 void Triangle::setupEntityParamerterByLevel(EntityLevelParameter levelParameter)
 {
     this->entityParameter = {
-        this->entityLevelParameter.hp * 15,
-        this->entityLevelParameter.attack * 1,
-        this->entityLevelParameter.speed * 15,
+        levelParameter.hp * levelParameter.rank * 15,
+        levelParameter.attack * levelParameter.rank * 1,
+        100 + levelParameter.speed * levelParameter.rank * 15,
     };
 }

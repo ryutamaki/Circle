@@ -30,6 +30,7 @@ private:
     EntityType entityType;
     EntityLevelParameter entityLevelParameter;
 
+    cocos2d::ui::TextBMFont* rankLabel;
     cocos2d::ui::TextBMFont* hpLabel;
     cocos2d::ui::TextBMFont* attackLabel;
     cocos2d::ui::TextBMFont* speedLabel;

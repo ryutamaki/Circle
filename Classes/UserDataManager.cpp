@@ -142,6 +142,7 @@ void UserDataManager::setEntityLevelParameter(EntityType entityType, EntityLevel
         entityParameterMap = entityListParameterMap[entityTypeString].asValueMap();
     }
 
+    entityParameterMap["rank"] = entityLevelParameter.rank;
     entityParameterMap["levelHp"] = entityLevelParameter.hp;
     entityParameterMap["levelAttack"] = entityLevelParameter.attack;
     entityParameterMap["levelSpeed"] = entityLevelParameter.speed;
@@ -173,6 +174,7 @@ EntityLevelParameter UserDataManager::getEntityLevelParameter(EntityType entityT
 
     ValueMap data = entityListParameterMap[entityTypeString].asValueMap();
     return EntityLevelParameter {
+               data["rank"].asInt(),
                data["levelHp"].asInt(),
                data["levelAttack"].asInt(),
                data["levelSpeed"].asInt(),
