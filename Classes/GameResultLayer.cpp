@@ -102,8 +102,7 @@ void GameResultLayer::onEnter()
     ui::Button* retryButton = this->resultLayout->getChildByName<ui::Button*>("RetryButton");
     retryButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            // TODO: もう一度始まるようにする
-            GameSceneManager::getInstance()->exitGameScene();
+            GameSceneManager::getInstance()->restartGameScene();
         }
     });
 }

@@ -58,12 +58,21 @@ void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked
 
 void GameSceneManager::exitGameScene()
 {
-    if (gameScene) {
+    if (this->gameScene) {
         auto menuScene = MenuScene::createScene();
         TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, menuScene, SCENE_TRANSITION_COLOR);
         Director::getInstance()->replaceScene(transition);
         this->gameScene = nullptr;
         this->networkingWrapper->disconnect();
+    }
+}
+
+void GameSceneManager::restartGameScene()
+{
+    if (this->gameScene) {
+        EntityType enemyEntityType = this->gameScene->getEnemyEntityType();
+
+        this->enterGameScene(enemyEntityType, false);
     }
 }
 

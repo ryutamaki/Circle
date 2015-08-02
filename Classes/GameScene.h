@@ -23,6 +23,7 @@ public:
     void setCharacterByEntityType(EntityType entityType);
     void setFriendCharacter(EntityType entityType);
     void setEnemyEntityType(EntityType entityType);
+    EntityType getEnemyEntityType();
 
     // Pause and Restart
     void pauseGame();

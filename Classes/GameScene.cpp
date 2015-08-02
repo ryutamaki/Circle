@@ -85,6 +85,11 @@ void GameScene::setEnemyEntityType(EntityType entityType)
     this->enemyEntityType = entityType;
 }
 
+EntityType GameScene::getEnemyEntityType()
+{
+    return this->enemyEntityType;
+}
+
 #pragma mark Game lifecycle
 
 void GameScene::pauseGame()
