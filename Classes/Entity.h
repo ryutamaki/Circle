@@ -66,6 +66,7 @@ public:
     // Behavior
     void attack(const std::string attackName);
     void receiveDamage(const int damage);
+    void die();
 
     // EntityStateMachineDelegate
     void willStateChange(EntityMoveState moveState, EntityAttackState attackState) override;

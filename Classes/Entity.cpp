@@ -61,7 +61,7 @@ void Entity::setHp(int hp)
     this->setBodyColorByCurrentHp();
 
     if (this->hp <= 0) {
-        this->deactivate();
+        this->die();
     }
 }
 
@@ -201,6 +201,8 @@ void Entity::deactivate()
     this->stopAllActions();
 }
 
+#pragma mark Behavior
+
 void Entity::attack(const std::string attackName)
 {
     if (! this->stateMachine->canAttack()) {
@@ -238,17 +240,33 @@ void Entity::receiveDamage(const int damage)
     if (this->getIsDead()) {
         return;
     }
-    // std::string animationName = "Damaged";
-    // this->timeline->play(animationName, false);
 
     this->setHp(this->getHp() - damage);
 
     Sprite* body = this->getChildByName<Sprite*>("Body");
 
-    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particle/Damage.plist");
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Damage.plist");
     particle->setStartColor(Color4F(body->getColor()));
     particle->setEndColor(Color4F(body->getColor()));
     this->addChild(particle);
+
+    // override point
+}
+
+void Entity::die()
+{
+    if (this->getIsDead()) {
+        return;
+    }
+
+    Sprite* body = this->getChildByName<Sprite*>("Body");
+
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Die.plist");
+    particle->setStartColor(Color4F(body->getColor()));
+    particle->setEndColor(Color4F(body->getColor()));
+    this->addChild(particle);
+
+    this->deactivate();
 
     // override point
 }

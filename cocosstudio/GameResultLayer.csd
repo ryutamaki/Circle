@@ -2,7 +2,7 @@
   <PropertyGroup Type="Layer" Name="GameResultLayer" ID="2f95d525-95aa-458f-b5d2-aedc89374641" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="91" Speed="1.0000" ActivedAnimationName="hide">
+      <Animation Duration="91" Speed="1.0000">
         <Timeline ActionTag="-874100482" Property="Alpha">
           <IntFrame FrameIndex="1" Value="0">
             <EasingData Type="0" />
@@ -18,7 +18,7 @@
           </IntFrame>
         </Timeline>
         <Timeline ActionTag="310833125" Property="Position">
-          <PointFrame FrameIndex="1" X="667.0000" Y="1050.0000">
+          <PointFrame FrameIndex="10" X="667.0000" Y="1050.0000">
             <EasingData Type="27" />
           </PointFrame>
           <PointFrame FrameIndex="40" X="667.0000" Y="375.0000">
@@ -45,10 +45,10 @@
       </Animation>
       <AnimationList>
         <AnimationInfo Name="Show" StartIndex="0" EndIndex="41">
-          <RenderColor A="150" R="255" G="228" B="181" />
+          <RenderColor A="255" R="255" G="228" B="181" />
         </AnimationInfo>
         <AnimationInfo Name="hide" StartIndex="50" EndIndex="91">
-          <RenderColor A="150" R="253" G="245" B="230" />
+          <RenderColor A="255" R="253" G="245" B="230" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Layer" CustomClassName="GameResultLayer" Tag="40" ctype="GameLayerObjectData">
