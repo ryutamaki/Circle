@@ -47,7 +47,7 @@
         <AnimationInfo Name="Show" StartIndex="0" EndIndex="41">
           <RenderColor A="255" R="255" G="228" B="181" />
         </AnimationInfo>
-        <AnimationInfo Name="hide" StartIndex="50" EndIndex="91">
+        <AnimationInfo Name="Hide" StartIndex="50" EndIndex="91">
           <RenderColor A="255" R="253" G="245" B="230" />
         </AnimationInfo>
       </AnimationList>
