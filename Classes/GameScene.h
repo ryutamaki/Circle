@@ -4,7 +4,6 @@
 #include "cocos2d.h"
 #include "CocosGUI.h"
 
-#include "GameConstants.h"
 #include "EntityConstants.h"
 
 #include "Entity.h"

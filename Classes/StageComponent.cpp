@@ -9,8 +9,6 @@
 #include "StageComponent.h"
 #include "CocosGUI.h"
 
-#include "ColorConstants.h"
-
 #include "EntityFactory.h"
 #include "Entity.h"
 

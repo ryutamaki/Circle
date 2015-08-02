@@ -8,7 +8,6 @@
 
 #include "EntityFactory.h"
 
-#include "ColorConstants.h"
 #include "UserDataManager.h"
 
 #include "Circle.h"

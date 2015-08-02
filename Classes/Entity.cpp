@@ -8,8 +8,6 @@
 
 #include "Entity.h"
 
-#include "ColorConstants.h"
-
 USING_NS_CC;
 using namespace cocostudio::timeline;
 

@@ -2,8 +2,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "ColorConstants.h"
-
 #include "EnemyAI.h"
 #include "Coin.h"
 #include "GamePauseLayer.h"

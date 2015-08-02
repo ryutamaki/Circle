@@ -11,8 +11,6 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "ColorConstants.h"
-
 #include "GameSceneManager.h"
 
 USING_NS_CC;

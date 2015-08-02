@@ -9,4 +9,7 @@
 
 #ifdef __cplusplus
 	#include "cocos2d.h"
+
+    #include "ColorConstants.h"
+    #include "GameConstants.h"
 #endif
