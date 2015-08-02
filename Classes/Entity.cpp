@@ -245,7 +245,7 @@ void Entity::receiveDamage(const int damage)
 
     Sprite* body = this->getChildByName<Sprite*>("Body");
 
-    ParticleSystemQuad* particle = ParticleSystemQuad::create("Damage.plist");
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particle/Damage.plist");
     particle->setStartColor(Color4F(body->getColor()));
     particle->setEndColor(Color4F(body->getColor()));
     this->addChild(particle);
