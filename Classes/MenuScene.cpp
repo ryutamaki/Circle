@@ -96,7 +96,8 @@ void MenuScene::putEntityByEntityType(EntityType entityType)
             powerUpScene->setEntityType(EntityType::CIRCLE);
             Scene* scene = Scene::create();
             scene->addChild(powerUpScene);
-            Director::getInstance()->pushScene(scene);
+            TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
+            Director::getInstance()->pushScene(transition);
         };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 }
@@ -107,7 +108,8 @@ void MenuScene::singlePlayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Wid
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         auto scene = StageSelectScene::createScene();
-        Director::getInstance()->replaceScene(scene);
+        TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
+        Director::getInstance()->replaceScene(transition);
     }
 }
 

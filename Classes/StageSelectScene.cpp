@@ -61,7 +61,8 @@ bool StageSelectScene::init()
     backButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             Scene* menuScene = MenuScene::createScene();
-            Director::getInstance()->replaceScene(menuScene);
+            TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, menuScene, SCENE_TRANSITION_COLOR);
+            Director::getInstance()->replaceScene(transition);
         }
     });
 

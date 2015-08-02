@@ -52,14 +52,16 @@ void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked
     }
 
     scene->addChild(this->gameScene);
-    Director::getInstance()->replaceScene(scene);
+    TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
+    Director::getInstance()->replaceScene(transition);
 }
 
 void GameSceneManager::exitGameScene()
 {
     if (gameScene) {
         auto menuScene = MenuScene::createScene();
-        Director::getInstance()->replaceScene(menuScene);
+        TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, menuScene, SCENE_TRANSITION_COLOR);
+        Director::getInstance()->replaceScene(transition);
         this->gameScene = nullptr;
         this->networkingWrapper->disconnect();
     }
