@@ -46,7 +46,7 @@ void Entity::setEntityLevelParameter(EntityLevelParameter entityLevelParameter)
 {
     this->entityLevelParameter = entityLevelParameter;
 
-    this->setEntityParamerterByLevel(entityLevelParameter);
+    this->setupEntityParamerterByLevel(entityLevelParameter);
 }
 
 int Entity::getHp()
@@ -159,7 +159,7 @@ void Entity::setIdentifier(std::string identifier)
 
 Size Entity::getBodySize()
 {
-    Sprite* body = this->getChildByName<Sprite*>("Body");
+    Sprite* body = this->getBody();
     return body->getContentSize();
 }
 
@@ -231,8 +231,6 @@ void Entity::attack(const std::string attackName)
             this->currentAttackName = "";
         }
     });
-
-    // override point
 }
 
 void Entity::receiveDamage(const int damage)
@@ -243,14 +241,12 @@ void Entity::receiveDamage(const int damage)
 
     this->setHp(this->getHp() - damage);
 
-    Sprite* body = this->getChildByName<Sprite*>("Body");
+    Sprite* body = this->getBody();
 
     ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Damage.plist");
     particle->setStartColor(Color4F(body->getColor()));
     particle->setEndColor(Color4F(body->getColor()));
     this->addChild(particle);
-
-    // override point
 }
 
 void Entity::die()
@@ -259,7 +255,7 @@ void Entity::die()
         return;
     }
 
-    Sprite* body = this->getChildByName<Sprite*>("Body");
+    Sprite* body = this->getBody();
 
     ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Die.plist");
     particle->setStartColor(Color4F(body->getColor()));
@@ -267,8 +263,6 @@ void Entity::die()
     this->addChild(particle);
 
     this->deactivate();
-
-    // override point
 }
 
 #pragma mark EntityStateMachineDelegate
@@ -316,9 +310,11 @@ void Entity::onExit()
     this->deactivate();
 }
 
-void Entity::setupAttackMap()
+Sprite* Entity::getBody()
 {
-    // override point
+    Sprite* body = this->getChildByName<Sprite*>("Body");
+    CCASSERT(body, "There are no body, please make a body in cocos studio.");
+    return body;
 }
 
 void Entity::setBodyColorByCurrentHp()
@@ -340,11 +336,6 @@ void Entity::setBodyColorByCurrentHp()
         float opacity = remainHpPercent * ((1.0f - minimumOpacity) / 1.0f) + minimumOpacity;
         sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
     }
-}
-
-void Entity::setEntityParamerterByLevel(EntityLevelParameter levelParameter)
-{
-    // override point
 }
 
 #pragma mark Game logic

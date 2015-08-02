@@ -32,8 +32,6 @@ public:
     // This synchronizer manage data synchronizing when you play multiplayer mode
     std::unique_ptr<EntitySynchronizer> synchronizer;
 
-    CREATE_FUNC(Entity);
-
     // Accessors
     EntityParameter getEntityParameter();
     EntityLevelParameter getEntityLevelParameter();
@@ -90,12 +88,14 @@ protected:
     void onEnter() override;
     void onExit() override;
 
+    Sprite* getBody();
     void setBodyColorByCurrentHp();
 
-    virtual void setupAttackMap();
-    virtual void setEntityParamerterByLevel(EntityLevelParameter levelParameter);
-
     void update(float dt) override;
+
+    // Abstruct methods
+    virtual void setupAttackMap() = 0;
+    virtual void setupEntityParamerterByLevel(EntityLevelParameter levelParameter) = 0;
 
 };
 
