@@ -48,7 +48,6 @@ public:
 
     cocos2d::Rect getBodyRect();
     cocos2d::Rect getBodyRectInWorldSpace();
-    cocos2d::Vec2 getCenter();
 
     std::string getIdentifier();
     void setIdentifier(std::string identifier);

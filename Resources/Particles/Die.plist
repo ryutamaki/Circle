@@ -78,10 +78,6 @@
 	<real>0.0</real>
 	<key>sourcePositionVariancey</key>
 	<real>0.0</real>
-	<key>sourcePositionx</key>
-	<real>156.93620300292969</real>
-	<key>sourcePositiony</key>
-	<real>258.42776489257812</real>
 	<key>speed</key>
 	<integer>225</integer>
 	<key>speedVariance</key>
