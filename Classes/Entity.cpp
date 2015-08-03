@@ -46,6 +46,7 @@ void Entity::setEntityLevelParameter(EntityLevelParameter entityLevelParameter)
 {
     this->entityLevelParameter = entityLevelParameter;
 
+    this->setRankSymbol(entityLevelParameter.rank);
     this->setupEntityParamerterByLevel(entityLevelParameter);
 }
 
@@ -315,6 +316,26 @@ Sprite* Entity::getBody()
     Sprite* body = this->getChildByName<Sprite*>("Body");
     CCASSERT(body, "There are no body, please make a body in cocos studio.");
     return body;
+}
+
+void Entity::setRankSymbol(int rank)
+{
+    if (! EntityHelper::isRankExists(rank)) {
+        return;
+    }
+
+    std::string symbolPath = ENTITY_RANK_SYMBOL_PATH.at(rank);
+
+    if (symbolPath == "") {
+        return;
+    }
+
+    Sprite* body = this->getBody();
+
+    Sprite* symbol = Sprite::create(symbolPath);
+    symbol->setNormalizedPosition(Vec2(0.5f, 0.5f));
+    symbol->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
+    body->addChild(symbol);
 }
 
 void Entity::setBodyColorByCurrentHp()

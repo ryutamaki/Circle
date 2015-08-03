@@ -8,6 +8,8 @@
 
 #include "EntityHelper.h"
 
+#include "EntityConstants.h"
+
 USING_NS_CC;
 
 const cocos2d::Vec2 EntityHelper::directionFromMoveState(const EntityMoveState moveState)
@@ -117,4 +119,18 @@ const EntityMoveState EntityHelper::moveStateFromVector(const cocos2d::Vec2 knoc
     } else {
         return EntityMoveState::RIGHT;
     }
+}
+
+const bool EntityHelper::isRankExists(int rank)
+{
+    if (ENTITY_RANK_SYMBOL_PATH.find(rank) == ENTITY_RANK_SYMBOL_PATH.end()) {
+        return false;
+    }
+    return true;
+}
+
+const bool EntityHelper::isNextRankExists(int rank)
+{
+    int nextRank = rank + 1;
+    return EntityHelper::isRankExists(nextRank);
 }

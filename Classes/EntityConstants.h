@@ -16,6 +16,20 @@ enum class EntityType
     NONE, // This is not good way but I dont no some of better way.
 };
 
+static const std::map<int, std::string> ENTITY_RANK_SYMBOL_PATH = {
+    {0, ""},
+    {1, ""},
+    {2, ""},
+    {3, ""},
+    {4, ""},
+    {5, ""},
+    {6, ""},
+    {7, ""},
+    {8, ""},
+    {9, ""},
+    {10, ""},
+};
+
 struct EntityLevelParameter
 {
     // FIXME: Do not use unsigned int because ValueMap "=" operator not support it

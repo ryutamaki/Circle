@@ -88,6 +88,7 @@ protected:
     void onExit() override;
 
     Sprite* getBody();
+    void setRankSymbol(int rank);
     void setBodyColorByCurrentHp();
 
     void update(float dt) override;

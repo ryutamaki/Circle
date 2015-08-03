@@ -20,6 +20,9 @@ public:
     static const float rotationFromMoveState(const EntityMoveState moveState, const float currentRotation);
     static const EntityMoveState moveStateFromStartPositionAndEndPosition(const cocos2d::Vec2 startPosition, const cocos2d::Vec2 endPosition);
     static const EntityMoveState moveStateFromVector(const cocos2d::Vec2 knockback);
+
+    static const bool isRankExists(int rank);
+    static const bool isNextRankExists(int rank);
 };
 
 #endif /* defined(__DotWar__EntityHelper__) */
