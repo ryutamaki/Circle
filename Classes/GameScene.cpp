@@ -338,7 +338,7 @@ void GameScene::damageEnemyFromCharacter()
     // 攻撃が当たった！
     JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
     currentEntityState.damage.identifier = "Enemy";
-    currentEntityState.damage.volume = attackParams.damage;
+    currentEntityState.damage.volume = attackParams.damageFactor;
     this->character->synchronizer->sendData(currentEntityState);
 
     // for (int i = 0; i < 10; ++i) {
@@ -348,7 +348,7 @@ void GameScene::damageEnemyFromCharacter()
     // }
 
     if (this->character->synchronizer->getIsHost()) {
-        int damage = attackParams.damage * this->character->getEntityParameter().attackFactor;
+        int damage = attackParams.damageFactor * this->character->getEntityParameter().attackFactor;
         this->currentEnemy->receiveDamage(damage);
 
         JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
@@ -379,7 +379,7 @@ void GameScene::damageCharacterFromEntity()
     }
 
     this->currentEnemy->stateMachine->hitAttack();
-    int damage = attackParams.damage * this->currentEnemy->getEntityParameter().attackFactor;
+    int damage = attackParams.damageFactor * this->currentEnemy->getEntityParameter().attackFactor;
     this->character->receiveDamage(damage);
     JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
     this->character->synchronizer->sendData(currentCharacterState);

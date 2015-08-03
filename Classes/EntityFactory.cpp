@@ -82,6 +82,7 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
             EntityParameterLevel parameterLevel = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
             // TODO: magic number and game logic here
+            parameterLevel.rank += floor(defeatCount / 10);
             parameterLevel.hp += defeatCount;
             parameterLevel.attack += defeatCount;
             parameterLevel.speed += defeatCount * 1;
@@ -96,6 +97,7 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
             EntityParameterLevel parameterLevel = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
             // TODO: magic number and game logic here
+            parameterLevel.rank += floor(defeatCount / 10);
             parameterLevel.hp += defeatCount;
             parameterLevel.attack += defeatCount;
             parameterLevel.speed += defeatCount * 1;

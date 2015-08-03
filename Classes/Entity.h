@@ -19,8 +19,7 @@
 #include "cocostudio/CocoStudio.h"
 
 struct AttackParams {
-    int damage;
-    cocos2d::Rect range;
+    int damageFactor;
 };
 
 

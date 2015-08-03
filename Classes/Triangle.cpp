@@ -35,15 +35,18 @@ bool Triangle::init()
 void Triangle::setupAttackMap()
 {
     this->attackMap = {
-        {"Attack", {10, Rect(0.0f, -20.0f, 160.0f, 80.0f)}},
+        {"Attack", {2}},
     };
 }
 
 void Triangle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel)
 {
+    EntityParameter initialParameter = ENTITY_INITIAL_PARAMETER.at(EntityType::TRIANGLE);
+    EntityParameterMultipler parameterMultipler = ENTITY_PARAMETER_MULTIPLER_BY_RANK.at(parameterLevel.rank);
+
     this->entityParameter = {
-        levelParameter.hp * levelParameter.rank * 15,
-        levelParameter.attack * levelParameter.rank * 1,
-        100 + levelParameter.speed * levelParameter.rank * 15,
+        static_cast<int>(initialParameter.initialHp + parameterLevel.hp * parameterMultipler.hp * 5),
+        static_cast<int>(initialParameter.attackFactor + parameterLevel.attack * parameterMultipler.attack * 1),
+        static_cast<int>(initialParameter.velocityFactor + parameterLevel.speed * parameterMultipler.speed * 1.1),
     };
 }

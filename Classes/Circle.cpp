@@ -35,16 +35,19 @@ bool Circle::init()
 void Circle::setupAttackMap()
 {
     this->attackMap = {
-        {"Attack",		 {5,  Rect(0.0f, -20.0f, 160.0f, 80.0f)}},
-        {"AttackNeedle", {10, Rect(0.0f, -20.0f, 160.0f, 80.0f)}},
+        {"Attack",		 {1}},
+        {"AttackNeedle", {2}},
     };
 }
 
 void Circle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel)
 {
+    EntityParameter initialParameter = ENTITY_INITIAL_PARAMETER.at(EntityType::CIRCLE);
+    EntityParameterMultipler parameterMultipler = ENTITY_PARAMETER_MULTIPLER_BY_RANK.at(parameterLevel.rank);
+
     this->entityParameter = {
-        levelParameter.hp * levelParameter.rank * 10,
-        levelParameter.attack * levelParameter.rank * 1,
-        100 + levelParameter.speed * levelParameter.rank * 10,
+        static_cast<int>(initialParameter.initialHp + parameterLevel.hp * parameterMultipler.hp * 5),
+        static_cast<int>(initialParameter.attackFactor + parameterLevel.attack * parameterMultipler.attack * 1),
+        static_cast<int>(initialParameter.velocityFactor + parameterLevel.speed * parameterMultipler.speed * 1),
     };
 }

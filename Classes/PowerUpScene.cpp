@@ -82,15 +82,23 @@ void PowerUpScene::setupUI(Node* rootNode)
     this->setCoinCountLabelText(this->coinCount);
 
     ui::Button* rankButton = rankPanel->getChildByName<ui::Button*>("RankUpButton");
-    rankButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+
+    if (! EntityHelper::isNextRankExists(this->EntityParameterLevel.rank)) {
+        rankButton->setEnabled(false);
+    }
+    rankButton->addTouchEventListener([this, rankButton](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
-                this->entityLevelParameter.rank++;
-                UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
-                this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+                this->EntityParameterLevel.rank++;
+                UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->EntityParameterLevel);
+                this->setEntityParameterLevelLabelText(this->EntityParameterLevel);
 
                 // TODO: magic number
                 this->useCoin(1);
+
+                if (! EntityHelper::isNextRankExists(this->EntityParameterLevel.rank)) {
+                    rankButton->setEnabled(false);
+                }
             }
         }
     });
