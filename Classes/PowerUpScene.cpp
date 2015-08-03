@@ -49,9 +49,9 @@ void PowerUpScene::setEntityType(EntityType entityType)
     this->entityType = entityType;
 
     Entity* entity = EntityFactory::createUserEntity(this->entityType);
-    this->setEntityLevelParameterLabelText(entity->getEntityLevelParameter());
+    this->setEntityParameterLevelLabelText(entity->getEntityParameterLevel());
 
-    this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+    this->setEntityParameterLevelLabelText(this->EntityParameterLevel);
 }
 
 #pragma mark - Private methods
@@ -99,9 +99,9 @@ void PowerUpScene::setupUI(Node* rootNode)
     hpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
-                this->entityLevelParameter.hp++;
-                UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
-                this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+                this->EntityParameterLevel.hp++;
+                UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->EntityParameterLevel);
+                this->setEntityParameterLevelLabelText(this->EntityParameterLevel);
 
                 // TODO: magic number
                 this->useCoin(1);
@@ -113,9 +113,9 @@ void PowerUpScene::setupUI(Node* rootNode)
     attackButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
-                this->entityLevelParameter.attack++;
-                UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
-                this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+                this->EntityParameterLevel.attack++;
+                UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->EntityParameterLevel);
+                this->setEntityParameterLevelLabelText(this->EntityParameterLevel);
 
                 // TODO: magic number
                 this->useCoin(1);
@@ -127,9 +127,9 @@ void PowerUpScene::setupUI(Node* rootNode)
     speedButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
-                this->entityLevelParameter.speed++;
-                UserDataManager::getInstance()->setEntityLevelParameter(this->entityType, this->entityLevelParameter);
-                this->setEntityLevelParameterLabelText(this->entityLevelParameter);
+                this->EntityParameterLevel.speed++;
+                UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->EntityParameterLevel);
+                this->setEntityParameterLevelLabelText(this->EntityParameterLevel);
 
                 // TODO: magic number
                 this->useCoin(1);
@@ -150,14 +150,14 @@ void PowerUpScene::setCoinCountLabelText(int coinCount)
     this->coinCountLabel->setString(std::to_string(coinCount));
 }
 
-void PowerUpScene::setEntityLevelParameterLabelText(EntityLevelParameter entityLevelParameter)
+void PowerUpScene::setEntityParameterLevelLabelText(struct EntityParameterLevel EntityParameterLevel)
 {
-    this->entityLevelParameter = entityLevelParameter;
+    this->EntityParameterLevel = EntityParameterLevel;
 
-    this->rankLabel->setString(std::to_string(entityLevelParameter.rank));
-    this->hpLabel->setString(std::to_string(entityLevelParameter.hp));
-    this->attackLabel->setString(std::to_string(entityLevelParameter.attack));
-    this->speedLabel->setString(std::to_string(entityLevelParameter.speed));
+    this->rankLabel->setString(std::to_string(EntityParameterLevel.rank));
+    this->hpLabel->setString(std::to_string(EntityParameterLevel.hp));
+    this->attackLabel->setString(std::to_string(EntityParameterLevel.attack));
+    this->speedLabel->setString(std::to_string(EntityParameterLevel.speed));
 }
 
 #pragma mark Logic

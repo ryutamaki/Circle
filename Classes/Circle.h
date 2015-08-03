@@ -21,7 +21,7 @@ public:
 
 protected:
     void setupAttackMap() override;
-    void setupEntityParamerterByLevel(EntityLevelParameter levelParameter) override;
+    void setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel) override;
 };
 
 #endif /* defined(__DotWar__Circle__) */

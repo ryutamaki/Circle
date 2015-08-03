@@ -30,7 +30,7 @@ static const std::map<int, std::string> ENTITY_RANK_SYMBOL_PATH = {
     {10, ""},
 };
 
-struct EntityLevelParameter
+struct EntityParameterLevel
 {
     // FIXME: Do not use unsigned int because ValueMap "=" operator not support it
     int rank;
@@ -39,15 +39,14 @@ struct EntityLevelParameter
     int speed;
 };
 
-struct EntityParameter
+struct EntityParameterMultipler
 {
-    // FIXME: Do not use unsigned int because ValueMap "=" operator not support it
-    int initialHp;
-    int attackFactor;
-    int velocityFactor;
+    float hp;
+    float attack;
+    float speed;
 };
 
-static const std::map<EntityType, EntityLevelParameter> ENTITY_INITIAL_LEVEL_PARAMETER = {
+static const std::map<EntityType, EntityParameterLevel> ENTITY_INITIAL_LEVEL_PARAMETER = {
     // {EntityType, {rank, hp, attack, speed}}
     {EntityType::CIRCLE, {1, 1, 1, 1}},
     {EntityType::TRIANGLE, {1, 1, 1, 1}},

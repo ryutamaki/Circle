@@ -28,7 +28,7 @@ public:
 private:
     int coinCount;
     EntityType entityType;
-    EntityLevelParameter entityLevelParameter;
+    EntityParameterLevel EntityParameterLevel;
 
     cocos2d::ui::TextBMFont* rankLabel;
     cocos2d::ui::TextBMFont* hpLabel;
@@ -40,7 +40,7 @@ private:
     void setupUI(Node* rootNode);
 
     void setCoinCountLabelText(int coinCount);
-    void setEntityLevelParameterLabelText(EntityLevelParameter entityLevelParameter);
+    void setEntityParameterLevelLabelText(struct EntityParameterLevel EntityParameterLevel);
 
     bool canUseCoin(int useCoinCount);
     void useCoin(int useCoinCount);

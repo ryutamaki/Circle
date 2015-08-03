@@ -37,8 +37,8 @@ Entity* EntityFactory::createUserEntity(EntityType entityType)
         {
             instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
-            EntityLevelParameter parameter = UserDataManager::getInstance()->getEntityLevelParameter(entityType);
-            circle->setEntityLevelParameter(parameter);
+            EntityParameterLevel parameter = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
+            circle->setEntityParameterLevel(parameter);
             return circle;
         }
 
@@ -46,8 +46,8 @@ Entity* EntityFactory::createUserEntity(EntityType entityType)
         {
             instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            EntityLevelParameter parameter = UserDataManager::getInstance()->getEntityLevelParameter(entityType);
-            triangle->setEntityLevelParameter(parameter);
+            EntityParameterLevel parameter = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
+            triangle->setEntityParameterLevel(parameter);
             return triangle;
         }
 
@@ -80,12 +80,12 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
         {
             instance->registReaderObject("CircleReader", (ObjectFactory::Instance)CircleReader::getInstance);
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
-            EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+            EntityParameterLevel parameterLevel = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
             // TODO: magic number and game logic here
-            parameter.hp += defeatCount;
-            parameter.attack += defeatCount;
-            parameter.speed += defeatCount * 1;
-            circle->setEntityLevelParameter(parameter);
+            parameterLevel.hp += defeatCount;
+            parameterLevel.attack += defeatCount;
+            parameterLevel.speed += defeatCount * 1;
+            circle->setEntityParameterLevel(parameterLevel);
             circle->setInitialColor(initialColor);
             return circle;
         }
@@ -94,12 +94,12 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
         {
             instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            EntityLevelParameter parameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+            EntityParameterLevel parameterLevel = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
             // TODO: magic number and game logic here
-            parameter.hp += defeatCount;
-            parameter.attack += defeatCount;
-            parameter.speed += defeatCount * 1;
-            triangle->setEntityLevelParameter(parameter);
+            parameterLevel.hp += defeatCount;
+            parameterLevel.attack += defeatCount;
+            parameterLevel.speed += defeatCount * 1;
+            triangle->setEntityParameterLevel(parameterLevel);
             triangle->setInitialColor(initialColor);
             return triangle;
         }

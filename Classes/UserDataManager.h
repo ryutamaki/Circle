@@ -31,8 +31,8 @@ public:
     void setHighScoreByEntityType(int highScore, EntityType entityType);
     int getHighScoreByEntityType(EntityType entityType);
 
-    void setEntityLevelParameter(EntityType entityType, EntityLevelParameter entityLevelParameter);
-    EntityLevelParameter getEntityLevelParameter(EntityType entityType);
+    void setEntityParameterLevel(EntityType entityType, EntityParameterLevel EntityParameterLevel);
+    EntityParameterLevel getEntityParameterLevel(EntityType entityType);
 
 private:
     UserDataManager();

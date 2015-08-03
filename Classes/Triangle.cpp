@@ -39,7 +39,7 @@ void Triangle::setupAttackMap()
     };
 }
 
-void Triangle::setupEntityParamerterByLevel(EntityLevelParameter levelParameter)
+void Triangle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel)
 {
     this->entityParameter = {
         levelParameter.hp * levelParameter.rank * 15,

@@ -123,7 +123,7 @@ int UserDataManager::getHighScoreByEntityType(EntityType entityType)
 
 #pragma mark Entity parameter
 
-void UserDataManager::setEntityLevelParameter(EntityType entityType, EntityLevelParameter entityLevelParameter)
+void UserDataManager::setEntityParameterLevel(EntityType entityType, EntityParameterLevel EntityParameterLevel)
 {
     ValueMap entityListParameterMap;
 
@@ -142,10 +142,10 @@ void UserDataManager::setEntityLevelParameter(EntityType entityType, EntityLevel
         entityParameterMap = entityListParameterMap[entityTypeString].asValueMap();
     }
 
-    entityParameterMap["rank"] = entityLevelParameter.rank;
-    entityParameterMap["levelHp"] = entityLevelParameter.hp;
-    entityParameterMap["levelAttack"] = entityLevelParameter.attack;
-    entityParameterMap["levelSpeed"] = entityLevelParameter.speed;
+    entityParameterMap["rank"] = EntityParameterLevel.rank;
+    entityParameterMap["levelHp"] = EntityParameterLevel.hp;
+    entityParameterMap["levelAttack"] = EntityParameterLevel.attack;
+    entityParameterMap["levelSpeed"] = EntityParameterLevel.speed;
 
     entityListParameterMap[entityTypeString] = entityParameterMap;
     this->userData[USER_DATA_ENTITY_PARAMETER] = entityListParameterMap;
@@ -153,14 +153,14 @@ void UserDataManager::setEntityLevelParameter(EntityType entityType, EntityLevel
     this->save();
 }
 
-EntityLevelParameter UserDataManager::getEntityLevelParameter(EntityType entityType)
+EntityParameterLevel UserDataManager::getEntityParameterLevel(EntityType entityType)
 {
     this->load();
 
     // Return initial params if there are no data for entity parameters
     if (this->userData.find(USER_DATA_ENTITY_PARAMETER) == this->userData.end()) {
-        EntityLevelParameter levelParameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
-        return levelParameter;
+        EntityParameterLevel parameterLevel = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+        return parameterLevel;
     }
 
     std::string entityTypeString = std::to_string((int)entityType);
@@ -168,12 +168,12 @@ EntityLevelParameter UserDataManager::getEntityLevelParameter(EntityType entityT
 
     // Return initial params if there are no data for a selected entity
     if (entityListParameterMap.find(entityTypeString) == this->userData.end()) {
-        EntityLevelParameter levelParameter = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
-        return levelParameter;
+        EntityParameterLevel parameterLevel = ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType);
+        return parameterLevel;
     }
 
     ValueMap data = entityListParameterMap[entityTypeString].asValueMap();
-    return EntityLevelParameter {
+    return EntityParameterLevel {
                data["rank"].asInt(),
                data["levelHp"].asInt(),
                data["levelAttack"].asInt(),

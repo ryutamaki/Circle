@@ -37,17 +37,17 @@ EntityParameter Entity::getEntityParameter()
     return entityParameter;
 }
 
-EntityLevelParameter Entity::getEntityLevelParameter()
+EntityParameterLevel Entity::getEntityParameterLevel()
 {
-    return entityLevelParameter;
+    return EntityParameterLevel;
 }
 
-void Entity::setEntityLevelParameter(EntityLevelParameter entityLevelParameter)
+void Entity::setEntityParameterLevel(struct EntityParameterLevel EntityParameterLevel)
 {
-    this->entityLevelParameter = entityLevelParameter;
+    this->EntityParameterLevel = EntityParameterLevel;
 
-    this->setRankSymbol(entityLevelParameter.rank);
-    this->setupEntityParamerterByLevel(entityLevelParameter);
+    this->setRankSymbol(EntityParameterLevel.rank);
+    this->setupEntityParamerterByLevel(EntityParameterLevel);
 }
 
 int Entity::getHp()

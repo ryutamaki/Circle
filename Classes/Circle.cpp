@@ -40,7 +40,7 @@ void Circle::setupAttackMap()
     };
 }
 
-void Circle::setupEntityParamerterByLevel(EntityLevelParameter levelParameter)
+void Circle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel)
 {
     this->entityParameter = {
         levelParameter.hp * levelParameter.rank * 10,

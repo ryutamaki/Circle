@@ -34,8 +34,8 @@ public:
 
     // Accessors
     EntityParameter getEntityParameter();
-    EntityLevelParameter getEntityLevelParameter();
-    void setEntityLevelParameter(EntityLevelParameter entityParameter);
+    EntityParameterLevel getEntityParameterLevel();
+    void setEntityParameterLevel(EntityParameterLevel entityParameter);
 
     int getHp();
     void setHp(int hp);
@@ -74,7 +74,7 @@ protected:
     std::string identifier;
 
     EntityParameter entityParameter;
-    EntityLevelParameter entityLevelParameter;
+    EntityParameterLevel EntityParameterLevel;
 
     int hp;
     cocos2d::Vec2 velocity;
@@ -95,7 +95,7 @@ protected:
 
     // Abstruct methods
     virtual void setupAttackMap() = 0;
-    virtual void setupEntityParamerterByLevel(EntityLevelParameter levelParameter) = 0;
+    virtual void setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel) = 0;
 
 };
 
