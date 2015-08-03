@@ -33,6 +33,7 @@ private:
 
     void singlePlayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void multiplayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
+    void powerUpButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
 };
 

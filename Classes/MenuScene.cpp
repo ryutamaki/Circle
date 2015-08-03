@@ -53,9 +53,11 @@ bool MenuScene::init()
 
     ui::Button* singlePlayerButton = rootNode->getChildByName<ui::Button*>("SinglePlayerButton");
     ui::Button* multiplayerButton = rootNode->getChildByName<ui::Button*>("MultiplayerButton");
+    ui::Button* powerUpButton = rootNode->getChildByName<ui::Button*>("PowerUpButton");
 
     singlePlayerButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::singlePlayerButtonPushed, this));
     multiplayerButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::multiplayerButtonPushed, this));
+    powerUpButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::powerUpButtonPushed, this));
 
     this->addChild(rootNode);
 
@@ -82,29 +84,13 @@ void MenuScene::putEntityByEntityType(EntityType entityType)
 {
     // put character
     Entity* entity = EntityFactory::createUserEntity(entityType);
-    entity->setNormalizedPosition(Vec2(0.5f, 0.5f));
-
+    entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
     this->addChild(entity);
-
-    EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
-    eventListener->setSwallowTouches(true);
-    eventListener->onTouchBegan = [this](Touch* touch, Event* event) {
-            return true;
-        };
-    eventListener->onTouchEnded = [this](Touch* touch, Event* event) {
-            PowerUpScene* powerUpScene = PowerUpScene::create();
-            powerUpScene->setEntityType(EntityType::CIRCLE);
-            Scene* scene = Scene::create();
-            scene->addChild(powerUpScene);
-            TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
-            Director::getInstance()->pushScene(transition);
-        };
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 }
 
 #pragma mark Callbacks
 
-void MenuScene::singlePlayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
+void MenuScene::singlePlayerButtonPushed(Ref* pSender, ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         auto scene = StageSelectScene::createScene();
@@ -113,9 +99,21 @@ void MenuScene::singlePlayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Wid
     }
 }
 
-void MenuScene::multiplayerButtonPushed(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType)
+void MenuScene::multiplayerButtonPushed(Ref* pSender, ui::Widget::TouchEventType eEventType)
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         GameSceneManager::getInstance()->showPeerList();
+    }
+}
+
+void MenuScene::powerUpButtonPushed(Ref* pSender, ui::Widget::TouchEventType eEventType)
+{
+    if (eEventType == ui::Widget::TouchEventType::ENDED) {
+        PowerUpScene* powerUpScene = PowerUpScene::create();
+        powerUpScene->setEntityType(EntityType::CIRCLE);
+        Scene* scene = Scene::create();
+        scene->addChild(powerUpScene);
+        TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
+        Director::getInstance()->pushScene(transition);
     }
 }

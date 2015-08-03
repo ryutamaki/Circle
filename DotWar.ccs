@@ -46,14 +46,6 @@
           <Image Name="Line@2x.png" />
           <Image Name="Line@3x.png" />
           <Image Name="Line@4x.png" />
-          <Image Name="MultiplayerButtonNormal.png" />
-          <Image Name="MultiplayerButtonNormal@2x.png" />
-          <Image Name="MultiplayerButtonNormal@3x.png" />
-          <Image Name="MultiplayerButtonNormal@4x.png" />
-          <Image Name="MultiplayerButtonPushed.png" />
-          <Image Name="MultiplayerButtonPushed@2x.png" />
-          <Image Name="MultiplayerButtonPushed@3x.png" />
-          <Image Name="MultiplayerButtonPushed@4x.png" />
           <Image Name="PlayButtonNormal.png" />
           <Image Name="PlayButtonNormal@2x.png" />
           <Image Name="PlayButtonNormal@3x.png" />
@@ -70,14 +62,6 @@
           <Image Name="RankUpButtonPushed@2x.png" />
           <Image Name="RankUpButtonPushed@3x.png" />
           <Image Name="RankUpButtonPushed@4x.png" />
-          <Image Name="StageSelectButtonNormal.png" />
-          <Image Name="StageSelectButtonNormal@2x.png" />
-          <Image Name="StageSelectButtonNormal@3x.png" />
-          <Image Name="StageSelectButtonNormal@4x.png" />
-          <Image Name="StageSelectButtonPushed.png" />
-          <Image Name="StageSelectButtonPushed@2x.png" />
-          <Image Name="StageSelectButtonPushed@3x.png" />
-          <Image Name="StageSelectButtonPushed@4x.png" />
           <Image Name="TriangleBody.png" />
           <Image Name="TriangleBody@2x.png" />
           <Image Name="TriangleBody@3x.png" />
@@ -142,11 +126,24 @@
           <Image Name="ResumeButtonPushed@2x.png" />
           <Image Name="ResumeButtonPushed@3x.png" />
           <Image Name="ResumeButtonPushed@4x.png" />
+          <Image Name="TmpButtonNormal.png" />
+          <Image Name="TmpButtonNormal@2x.png" />
+          <Image Name="TmpButtonNormal@3x.png" />
+          <Image Name="TmpButtonNormal@4x.png" />
+          <Image Name="TmpButtonPushed.png" />
+          <Image Name="TmpButtonPushed@2x.png" />
+          <Image Name="TmpButtonPushed@3x.png" />
+          <Image Name="TmpButtonPushed@4x.png" />
+          <Image Name="ScrollViewSeparator.png" />
+          <Image Name="ScrollViewSeparator@2x.png" />
+          <Image Name="ScrollViewSeparator@3x.png" />
+          <Image Name="ScrollViewSeparator@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />
           <Fnt Name="Menlo70.fnt" />
           <Fnt Name="CircleFont30.fnt" />
+          <Fnt Name="CircleFont24.fnt" />
         </Folder>
         <Project Name="GamePauseLayer.csd" Type="Layer" />
       </RootFolder>

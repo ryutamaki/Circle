@@ -23,7 +23,7 @@ bool Entity::init()
     this->stateMachine->setDelegate(this);
     this->synchronizer = std::unique_ptr<EntitySynchronizer>(new EntitySynchronizer());
     this->velocity = Vec2::ZERO;
-    this->initialColor = CIRCLE_DARK_BLUE;
+    this->initialColor = CIRCLE_LIGHT_BLUE;
 
     this->setupAttackMap();
 
