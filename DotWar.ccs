@@ -46,14 +46,6 @@
           <Image Name="Line@2x.png" />
           <Image Name="Line@3x.png" />
           <Image Name="Line@4x.png" />
-          <Image Name="PlayButtonNormal.png" />
-          <Image Name="PlayButtonNormal@2x.png" />
-          <Image Name="PlayButtonNormal@3x.png" />
-          <Image Name="PlayButtonNormal@4x.png" />
-          <Image Name="PushedButtonPushed.png" />
-          <Image Name="PushedButtonPushed@2x.png" />
-          <Image Name="PushedButtonPushed@3x.png" />
-          <Image Name="PushedButtonPushed@4x.png" />
           <Image Name="RankUpButtonNormal.png" />
           <Image Name="RankUpButtonNormal@2x.png" />
           <Image Name="RankUpButtonNormal@3x.png" />

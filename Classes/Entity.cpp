@@ -32,14 +32,24 @@ bool Entity::init()
 
 #pragma mark Accessor
 
+EntityType Entity::getEntityType() const
+{
+    return this->entityType;
+}
+
+void Entity::setEntityType(EntityType entityType)
+{
+    this->entityType = entityType;
+}
+
 EntityParameter Entity::getEntityParameter()
 {
-    return entityParameter;
+    return this->entityParameter;
 }
 
 EntityParameterLevel Entity::getEntityParameterLevel()
 {
-    return EntityParameterLevel;
+    return this->EntityParameterLevel;
 }
 
 void Entity::setEntityParameterLevel(struct EntityParameterLevel EntityParameterLevel)

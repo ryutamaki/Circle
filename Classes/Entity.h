@@ -32,6 +32,8 @@ public:
     std::unique_ptr<EntitySynchronizer> synchronizer;
 
     // Accessors
+    EntityType getEntityType() const;
+    void setEntityType(EntityType entityType);
     EntityParameter getEntityParameter();
     EntityParameterLevel getEntityParameterLevel();
     void setEntityParameterLevel(EntityParameterLevel entityParameter);
@@ -69,6 +71,7 @@ protected:
     cocostudio::timeline::ActionTimeline* timeline;
     std::string identifier;
 
+    EntityType entityType;
     EntityParameter entityParameter;
     EntityParameterLevel EntityParameterLevel;
 

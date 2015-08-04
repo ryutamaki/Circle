@@ -11,7 +11,9 @@
 #include "StageComponent.h"
 #include "StageComponentReader.h"
 
+#include "Entity.h"
 #include "EntityConstants.h"
+#include "EntityFactory.h"
 #include "GameSceneManager.h"
 #include "MenuScene.h"
 
@@ -55,7 +57,7 @@ bool StageSelectScene::init()
     this->pageView->setSizePercent(Vec2(0.5f, 1.0f));
     this->pageView->setCustomScrollThreshold(visibleSize.width * 0.1f);
 
-    this->playButton = rootNode->getChildByName<ui::Button*>("PlayButton");
+    this->endlessButton = rootNode->getChildByName<ui::Button*>("EndlessButton");
 
     ui::Button* backButton = rootNode->getChildByName<ui::Button*>("BackButton");
     backButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
@@ -78,7 +80,7 @@ void StageSelectScene::onEnter()
     Layer::onEnter();
 
     this->setupStageSelectButtons();
-    this->setupPlayButton();
+    this->setupUI();
     this->expandPageViewTouchHandler();
 }
 
@@ -101,28 +103,33 @@ void StageSelectScene::setupStageSelectButtons()
             entityType = EntityType::NONE;
         }
 
-        StageComponent* stageComponent = dynamic_cast<StageComponent*>(CSLoader::createNode("StageComponent.csb"));
-        stageComponent->setName("Component");
-        stageComponent->setEntityType(entityType);
-        stageComponent->setNormalizedPosition(Vec2(0.5f, 0.5f));
+        // StageComponent* stageComponent = dynamic_cast<StageComponent*>(CSLoader::createNode("StageComponent.csb"));
+        // stageComponent->setName("Component");
+        // stageComponent->setEntityType(entityType);
+        // stageComponent->setNormalizedPosition(Vec2(0.5f, 0.5f));
+
+        Entity* entity = EntityFactory::createEntity(entityType, 0, CIRCLE_ORANGE);
+        entity->setName("Entity");
+        entity->setNormalizedPosition(Vec2(0.5f, 0.5f));
 
         ui::Layout* pageLayout = ui::Layout::create();
         pageLayout->setSwallowTouches(false);
         pageLayout->setPropagateTouchEvents(true);
-        pageLayout->addChild(stageComponent);
+        pageLayout->addChild(entity);
 
         this->pageView->addPage(pageLayout);
     }
 }
 
-void StageSelectScene::setupPlayButton()
+void StageSelectScene::setupUI()
 {
-    this->playButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+    this->endlessButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             const size_t currentPageIndex = this->pageView->getCurPageIndex();
             const ui::Layout* currenPage = this->pageView->getPage(currentPageIndex);
-            const StageComponent* component = currenPage->getChildByName<StageComponent*>("Component");
-            const EntityType entityType = component->getEntityType();
+            // const StageComponent* component = currenPage->getChildByName<StageComponent*>("Component");
+            const Entity* entity = currenPage->getChildByName<Entity*>("Entity");
+            const EntityType entityType = entity->getEntityType();
 
             GameSceneManager::getInstance()->enterGameScene(entityType, false);
         }

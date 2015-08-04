@@ -86,6 +86,7 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             parameterLevel.hp += defeatCount;
             parameterLevel.attack += defeatCount;
             parameterLevel.speed += defeatCount * 1;
+            circle->setEntityType(entityType);
             circle->setEntityParameterLevel(parameterLevel);
             circle->setInitialColor(initialColor);
             return circle;
@@ -101,6 +102,7 @@ Entity* EntityFactory::createEntity(EntityType entityType, unsigned int defeatCo
             parameterLevel.hp += defeatCount;
             parameterLevel.attack += defeatCount;
             parameterLevel.speed += defeatCount * 1;
+            triangle->setEntityType(entityType);
             triangle->setEntityParameterLevel(parameterLevel);
             triangle->setInitialColor(initialColor);
             return triangle;
