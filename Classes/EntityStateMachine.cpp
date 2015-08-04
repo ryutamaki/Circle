@@ -56,7 +56,8 @@ void EntityStateMachine::move(const EntityMoveState movingState)
 {
     this->delegate->willStateChange(this->moveState, this->attackState);
 
-    if (this->attackState != EntityAttackState::NONE) {
+    if (this->attackState != EntityAttackState::NONE &&
+        this->attackState != EntityAttackState::CHARGING) {
         return;
     }
 
@@ -65,11 +66,25 @@ void EntityStateMachine::move(const EntityMoveState movingState)
     this->delegate->didStateChanged(this->moveState, this->attackState);
 }
 
-void EntityStateMachine::readyToAttack()
+void EntityStateMachine::startCharging()
 {
     this->delegate->willStateChange(this->moveState, this->attackState);
 
     if (this->attackState != EntityAttackState::NONE) {
+        return;
+    }
+
+    this->setAttackState(EntityAttackState::CHARGING);
+
+    this->delegate->didStateChanged(this->moveState, this->attackState);
+}
+
+void EntityStateMachine::readyToAttack()
+{
+    this->delegate->willStateChange(this->moveState, this->attackState);
+
+    if (this->attackState != EntityAttackState::NONE &&
+        this->attackState != EntityAttackState::CHARGING) {
         return;
     }
 
@@ -143,8 +158,22 @@ void EntityStateMachine::cancelAttack()
 
 bool EntityStateMachine::canAttack()
 {
+    if (this->attackState == EntityAttackState::NONE ||
+        this->attackState == EntityAttackState::CHARGING) {
+        return true;
+    }
+    return false;
+}
+
+bool EntityStateMachine::canCharge()
+{
     if (this->attackState == EntityAttackState::NONE) {
         return true;
     }
     return false;
+}
+
+bool EntityStateMachine::isCharging()
+{
+    return this->attackState == EntityAttackState::CHARGING;
 }

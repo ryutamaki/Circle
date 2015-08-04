@@ -9,6 +9,8 @@
 #ifndef DotWar_EntityConstants_h
 #define DotWar_EntityConstants_h
 
+static const float ENTITY_CHARGE_START_DURATION = 0.1f;
+
 enum class EntityType
 {
     CIRCLE = 0,

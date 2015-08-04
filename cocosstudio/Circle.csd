@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="100" Speed="1.0000" ActivedAnimationName="Damaged">
+      <Animation Duration="199" Speed="1.0000" ActivedAnimationName="Charging">
         <Timeline ActionTag="629999460" Property="Scale">
           <ScaleFrame FrameIndex="31" X="0.5000" Y="0.5000">
             <EasingData Type="0" />
@@ -36,6 +36,10 @@
           <EventFrame FrameIndex="61" Tween="False" Value="Attack" />
           <EventFrame FrameIndex="71" Tween="False" Value="Cooldown" />
           <EventFrame FrameIndex="100" Tween="False" Value="Finish" />
+          <EventFrame FrameIndex="121" Tween="False" Value="Ready" />
+          <EventFrame FrameIndex="122" Tween="False" Value="Attack" />
+          <EventFrame FrameIndex="198" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="199" Tween="False" Value="Finish" />
         </Timeline>
         <Timeline ActionTag="-1773017991" Property="Position">
           <PointFrame FrameIndex="11" X="0.0000" Y="0.0000">
@@ -48,6 +52,15 @@
             <EasingData Type="0" />
           </PointFrame>
           <PointFrame FrameIndex="20" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="108" X="2.0000" Y="2.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="110" X="2.0000" Y="-2.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="112" X="-1.0000" Y="-1.0000">
             <EasingData Type="0" />
           </PointFrame>
         </Timeline>
@@ -73,6 +86,21 @@
           <ScaleFrame FrameIndex="99" X="1.0000" Y="1.0000">
             <EasingData Type="0" />
           </ScaleFrame>
+          <ScaleFrame FrameIndex="106" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="114" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="121" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="122" X="2.5000" Y="2.5000">
+            <EasingData Type="29" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="198" X="1.0000" Y="1.0000">
+            <EasingData Type="0" />
+          </ScaleFrame>
         </Timeline>
       </Animation>
       <AnimationList>
@@ -84,6 +112,12 @@
         </AnimationInfo>
         <AnimationInfo Name="AttackNeedle" StartIndex="30" EndIndex="101">
           <RenderColor A="255" R="233" G="150" B="122" />
+        </AnimationInfo>
+        <AnimationInfo Name="ChargeAttack" StartIndex="120" EndIndex="200">
+          <RenderColor A="150" R="240" G="248" B="255" />
+        </AnimationInfo>
+        <AnimationInfo Name="Charging" StartIndex="105" EndIndex="116">
+          <RenderColor A="150" R="128" G="128" B="128" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">

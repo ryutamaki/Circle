@@ -37,6 +37,7 @@ void Circle::setupAttackMap()
     this->attackMap = {
         {"Attack",		 {1}},
         {"AttackNeedle", {2}},
+        {"ChargeAttack", {5}},
     };
 }
 

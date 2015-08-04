@@ -28,6 +28,7 @@ enum class EntityMoveState
 enum class EntityAttackState
 {
     NONE,
+    CHARGING,
     READY,
     ATTACKING,
     HIT,
@@ -60,6 +61,7 @@ public:
     // MOVE:
     void move(const EntityMoveState movingState);
     // ATTACK:
+    void startCharging();
     void readyToAttack();
     void startToAttack();
     void hitAttack();
@@ -68,6 +70,8 @@ public:
     void cancelAttack();
 
     bool canAttack();
+    bool canCharge();
+    bool isCharging();
 
 private:
     EntityStateMachineDelegate* delegate;

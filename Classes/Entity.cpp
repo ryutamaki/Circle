@@ -253,6 +253,45 @@ void Entity::attack(const std::string attackName)
     });
 }
 
+void Entity::attack(const std::string attackName, float chargeduration)
+{
+    this->attack(attackName);
+
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Circle_ChargeAttack_Smoke.plist");
+    this->addChild(particle);
+}
+
+void Entity::startCharging()
+{
+    if (! this->stateMachine->canCharge()) {
+        return;
+    }
+
+    if (this->isDead) {
+        return;
+    }
+
+    this->timeline->play("Charging", true);
+
+    this->stateMachine->startCharging();
+    this->schedule(CC_SCHEDULE_SELECTOR(Entity::updateCharge));
+}
+
+void Entity::endCharging()
+{
+    if (! this->stateMachine->isCharging()) {
+        return;
+    }
+
+    if (this->isDead) {
+        return;
+    }
+
+    this->attack("ChargeAttack", this->chargeDuration);
+    this->unschedule(CC_SCHEDULE_SELECTOR(Entity::updateCharge));
+    this->chargeDuration = 0.0f;
+}
+
 #pragma mark EntityStateMachineDelegate
 
 void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attackState)
@@ -355,7 +394,16 @@ void Entity::update(float dt)
     EntityMoveState currentMoveState = this->stateMachine->getMoveState();
     Vec2 direction = EntityHelper::directionFromMoveState(currentMoveState);
     this->velocity = (float)this->entityParameter.velocityFactor * direction * dt;
+
+    if (this->stateMachine->getAttackState() == EntityAttackState::CHARGING) {
+        this->velocity *= 0.4f;
+    }
     this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
+}
+
+void Entity::updateCharge(float dt)
+{
+    this->chargeDuration += dt;
 }
 
 void Entity::receiveDamage()

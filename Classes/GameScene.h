@@ -36,6 +36,8 @@ public:
 private:
     bool networkedSession;
     GameState gameState;
+    bool isAttackTouching;
+    clock_t touchStartTime;
 
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;

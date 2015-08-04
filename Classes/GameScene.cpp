@@ -264,12 +264,21 @@ void GameScene::setupTouchHandling()
             Vec2 position = this->convertTouchToNodeSpace(touch);
 
             if (position.x >= Director::getInstance()->getVisibleSize().width * 0.5f) {
+                this->isAttackTouching = true;
+                this->touchStartTime = clock();
                 return true;
             }
             return false;
         };
     touchListenerForAttack->onTouchEnded = [&](Touch* touch, Event* event) {
-            this->character->attack("Attack");
+            this->isAttackTouching = false;
+
+            if (this->character->stateMachine->isCharging()) {
+                this->character->endCharging();
+            } else {
+                this->character->attack("Attack");
+            }
+            this->touchStartTime = 0;
         };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForAttack, this->field);
 }
@@ -307,6 +316,14 @@ void GameScene::update(float dt)
         } else {
             Vec2 nextEntityPosition = entity->getPosition() + entity->getVelocity();
             entity->setPosition(nextEntityPosition);
+        }
+    }
+
+    if (this->isAttackTouching) {
+        float touchDuration = static_cast<float>(clock() - this->touchStartTime) / CLOCKS_PER_SEC;
+
+        if (touchDuration > ENTITY_CHARGE_START_DURATION) {
+            this->character->startCharging();
         }
     }
 
@@ -475,7 +492,6 @@ void GameScene::spawnNextEnemy()
 void GameScene::checkSpawnNextEnemy()
 {
     if (this->currentEnemy->getIsDead()) {
-        log("spawn");
         this->spawnNextEnemy();
     }
 }

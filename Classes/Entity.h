@@ -63,6 +63,9 @@ public:
 
     // Behavior
     void attack(const std::string attackName);
+    void attack(const std::string attackName, float chargeduration);
+    void startCharging();
+    void endCharging();
     // EntityStateMachineDelegate
     void willStateChange(EntityMoveState moveState, EntityAttackState attackState) override;
     void didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState) override;
@@ -80,6 +83,7 @@ protected:
     std::string currentAttackName;
     std::map<std::string, AttackParams> attackMap;
     Color4B initialColor;
+    float chargeDuration;
     bool isDead;
 
     bool init() override;
@@ -92,6 +96,7 @@ protected:
 
     // Behavior
     void update(float dt) override;
+    void updateCharge(float dt);
     void receiveDamage();
     void die();
 

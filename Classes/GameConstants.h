@@ -9,6 +9,9 @@
 #ifndef DotWar_GameConstants_h
 #define DotWar_GameConstants_h
 
+#include "cocos2d.h"
+#include "EntityConstants.h"
+
 static const float SCENE_TRANSITION_DURATION = 0.5f;
 static const Color3B SCENE_TRANSITION_COLOR = Color3B(CIRCLE_GRAY);
 
@@ -23,4 +26,4 @@ enum class GameState
     RESULT,
 };
 
-#endif
+#endif /* ifndef DotWar_GameConstants_h */
