@@ -160,7 +160,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
             return;
         }
 
-        log("identifier: %s, hp: %d, move: %d, attack: %d, damage target: %s, damage volume: %d, position: {%f, %f}", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume, entityState.position.x, entityState.position.y);
+        // log("identifier: %s, hp: %d, move: %d, attack: %d, damage target: %s, damage volume: %d, position: {%f, %f}", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume, entityState.position.x, entityState.position.y);
         target->setHp(entityState.hp);
         target->setPosition(entityState.position);
         target->stateMachine->move(entityState.moveState);
@@ -173,7 +173,8 @@ void GameScene::receivedData(const void* data, unsigned long length)
             Entity* damagedTarget = this->getTargetEntityByTargetString(entityState.damage.identifier);
 
             if (damagedTarget != nullptr) {
-                damagedTarget->receiveDamage(entityState.damage.volume);
+                int currentHp = damagedTarget->getHp();
+                damagedTarget->setHp(currentHp - entityState.damage.volume);
             }
         }
     }
@@ -327,18 +328,19 @@ void GameScene::damageEnemyFromCharacter()
     Rect characterRect = this->character->getBodyRectInWorldSpace();
     Rect enemyRect = this->currentEnemy->getBodyRectInWorldSpace();
 
-    std::string currentAttackName = this->character->getCurrentAttackName();
-    AttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
-
     // 攻撃していたけど、範囲外
     if (! enemyRect.intersectsRect(characterRect)) {
         return;
     }
 
     // 攻撃が当たった！
+    std::string currentAttackName = this->character->getCurrentAttackName();
+    AttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
+    int damage = attackParams.damageFactor * this->character->getEntityParameter().attackFactor;
+
     JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
-    currentEntityState.damage.identifier = "Enemy";
-    currentEntityState.damage.volume = attackParams.damageFactor;
+    currentEntityState.damage.identifier = this->currentEnemy->getIdentifier();
+    currentEntityState.damage.volume = damage;
     this->character->synchronizer->sendData(currentEntityState);
 
     // for (int i = 0; i < 10; ++i) {
@@ -348,8 +350,7 @@ void GameScene::damageEnemyFromCharacter()
     // }
 
     if (this->character->synchronizer->getIsHost()) {
-        int damage = attackParams.damageFactor * this->character->getEntityParameter().attackFactor;
-        this->currentEnemy->receiveDamage(damage);
+        this->currentEnemy->setHp(this->currentEnemy->getHp() - damage);
 
         JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
         this->currentEnemy->synchronizer->sendDataIfNotHost(currentEntityState);
@@ -370,19 +371,25 @@ void GameScene::damageCharacterFromEntity()
     Rect characterRect = this->character->getBodyRectInWorldSpace();
     Rect enemyRect = this->currentEnemy->getBodyRectInWorldSpace();
 
-    std::string currentAttackName = this->currentEnemy->getCurrentAttackName();
-    AttackParams attackParams = this->currentEnemy->getAttackParamsByName(currentAttackName);
-
     // 攻撃していたけど、範囲外
     if (! characterRect.intersectsRect(enemyRect)) {
         return;
     }
 
-    this->currentEnemy->stateMachine->hitAttack();
+    std::string currentAttackName = this->currentEnemy->getCurrentAttackName();
+    AttackParams attackParams = this->currentEnemy->getAttackParamsByName(currentAttackName);
     int damage = attackParams.damageFactor * this->currentEnemy->getEntityParameter().attackFactor;
-    this->character->receiveDamage(damage);
+
+    JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
+    currentEntityState.damage.identifier = this->character->getIdentifier();
+    currentEntityState.damage.volume = damage;
+    this->currentEnemy->synchronizer->sendData(currentEntityState);
+
+    this->character->setHp(this->character->getHp() - damage);
     JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
     this->character->synchronizer->sendData(currentCharacterState);
+
+    this->currentEnemy->stateMachine->hitAttack();
 }
 
 void GameScene::spawnNextEnemy()
@@ -396,8 +403,11 @@ void GameScene::spawnNextEnemy()
         tmpEntity->deactivate();
 
         this->currentEnemy = nullptr;
-        this->enemyAI->removeFromParent();
-        this->enemyAI = nullptr;
+
+        if (this->enemyAI) {
+            this->enemyAI->removeFromParent();
+            this->enemyAI = nullptr;
+        }
 
         // update score
         ++this->defeatEnemyCount;
@@ -411,7 +421,7 @@ void GameScene::spawnNextEnemy()
 
     // set properties
     Size fieldSize = this->field->getContentSize();
-    this->currentEnemy->setIdentifier("Enemy");
+    this->currentEnemy->setIdentifier("Enemy" + std::to_string(this->defeatEnemyCount));
 
     Vec2 initialPosition;
     float rotation;
@@ -465,6 +475,7 @@ void GameScene::spawnNextEnemy()
 void GameScene::checkSpawnNextEnemy()
 {
     if (this->currentEnemy->getIsDead()) {
+        log("spawn");
         this->spawnNextEnemy();
     }
 }
@@ -478,7 +489,10 @@ void GameScene::gameover()
     // Second: Change state and stop this game
     this->gameState = GameState::RESULT;
     this->unscheduleUpdate();
-    this->enemyAI->stop();
+
+    if (this->enemyAI) {
+        this->enemyAI->stop();
+    }
 
     // Third:
     int score = this->defeatEnemyCount;

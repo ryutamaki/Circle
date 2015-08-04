@@ -61,9 +61,6 @@ public:
 
     // Behavior
     void attack(const std::string attackName);
-    void receiveDamage(const int damage);
-    void die();
-
     // EntityStateMachineDelegate
     void willStateChange(EntityMoveState moveState, EntityAttackState attackState) override;
     void didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState) override;
@@ -90,7 +87,10 @@ protected:
     void setRankSymbol(int rank);
     void setBodyColorByCurrentHp();
 
+    // Behavior
     void update(float dt) override;
+    void receiveDamage();
+    void die();
 
     // Abstruct methods
     virtual void setupAttackMap() = 0;

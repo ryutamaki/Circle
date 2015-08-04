@@ -57,13 +57,22 @@ int Entity::getHp()
 
 void Entity::setHp(int hp)
 {
+    if (this->isDead) {
+        return;
+    }
+
+    int currentHp = this->hp;
     this->hp = MAX(hp, 0);
 
-    this->setBodyColorByCurrentHp();
+    if (this->hp < currentHp) {
+        this->receiveDamage();
+    }
 
     if (this->hp <= 0) {
         this->die();
     }
+
+    this->setBodyColorByCurrentHp();
 }
 
 Vec2 Entity::getVelocity()
@@ -234,38 +243,6 @@ void Entity::attack(const std::string attackName)
     });
 }
 
-void Entity::receiveDamage(const int damage)
-{
-    if (this->getIsDead()) {
-        return;
-    }
-
-    this->setHp(this->getHp() - damage);
-
-    Sprite* body = this->getBody();
-
-    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Damage.plist");
-    particle->setStartColor(Color4F(body->getColor()));
-    particle->setEndColor(Color4F(body->getColor()));
-    this->addChild(particle);
-}
-
-void Entity::die()
-{
-    if (this->getIsDead()) {
-        return;
-    }
-
-    Sprite* body = this->getBody();
-
-    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Die.plist");
-    particle->setStartColor(Color4F(body->getColor()));
-    particle->setEndColor(Color4F(body->getColor()));
-    this->addChild(particle);
-
-    this->deactivate();
-}
-
 #pragma mark EntityStateMachineDelegate
 
 void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attackState)
@@ -369,4 +346,34 @@ void Entity::update(float dt)
     Vec2 direction = EntityHelper::directionFromMoveState(currentMoveState);
     this->velocity = (float)this->entityParameter.velocityFactor * direction * dt;
     this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
+}
+
+void Entity::receiveDamage()
+{
+    if (this->getIsDead()) {
+        return;
+    }
+
+    Sprite* body = this->getBody();
+
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Damage.plist");
+    particle->setStartColor(Color4F(body->getColor()));
+    particle->setEndColor(Color4F(body->getColor()));
+    this->addChild(particle);
+}
+
+void Entity::die()
+{
+    if (this->getIsDead()) {
+        return;
+    }
+
+    Sprite* body = this->getBody();
+
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Die.plist");
+    particle->setStartColor(Color4F(body->getColor()));
+    particle->setEndColor(Color4F(body->getColor()));
+    this->addChild(particle);
+
+    this->deactivate();
 }
