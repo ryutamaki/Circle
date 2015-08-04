@@ -110,7 +110,7 @@ void StageSelectScene::setupStageSelectButtons()
 
         Entity* entity = EntityFactory::createEntity(entityType, 0, CIRCLE_ORANGE);
         entity->setName("Entity");
-        entity->setNormalizedPosition(Vec2(0.5f, 0.5f));
+        entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
 
         ui::Layout* pageLayout = ui::Layout::create();
         pageLayout->setSwallowTouches(false);
