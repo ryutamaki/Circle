@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="199" Speed="1.0000" ActivedAnimationName="Charging">
+      <Animation Duration="199" Speed="1.0000" ActivedAnimationName="ChargeAttack">
         <Timeline ActionTag="629999460" Property="Scale">
           <ScaleFrame FrameIndex="31" X="0.5000" Y="0.5000">
             <EasingData Type="0" />
@@ -38,7 +38,7 @@
           <EventFrame FrameIndex="100" Tween="False" Value="Finish" />
           <EventFrame FrameIndex="121" Tween="False" Value="Ready" />
           <EventFrame FrameIndex="122" Tween="False" Value="Attack" />
-          <EventFrame FrameIndex="198" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="130" Tween="False" Value="Cooldown" />
           <EventFrame FrameIndex="199" Tween="False" Value="Finish" />
         </Timeline>
         <Timeline ActionTag="-1773017991" Property="Position">
@@ -98,7 +98,10 @@
           <ScaleFrame FrameIndex="122" X="2.5000" Y="2.5000">
             <EasingData Type="29" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="198" X="1.0000" Y="1.0000">
+          <ScaleFrame FrameIndex="130" X="2.5000" Y="2.5000">
+            <EasingData Type="23" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="199" X="1.0000" Y="1.0000">
             <EasingData Type="0" />
           </ScaleFrame>
         </Timeline>
@@ -134,7 +137,7 @@
             <FileData Type="Normal" Path="Images/CircleNeedle@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
               <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="58.8608" RightMargin="13.1392" TopMargin="24.0000" BottomMargin="24.0000" ctype="SpriteObjectData">

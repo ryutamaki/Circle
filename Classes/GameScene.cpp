@@ -319,6 +319,8 @@ void GameScene::update(float dt)
         }
     }
 
+    // FIXME: この辺の処理がよくない
+    // touch end で、どの攻撃を出すか判定してる
     if (this->isAttackTouching) {
         float touchDuration = static_cast<float>(clock() - this->touchStartTime) / CLOCKS_PER_SEC;
 
@@ -342,11 +344,22 @@ void GameScene::damageEnemyFromCharacter()
     }
 
     // this rects does not effected by animations
-    Rect characterRect = this->character->getBodyRectInWorldSpace();
-    Rect enemyRect = this->currentEnemy->getBodyRectInWorldSpace();
+    std::vector<Rect> characterRects = this->character->getRectsUseForAttackInWorldSpace();
+    std::vector<Rect> enemyRects = this->currentEnemy->getRectsUseForDamageInWorldSpace();
 
-    // 攻撃していたけど、範囲外
-    if (! enemyRect.intersectsRect(characterRect)) {
+    // collisions check
+    bool hitFlag = false;
+
+    for (Rect characterRect : characterRects) {
+        for (Rect enemyRect : enemyRects) {
+            if (characterRect.intersectsRect(enemyRect)) {
+                hitFlag = true;
+                break;
+            }
+        }
+    }
+
+    if (! hitFlag) {
         return;
     }
 
@@ -385,11 +398,22 @@ void GameScene::damageCharacterFromEntity()
     }
 
     // this rects does not effected by animations
-    Rect characterRect = this->character->getBodyRectInWorldSpace();
-    Rect enemyRect = this->currentEnemy->getBodyRectInWorldSpace();
+    std::vector<Rect> enemyRects = this->currentEnemy->getRectsUseForAttackInWorldSpace();
+    std::vector<Rect> characterRects = this->character->getRectsUseForDamageInWorldSpace();
 
-    // 攻撃していたけど、範囲外
-    if (! characterRect.intersectsRect(enemyRect)) {
+    // collisions check
+    bool hitFlag = false;
+
+    for (Rect characterRect : characterRects) {
+        for (Rect enemyRect : enemyRects) {
+            if (characterRect.intersectsRect(enemyRect)) {
+                hitFlag = true;
+                break;
+            }
+        }
+    }
+
+    if (! hitFlag) {
         return;
     }
 

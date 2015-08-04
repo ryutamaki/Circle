@@ -135,9 +135,9 @@ Rect Entity::getBodyRect()
     return returnRect;
 }
 
-Rect Entity::getBodyRectInWorldSpace()
+std::vector<Rect> Entity::getRectsUseForAttackInWorldSpace()
 {
-    Rect returnRect;
+    std::vector<Rect> returnRects;
     Vector<Node*> children = this->getChildren();
 
     for (int i = 0, last = (int)children.size(); i < last; ++i) {
@@ -148,23 +148,42 @@ Rect Entity::getBodyRectInWorldSpace()
         }
 
         Size size = sprite->getContentSize();
-        Vec2 bodyPosition = sprite->getPosition();
-        Vec2 bodyPositionInWorld = this->convertToWorldSpace(bodyPosition);
+        float scaleX = sprite->getScaleX();
+        float scaleY = sprite->getScaleY();
+        Vec2 spritePositionInWorld = this->convertToWorldSpace(sprite->getPosition());
 
         Rect spriteRect = Rect(
-                bodyPositionInWorld.x - size.width * sprite->getAnchorPoint().x,
-                bodyPositionInWorld.y - size.height * sprite->getAnchorPoint().y,
-                size.width, size.height
+                spritePositionInWorld.x - size.width * sprite->getAnchorPoint().x * scaleX,
+                spritePositionInWorld.y - size.height * sprite->getAnchorPoint().y * scaleY,
+                size.width * scaleX, size.height * scaleY
             );
-
-        if (returnRect.equals(Rect::ZERO)) {
-            returnRect = spriteRect;
-        } else {
-            returnRect.merge(spriteRect);
-        }
+        returnRects.push_back(spriteRect);
     }
 
-    return returnRect;
+    return returnRects;
+}
+
+std::vector<Rect> Entity::getRectsUseForDamageInWorldSpace()
+{
+    std::vector<Rect> returnRects;
+    Vector<Node*> children = this->getChildren();
+
+    Sprite* body = this->getBody();
+
+    Size size = body->getContentSize();
+    float scaleX = body->getScaleX();
+    float scaleY = body->getScaleY();
+    Vec2 bodyPositionInWorld = this->convertToWorldSpace(body->getPosition());
+
+    Rect bodyRect = Rect(
+            bodyPositionInWorld.x - size.width * body->getAnchorPoint().x * scaleX,
+            bodyPositionInWorld.y - size.height * body->getAnchorPoint().y * scaleY,
+            size.width * scaleX, size.height * scaleY
+        );
+
+    returnRects.push_back(bodyRect);
+
+    return returnRects;
 }
 
 std::string Entity::getIdentifier()

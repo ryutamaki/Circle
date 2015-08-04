@@ -48,7 +48,8 @@ public:
     AttackParams getAttackParamsByName(std::string attackName);
 
     cocos2d::Rect getBodyRect();
-    cocos2d::Rect getBodyRectInWorldSpace();
+    std::vector<cocos2d::Rect> getRectsUseForAttackInWorldSpace();
+    std::vector<cocos2d::Rect> getRectsUseForDamageInWorldSpace();
 
     std::string getIdentifier();
     void setIdentifier(std::string identifier);

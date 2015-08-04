@@ -12,7 +12,7 @@
 #include "cocos2d.h"
 #include "EntityConstants.h"
 
-static const float SCENE_TRANSITION_DURATION = 0.5f;
+static const float SCENE_TRANSITION_DURATION = 0.3f;
 static const Color3B SCENE_TRANSITION_COLOR = Color3B(CIRCLE_GRAY);
 
 static const float BATTLE_FIELD_FRAME_THICKNESS = 5.0f;
