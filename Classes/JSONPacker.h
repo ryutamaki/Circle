@@ -39,6 +39,8 @@ namespace JSONPacker
     {
         std::string identifier;
         bool isReady;
+        EntityType entityType;
+        EntityParameterLevel parameterLevel;
     };
 
     EntityReadyState unpackEntityReadyStateJSON(std::string json);

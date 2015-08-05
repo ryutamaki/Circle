@@ -31,8 +31,8 @@ EntityState unpackEntityStateJSON(std::string json)
     position.y = positionJson["y"].GetDouble();
     entityState.position = position;
 
-    entityState.moveState = (EntityMoveState)document["moveState"].GetInt();
-    entityState.attackState = (EntityAttackState)document["attackState"].GetInt();
+    entityState.moveState = static_cast<EntityMoveState>(document["moveState"].GetInt());
+    entityState.attackState = static_cast<EntityAttackState>(document["attackState"].GetInt());
 
     rapidjson::Value& damageJson = document["damage"];
     EntityState::Damage damage;
@@ -49,7 +49,7 @@ std::string packEntityState(const EntityState entityState)
     document.SetObject();
 
     document.AddMember("identifier", entityState.identifier.c_str(), document.GetAllocator());
-    document.AddMember("hp", (int)entityState.hp, document.GetAllocator());
+    document.AddMember("hp", entityState.hp, document.GetAllocator());
 
     Vec2 position = entityState.position;
     rapidjson::Value positionJson(rapidjson::kObjectType);
@@ -57,8 +57,8 @@ std::string packEntityState(const EntityState entityState)
     positionJson.AddMember("y", position.y, document.GetAllocator());
     document.AddMember("position", positionJson, document.GetAllocator());
 
-    document.AddMember("moveState", (int)entityState.moveState, document.GetAllocator());
-    document.AddMember("attackState", (int)entityState.attackState, document.GetAllocator());
+    document.AddMember("moveState", static_cast<int>(entityState.moveState), document.GetAllocator());
+    document.AddMember("attackState", static_cast<int>(entityState.attackState), document.GetAllocator());
 
     EntityState::Damage damage = entityState.damage;
     rapidjson::Value damageJson(rapidjson::kObjectType);
@@ -83,6 +83,15 @@ EntityReadyState unpackEntityReadyStateJSON(std::string json)
 
     entityReadyState.identifier = document["identifier"].GetString();
     entityReadyState.isReady = document["isReady"].GetBool();
+    entityReadyState.entityType = static_cast<EntityType>(document["entityType"].GetInt());
+
+    rapidjson::Value& parameterLevelJson = document["parameterLevel"];
+    EntityParameterLevel parameterLevel;
+    parameterLevel.rank = parameterLevelJson["rank"].GetInt();
+    parameterLevel.hp = parameterLevelJson["hp"].GetInt();
+    parameterLevel.attack = parameterLevelJson["attack"].GetInt();
+    parameterLevel.speed = parameterLevelJson["speed"].GetInt();
+    entityReadyState.parameterLevel = parameterLevel;
 
     return entityReadyState;
 }
@@ -94,6 +103,15 @@ std::string packEntityReadyState(const EntityReadyState entityReadyState)
 
     document.AddMember("identifier", entityReadyState.identifier.c_str(), document.GetAllocator());
     document.AddMember("isReady", entityReadyState.isReady, document.GetAllocator());
+    document.AddMember("entityType", static_cast<int>(entityReadyState.entityType), document.GetAllocator());
+
+    EntityParameterLevel parameterLevel = entityReadyState.parameterLevel;
+    rapidjson::Value parameterLevelJson(rapidjson::kObjectType);
+    parameterLevelJson.AddMember("rank", parameterLevel.rank, document.GetAllocator());
+    parameterLevelJson.AddMember("hp", parameterLevel.hp, document.GetAllocator());
+    parameterLevelJson.AddMember("attack", parameterLevel.attack, document.GetAllocator());
+    parameterLevelJson.AddMember("speed", parameterLevel.speed, document.GetAllocator());
+    document.AddMember("parameterLevel", parameterLevelJson, document.GetAllocator());
 
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);

@@ -21,7 +21,7 @@ public:
 
     // setup entities
     void setCharacterByEntityType(EntityType entityType);
-    void setFriendCharacter(EntityType entityType);
+    void setFriendCharacter(EntityType entityType, EntityParameterLevel parameterLevel);
     void setEnemyEntityType(EntityType entityType);
     EntityType getEnemyEntityType();
 

@@ -70,14 +70,32 @@ void GameScene::setCharacterByEntityType(EntityType entityType)
     this->character->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character);
+
+    if (this->networkedSession) {
+        bool isHost = GameSceneManager::getInstance()->isHost();
+        // sync settings for myself
+        this->character->synchronizer->setIsSendData(true);
+        this->character->synchronizer->setIsHost(isHost);
+        this->character->synchronizer->setIsMyself(true);
+    }
 }
 
-void GameScene::setFriendCharacter(EntityType entityType)
+void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel parameterLevel)
 {
-    this->friendCharacter = EntityFactory::createEntity(entityType);
+    if (! this->networkedSession) {
+        return;
+    }
+
+    this->friendCharacter = EntityFactory::createEntity(entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter);
+
+    // sync settigns for another player
+    // TODO: player は二人だと思ってる
+    bool isHost = GameSceneManager::getInstance()->isHost();
+    this->friendCharacter->synchronizer->setIsSendData(false); // receive only
+    this->friendCharacter->synchronizer->setIsHost(! isHost);
 }
 
 void GameScene::setEnemyEntityType(EntityType entityType)
@@ -145,6 +163,8 @@ void GameScene::receivedData(const void* data, unsigned long length)
     if (this->gameState == GameState::PREPARE) {
         JSONPacker::EntityReadyState entityReadyState = JSONPacker::unpackEntityReadyStateJSON(json);
 
+        this->setFriendCharacter(entityReadyState.entityType, entityReadyState.parameterLevel);
+
         if (this->friendCharacter) {
             this->friendCharacter->setIdentifier(entityReadyState.identifier);
             this->friendCharacter->synchronizer->setIsReadyToPlay(entityReadyState.isReady);
@@ -197,16 +217,6 @@ void GameScene::onEnter()
     this->field->setScale(fieldScaleFactor);
 
     if (this->networkedSession) {
-        bool isHost = GameSceneManager::getInstance()->isHost();
-        // sync settings for myself
-        this->character->synchronizer->setIsSendData(true);
-        this->character->synchronizer->setIsHost(isHost);
-        this->character->synchronizer->setIsMyself(true);
-
-        // sync settigns for another player
-        // TODO: player は二人だと思ってる
-        this->friendCharacter->synchronizer->setIsSendData(false); // receive only
-        this->friendCharacter->synchronizer->setIsHost(! isHost);
     }
 
     this->setupTouchHandling();
@@ -458,7 +468,14 @@ void GameScene::spawnNextEnemy()
     }
 
     // pop next enemy from enemy queue
-    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, this->defeatEnemyCount, CIRCLE_ORANGE);
+    EntityParameterLevel paramterLevel = {
+        static_cast<int>(floor(defeatEnemyCount / 10)),
+        defeatEnemyCount,
+        defeatEnemyCount,
+        defeatEnemyCount,
+    };
+
+    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_ORANGE);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
@@ -496,7 +513,7 @@ void GameScene::spawnNextEnemy()
         cocos2d::Vector<Entity*> opponents;
         opponents.pushBack(this->character);
 
-        if (this->networkedSession) {
+        if (this->networkedSession && this->friendCharacter) {
             opponents.pushBack(this->friendCharacter);
         }
         this->enemyAI = new EnemyAI(this->currentEnemy, opponents);
@@ -615,6 +632,8 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
         JSONPacker::EntityReadyState entityReadyState;
         entityReadyState.identifier = GameSceneManager::getInstance()->getUniqueIdentifier();
         entityReadyState.isReady = this->character->synchronizer->getIsReadyToPlay();
+        entityReadyState.entityType = this->character->getEntityType();
+        entityReadyState.parameterLevel = this->character->getEntityParameterLevel();
 
         this->character->setIdentifier(GameSceneManager::getInstance()->getUniqueIdentifier());
         this->character->synchronizer->sendData(entityReadyState);
@@ -629,10 +648,14 @@ void GameScene::tryToStart()
     }
 
     if (this->networkedSession) {
-        if (this->character->synchronizer->getIsReadyToPlay() &&
-            this->friendCharacter->synchronizer->getIsReadyToPlay()) {
-            this->start();
+        if (! this->character->synchronizer->getIsReadyToPlay()) {
+            return;
         }
+
+        if (! this->friendCharacter || ! this->friendCharacter->synchronizer->getIsReadyToPlay()) {
+            return;
+        }
+        this->start();
     } else {
         if (this->character->synchronizer->getIsReadyToPlay()) {
             this->start();

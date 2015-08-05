@@ -65,7 +65,7 @@ void StageComponent::onEnter()
 
 void StageComponent::attachEntity(EntityType eEntityType)
 {
-    Entity* entity = EntityFactory::createEntity(eEntityType, 0, CIRCLE_ORANGE);
+    Entity* entity = EntityFactory::createEntity(eEntityType, ENTITY_INITIAL_LEVEL_PARAMETER.at(eEntityType), CIRCLE_ORANGE);
 
     if (entity != nullptr) {
         entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
