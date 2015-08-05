@@ -4,7 +4,7 @@
     <Content>
       <Animation Duration="120" Speed="1.0000" ActivedAnimationName="CountUp">
         <Timeline ActionTag="-1925254411" Property="Position">
-          <PointFrame FrameIndex="1" X="0.0000" Y="150.0000">
+          <PointFrame FrameIndex="1" X="0.0000" Y="250.0000">
             <EasingData Type="27" />
           </PointFrame>
           <PointFrame FrameIndex="30" X="0.0000" Y="0.0000">
@@ -19,7 +19,7 @@
           <PointFrame FrameIndex="90" X="0.0000" Y="0.0000">
             <EasingData Type="27" />
           </PointFrame>
-          <PointFrame FrameIndex="120" X="0.0000" Y="150.0000">
+          <PointFrame FrameIndex="120" X="0.0000" Y="250.0000">
             <EasingData Type="0" />
           </PointFrame>
         </Timeline>
@@ -55,10 +55,10 @@
       <ObjectData Name="Node" CustomClassName="ScoreLabel" Tag="51" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="ScoreLabel" ActionTag="-1925254411" Tag="52" IconVisible="False" LeftMargin="-21.0000" RightMargin="-21.0000" TopMargin="-190.5000" BottomMargin="109.5000" LabelText="0" ctype="TextBMFontObjectData">
+          <AbstractNodeData Name="ScoreLabel" ActionTag="-1925254411" Tag="52" IconVisible="False" LeftMargin="-21.0000" RightMargin="-21.0000" TopMargin="-290.5000" BottomMargin="209.5000" LabelText="0" ctype="TextBMFontObjectData">
             <Size X="42.0000" Y="81.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position Y="150.0000" />
+            <Position Y="250.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

@@ -23,16 +23,6 @@
           <AbstractNodeData Name="Field" ActionTag="-1430883737" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-187.0000" RightMargin="-187.0000" TopMargin="-55.0000" BottomMargin="-55.0000" ctype="SpriteObjectData">
             <Size X="1334.0000" Y="750.0000" />
             <Children>
-              <AbstractNodeData Name="ScoreLabel" ActionTag="-1096191250" Tag="59" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="667.0000" RightMargin="667.0000" TopMargin="75.0000" BottomMargin="675.0000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
-                <Size X="0.0000" Y="0.0000" />
-                <AnchorPoint />
-                <Position X="667.0000" Y="675.0000" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.9000" />
-                <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="ScoreLabel.csd" Plist="" />
-              </AbstractNodeData>
               <AbstractNodeData Name="PauseButton" ActionTag="-875399286" Tag="25" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="40.0200" RightMargin="1249.9800" TopMargin="37.5000" BottomMargin="668.5000" TouchEnable="True" FontSize="14" LeftEage="14" RightEage="14" TopEage="11" BottomEage="11" Scale9OriginX="14" Scale9OriginY="11" Scale9Width="16" Scale9Height="22" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="44.0000" Y="44.0000" />
                 <AnchorPoint ScaleY="1.0000" />
@@ -47,6 +37,16 @@
                 <NormalFileData Type="Normal" Path="Images/PauseButtonNormal@2x.png" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="ScoreLabel" ActionTag="-1096191250" Tag="59" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="667.0016" RightMargin="666.9984" TopMargin="76.7728" BottomMargin="673.2272" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="667.0016" Y="673.2272" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.5000" Y="0.8976" />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="ScoreLabel.csd" Plist="" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
