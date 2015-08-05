@@ -52,12 +52,12 @@ EntityParameterLevel Entity::getEntityParameterLevel()
     return this->EntityParameterLevel;
 }
 
-void Entity::setEntityParameterLevel(struct EntityParameterLevel EntityParameterLevel)
+void Entity::setEntityParameterLevel(struct EntityParameterLevel entityParameterLevel)
 {
-    this->EntityParameterLevel = EntityParameterLevel;
+    this->EntityParameterLevel = entityParameterLevel;
 
-    this->setRankSymbol(EntityParameterLevel.rank);
-    this->setupEntityParamerterByLevel(EntityParameterLevel);
+    this->setRankSymbol(entityParameterLevel.rank);
+    this->setupEntityParamerterByLevel(entityParameterLevel);
 }
 
 int Entity::getHp()

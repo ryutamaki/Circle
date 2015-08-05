@@ -123,10 +123,10 @@ const EntityMoveState EntityHelper::moveStateFromVector(const cocos2d::Vec2 knoc
 
 const bool EntityHelper::isRankExists(int rank)
 {
-    if (ENTITY_RANK_SYMBOL_PATH.find(rank) == ENTITY_RANK_SYMBOL_PATH.end()) {
-        return false;
+    if (ENTITY_RANK_SYMBOL_PATH.count(rank)) {
+        return true;
     }
-    return true;
+    return false;
 }
 
 const bool EntityHelper::isNextRankExists(int rank)
