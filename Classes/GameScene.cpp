@@ -149,6 +149,10 @@ void GameScene::resumeGame()
 void GameScene::setNetworkedSession(bool networkedSession)
 {
     this->networkedSession = networkedSession;
+
+    if (this->networkedSession) {
+        this->pauseButton->removeFromParent();
+    }
 }
 
 void GameScene::receivedData(const void* data, unsigned long length)
