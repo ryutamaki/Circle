@@ -8,6 +8,8 @@
 #include "GamePauseLayerReader.h"
 #include "GameResultLayer.h"
 #include "GameResultLayerReader.h"
+#include "TutorialLayer.h"
+#include "TutorialLayerReader.h"
 #include "ScoreLabel.h"
 #include "ScoreLabelReader.h"
 
@@ -220,10 +222,8 @@ void GameScene::onEnter()
     fieldScaleFactor = MIN(visibleSize.height / fieldSize.height, visibleSize.width / fieldSize.width);
     this->field->setScale(fieldScaleFactor);
 
-    if (this->networkedSession) {
-    }
-
     this->setupTouchHandling();
+    this->showTutorialBasicIfNeverSeen();
 }
 
 void GameScene::setupTouchHandling()
@@ -608,6 +608,23 @@ Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
 }
 
 #pragma mark Transitions
+
+void GameScene::showTutorialBasicIfNeverSeen()
+{
+    if (UserDataManager::getInstance()->getIsShownTutorial(TutorialType::BASIC_CONTROL)) {
+        return;
+    }
+
+    if (! this->lobbyButton) {
+        return;
+    }
+
+    CSLoader::getInstance()->registReaderObject("TutorialLayerReader", (ObjectFactory::Instance)TutorialLayerReader::getInstance);
+    TutorialLayer* tutorialLayer = dynamic_cast<TutorialLayer*>(CSLoader::createNode("TutorialLayer.csb"));
+
+    this->lobbyButton->addChild(tutorialLayer);
+    tutorialLayer->show(TutorialType::BASIC_CONTROL);
+}
 
 void GameScene::showPauseLayer()
 {

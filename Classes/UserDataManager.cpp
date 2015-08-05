@@ -181,6 +181,41 @@ EntityParameterLevel UserDataManager::getEntityParameterLevel(EntityType entityT
     };
 }
 
+#pragma mark Tutorial
+
+void UserDataManager::setIsShownTutorial(TutorialType tutorialType, bool isShown)
+{
+    ValueMap isShownMap;
+
+    if (this->userData.find(USER_DATA_IS_SHOWN_TUTORIAL) == this->userData.end()) {
+        isShownMap = ValueMap();
+    } else {
+        isShownMap = this->userData[USER_DATA_IS_SHOWN_TUTORIAL].asValueMap();
+    }
+
+    std::string tutorialTypeString = this->getTutorialTypeStringByTutorialType(tutorialType);
+    isShownMap[tutorialTypeString] = isShown;
+    this->userData[USER_DATA_IS_SHOWN_TUTORIAL] = isShownMap;
+
+    this->save();
+}
+
+bool UserDataManager::getIsShownTutorial(TutorialType tutorialType)
+{
+    this->load();
+
+    if (this->userData.find(USER_DATA_IS_SHOWN_TUTORIAL) == this->userData.end()) {
+        bool initialIsShownTutorial = false;
+        return initialIsShownTutorial;
+    }
+
+    std::string tutorialTypeString = this->getTutorialTypeStringByTutorialType(tutorialType);
+    ValueMap isShownTutorialMap = this->userData[USER_DATA_IS_SHOWN_TUTORIAL].asValueMap();
+    bool isShownTutorial = isShownTutorialMap[tutorialTypeString].asBool();
+
+    return isShownTutorial;
+}
+
 #pragma mark - Private methods
 
 #pragma mark Utility
@@ -192,6 +227,12 @@ std::string UserDataManager::getFilePath()
 
 std::string UserDataManager::getEntityTypeStringByEntityType(EntityType entityType)
 {
-    std::string entityTypeString = std::to_string((int)entityType);
+    std::string entityTypeString = std::to_string(static_cast<int>(entityType));
     return entityTypeString;
+}
+
+std::string UserDataManager::getTutorialTypeStringByTutorialType(TutorialType tutorialType)
+{
+    std::string tutorialTypeString = std::to_string(static_cast<int>(tutorialType));
+    return tutorialTypeString;
 }

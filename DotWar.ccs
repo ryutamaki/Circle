@@ -130,6 +130,10 @@
           <Image Name="ScrollViewSeparator@2x.png" />
           <Image Name="ScrollViewSeparator@3x.png" />
           <Image Name="ScrollViewSeparator@4x.png" />
+          <Image Name="TutorialBasic.png" />
+          <Image Name="TutorialBasic@2x.png" />
+          <Image Name="TutorialBasic@3x.png" />
+          <Image Name="TutorialBasic@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />
@@ -138,6 +142,7 @@
           <Fnt Name="CircleFont24.fnt" />
         </Folder>
         <Project Name="GamePauseLayer.csd" Type="Layer" />
+        <Project Name="TutorialLayer.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>

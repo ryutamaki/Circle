@@ -58,7 +58,7 @@
             <FileData Type="Normal" Path="Images/Field@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="LobbyButton" Visible="False" ActionTag="-439445008" Tag="159" Alpha="102" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-187.0000" RightMargin="-187.0000" TopMargin="-55.0000" BottomMargin="-55.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="1304" Scale9Height="728" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+          <AbstractNodeData Name="LobbyButton" Visible="False" ActionTag="-439445008" Tag="159" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-187.0000" RightMargin="-187.0000" TopMargin="-55.0000" BottomMargin="-55.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="1304" Scale9Height="728" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
             <Size X="1334.0000" Y="750.0000" />
             <Children>
               <AbstractNodeData Name="StartLabel" ActionTag="-1593256057" Tag="44" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="493.0000" RightMargin="493.0000" TopMargin="347.0000" BottomMargin="347.0000" LabelText="TAP TO START" ctype="TextBMFontObjectData">

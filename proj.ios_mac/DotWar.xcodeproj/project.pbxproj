@@ -28,6 +28,10 @@
 		0342E5DD1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0342E5D81B66ED80009B737E /* GameResultLayerReader.cpp */; };
 		034F41081B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
 		034F41091B5D529E00167F16 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 034F41061B5D529E00167F16 /* EnemyAI.cpp */; };
+		0351AF951B726B0E0004AA6F /* TutorialLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF911B726B0E0004AA6F /* TutorialLayer.cpp */; };
+		0351AF961B726B0E0004AA6F /* TutorialLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF911B726B0E0004AA6F /* TutorialLayer.cpp */; };
+		0351AF971B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */; };
+		0351AF981B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */; };
 		038DE76A1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */; };
 		038DE76B1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */; };
 		038EE8D61B6AAC3200D6A928 /* PowerUpScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038EE8D41B6AAC3200D6A928 /* PowerUpScene.cpp */; };
@@ -162,6 +166,10 @@
 		0342E5D91B66ED80009B737E /* GameResultLayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResultLayerReader.h; sourceTree = "<group>"; };
 		034F41061B5D529E00167F16 /* EnemyAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyAI.cpp; sourceTree = "<group>"; };
 		034F41071B5D529E00167F16 /* EnemyAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyAI.h; sourceTree = "<group>"; };
+		0351AF911B726B0E0004AA6F /* TutorialLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialLayer.cpp; sourceTree = "<group>"; };
+		0351AF921B726B0E0004AA6F /* TutorialLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayer.h; sourceTree = "<group>"; };
+		0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialLayerReader.cpp; sourceTree = "<group>"; };
+		0351AF941B726B0E0004AA6F /* TutorialLayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayerReader.h; sourceTree = "<group>"; };
 		038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntitySynchronizer.cpp; sourceTree = "<group>"; };
 		038DE7691B60A71B00F1C861 /* EntitySynchronizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntitySynchronizer.h; sourceTree = "<group>"; };
 		038EE8D41B6AAC3200D6A928 /* PowerUpScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpScene.cpp; sourceTree = "<group>"; };
@@ -344,6 +352,10 @@
 				03917D671B56F7FC0068BCA6 /* MenuScene.h */,
 				038EE8D41B6AAC3200D6A928 /* PowerUpScene.cpp */,
 				038EE8D51B6AAC3200D6A928 /* PowerUpScene.h */,
+				0351AF911B726B0E0004AA6F /* TutorialLayer.cpp */,
+				0351AF921B726B0E0004AA6F /* TutorialLayer.h */,
+				0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */,
+				0351AF941B726B0E0004AA6F /* TutorialLayerReader.h */,
 				03D709A01B6606450056912B /* GameScene */,
 				03D709A11B6606500056912B /* SelectStageScene */,
 			);
@@ -714,6 +726,7 @@
 				03917D641B56EDC60068BCA6 /* TriangleReader.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* GameScene.cpp in Sources */,
 				031C156E1B68292C007D0FEC /* ScoreLabelReader.cpp in Sources */,
+				0351AF951B726B0E0004AA6F /* TutorialLayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				0342E5DA1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
 				03D709981B657BD70056912B /* StageComponentReader.cpp in Sources */,
@@ -722,6 +735,7 @@
 				0342E5C61B66CBEB009B737E /* CoinReader.cpp in Sources */,
 				031C156C1B68292C007D0FEC /* ScoreLabel.cpp in Sources */,
 				03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
+				0351AF971B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */,
 				03D709961B657BD70056912B /* StageComponent.cpp in Sources */,
 				03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */,
 				03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
@@ -754,6 +768,7 @@
 				03D709971B657BD70056912B /* StageComponent.cpp in Sources */,
 				031C156D1B68292C007D0FEC /* ScoreLabel.cpp in Sources */,
 				0399AB4F1B655C590069507F /* StageSelectScene.cpp in Sources */,
+				0351AF981B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */,
 				0342E5DD1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */,
 				0342E5DB1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
 				03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */,
@@ -771,6 +786,7 @@
 				03917D711B56FD030068BCA6 /* NetworkingWrapper.mm in Sources */,
 				03917D581B56C9B90068BCA6 /* Circle.cpp in Sources */,
 				031C15731B683DE7007D0FEC /* UserDataManager.cpp in Sources */,
+				0351AF961B726B0E0004AA6F /* TutorialLayer.cpp in Sources */,
 				039659BA1B5F113E006E587B /* EntityHelper.cpp in Sources */,
 				038DE76B1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */,
 				0342E5C51B66CBEB009B737E /* Coin.cpp in Sources */,

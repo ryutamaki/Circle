@@ -2,7 +2,7 @@
   <PropertyGroup Type="Layer" Name="GamePauseLayer" ID="d92b263c-6160-4c9a-802b-bc94d9a899ab" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="90" Speed="1.0000" ActivedAnimationName="Hide">
+      <Animation Duration="90" Speed="1.0000" ActivedAnimationName="Show">
         <Timeline ActionTag="-1478764077" Property="Alpha">
           <IntFrame FrameIndex="1" Value="0">
             <EasingData Type="0" />
@@ -48,16 +48,16 @@
       </Animation>
       <AnimationList>
         <AnimationInfo Name="Show" StartIndex="0" EndIndex="41">
-          <RenderColor A="150" R="127" G="255" B="212" />
+          <RenderColor A="255" R="127" G="255" B="212" />
         </AnimationInfo>
         <AnimationInfo Name="Hide" StartIndex="50" EndIndex="91">
-          <RenderColor A="150" R="255" G="255" B="0" />
+          <RenderColor A="255" R="255" G="255" B="0" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Layer" CustomClassName="GamePauseLayer" Tag="32" ctype="GameLayerObjectData">
         <Size X="1334.0000" Y="750.0000" />
         <Children>
-          <AbstractNodeData Name="Overlay" ActionTag="-1478764077" Tag="33" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Overlay" ActionTag="-1478764077" Tag="33" Alpha="0" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" ctype="SpriteObjectData">
             <Size X="1334.0000" Y="750.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="667.0000" Y="375.0000" />
@@ -68,7 +68,7 @@
             <FileData Type="Normal" Path="Images/Overlay@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="PauseLayout" ActionTag="844789466" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="467.0000" RightMargin="467.0000" TopMargin="225.0000" BottomMargin="225.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="33" RightEage="33" TopEage="33" BottomEage="33" Scale9OriginX="33" Scale9OriginY="33" Scale9Width="34" Scale9Height="34" ctype="PanelObjectData">
+          <AbstractNodeData Name="PauseLayout" ActionTag="844789466" Tag="36" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="467.0000" RightMargin="467.0000" TopMargin="-374.9999" BottomMargin="824.9999" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="33" RightEage="33" TopEage="33" BottomEage="33" Scale9OriginX="33" Scale9OriginY="33" Scale9Width="34" Scale9Height="34" ctype="PanelObjectData">
             <Size X="400.0000" Y="300.0000" />
             <Children>
               <AbstractNodeData Name="PauseLabel" ActionTag="-1192967496" Tag="37" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="127.5000" RightMargin="127.5000" TopMargin="47.0000" BottomMargin="197.0000" LabelText="PAUSE" ctype="TextBMFontObjectData">
@@ -113,10 +113,10 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="667.0000" Y="375.0000" />
+            <Position X="667.0000" Y="974.9999" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.5000" />
+            <PrePosition X="0.5000" Y="1.3000" />
             <PreSize X="0.2999" Y="0.4000" />
             <FileData Type="Normal" Path="Images/ComponentFrame@2x.png" Plist="" />
             <SingleColor A="255" R="150" G="200" B="255" />

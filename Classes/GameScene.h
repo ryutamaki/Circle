@@ -71,6 +71,7 @@ private:
     Entity* getTargetEntityByTargetString(std::string targetString);
 
     // transitions
+    void showTutorialBasicIfNeverSeen();
     void showPauseLayer();
     void showResultLayer(int score, int highscore, bool isNewRecord);
 
