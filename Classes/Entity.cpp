@@ -122,6 +122,28 @@ AttackParams Entity::getAttackParamsByName(std::string attackName)
     CCASSERT(false, "Undefined attack is selected");
 }
 
+std::vector<std::string> Entity::getAttackNameListForAi()
+{
+    std::vector<std::string> attackNameList;
+
+    for (std::map<std::string, AttackParams>::iterator it = this->attackMapForAi.begin(); it != this->attackMapForAi.end(); ++it) {
+        attackNameList.push_back(it->first);
+    }
+
+    return attackNameList;
+}
+
+AttackParams Entity::getAttackParamsForAiByName(std::string attackName)
+{
+    auto itr = this->attackMapForAi.find(attackName);
+
+    if (itr != this->attackMapForAi.end()) {
+        return this->attackMapForAi[attackName];
+    }
+
+    CCASSERT(false, "Undefined ai attack is selected");
+}
+
 Rect Entity::getBodyRect()
 {
     Size size = this->getBodySize();

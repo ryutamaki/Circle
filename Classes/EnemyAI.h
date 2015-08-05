@@ -27,9 +27,14 @@ private:
     Entity* target;
     cocos2d::Vector<Entity*> opponents;
 
+    bool isMoving;
+    bool isPreActionAttack;
+    bool isPreActionCharge;
+
     void running(float dt);
 
-    void move(EntityMoveState moveState, float dulation);
+    void stay(float dulation);
+    void move(EntityMoveState movieState, float dulation);
     void attack(std::string attackName);
 
     void decideTarget();

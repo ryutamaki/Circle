@@ -20,6 +20,7 @@
 
 struct AttackParams {
     int damageFactor;
+    EntityAttackType attackType;
 };
 
 
@@ -46,6 +47,9 @@ public:
     std::string getCurrentAttackName();
     std::vector<std::string> getAttackNameList();
     AttackParams getAttackParamsByName(std::string attackName);
+
+    std::vector<std::string> getAttackNameListForAi();
+    AttackParams getAttackParamsForAiByName(std::string attackName);
 
     cocos2d::Rect getBodyRect();
     std::vector<cocos2d::Rect> getRectsUseForAttackInWorldSpace();
@@ -83,6 +87,7 @@ protected:
     cocos2d::Vec2 velocity;
     std::string currentAttackName;
     std::map<std::string, AttackParams> attackMap;
+    std::map<std::string, AttackParams> attackMapForAi;
     Color4B initialColor;
     float chargeDuration;
     bool isDead;

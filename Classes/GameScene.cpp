@@ -432,7 +432,7 @@ void GameScene::damageCharacterFromEntity()
     }
 
     std::string currentAttackName = this->currentEnemy->getCurrentAttackName();
-    AttackParams attackParams = this->currentEnemy->getAttackParamsByName(currentAttackName);
+    AttackParams attackParams = this->currentEnemy->getAttackParamsForAiByName(currentAttackName);
     int damage = attackParams.damageFactor * this->currentEnemy->getEntityParameter().attackFactor;
 
     JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();

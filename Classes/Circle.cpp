@@ -35,9 +35,13 @@ bool Circle::init()
 void Circle::setupAttackMap()
 {
     this->attackMap = {
-        {"Attack",		 {1}},
-        {"AttackNeedle", {2}},
-        {"ChargeAttack", {5}},
+        {"Attack",		 {1, EntityAttackType::NORMAL}},
+        {"ChargeAttack", {5, EntityAttackType::CHARGE}},
+    };
+
+    this->attackMapForAi = {
+        {"AttackNeedle", {2, EntityAttackType::NORMAL}},
+        {"ChargeAttack", {8, EntityAttackType::CHARGE}},
     };
 }
 

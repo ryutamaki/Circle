@@ -18,6 +18,12 @@ enum class EntityType
     NONE, // This is not good way but I dont no some of better way.
 };
 
+enum class EntityAttackType
+{
+    NORMAL,
+    CHARGE,
+};
+
 struct EntityParameter
 {
     // FIXME: Do not use unsigned int because ValueMap "=" operator not support it
