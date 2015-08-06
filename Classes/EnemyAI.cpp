@@ -46,7 +46,7 @@ void EnemyAI::stop()
 
 void EnemyAI::running(float dt)
 {
-    if (this->entity->stateMachine->isMoving()) {
+    if (this->isMoving) {
         return;
     }
 
@@ -118,9 +118,9 @@ void EnemyAI::move(EntityMoveState moveState, float dulation)
 {
     this->entity->runAction(
         Sequence::create(
-            CallFunc::create([this, moveState]() {this->entity->stateMachine->move(moveState); }),
+            CallFunc::create([this, moveState]() {this->isMoving = true; this->entity->stateMachine->move(moveState); }),
             DelayTime::create(dulation),
-            CallFunc::create([this]() {this->entity->stateMachine->move(EntityMoveState::NONE); }),
+            CallFunc::create([this]() {this->entity->stateMachine->move(EntityMoveState::NONE); this->isMoving = false; }),
             NULL
         )
     );
