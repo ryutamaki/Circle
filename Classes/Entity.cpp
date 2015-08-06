@@ -23,6 +23,7 @@ bool Entity::init()
     this->stateMachine->setDelegate(this);
     this->synchronizer = std::unique_ptr<EntitySynchronizer>(new EntitySynchronizer());
     this->velocity = Vec2::ZERO;
+    this->accelerationFactor = 0.0f;
     this->initialColor = CIRCLE_LIGHT_BLUE;
 
     return true;
@@ -408,16 +409,27 @@ void Entity::update(float dt)
     this->setRotation(-static_cast<float>(this->stateMachine->getDirection()));
 
     if (! this->stateMachine->isMoving()) {
-        this->velocity = Vec2::ZERO;
-        return;
+        this->deaccelerate(dt);
+    } else {
+        this->accelerate(dt);
     }
 
     Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(this->stateMachine->getDirection());
-    this->velocity = (float)this->entityParameter.velocityFactor * unitVector * dt;
+    this->velocity = (float)this->entityParameter.velocityFactor * unitVector * dt * accelerationFactor;
 
     if (this->stateMachine->getAttackState() == EntityAttackState::CHARGING) {
         this->velocity *= 0.4f;
     }
+}
+
+void Entity::accelerate(float deltaTime)
+{
+    this->accelerationFactor = MIN(1.0f, this->accelerationFactor + 5.0f * deltaTime);
+}
+
+void Entity::deaccelerate(float deltaTime)
+{
+    this->accelerationFactor = MAX(0.0f, this->accelerationFactor - 5.0f * deltaTime);
 }
 
 void Entity::receiveDamage()

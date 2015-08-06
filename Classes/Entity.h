@@ -75,6 +75,7 @@ protected:
 
     int hp;
     cocos2d::Vec2 velocity;
+    float accelerationFactor;
     std::string currentAttackName;
     std::map<std::string, EntityAttackParams> attackMap;
     Color4B initialColor;
@@ -84,11 +85,14 @@ protected:
     void onExit() override;
 
     Sprite* getBody();
+    void setAccelerationFactor(float accelerationFactor);
     void setRankSymbol(int rank);
     void setBodyColorByCurrentHp();
 
     // Behavior
     void update(float dt) override;
+    void accelerate(float deltaTime);
+    void deaccelerate(float deltaTime);
     void receiveDamage();
     void die();
 
