@@ -18,7 +18,6 @@ public:
     bool init() override;
 
 protected:
-    void setupAttackMap() override;
     void setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel) override;
 };
 

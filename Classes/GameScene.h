@@ -32,6 +32,7 @@ public:
     // networking
     void setNetworkedSession(bool networkedSession);
     void receivedData(const void* data, unsigned long length);
+    void disconnected();
 
 private:
     bool networkedSession;
@@ -63,6 +64,7 @@ private:
     void damageEnemyFromCharacter();
     void damageCharacterFromEntity();
 
+    void attachAI(Entity* entity);
     void spawnNextEnemy();
     void checkSpawnNextEnemy();
     void gameover();

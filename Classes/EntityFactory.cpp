@@ -39,6 +39,11 @@ Entity* EntityFactory::createUserEntity(EntityType entityType)
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
             EntityParameterLevel parameter = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
             circle->setEntityParameterLevel(parameter);
+            // TODO: この攻撃の設定方法いつかリファクタしたい
+            circle->setAttackMap({
+                {"Attack", {1, EntityAttackType::NORMAL, ""}},
+                {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
+            });
             return circle;
         }
 
@@ -48,6 +53,10 @@ Entity* EntityFactory::createUserEntity(EntityType entityType)
             Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
             EntityParameterLevel parameter = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
             triangle->setEntityParameterLevel(parameter);
+            // TODO: この攻撃の設定方法いつかリファクタしたい
+            triangle->setAttackMap({
+                {"Attack", {2, EntityAttackType::NORMAL, ""}},
+            });
             return triangle;
         }
 
@@ -83,6 +92,11 @@ Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel 
             circle->setEntityType(entityType);
             circle->setEntityParameterLevel(parameterLevel);
             circle->setInitialColor(initialColor);
+            // TODO: この攻撃の設定方法いつかリファクタしたい
+            circle->setAttackMap({
+                {"Attack", {1, EntityAttackType::NORMAL, ""}},
+                {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
+            });
             return circle;
         }
 
@@ -93,6 +107,10 @@ Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel 
             triangle->setEntityType(entityType);
             triangle->setEntityParameterLevel(parameterLevel);
             triangle->setInitialColor(initialColor);
+            // TODO: この攻撃の設定方法いつかリファクタしたい
+            triangle->setAttackMap({
+                {"Attack", {2, EntityAttackType::NORMAL, ""}},
+            });
             return triangle;
         }
 

@@ -24,6 +24,12 @@ enum class EntityAttackType
     CHARGE,
 };
 
+struct EntityAttackParams {
+    int damageFactor;
+    EntityAttackType attackType;
+    std::string particleFilePath;
+};
+
 struct EntityParameter
 {
     // FIXME: Do not use unsigned int because ValueMap "=" operator not support it

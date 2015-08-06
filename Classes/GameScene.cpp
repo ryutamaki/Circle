@@ -169,9 +169,8 @@ void GameScene::receivedData(const void* data, unsigned long length)
     if (this->gameState == GameState::PREPARE) {
         JSONPacker::EntityReadyState entityReadyState = JSONPacker::unpackEntityReadyStateJSON(json);
 
-        this->setFriendCharacter(entityReadyState.entityType, entityReadyState.parameterLevel);
-
-        if (this->friendCharacter) {
+        if (! this->friendCharacter) {
+            this->setFriendCharacter(entityReadyState.entityType, entityReadyState.parameterLevel);
             this->friendCharacter->setIdentifier(entityReadyState.identifier);
             this->friendCharacter->synchronizer->setIsReadyToPlay(entityReadyState.isReady);
         }
@@ -192,7 +191,9 @@ void GameScene::receivedData(const void* data, unsigned long length)
         target->stateMachine->move(entityState.moveState);
 
         if (entityState.attackState == EntityAttackState::READY) {
-            target->attack("Attack");
+            target->attack(entityState.attackName);
+        } else if (entityState.attackState == EntityAttackState::CHARGING) {
+            target->startCharging();
         }
 
         if (entityState.damage.volume != 0) {
@@ -288,7 +289,7 @@ void GameScene::setupTouchHandling()
             this->isAttackTouching = false;
 
             if (this->character->stateMachine->isCharging()) {
-                this->character->endCharging();
+                this->character->attack("ChargeAttack");
             } else {
                 this->character->attack("Attack");
             }
@@ -379,7 +380,7 @@ void GameScene::damageEnemyFromCharacter()
 
     // 攻撃が当たった！
     std::string currentAttackName = this->character->getCurrentAttackName();
-    AttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
+    EntityAttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
     int damage = attackParams.damageFactor * this->character->getEntityParameter().attackFactor;
 
     JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
@@ -432,7 +433,7 @@ void GameScene::damageCharacterFromEntity()
     }
 
     std::string currentAttackName = this->currentEnemy->getCurrentAttackName();
-    AttackParams attackParams = this->currentEnemy->getAttackParamsForAiByName(currentAttackName);
+    EntityAttackParams attackParams = this->currentEnemy->getAttackParamsByName(currentAttackName);
     int damage = attackParams.damageFactor * this->currentEnemy->getEntityParameter().attackFactor;
 
     JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
@@ -445,6 +446,25 @@ void GameScene::damageCharacterFromEntity()
     this->character->synchronizer->sendData(currentCharacterState);
 
     this->currentEnemy->stateMachine->hitAttack();
+}
+
+void GameScene::attachAI(Entity* entity)
+{
+    if (this->enemyAI) {
+        this->enemyAI->removeFromParent();
+        this->enemyAI = nullptr;
+    }
+
+    cocos2d::Vector<Entity*> opponents;
+    opponents.pushBack(this->character);
+
+    if (this->networkedSession && this->friendCharacter) {
+        opponents.pushBack(this->friendCharacter);
+    }
+    this->enemyAI = new EnemyAI(entity, opponents);
+    this->addChild(this->enemyAI);
+
+    this->enemyAI->start();
 }
 
 void GameScene::spawnNextEnemy()
@@ -496,8 +516,19 @@ void GameScene::spawnNextEnemy()
         initialPosition = Vec2(fieldSize.width * 0.2f, fieldSize.height * 2.0f);
         rotation = 0.0f;
     }
+
     this->currentEnemy->setPosition(initialPosition);
     this->currentEnemy->setRotation(rotation);
+
+    // TODO: ここにあるべきでは無いきがする
+    this->currentEnemy->setAttackMap({
+        {"AttackNeedle", {1, EntityAttackType::NORMAL, ""}},
+        {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
+    });
+
+    if (GameSceneManager::getInstance()->isHost()) {
+        this->attachAI(this->currentEnemy);
+    }
     this->field->addChild(this->currentEnemy);
 
     // animate next entity
@@ -513,18 +544,6 @@ void GameScene::spawnNextEnemy()
     this->currentEnemy->activate();
 
     // setup enemyAI
-    if (GameSceneManager::getInstance()->isHost()) {
-        cocos2d::Vector<Entity*> opponents;
-        opponents.pushBack(this->character);
-
-        if (this->networkedSession && this->friendCharacter) {
-            opponents.pushBack(this->friendCharacter);
-        }
-        this->enemyAI = new EnemyAI(this->currentEnemy, opponents);
-        this->addChild(this->enemyAI);
-
-        this->enemyAI->start();
-    }
 
     // sync settings for an enemy
     if (this->networkedSession) {
@@ -580,7 +599,6 @@ void GameScene::giveCoin()
 {
     int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
     int newCoinCount = currentCoinCount + this->defeatEnemyCount;
-    log("pre: %d, new: %d", currentCoinCount, newCoinCount);
     UserDataManager::getInstance()->setCoinCount(newCoinCount);
 }
 
@@ -718,4 +736,33 @@ void GameScene::start()
             this->friendCharacter->synchronizer->getIsSendData(),
             this->friendCharacter->getIsDead());
     }
+}
+
+#pragma mark networking
+
+void GameScene::disconnected()
+{
+    if (! this->networkedSession) {
+        return;
+    }
+
+    // kill friend character
+    this->friendCharacter->setHp(0);
+
+    // attach AI if you are not a host user
+    if (! this->character->synchronizer->getIsHost()) {
+        if (this->currentEnemy) {
+            this->currentEnemy->stateMachine->cancelAttack();
+            this->currentEnemy->stateMachine->move(EntityMoveState::NONE);
+            this->attachAI(this->currentEnemy);
+        } else {
+            this->spawnNextEnemy();
+        }
+        this->character->synchronizer->setIsHost(true);
+        this->character->synchronizer->setIsSendData(false);
+    }
+
+    // unable network session
+    this->setNetworkedSession(false);
+    this->character->synchronizer->setIsSendData(false);
 }

@@ -18,12 +18,6 @@
 
 #include "cocostudio/CocoStudio.h"
 
-struct AttackParams {
-    int damageFactor;
-    EntityAttackType attackType;
-};
-
-
 class Entity : public cocos2d::Node, public EntityStateMachineDelegate
 {
 public:
@@ -46,10 +40,8 @@ public:
 
     std::string getCurrentAttackName();
     std::vector<std::string> getAttackNameList();
-    AttackParams getAttackParamsByName(std::string attackName);
-
-    std::vector<std::string> getAttackNameListForAi();
-    AttackParams getAttackParamsForAiByName(std::string attackName);
+    void setAttackMap(std::map<std::string, EntityAttackParams> attackMap);
+    EntityAttackParams getAttackParamsByName(std::string attackName);
 
     cocos2d::Rect getBodyRect();
     std::vector<cocos2d::Rect> getRectsUseForAttackInWorldSpace();
@@ -68,7 +60,6 @@ public:
 
     // Behavior
     void attack(const std::string attackName);
-    void attack(const std::string attackName, float chargeduration);
     void startCharging();
     void endCharging();
     // EntityStateMachineDelegate
@@ -86,10 +77,8 @@ protected:
     int hp;
     cocos2d::Vec2 velocity;
     std::string currentAttackName;
-    std::map<std::string, AttackParams> attackMap;
-    std::map<std::string, AttackParams> attackMapForAi;
+    std::map<std::string, EntityAttackParams> attackMap;
     Color4B initialColor;
-    float chargeDuration;
     bool isDead;
 
     bool init() override;
@@ -102,12 +91,10 @@ protected:
 
     // Behavior
     void update(float dt) override;
-    void updateCharge(float dt);
     void receiveDamage();
     void die();
 
     // Abstruct methods
-    virtual void setupAttackMap() = 0;
     virtual void setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel) = 0;
 
 };

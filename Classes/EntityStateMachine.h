@@ -71,6 +71,8 @@ public:
 
     bool canAttack();
     bool canCharge();
+
+    bool isMoving();
     bool isAttacking();
     bool isCharging();
 

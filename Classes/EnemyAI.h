@@ -27,7 +27,6 @@ private:
     Entity* target;
     cocos2d::Vector<Entity*> opponents;
 
-    bool isMoving;
     bool isPreActionAttack;
     bool isPreActionCharge;
 

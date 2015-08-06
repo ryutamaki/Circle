@@ -32,13 +32,6 @@ bool Triangle::init()
 
 #pragma mark - Protected methods
 
-void Triangle::setupAttackMap()
-{
-    this->attackMap = {
-        {"Attack", {2}},
-    };
-}
-
 void Triangle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel)
 {
     EntityParameter initialParameter = ENTITY_INITIAL_PARAMETER.at(EntityType::TRIANGLE);

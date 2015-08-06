@@ -18,7 +18,6 @@ EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*> opponents)
 {
     this->entity = entity;
     this->opponents = opponents;
-    this->isMoving = false;
     this->isPreActionAttack = false;
     this->isPreActionCharge = false;
 
@@ -47,7 +46,7 @@ void EnemyAI::stop()
 
 void EnemyAI::running(float dt)
 {
-    if (isMoving) {
+    if (this->entity->stateMachine->isMoving()) {
         return;
     }
 
@@ -62,10 +61,8 @@ void EnemyAI::running(float dt)
     }
 
     if (this->isPreActionCharge) {
-        this->entity->getAttackNameListForAi();
-
-        for (std::string attackName : this->entity->getAttackNameListForAi()) {
-            AttackParams attackParams = this->entity->getAttackParamsForAiByName(attackName);
+        for (std::string attackName : this->entity->getAttackNameList()) {
+            EntityAttackParams attackParams = this->entity->getAttackParamsByName(attackName);
 
             if (attackParams.attackType == EntityAttackType::CHARGE) {
                 this->attack(attackName);
@@ -77,7 +74,6 @@ void EnemyAI::running(float dt)
     }
 
     float rand = CCRANDOM_0_1();
-    log("%f", rand);
 
     if (rand < 0.05f) {
         this->entity->startCharging();
@@ -85,7 +81,6 @@ void EnemyAI::running(float dt)
         this->isPreActionCharge = true;
         return;
     } else if (rand < 0.15f) {
-        log("STAY");
         this->stay(1.0f);
         return;
     }
@@ -96,10 +91,10 @@ void EnemyAI::running(float dt)
 
     // TODO: magic number
     if (distance < 120.0f) {
-        std::vector<std::string> attackNameList = this->entity->getAttackNameListForAi();
+        std::vector<std::string> attackNameList = this->entity->getAttackNameList();
         int index = std::rand() % attackNameList.size();
         std::string attackName = attackNameList.at(index);
-        AttackParams attackParams = this->entity->getAttackParamsForAiByName(attackName);
+        EntityAttackParams attackParams = this->entity->getAttackParamsByName(attackName);
 
         if (attackParams.attackType == EntityAttackType::CHARGE && ! this->entity->stateMachine->isCharging()) {
             // do nothing
@@ -123,9 +118,9 @@ void EnemyAI::move(EntityMoveState moveState, float dulation)
 {
     this->entity->runAction(
         Sequence::create(
-            CallFunc::create([this, moveState]() {this->isMoving = true; this->entity->stateMachine->move(moveState); }),
+            CallFunc::create([this, moveState]() {this->entity->stateMachine->move(moveState); }),
             DelayTime::create(dulation),
-            CallFunc::create([this]() {this->entity->stateMachine->move(EntityMoveState::NONE); this->isMoving = false; }),
+            CallFunc::create([this]() {this->entity->stateMachine->move(EntityMoveState::NONE); }),
             NULL
         )
     );
@@ -133,11 +128,7 @@ void EnemyAI::move(EntityMoveState moveState, float dulation)
 
 void EnemyAI::attack(std::string attackName)
 {
-    if (this->isPreActionCharge) {
-        this->entity->attack(attackName, 0.0f);
-    } else {
-        this->entity->attack(attackName);
-    }
+    this->entity->attack(attackName);
 }
 
 void EnemyAI::decideTarget()

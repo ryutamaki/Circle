@@ -32,19 +32,6 @@ bool Circle::init()
 
 #pragma mark Override methods
 
-void Circle::setupAttackMap()
-{
-    this->attackMap = {
-        {"Attack",		 {1, EntityAttackType::NORMAL}},
-        {"ChargeAttack", {5, EntityAttackType::CHARGE}},
-    };
-
-    this->attackMapForAi = {
-        {"AttackNeedle", {2, EntityAttackType::NORMAL}},
-        {"ChargeAttack", {8, EntityAttackType::CHARGE}},
-    };
-}
-
 void Circle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel)
 {
     EntityParameter initialParameter = ENTITY_INITIAL_PARAMETER.at(EntityType::CIRCLE);

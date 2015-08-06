@@ -173,6 +173,11 @@ bool EntityStateMachine::canCharge()
     return false;
 }
 
+bool EntityStateMachine::isMoving()
+{
+    return this->moveState != EntityMoveState::NONE;
+}
+
 bool EntityStateMachine::isAttacking()
 {
     if (this->attackState == EntityAttackState::NONE) {

@@ -33,6 +33,7 @@ EntityState unpackEntityStateJSON(std::string json)
 
     entityState.moveState = static_cast<EntityMoveState>(document["moveState"].GetInt());
     entityState.attackState = static_cast<EntityAttackState>(document["attackState"].GetInt());
+    entityState.attackName = document["attackName"].GetString();
 
     rapidjson::Value& damageJson = document["damage"];
     EntityState::Damage damage;
@@ -59,6 +60,7 @@ std::string packEntityState(const EntityState entityState)
 
     document.AddMember("moveState", static_cast<int>(entityState.moveState), document.GetAllocator());
     document.AddMember("attackState", static_cast<int>(entityState.attackState), document.GetAllocator());
+    document.AddMember("attackName", entityState.attackName.c_str(), document.GetAllocator());
 
     EntityState::Damage damage = entityState.damage;
     rapidjson::Value damageJson(rapidjson::kObjectType);

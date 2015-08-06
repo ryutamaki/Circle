@@ -157,6 +157,10 @@ void GameSceneManager::stateChanged(ConnectionState state)
 
         case ConnectionState::NOT_CONNECTED:
             CCLOG("Not connected...");
+
+            if (this->gameScene) {
+                this->gameScene->disconnected();
+            }
             break;
 
         case ConnectionState::CONNECTED:
@@ -164,7 +168,7 @@ void GameSceneManager::stateChanged(ConnectionState state)
 
             if (! this->gameScene) {
                 this->networkingWrapper->stopAdvertisingAvailability();
-                this->enterGameScene(EntityType::TRIANGLE, true);
+                this->enterGameScene(EntityType::CIRCLE, true);
             }
             break;
 

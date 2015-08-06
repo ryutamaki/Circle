@@ -25,8 +25,6 @@ bool Entity::init()
     this->velocity = Vec2::ZERO;
     this->initialColor = CIRCLE_LIGHT_BLUE;
 
-    this->setupAttackMap();
-
     return true;
 }
 
@@ -104,14 +102,19 @@ std::vector<std::string> Entity::getAttackNameList()
 {
     std::vector<std::string> attackNameList;
 
-    for (std::map<std::string, AttackParams>::iterator it = this->attackMap.begin(); it != this->attackMap.end(); ++it) {
+    for (std::map<std::string, EntityAttackParams>::iterator it = this->attackMap.begin(); it != this->attackMap.end(); ++it) {
         attackNameList.push_back(it->first);
     }
 
     return attackNameList;
 }
 
-AttackParams Entity::getAttackParamsByName(std::string attackName)
+void Entity::setAttackMap(std::map<std::string, EntityAttackParams> attackMap)
+{
+    this->attackMap = attackMap;
+}
+
+EntityAttackParams Entity::getAttackParamsByName(std::string attackName)
 {
     auto itr = this->attackMap.find(attackName);
 
@@ -120,28 +123,6 @@ AttackParams Entity::getAttackParamsByName(std::string attackName)
     }
 
     CCASSERT(false, "Undefined attack is selected");
-}
-
-std::vector<std::string> Entity::getAttackNameListForAi()
-{
-    std::vector<std::string> attackNameList;
-
-    for (std::map<std::string, AttackParams>::iterator it = this->attackMapForAi.begin(); it != this->attackMapForAi.end(); ++it) {
-        attackNameList.push_back(it->first);
-    }
-
-    return attackNameList;
-}
-
-AttackParams Entity::getAttackParamsForAiByName(std::string attackName)
-{
-    auto itr = this->attackMapForAi.find(attackName);
-
-    if (itr != this->attackMapForAi.end()) {
-        return this->attackMapForAi[attackName];
-    }
-
-    CCASSERT(false, "Undefined ai attack is selected");
 }
 
 Rect Entity::getBodyRect()
@@ -237,6 +218,7 @@ JSONPacker::EntityState Entity::currentEntityState()
     entityState.position = this->getPosition();
     entityState.moveState = this->stateMachine->getMoveState();
     entityState.attackState = this->stateMachine->getAttackState();
+    entityState.attackName = this->currentAttackName;
 
     entityState.damage.identifier = "";
     entityState.damage.volume = 0;
@@ -274,17 +256,25 @@ void Entity::attack(const std::string attackName)
         return;
     }
 
+    EntityAttackParams attackParams = this->getAttackParamsByName(attackName);
+    std::string particleFilePath = attackParams.particleFilePath;
+
     this->timeline->play(attackName, false);
-    this->timeline->setFrameEventCallFunc([this, attackName](Frame* frame) {
+    this->timeline->setFrameEventCallFunc([this, attackName, particleFilePath](Frame* frame) {
         EventFrame* frameEvent = dynamic_cast<EventFrame*>(frame);
         auto eventName = frameEvent->getEvent();
 
         // log("---- %s ----", eventName.c_str());
         if (eventName == "Ready") {
-            this->stateMachine->readyToAttack();
             this->currentAttackName = attackName;
+            this->stateMachine->readyToAttack();
         } else if (eventName == "Attack") {
             this->stateMachine->startToAttack();
+
+            if (particleFilePath != "") {
+                ParticleSystemQuad* particle = ParticleSystemQuad::create(particleFilePath);
+                this->addChild(particle);
+            }
         } else if (eventName == "Cooldown") {
             this->stateMachine->coolDownAttaking();
         } else if (eventName == "Finish") {
@@ -292,14 +282,6 @@ void Entity::attack(const std::string attackName)
             this->currentAttackName = "";
         }
     });
-}
-
-void Entity::attack(const std::string attackName, float chargeduration)
-{
-    this->attack(attackName);
-
-    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Circle_ChargeAttack_Smoke.plist");
-    this->addChild(particle);
 }
 
 void Entity::startCharging()
@@ -313,24 +295,7 @@ void Entity::startCharging()
     }
 
     this->timeline->play("Charging", true);
-
     this->stateMachine->startCharging();
-    this->schedule(CC_SCHEDULE_SELECTOR(Entity::updateCharge));
-}
-
-void Entity::endCharging()
-{
-    if (! this->stateMachine->isCharging()) {
-        return;
-    }
-
-    if (this->isDead) {
-        return;
-    }
-
-    this->attack("ChargeAttack", this->chargeDuration);
-    this->unschedule(CC_SCHEDULE_SELECTOR(Entity::updateCharge));
-    this->chargeDuration = 0.0f;
 }
 
 #pragma mark EntityStateMachineDelegate
@@ -440,11 +405,6 @@ void Entity::update(float dt)
         this->velocity *= 0.4f;
     }
     this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
-}
-
-void Entity::updateCharge(float dt)
-{
-    this->chargeDuration += dt;
 }
 
 void Entity::receiveDamage()
