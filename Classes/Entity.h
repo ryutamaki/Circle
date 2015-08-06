@@ -60,7 +60,7 @@ public:
     // Behavior
     void attack(const std::string attackName);
     void startCharging();
-    void endCharging();
+
     // EntityStateMachineDelegate
     void willStateChange(EntityMoveState moveState, EntityAttackState attackState) override;
     void didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState) override;

@@ -72,7 +72,7 @@ void GameScene::setCharacterByEntityType(EntityType entityType)
     this->character = EntityFactory::createUserEntity(entityType);
     this->character->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->character->setRotation(0.0f);
-    this->field->addChild(this->character);
+    this->field->addChild(this->character, 2);
 
     if (this->networkedSession) {
         bool isHost = GameSceneManager::getInstance()->isHost();
@@ -92,7 +92,7 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     this->friendCharacter = EntityFactory::createEntity(entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
-    this->field->addChild(this->friendCharacter);
+    this->field->addChild(this->friendCharacter, 1);
 
     // sync settigns for another player
     // TODO: player は二人だと思ってる
@@ -120,10 +120,14 @@ void GameScene::pauseGame()
     }
 
     this->pause();
-
     this->character->pause();
-    this->currentEnemy->pause();
-    this->enemyAI->stop();
+
+    for (auto& kv : this->aliveEnemyAndAiList) {
+        Entity* enemy = static_cast<Entity*>(kv.first);
+        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
+        enemy->pause();
+        ai->stop();
+    }
 
     if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
         this->friendCharacter->pause();
@@ -137,10 +141,14 @@ void GameScene::resumeGame()
     }
 
     this->resume();
-
     this->character->resume();
-    this->currentEnemy->resume();
-    this->enemyAI->start();
+
+    for (auto& kv : this->aliveEnemyAndAiList) {
+        Entity* enemy = static_cast<Entity*>(kv.first);
+        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
+        enemy->resume();
+        ai->start();
+    }
 
     if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
         this->friendCharacter->resume();
@@ -348,7 +356,6 @@ void GameScene::update(float dt)
     this->damageEnemyFromCharacter();
     this->damageCharacterFromEntity();
 
-    this->checkSpawnNextEnemy();
     this->checkGameOver();
 }
 
@@ -359,137 +366,155 @@ void GameScene::damageEnemyFromCharacter()
         return;
     }
 
-    // this rects does not effected by animations
     std::vector<Rect> characterRects = this->character->getRectsUseForAttackInWorldSpace();
-    std::vector<Rect> enemyRects = this->currentEnemy->getRectsUseForDamageInWorldSpace();
 
-    // collisions check
-    bool hitFlag = false;
+    for (auto& kv : this->aliveEnemyAndAiList) {
+        Entity* enemy = static_cast<Entity*>(kv.first);
+        std::vector<Rect> enemyRects = enemy->getRectsUseForDamageInWorldSpace();
 
-    for (Rect characterRect : characterRects) {
-        for (Rect enemyRect : enemyRects) {
-            if (characterRect.intersectsRect(enemyRect)) {
-                hitFlag = true;
-                break;
+        // collisions check
+        bool hitFlag = false;
+
+        for (Rect characterRect : characterRects) {
+            for (Rect enemyRect : enemyRects) {
+                if (characterRect.intersectsRect(enemyRect)) {
+                    hitFlag = true;
+                    break;
+                }
             }
         }
+
+        if (! hitFlag) {
+            continue;
+        }
+
+        // 攻撃が当たった！
+        std::string currentAttackName = this->character->getCurrentAttackName();
+        EntityAttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
+        int damage = attackParams.damageFactor * this->character->getEntityParameter().attackFactor;
+
+        JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
+        currentEntityState.damage.identifier = enemy->getIdentifier();
+        currentEntityState.damage.volume = damage;
+        this->character->synchronizer->sendData(currentEntityState);
+
+        if (this->character->synchronizer->getIsHost()) {
+            enemy->setHp(enemy->getHp() - damage);
+
+            JSONPacker::EntityState currentEntityState = enemy->currentEntityState();
+            enemy->synchronizer->sendDataIfNotHost(currentEntityState);
+        }
+
+        // Change attack state at last
+        this->character->stateMachine->hitAttack();
+    }
+}
+
+void GameScene::checkDeadEnemy(float dt)
+{
+    // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
+
+    for (auto it = this->aliveEnemyAndAiList.begin(), last = this->aliveEnemyAndAiList.end(); it != last; ++it) {
+        Entity* enemy = static_cast<Entity*>(it->first);
+
+        if (! enemy->stateMachine->isDead()) {
+            continue;
+        }
+
+        EnemyAI* ai = static_cast<EnemyAI*>(it->second);
+
+        if (ai) {
+            ai->stop();
+            ai->removeFromParent();
+        }
+
+        this->deadEnemyList.pushBack(enemy);
+        this->aliveEnemyAndAiList.erase(
+            std::remove(
+                this->aliveEnemyAndAiList.begin(),
+                this->aliveEnemyAndAiList.end(),
+                *it
+            ),
+            this->aliveEnemyAndAiList.end()
+        );
+
+        this->defeatEnemyCount++;
+        this->scoreLabel->setScore(this->defeatEnemyCount);
     }
 
-    if (! hitFlag) {
-        return;
+    if (this->aliveEnemyAndAiList.size() == 0) {
+        // speed bonus
+        this->spawnNextEnemy(0.0f);
     }
 
-    // 攻撃が当たった！
-    std::string currentAttackName = this->character->getCurrentAttackName();
-    EntityAttackParams attackParams = this->character->getAttackParamsByName(currentAttackName);
-    int damage = attackParams.damageFactor * this->character->getEntityParameter().attackFactor;
-
-    JSONPacker::EntityState currentEntityState = this->character->currentEntityState();
-    currentEntityState.damage.identifier = this->currentEnemy->getIdentifier();
-    currentEntityState.damage.volume = damage;
-    this->character->synchronizer->sendData(currentEntityState);
-
-    // for (int i = 0; i < 10; ++i) {
-    // Coin* coin = this->coinContainer->fetchCoin();
-    // coin->setPosition(this->currentEnemy->getCenter() + Vec2(CCRANDOM_MINUS1_1() * 10.0f, CCRANDOM_MINUS1_1() * 10.0f)));
-    // this->field->addChild(coin);
-    // }
-
-    if (this->character->synchronizer->getIsHost()) {
-        this->currentEnemy->setHp(this->currentEnemy->getHp() - damage);
-
-        JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
-        this->currentEnemy->synchronizer->sendDataIfNotHost(currentEntityState);
-    }
-
-    // Change attack state at last
-    this->character->stateMachine->hitAttack();
+    // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
 }
 
 void GameScene::damageCharacterFromEntity()
 {
-    // そもそも攻撃していなかった
-    if (this->currentEnemy->stateMachine->getAttackState() != EntityAttackState::ATTACKING) {
-        return;
-    }
-
-    // this rects does not effected by animations
-    std::vector<Rect> enemyRects = this->currentEnemy->getRectsUseForAttackInWorldSpace();
     std::vector<Rect> characterRects = this->character->getRectsUseForDamageInWorldSpace();
 
-    // collisions check
-    bool hitFlag = false;
+    for (auto& kv : this->aliveEnemyAndAiList) {
+        Entity* enemy = static_cast<Entity*>(kv.first);
 
-    for (Rect characterRect : characterRects) {
-        for (Rect enemyRect : enemyRects) {
-            if (characterRect.intersectsRect(enemyRect)) {
-                hitFlag = true;
-                break;
+        // そもそも攻撃していなかった
+        if (enemy->stateMachine->getAttackState() != EntityAttackState::ATTACKING) {
+            continue;
+        }
+
+        std::vector<Rect> enemyRects = enemy->getRectsUseForAttackInWorldSpace();
+
+        // collisions check
+        bool hitFlag = false;
+
+        for (Rect characterRect : characterRects) {
+            for (Rect enemyRect : enemyRects) {
+                if (characterRect.intersectsRect(enemyRect)) {
+                    hitFlag = true;
+                    break;
+                }
             }
         }
+
+        if (! hitFlag) {
+            continue;
+        }
+
+        std::string currentAttackName = enemy->getCurrentAttackName();
+        EntityAttackParams attackParams = enemy->getAttackParamsByName(currentAttackName);
+        int damage = attackParams.damageFactor * enemy->getEntityParameter().attackFactor;
+
+        JSONPacker::EntityState currentEntityState = enemy->currentEntityState();
+        currentEntityState.damage.identifier = this->character->getIdentifier();
+        currentEntityState.damage.volume = damage;
+        enemy->synchronizer->sendData(currentEntityState);
+
+        this->character->setHp(this->character->getHp() - damage);
+        JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
+        this->character->synchronizer->sendData(currentCharacterState);
+
+        enemy->stateMachine->hitAttack();
     }
-
-    if (! hitFlag) {
-        return;
-    }
-
-    std::string currentAttackName = this->currentEnemy->getCurrentAttackName();
-    EntityAttackParams attackParams = this->currentEnemy->getAttackParamsByName(currentAttackName);
-    int damage = attackParams.damageFactor * this->currentEnemy->getEntityParameter().attackFactor;
-
-    JSONPacker::EntityState currentEntityState = this->currentEnemy->currentEntityState();
-    currentEntityState.damage.identifier = this->character->getIdentifier();
-    currentEntityState.damage.volume = damage;
-    this->currentEnemy->synchronizer->sendData(currentEntityState);
-
-    this->character->setHp(this->character->getHp() - damage);
-    JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
-    this->character->synchronizer->sendData(currentCharacterState);
-
-    this->currentEnemy->stateMachine->hitAttack();
 }
 
-void GameScene::attachAI(Entity* entity)
+EnemyAI* GameScene::attachAI(Entity* entity)
 {
-    if (this->enemyAI) {
-        this->enemyAI->removeFromParent();
-        this->enemyAI = nullptr;
-    }
-
     cocos2d::Vector<Entity*> opponents;
     opponents.pushBack(this->character);
 
     if (this->networkedSession && this->friendCharacter) {
         opponents.pushBack(this->friendCharacter);
     }
-    this->enemyAI = new EnemyAI(entity, opponents);
-    this->addChild(this->enemyAI);
+    EnemyAI* enemyAi = new EnemyAI(entity, opponents);
+    this->addChild(enemyAi);
 
-    this->enemyAI->start();
+    return enemyAi;
 }
 
-void GameScene::spawnNextEnemy()
+void GameScene::spawnNextEnemy(float dt)
 {
-    // decide a side enemy is spawn
-    bool isRightSide = true;
-
-    // Flash current enemy first
-    if (this->currentEnemy) {
-        Entity* tmpEntity = this->currentEnemy;
-        tmpEntity->deactivate();
-
-        this->currentEnemy = nullptr;
-
-        if (this->enemyAI) {
-            this->enemyAI->removeFromParent();
-            this->enemyAI = nullptr;
-        }
-
-        // update score
-        ++this->nextEnemyIndex;
-
-        isRightSide = CCRANDOM_MINUS1_1() < 0.0f;
-    }
+    // update index
+    ++this->nextEnemyIndex;
 
     // pop next enemy from enemy queue
     EntityParameterLevel paramterLevel = {
@@ -499,66 +524,58 @@ void GameScene::spawnNextEnemy()
         this->nextEnemyIndex,
     };
 
-    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
+    Entity* newEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
+    EnemyAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
+    this->aliveEnemyAndAiList.push_back(std::pair<Entity*, EnemyAI*>(newEnemy, enemyAi));
 
     // set properties
     Size fieldSize = this->field->getContentSize();
-    this->currentEnemy->setIdentifier("Enemy" + std::to_string(this->nextEnemyIndex));
+    newEnemy->setIdentifier("Enemy" + std::to_string(this->nextEnemyIndex));
 
-    Vec2 initialPosition;
-    float rotation;
+    Vec2 initialPosition = Vec2(
+            fieldSize.width * 0.5 + CCRANDOM_MINUS1_1() * fieldSize.width * 0.3f,
+            fieldSize.height * 2.0f
+        );
 
-    // TODO: magic number
-    if (isRightSide) {
-        initialPosition = Vec2(fieldSize.width * 0.7f, fieldSize.height * 2.0f);
-        rotation = 180.0f;
-    } else {
-        initialPosition = Vec2(fieldSize.width * 0.3f, fieldSize.height * 2.0f);
-        rotation = 0.0f;
-    }
+    newEnemy->setPosition(initialPosition);
 
-    this->currentEnemy->setPosition(initialPosition);
-    this->currentEnemy->setRotation(rotation);
-
-    // TODO: ここにあるべきでは無いきがする
-    this->currentEnemy->setAttackMap({
+    // TODO: ここにあるべきでは無い
+    newEnemy->setAttackMap({
         {"AttackNeedle", {1, EntityAttackType::NORMAL, ""}},
         {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
     });
 
-    this->field->addChild(this->currentEnemy);
+    this->field->addChild(newEnemy);
 
     // animate next entity
     float spawnDuration = 1.5f;
-    this->currentEnemy->setScale(3.0f);
-    auto moveTo = MoveTo::create(spawnDuration, Vec2(this->currentEnemy->getPosition().x, fieldSize.height * 0.5f));
+    newEnemy->setScale(3.0f);
+    auto moveTo = MoveTo::create(
+            spawnDuration,
+            Vec2(
+                newEnemy->getPosition().x,
+                fieldSize.height * 0.5f + CCRANDOM_MINUS1_1() * fieldSize.height * 0.3f
+            ));
     auto scaleTo = ScaleTo::create(spawnDuration, 1.0f);
     auto spawn = Spawn::create(moveTo, scaleTo, NULL);
     auto bounceEaseOut = EaseBounceInOut::create(spawn);
     auto sequence = Sequence::create(
             bounceEaseOut,
-            CallFunc::create([this]() {
-        this->currentEnemy->activate();
+            CallFunc::create([newEnemy, enemyAi]() {
+        newEnemy->activate();
 
-        if (GameSceneManager::getInstance()->isHost()) {
-            this->attachAI(this->currentEnemy);
+        if (enemyAi) {
+            enemyAi->start();
         }
     }),
             NULL);
-    this->currentEnemy->runAction(sequence);
+    newEnemy->runAction(sequence);
 
     // sync settings for an enemy
     if (this->networkedSession) {
-        this->currentEnemy->synchronizer->setIsSendData(GameSceneManager::getInstance()->isHost());
-        this->currentEnemy->synchronizer->setIsHost(false);
-        this->currentEnemy->synchronizer->setIsMyself(false);
-    }
-}
-
-void GameScene::checkSpawnNextEnemy()
-{
-    if (this->currentEnemy->stateMachine->isDead()) {
-        this->spawnNextEnemy();
+        newEnemy->synchronizer->setIsSendData(GameSceneManager::getInstance()->isHost());
+        newEnemy->synchronizer->setIsHost(false);
+        newEnemy->synchronizer->setIsMyself(false);
     }
 }
 
@@ -570,10 +587,14 @@ void GameScene::gameover()
 
     // Second: Change state and stop this game
     this->gameState = GameState::RESULT;
-    this->unscheduleUpdate();
+    this->unscheduleAllCallbacks();
 
-    if (this->enemyAI) {
-        this->enemyAI->stop();
+    for (auto& kv : this->aliveEnemyAndAiList) {
+        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
+
+        if (ai) {
+            ai->stop();
+        }
     }
 
     // Third:
@@ -714,7 +735,10 @@ void GameScene::start()
         this->friendCharacter->activate();
     }
 
-    this->spawnNextEnemy();
+    // Initial enemy
+    this->spawnNextEnemy(0.0f);
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawnNextEnemy), INITIAL_ENEMY_SPAWN_DURATION);
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::checkDeadEnemy), 0.2f);
 
     this->lobbyButton->removeFromParent();
     this->lobbyButton = nullptr;
@@ -753,13 +777,17 @@ void GameScene::disconnected()
 
     // attach AI if you are not a host user
     if (! this->character->synchronizer->getIsHost()) {
-        if (this->currentEnemy) {
-            this->currentEnemy->stateMachine->cancelAttack();
-            this->currentEnemy->stateMachine->move(EntityMoveState::NONE);
-            this->attachAI(this->currentEnemy);
-        } else {
-            this->spawnNextEnemy();
+        for (auto& kv : this->aliveEnemyAndAiList) {
+            Entity* enemy = static_cast<Entity*>(kv.first);
+            EnemyAI* ai = dynamic_cast<EnemyAI*>(kv.second);
+
+            if (! ai) {
+                enemy->stateMachine->cancelAttack();
+                enemy->stateMachine->move(EntityMoveState::NONE);
+                this->attachAI(enemy);
+            }
         }
+
         this->character->synchronizer->setIsHost(true);
         this->character->synchronizer->setIsSendData(false);
     }

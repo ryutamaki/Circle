@@ -51,10 +51,10 @@ private:
     Entity* character;
     Entity* friendCharacter;
     EntityType enemyEntityType;
-    Entity* currentEnemy;
+    std::vector<std::pair<Entity*, EnemyAI*>> aliveEnemyAndAiList;
+    cocos2d::Vector<Entity*> deadEnemyList;
     int defeatEnemyCount;
     int nextEnemyIndex;
-    EnemyAI* enemyAI;
 
     void onEnter() override;
     void setupTouchHandling();
@@ -65,10 +65,9 @@ private:
     void damageEnemyFromCharacter();
     void damageCharacterFromEntity();
 
-    void attachAI(Entity* entity);
-    void spawnNextEnemy();
-    void checkIsEnemyDied();
-    void checkSpawnNextEnemy();
+    EnemyAI* attachAI(Entity* entity);
+    void spawnNextEnemy(float dt);
+    void checkDeadEnemy(float dt);
     void gameover();
     void checkGameOver();
     void giveCoin();
