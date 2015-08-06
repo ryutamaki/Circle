@@ -28,6 +28,7 @@ namespace JSONPacker
         cocos2d::Vec2 position;
         Moving moving;
         EntityDirection direction;
+        EntityGlobalState globalState;
         EntityAttackState attackState;
         std::string attackName;
         Damage damage;

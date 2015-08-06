@@ -55,6 +55,7 @@ private:
     cocos2d::Vector<Entity*> deadEnemyList;
     int defeatEnemyCount;
     int nextEnemyIndex;
+    cocos2d::Vec2 nextEnemyInitialPosition;
 
     void onEnter() override;
     void setupTouchHandling();

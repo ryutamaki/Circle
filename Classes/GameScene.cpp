@@ -188,15 +188,26 @@ void GameScene::receivedData(const void* data, unsigned long length)
     } else if (this->gameState == GameState::PLAYING) {
         JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
 
+        if (! GameSceneManager::getInstance()->isHost()) {
+            if (entityState.globalState == EntityGlobalState::READY) {
+                this->nextEnemyInitialPosition = entityState.position;
+                this->spawnNextEnemy(0.0f);
+            }
+        }
+
         Entity* target = this->getTargetEntityByTargetString(entityState.identifier);
 
-        if (target == nullptr) {
+        if (target == nullptr || target->stateMachine->getGlobalState() != EntityGlobalState::ALIVE) {
             return;
         }
 
         // log("identifier: %s, hp: %d, move: %d, attack: %d, damage target: %s, damage volume: %d, position: {%f, %f}", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume, entityState.position.x, entityState.position.y);
         target->setHp(entityState.hp);
-        target->setPosition(entityState.position);
+
+        // TODO: magic number
+        if (target->getPosition().distance(entityState.position) > 20.0f) {
+            target->setPosition(entityState.position);
+        }
 
         if (! entityState.moving) {
             target->stateMachine->stop();
@@ -541,20 +552,30 @@ void GameScene::spawnNextEnemy(float dt)
     // set properties
     Size fieldSize = this->field->getContentSize();
     newEnemy->setIdentifier("Enemy" + std::to_string(this->nextEnemyIndex));
-    log("%s", newEnemy->getIdentifier().c_str());
 
-    Vec2 initialPosition = Vec2(
-            fieldSize.width * 0.5 + CCRANDOM_MINUS1_1() * fieldSize.width * 0.3f,
-            fieldSize.height * 2.0f
-        );
+    if (GameSceneManager::getInstance()->isHost()) {
+        this->nextEnemyInitialPosition = Vec2(
+                fieldSize.width * 0.5 + CCRANDOM_MINUS1_1() * fieldSize.width * 0.3f,
+                fieldSize.height * 0.5 + CCRANDOM_MINUS1_1() * fieldSize.height * 0.3f + fieldSize.height * 2.0f
+            );
+    }
 
-    newEnemy->setPosition(initialPosition);
+    newEnemy->setPosition(this->nextEnemyInitialPosition);
+    this->nextEnemyInitialPosition = Vec2::ZERO;
 
     // TODO: ここにあるべきでは無い
     newEnemy->setAttackMap({
         {"AttackNeedle", {1, EntityAttackType::NORMAL, ""}},
         {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
     });
+
+    // sync settings for an enemy
+    if (this->networkedSession) {
+        newEnemy->synchronizer->setIsSendData(GameSceneManager::getInstance()->isHost());
+        newEnemy->synchronizer->setIsHost(false);
+        newEnemy->synchronizer->setIsMyself(false);
+        newEnemy->stateMachine->ready();
+    }
 
     this->field->addChild(newEnemy);
 
@@ -565,8 +586,9 @@ void GameScene::spawnNextEnemy(float dt)
             spawnDuration,
             Vec2(
                 newEnemy->getPosition().x,
-                fieldSize.height * 0.5f + CCRANDOM_MINUS1_1() * fieldSize.height * 0.3f
-            ));
+                newEnemy->getPosition().y - fieldSize.height * 2.0f
+            )
+        );
     auto scaleTo = ScaleTo::create(spawnDuration, 1.0f);
     auto spawn = Spawn::create(moveTo, scaleTo, NULL);
     auto bounceEaseOut = EaseBounceInOut::create(spawn);
@@ -581,13 +603,6 @@ void GameScene::spawnNextEnemy(float dt)
     }),
             NULL);
     newEnemy->runAction(sequence);
-
-    // sync settings for an enemy
-    if (this->networkedSession) {
-        newEnemy->synchronizer->setIsSendData(GameSceneManager::getInstance()->isHost());
-        newEnemy->synchronizer->setIsHost(false);
-        newEnemy->synchronizer->setIsMyself(false);
-    }
 }
 
 void GameScene::gameover()
@@ -747,8 +762,10 @@ void GameScene::start()
     }
 
     // Initial enemy
-    this->spawnNextEnemy(0.0f);
-    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawnNextEnemy), INITIAL_ENEMY_SPAWN_DURATION);
+    if (GameSceneManager::getInstance()->isHost()) {
+        this->spawnNextEnemy(0.0f);
+        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawnNextEnemy), INITIAL_ENEMY_SPAWN_DURATION);
+    }
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::checkDeadEnemy), 0.2f);
 
     this->lobbyButton->removeFromParent();
@@ -795,7 +812,8 @@ void GameScene::disconnected()
             if (! ai) {
                 enemy->stateMachine->cancelAttack();
                 enemy->stateMachine->stop();
-                this->attachAI(enemy);
+                EnemyAI* ai = this->attachAI(enemy);
+                ai->start();
             }
         }
 
@@ -806,4 +824,6 @@ void GameScene::disconnected()
     // unable network session
     this->setNetworkedSession(false);
     this->character->synchronizer->setIsSendData(false);
+
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawnNextEnemy), INITIAL_ENEMY_SPAWN_DURATION);
 }

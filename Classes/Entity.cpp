@@ -213,6 +213,7 @@ JSONPacker::EntityState Entity::currentEntityState()
     entityState.position = this->getPosition();
     entityState.moving = this->stateMachine->getMoving();
     entityState.direction = this->stateMachine->getDirection();
+    entityState.globalState = this->stateMachine->getGlobalState();
     entityState.attackState = this->stateMachine->getAttackState();
     entityState.attackName = this->currentAttackName;
 
