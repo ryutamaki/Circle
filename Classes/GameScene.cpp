@@ -69,7 +69,7 @@ bool GameScene::init()
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
     this->character = EntityFactory::createUserEntity(entityType);
-    this->character->setNormalizedPosition(Vec2(0.2f, 0.5f));
+    this->character->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character);
 
@@ -89,7 +89,7 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     }
 
     this->friendCharacter = EntityFactory::createEntity(entityType, parameterLevel);
-    this->friendCharacter->setNormalizedPosition(Vec2(0.2f, 0.5f));
+    this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter);
 
@@ -510,10 +510,10 @@ void GameScene::spawnNextEnemy()
 
     // TODO: magic number
     if (isRightSide) {
-        initialPosition = Vec2(fieldSize.width * 0.8f, fieldSize.height * 2.0f);
+        initialPosition = Vec2(fieldSize.width * 0.7f, fieldSize.height * 2.0f);
         rotation = 180.0f;
     } else {
-        initialPosition = Vec2(fieldSize.width * 0.2f, fieldSize.height * 2.0f);
+        initialPosition = Vec2(fieldSize.width * 0.3f, fieldSize.height * 2.0f);
         rotation = 0.0f;
     }
 

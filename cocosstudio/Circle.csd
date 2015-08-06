@@ -117,10 +117,10 @@
           <RenderColor A="255" R="233" G="150" B="122" />
         </AnimationInfo>
         <AnimationInfo Name="ChargeAttack" StartIndex="120" EndIndex="200">
-          <RenderColor A="150" R="240" G="248" B="255" />
+          <RenderColor A="255" R="240" G="248" B="255" />
         </AnimationInfo>
         <AnimationInfo Name="Charging" StartIndex="105" EndIndex="116">
-          <RenderColor A="150" R="128" G="128" B="128" />
+          <RenderColor A="255" R="128" G="128" B="128" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">
@@ -137,7 +137,7 @@
             <FileData Type="Normal" Path="Images/CircleNeedle@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Ready" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
               <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="58.8608" RightMargin="13.1392" TopMargin="24.0000" BottomMargin="24.0000" ctype="SpriteObjectData">
