@@ -47,18 +47,18 @@ Entity* EntityFactory::createUserEntity(EntityType entityType)
             return circle;
         }
 
-        case EntityType::TRIANGLE:
-        {
-            instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
-            Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            EntityParameterLevel parameter = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
-            triangle->setEntityParameterLevel(parameter);
-            // TODO: この攻撃の設定方法いつかリファクタしたい
-            triangle->setAttackMap({
-                {"Attack", {2, EntityAttackType::NORMAL, ""}},
-            });
-            return triangle;
-        }
+        // case EntityType::TRIANGLE:
+        // {
+        // instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
+        // Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
+        // EntityParameterLevel parameter = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
+        // triangle->setEntityParameterLevel(parameter);
+        //// TODO: この攻撃の設定方法いつかリファクタしたい
+        // triangle->setAttackMap({
+        // {"Attack", {2, EntityAttackType::NORMAL, ""}},
+        // });
+        // return triangle;
+        // }
 
         case EntityType::NONE:
         {
@@ -100,19 +100,19 @@ Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel 
             return circle;
         }
 
-        case EntityType::TRIANGLE:
-        {
-            instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
-            Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
-            triangle->setEntityType(entityType);
-            triangle->setEntityParameterLevel(parameterLevel);
-            triangle->setInitialColor(initialColor);
-            // TODO: この攻撃の設定方法いつかリファクタしたい
-            triangle->setAttackMap({
-                {"Attack", {2, EntityAttackType::NORMAL, ""}},
-            });
-            return triangle;
-        }
+        // case EntityType::TRIANGLE:
+        // {
+        // instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
+        // Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
+        // triangle->setEntityType(entityType);
+        // triangle->setEntityParameterLevel(parameterLevel);
+        // triangle->setInitialColor(initialColor);
+        //// TODO: この攻撃の設定方法いつかリファクタしたい
+        // triangle->setAttackMap({
+        // {"Attack", {2, EntityAttackType::NORMAL, ""}},
+        // });
+        // return triangle;
+        // }
 
         case EntityType::NONE:
         {
