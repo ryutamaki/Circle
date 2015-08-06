@@ -84,6 +84,14 @@ void EnemyAI::running(float dt)
     } else if (rand < 0.15f) {
         this->stay(1.0f);
         return;
+    } else if (rand < 0.2f) {
+        this->decideTarget();
+    }
+
+    if (this->target->stateMachine->isDead()) {
+        auto it = this->opponents.find(this->target);
+        this->opponents.erase(it);
+        this->decideTarget();
     }
 
     Vec2 targetPosition = this->target->getPosition();
@@ -141,5 +149,9 @@ void EnemyAI::attack(std::string attackName)
 
 void EnemyAI::decideTarget()
 {
-    this->target = opponents.at(0);
+    if (this->opponents.size() == 0) {
+        return;
+    }
+    int index = std::rand() % opponents.size();
+    this->target = opponents.at(index);
 }
