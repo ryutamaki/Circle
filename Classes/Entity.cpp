@@ -211,7 +211,8 @@ JSONPacker::EntityState Entity::currentEntityState()
     entityState.identifier = this->identifier;
     entityState.hp = this->getHp();
     entityState.position = this->getPosition();
-    entityState.moveState = this->stateMachine->getMoveState();
+    entityState.moving = this->stateMachine->getMoving();
+    entityState.direction = this->stateMachine->getDirection();
     entityState.attackState = this->stateMachine->getAttackState();
     entityState.attackName = this->currentAttackName;
 
@@ -232,7 +233,7 @@ void Entity::activate()
 
 void Entity::deactivate()
 {
-    this->stateMachine->move(EntityMoveState::NONE);
+    this->stateMachine->stop();
     this->stateMachine->cancelAttack();
     this->unscheduleUpdate();
     this->stopAllActions();
@@ -294,11 +295,11 @@ void Entity::startCharging()
 
 #pragma mark EntityStateMachineDelegate
 
-void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attackState)
+void Entity::willStateChange(Moving moving, EntityDirection direction, EntityAttackState attackState)
 {
 }
 
-void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState)
+void Entity::didStateChanged(Moving moving, EntityDirection direction, EntityAttackState newAttackState)
 {
     if (this->stateMachine->isDead()) {
         return;
@@ -376,13 +377,7 @@ void Entity::setBodyColorByCurrentHp()
         }
 
         // TODO: わかりにくいから、なんか考える
-        // sprite->setColor(Color3B(this->initialColor));
-        //
-        // float minimumOpacity = 0.1f;
         float remainHpPercent = this->hp / static_cast<float>(this->entityParameter.initialHp);
-
-        // float opacity = remainHpPercent * ((1.0f - minimumOpacity) / 1.0f) + minimumOpacity;
-        // sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
 
         if (this->stateMachine->isDead()) {
             sprite->setColor(Color3B(CIRCLE_DARK_RED));
@@ -409,14 +404,19 @@ void Entity::update(float dt)
 {
     Node::update(dt);
 
-    EntityMoveState currentMoveState = this->stateMachine->getMoveState();
-    Vec2 direction = EntityHelper::directionFromMoveState(currentMoveState);
-    this->velocity = (float)this->entityParameter.velocityFactor * direction * dt;
+    this->setRotation(-static_cast<float>(this->stateMachine->getDirection()));
+
+    if (! this->stateMachine->isMoving()) {
+        this->velocity = Vec2::ZERO;
+        return;
+    }
+
+    Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(this->stateMachine->getDirection());
+    this->velocity = (float)this->entityParameter.velocityFactor * unitVector * dt;
 
     if (this->stateMachine->getAttackState() == EntityAttackState::CHARGING) {
         this->velocity *= 0.4f;
     }
-    this->setRotation(EntityHelper::rotationFromMoveState(currentMoveState, this->getRotation()));
 }
 
 void Entity::receiveDamage()

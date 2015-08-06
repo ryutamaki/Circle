@@ -12,18 +12,21 @@
 class Entity;
 class EntityStateDelegate;
 
-enum class EntityMoveState
-{
-    NONE,
-    UP,
-    UP_LEFT,
-    LEFT,
-    DOWN_LEFT,
-    DOWN,
-    DOWN_RIGHT,
-    RIGHT,
-    UP_RIGHT,
-};
+typedef int EntityDirection;
+typedef int Moving;
+
+// enum class EntityMoveState
+// {
+// NONE,
+// UP,
+// UP_LEFT,
+// LEFT,
+// DOWN_LEFT,
+// DOWN,
+// DOWN_RIGHT,
+// RIGHT,
+// UP_RIGHT,
+// };
 
 enum class EntityAttackState
 {
@@ -45,8 +48,8 @@ enum class EntityGlobalState
 class EntityStateMachineDelegate
 {
 public:
-    virtual void willStateChange(EntityMoveState moveState, EntityAttackState attackState) = 0;
-    virtual void didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState) = 0;
+    virtual void willStateChange(Moving moving, EntityDirection direction, EntityAttackState attackState) = 0;
+    virtual void didStateChanged(Moving moving, EntityDirection direction, EntityAttackState newAttackState) = 0;
 };
 
 class EntityStateMachine
@@ -56,8 +59,10 @@ public:
     ~EntityStateMachine();
 
     // Accessor
-    const EntityMoveState getMoveState();
-    void setMoveState(const EntityMoveState moveState);
+    const Moving getMoving();
+    void setMoving(const Moving moving);
+    const EntityDirection getDirection();
+    void setDirection(const EntityDirection direction);
     const EntityAttackState getAttackState();
     void setAttackState(const EntityAttackState attackState);
     const EntityGlobalState getGlobalState();
@@ -68,7 +73,9 @@ public:
     // Function to change state
     // These functions return a result
     // MOVE:
-    void move(const EntityMoveState movingState);
+    // void move(const EntityMoveState movingState);
+    void move(const EntityDirection direction);
+    void stop();
     // ATTACK:
     void startCharging();
     void readyToAttack();
@@ -93,7 +100,9 @@ public:
 private:
     EntityStateMachineDelegate* delegate;
 
-    EntityMoveState moveState;
+    // EntityMoveState moveState;
+    Moving moving;
+    EntityDirection direction;
     EntityAttackState attackState;
     EntityGlobalState globalState;
 };

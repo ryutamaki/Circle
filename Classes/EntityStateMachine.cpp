@@ -14,7 +14,8 @@
 #pragma mark Initializers
 
 EntityStateMachine::EntityStateMachine()
-    : moveState(EntityMoveState::NONE)
+    : moving(0)
+    , direction(0)
     , attackState(EntityAttackState::NONE)
     , globalState(EntityGlobalState::READY)
 {
@@ -26,14 +27,24 @@ EntityStateMachine::~EntityStateMachine()
 
 #pragma mark Accessor
 
-const EntityMoveState EntityStateMachine::getMoveState()
+const Moving EntityStateMachine::getMoving()
 {
-    return this->moveState;
+    return this->moving;
 }
 
-void EntityStateMachine::setMoveState(const EntityMoveState moveState)
+void EntityStateMachine::setMoving(const Moving moving)
 {
-    this->moveState = moveState;
+    this->moving = moving;
+}
+
+const EntityDirection EntityStateMachine::getDirection()
+{
+    return this->direction;
+}
+
+void EntityStateMachine::setDirection(const EntityDirection direction)
+{
+    this->direction = direction;
 }
 
 const EntityAttackState EntityStateMachine::getAttackState()
@@ -65,25 +76,39 @@ void EntityStateMachine::setDelegate(EntityStateMachineDelegate* delegate)
 
 #pragma mark Move state
 
-void EntityStateMachine::move(const EntityMoveState movingState)
+void EntityStateMachine::move(const EntityDirection direction)
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->attackState != EntityAttackState::NONE &&
         this->attackState != EntityAttackState::CHARGING) {
         return;
     }
 
-    this->setMoveState(movingState);
+    this->setDirection(direction);
+    this->setMoving(true);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
+}
+
+void EntityStateMachine::stop()
+{
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
+
+    if (! this->moving) {
+        return;
+    }
+
+    this->setMoving(false);
+
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 #pragma mark Attack state
 
 void EntityStateMachine::startCharging()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->attackState != EntityAttackState::NONE) {
         return;
@@ -91,27 +116,27 @@ void EntityStateMachine::startCharging()
 
     this->setAttackState(EntityAttackState::CHARGING);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::readyToAttack()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->attackState != EntityAttackState::NONE &&
         this->attackState != EntityAttackState::CHARGING) {
         return;
     }
 
-    this->setMoveState(EntityMoveState::NONE);
+    this->stop();
     this->setAttackState(EntityAttackState::READY);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::startToAttack()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->attackState != EntityAttackState::READY) {
         return;
@@ -119,12 +144,12 @@ void EntityStateMachine::startToAttack()
 
     this->setAttackState(EntityAttackState::ATTACKING);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::hitAttack()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->attackState != EntityAttackState::ATTACKING) {
         return;
@@ -132,12 +157,12 @@ void EntityStateMachine::hitAttack()
 
     this->setAttackState(EntityAttackState::HIT);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::coolDownAttaking()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->attackState != EntityAttackState::ATTACKING &&
         this->attackState != EntityAttackState::HIT) {
@@ -146,12 +171,12 @@ void EntityStateMachine::coolDownAttaking()
 
     this->setAttackState(EntityAttackState::COOL_DOWN);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::finishAttaking()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->attackState != EntityAttackState::COOL_DOWN) {
         return;
@@ -159,32 +184,32 @@ void EntityStateMachine::finishAttaking()
 
     this->setAttackState(EntityAttackState::NONE);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::cancelAttack()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     this->setAttackState(EntityAttackState::NONE);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 #pragma mark Global state
 
 void EntityStateMachine::ready()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     this->setGlobalState(EntityGlobalState::READY);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::alive()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     if (this->globalState != EntityGlobalState::READY) {
         return;
@@ -192,16 +217,16 @@ void EntityStateMachine::alive()
 
     this->setGlobalState(EntityGlobalState::ALIVE);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 void EntityStateMachine::dead()
 {
-    this->delegate->willStateChange(this->moveState, this->attackState);
+    this->delegate->willStateChange(this->moving, this->direction, this->attackState);
 
     this->setGlobalState(EntityGlobalState::DEAD);
 
-    this->delegate->didStateChanged(this->moveState, this->attackState);
+    this->delegate->didStateChanged(this->moving, this->direction, this->attackState);
 }
 
 #pragma mark checker
@@ -230,7 +255,7 @@ bool EntityStateMachine::isDead()
 
 bool EntityStateMachine::isMoving()
 {
-    return this->moveState != EntityMoveState::NONE;
+    return static_cast<bool>(moving);
 }
 
 bool EntityStateMachine::isAttacking()

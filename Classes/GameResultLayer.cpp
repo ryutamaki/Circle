@@ -43,7 +43,7 @@ bool GameResultLayer::init()
 
 void GameResultLayer::show(Node* parent)
 {
-    parent->addChild(this);
+    parent->addChild(this, Z_ORDER_FOR_MODAL);
     this->timeline->play("Show", false);
 }
 

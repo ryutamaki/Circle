@@ -26,7 +26,8 @@ namespace JSONPacker
         std::string identifier;
         int hp;
         cocos2d::Vec2 position;
-        EntityMoveState moveState;
+        Moving moving;
+        EntityDirection direction;
         EntityAttackState attackState;
         std::string attackName;
         Damage damage;

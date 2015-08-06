@@ -62,8 +62,8 @@ public:
     void startCharging();
 
     // EntityStateMachineDelegate
-    void willStateChange(EntityMoveState moveState, EntityAttackState attackState) override;
-    void didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState) override;
+    void willStateChange(Moving moving, EntityDirection direction, EntityAttackState attackState) override;
+    void didStateChanged(Moving moving, EntityDirection direction, EntityAttackState attackState) override;
 
 protected:
     cocostudio::timeline::ActionTimeline* timeline;

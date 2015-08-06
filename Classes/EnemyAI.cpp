@@ -20,6 +20,7 @@ EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*> opponents)
     this->opponents = opponents;
     this->isPreActionAttack = false;
     this->isPreActionCharge = false;
+    this->isMoving = false;
 
     this->decideTarget();
 }
@@ -103,24 +104,31 @@ void EnemyAI::running(float dt)
         this->attack(attackName);
         this->isPreActionAttack = true;
     } else {
-        EntityMoveState moveState = EntityHelper::moveStateFromStartPositionAndEndPosition(myPosition, targetPosition);
+        EntityDirection direction = EntityHelper::directionFromStartPositionAndEndPosition(myPosition, targetPosition);
 
-        this->move(moveState, 0.3f);
+        this->move(direction, 0.3f);
     }
 }
 
 void EnemyAI::stay(float dulation)
 {
-    this->move(EntityMoveState::NONE, dulation);
+    this->entity->runAction(
+        Sequence::create(
+            CallFunc::create([this]() {this->isMoving = true; this->entity->stateMachine->stop(); }),
+            DelayTime::create(dulation),
+            CallFunc::create([this]() {this->isMoving = false; }),
+            NULL
+        )
+    );
 }
 
-void EnemyAI::move(EntityMoveState moveState, float dulation)
+void EnemyAI::move(EntityDirection direction, float dulation)
 {
     this->entity->runAction(
         Sequence::create(
-            CallFunc::create([this, moveState]() {this->isMoving = true; this->entity->stateMachine->move(moveState); }),
+            CallFunc::create([this, direction]() {this->isMoving = true; this->entity->stateMachine->move(direction); }),
             DelayTime::create(dulation),
-            CallFunc::create([this]() {this->entity->stateMachine->move(EntityMoveState::NONE); this->isMoving = false; }),
+            CallFunc::create([this]() {this->entity->stateMachine->stop(); this->isMoving = false; }),
             NULL
         )
     );

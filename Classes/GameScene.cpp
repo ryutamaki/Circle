@@ -197,7 +197,12 @@ void GameScene::receivedData(const void* data, unsigned long length)
         // log("identifier: %s, hp: %d, move: %d, attack: %d, damage target: %s, damage volume: %d, position: {%f, %f}", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume, entityState.position.x, entityState.position.y);
         target->setHp(entityState.hp);
         target->setPosition(entityState.position);
-        target->stateMachine->move(entityState.moveState);
+
+        if (! entityState.moving) {
+            target->stateMachine->stop();
+        } else {
+            target->stateMachine->move(entityState.direction);
+        }
 
         if (entityState.attackState == EntityAttackState::READY) {
             target->attack(entityState.attackName);
@@ -211,6 +216,11 @@ void GameScene::receivedData(const void* data, unsigned long length)
             if (damagedTarget != nullptr) {
                 int currentHp = damagedTarget->getHp();
                 damagedTarget->setHp(currentHp - entityState.damage.volume);
+
+                if (GameSceneManager::getInstance()->isHost()) {
+                    JSONPacker::EntityState damagedTargetState = damagedTarget->currentEntityState();
+                    damagedTarget->synchronizer->sendData(damagedTargetState);
+                }
             }
         }
     }
@@ -262,21 +272,21 @@ void GameScene::setupTouchHandling()
                 return;
             }
 
-            EntityMoveState moveState = EntityHelper::moveStateFromStartPositionAndEndPosition(lastTouchPosition, currentTouchPosition);
+            EntityDirection direction = EntityHelper::directionFromStartPositionAndEndPosition(lastTouchPosition, currentTouchPosition);
 
-            if (moveState == this->character->stateMachine->getMoveState()) {
+            if (direction == this->character->stateMachine->getDirection()) {
                 return;
             }
 
-            this->character->stateMachine->move(moveState);
+            this->character->stateMachine->move(direction);
 
             lastTouchPosition = currentTouchPosition;
         };
     touchListenerForMove->onTouchCancelled = [this](Touch* touch, Event* event) {
-            this->character->stateMachine->move(EntityMoveState::NONE);
+            this->character->stateMachine->stop();
         };
     touchListenerForMove->onTouchEnded = [this](Touch* touch, Event* event) {
-            this->character->stateMachine->move(EntityMoveState::NONE);
+            this->character->stateMachine->stop();
         };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListenerForMove, this->field);
 
@@ -336,7 +346,7 @@ void GameScene::update(float dt)
             entityNextRect.getMinY() <= BATTLE_FIELD_FRAME_THICKNESS ||
             entityNextRect.getMaxX() >= this->field->getContentSize().width - BATTLE_FIELD_FRAME_THICKNESS ||
             entityNextRect.getMaxY() >= this->field->getContentSize().height - BATTLE_FIELD_FRAME_THICKNESS) {
-            entity->stateMachine->move(EntityMoveState::NONE);
+            entity->stateMachine->stop();
         } else {
             Vec2 nextEntityPosition = entity->getPosition() + entity->getVelocity();
             entity->setPosition(nextEntityPosition);
@@ -531,6 +541,7 @@ void GameScene::spawnNextEnemy(float dt)
     // set properties
     Size fieldSize = this->field->getContentSize();
     newEnemy->setIdentifier("Enemy" + std::to_string(this->nextEnemyIndex));
+    log("%s", newEnemy->getIdentifier().c_str());
 
     Vec2 initialPosition = Vec2(
             fieldSize.width * 0.5 + CCRANDOM_MINUS1_1() * fieldSize.width * 0.3f,
@@ -783,7 +794,7 @@ void GameScene::disconnected()
 
             if (! ai) {
                 enemy->stateMachine->cancelAttack();
-                enemy->stateMachine->move(EntityMoveState::NONE);
+                enemy->stateMachine->stop();
                 this->attachAI(enemy);
             }
         }

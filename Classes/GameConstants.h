@@ -21,6 +21,8 @@ static const float SENSITIVITY_TO_CONTROL_PLAYER = 10.0f;
 
 static const float INITIAL_ENEMY_SPAWN_DURATION = 5.0f;
 
+static const int Z_ORDER_FOR_MODAL = 10;
+
 enum class GameState
 {
     PREPARE,

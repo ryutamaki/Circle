@@ -34,7 +34,8 @@ private:
     void running(float dt);
 
     void stay(float dulation);
-    void move(EntityMoveState movieState, float dulation);
+//    void move(EntityMoveState movieState, float dulation);
+    void move(EntityDirection direction, float dulation);
     void attack(std::string attackName);
 
     void decideTarget();
