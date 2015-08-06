@@ -382,12 +382,30 @@ void Entity::setBodyColorByCurrentHp()
         }
 
         // TODO: わかりにくいから、なんか考える
-        sprite->setColor(Color3B(this->initialColor));
-
-        float minimumOpacity = 0.1f;
+        // sprite->setColor(Color3B(this->initialColor));
+        //
+        // float minimumOpacity = 0.1f;
         float remainHpPercent = this->hp / static_cast<float>(this->entityParameter.initialHp);
-        float opacity = remainHpPercent * ((1.0f - minimumOpacity) / 1.0f) + minimumOpacity;
-        sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
+
+        // float opacity = remainHpPercent * ((1.0f - minimumOpacity) / 1.0f) + minimumOpacity;
+        // sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
+
+        if (this->isDead) {
+            sprite->setColor(Color3B(CIRCLE_DARK_RED));
+            sprite->setOpacity(8);
+            continue;
+        }
+
+        if (remainHpPercent < 0.2) {
+            // TODO: temporary
+            if (this->initialColor == CIRCLE_LIGHT_RED) {
+                sprite->setColor(Color3B(CIRCLE_DARK_RED));
+            } else if (this->initialColor == CIRCLE_LIGHT_BLUE) {
+                sprite->setColor(Color3B(CIRCLE_DARK_BLUE));
+            }
+        } else {
+            sprite->setColor(Color3B(this->initialColor));
+        }
     }
 }
 
@@ -427,6 +445,7 @@ void Entity::die()
         return;
     }
 
+    this->isDead = true;
     Sprite* body = this->getBody();
 
     ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Die.plist");

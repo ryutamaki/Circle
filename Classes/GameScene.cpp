@@ -499,7 +499,7 @@ void GameScene::spawnNextEnemy()
         defeatEnemyCount,
     };
 
-    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_ORANGE);
+    this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
