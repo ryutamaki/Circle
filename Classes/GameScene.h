@@ -53,6 +53,7 @@ private:
     EntityType enemyEntityType;
     Entity* currentEnemy;
     int defeatEnemyCount;
+    int nextEnemyIndex;
     EnemyAI* enemyAI;
 
     void onEnter() override;
@@ -66,6 +67,7 @@ private:
 
     void attachAI(Entity* entity);
     void spawnNextEnemy();
+    void checkIsEnemyDied();
     void checkSpawnNextEnemy();
     void gameover();
     void checkGameOver();

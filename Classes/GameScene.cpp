@@ -59,6 +59,7 @@ bool GameScene::init()
     this->networkedSession = false;
     this->gameState = GameState::PREPARE;
     this->defeatEnemyCount = 0;
+    this->nextEnemyIndex = 0;
 
     return true;
 }
@@ -124,7 +125,7 @@ void GameScene::pauseGame()
     this->currentEnemy->pause();
     this->enemyAI->stop();
 
-    if (this->friendCharacter && ! this->friendCharacter->getIsDead()) {
+    if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
         this->friendCharacter->pause();
     }
 }
@@ -141,7 +142,7 @@ void GameScene::resumeGame()
     this->currentEnemy->resume();
     this->enemyAI->start();
 
-    if (this->friendCharacter && ! this->friendCharacter->getIsDead()) {
+    if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
         this->friendCharacter->resume();
     }
 }
@@ -311,7 +312,7 @@ void GameScene::update(float dt)
             continue;
         }
 
-        if (entity->getIsDead()) {
+        if (entity->stateMachine->isDead()) {
             continue;
         }
 
@@ -485,25 +486,24 @@ void GameScene::spawnNextEnemy()
         }
 
         // update score
-        ++this->defeatEnemyCount;
-        this->scoreLabel->setScore(this->defeatEnemyCount);
+        ++this->nextEnemyIndex;
 
         isRightSide = CCRANDOM_MINUS1_1() < 0.0f;
     }
 
     // pop next enemy from enemy queue
     EntityParameterLevel paramterLevel = {
-        static_cast<int>(floor(defeatEnemyCount / 10)),
-        defeatEnemyCount,
-        defeatEnemyCount,
-        defeatEnemyCount,
+        static_cast<int>(floor(this->nextEnemyIndex) / 10),
+        this->nextEnemyIndex,
+        this->nextEnemyIndex,
+        this->nextEnemyIndex,
     };
 
     this->currentEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
-    this->currentEnemy->setIdentifier("Enemy" + std::to_string(this->defeatEnemyCount));
+    this->currentEnemy->setIdentifier("Enemy" + std::to_string(this->nextEnemyIndex));
 
     Vec2 initialPosition;
     float rotation;
@@ -526,9 +526,6 @@ void GameScene::spawnNextEnemy()
         {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
     });
 
-    if (GameSceneManager::getInstance()->isHost()) {
-        this->attachAI(this->currentEnemy);
-    }
     this->field->addChild(this->currentEnemy);
 
     // animate next entity
@@ -538,12 +535,17 @@ void GameScene::spawnNextEnemy()
     auto scaleTo = ScaleTo::create(spawnDuration, 1.0f);
     auto spawn = Spawn::create(moveTo, scaleTo, NULL);
     auto bounceEaseOut = EaseBounceInOut::create(spawn);
-    this->currentEnemy->runAction(bounceEaseOut);
+    auto sequence = Sequence::create(
+            bounceEaseOut,
+            CallFunc::create([this]() {
+        this->currentEnemy->activate();
 
-    // activate enemy
-    this->currentEnemy->activate();
-
-    // setup enemyAI
+        if (GameSceneManager::getInstance()->isHost()) {
+            this->attachAI(this->currentEnemy);
+        }
+    }),
+            NULL);
+    this->currentEnemy->runAction(sequence);
 
     // sync settings for an enemy
     if (this->networkedSession) {
@@ -555,7 +557,7 @@ void GameScene::spawnNextEnemy()
 
 void GameScene::checkSpawnNextEnemy()
 {
-    if (this->currentEnemy->getIsDead()) {
+    if (this->currentEnemy->stateMachine->isDead()) {
         this->spawnNextEnemy();
     }
 }
@@ -585,11 +587,11 @@ void GameScene::gameover()
 void GameScene::checkGameOver()
 {
     if (this->networkedSession) {
-        if (this->character->getIsDead() && this->friendCharacter->getIsDead()) {
+        if (this->character->stateMachine->isDead() && this->friendCharacter->stateMachine->isDead()) {
             this->gameover();
         }
     } else {
-        if (this->character->getIsDead()) {
+        if (this->character->stateMachine->isDead()) {
             this->gameover();
         }
     }
@@ -725,7 +727,7 @@ void GameScene::start()
             this->character->synchronizer->getIsHost(),
             this->character->synchronizer->getIsMyself(),
             this->character->synchronizer->getIsSendData(),
-            this->character->getIsDead());
+            this->character->stateMachine->isDead());
     }
 
     if (this->friendCharacter) {
@@ -734,7 +736,7 @@ void GameScene::start()
             this->friendCharacter->synchronizer->getIsHost(),
             this->friendCharacter->synchronizer->getIsMyself(),
             this->friendCharacter->synchronizer->getIsSendData(),
-            this->friendCharacter->getIsDead());
+            this->friendCharacter->stateMachine->isDead());
     }
 }
 

@@ -16,6 +16,7 @@
 EntityStateMachine::EntityStateMachine()
     : moveState(EntityMoveState::NONE)
     , attackState(EntityAttackState::NONE)
+    , globalState(EntityGlobalState::READY)
 {
 }
 
@@ -45,12 +46,24 @@ void EntityStateMachine::setAttackState(const EntityAttackState attackState)
     this->attackState = attackState;
 }
 
+const EntityGlobalState EntityStateMachine::getGlobalState()
+{
+    return this->globalState;
+}
+
+void EntityStateMachine::setGlobalState(const EntityGlobalState globalState)
+{
+    this->globalState = globalState;
+}
+
 void EntityStateMachine::setDelegate(EntityStateMachineDelegate* delegate)
 {
     this->delegate = delegate;
 }
 
 #pragma mark State functions
+
+#pragma mark Move state
 
 void EntityStateMachine::move(const EntityMoveState movingState)
 {
@@ -65,6 +78,8 @@ void EntityStateMachine::move(const EntityMoveState movingState)
 
     this->delegate->didStateChanged(this->moveState, this->attackState);
 }
+
+#pragma mark Attack state
 
 void EntityStateMachine::startCharging()
 {
@@ -156,6 +171,41 @@ void EntityStateMachine::cancelAttack()
     this->delegate->didStateChanged(this->moveState, this->attackState);
 }
 
+#pragma mark Global state
+
+void EntityStateMachine::ready()
+{
+    this->delegate->willStateChange(this->moveState, this->attackState);
+
+    this->setGlobalState(EntityGlobalState::READY);
+
+    this->delegate->didStateChanged(this->moveState, this->attackState);
+}
+
+void EntityStateMachine::alive()
+{
+    this->delegate->willStateChange(this->moveState, this->attackState);
+
+    if (this->globalState != EntityGlobalState::READY) {
+        return;
+    }
+
+    this->setGlobalState(EntityGlobalState::ALIVE);
+
+    this->delegate->didStateChanged(this->moveState, this->attackState);
+}
+
+void EntityStateMachine::dead()
+{
+    this->delegate->willStateChange(this->moveState, this->attackState);
+
+    this->setGlobalState(EntityGlobalState::DEAD);
+
+    this->delegate->didStateChanged(this->moveState, this->attackState);
+}
+
+#pragma mark checker
+
 bool EntityStateMachine::canAttack()
 {
     if (this->attackState == EntityAttackState::NONE ||
@@ -171,6 +221,11 @@ bool EntityStateMachine::canCharge()
         return true;
     }
     return false;
+}
+
+bool EntityStateMachine::isDead()
+{
+    return this->globalState == EntityGlobalState::DEAD;
 }
 
 bool EntityStateMachine::isMoving()

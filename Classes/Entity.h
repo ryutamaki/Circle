@@ -51,7 +51,6 @@ public:
     void setIdentifier(std::string identifier);
 
     cocos2d::Size getBodySize();
-    bool getIsDead();
 
     JSONPacker::EntityState currentEntityState();
 
@@ -79,7 +78,6 @@ protected:
     std::string currentAttackName;
     std::map<std::string, EntityAttackParams> attackMap;
     Color4B initialColor;
-    bool isDead;
 
     bool init() override;
     void onEnter() override;

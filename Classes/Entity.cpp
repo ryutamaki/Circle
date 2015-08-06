@@ -65,7 +65,7 @@ int Entity::getHp()
 
 void Entity::setHp(int hp)
 {
-    if (this->isDead) {
+    if (this->stateMachine->isDead()) {
         return;
     }
 
@@ -205,11 +205,6 @@ Size Entity::getBodySize()
     return body->getContentSize();
 }
 
-bool Entity::getIsDead()
-{
-    return this->isDead;
-}
-
 JSONPacker::EntityState Entity::currentEntityState()
 {
     JSONPacker::EntityState entityState;
@@ -230,14 +225,13 @@ JSONPacker::EntityState Entity::currentEntityState()
 
 void Entity::activate()
 {
-    this->isDead = false;
+    this->stateMachine->alive();
     this->scheduleUpdate();
     this->runAction(this->timeline);
 }
 
 void Entity::deactivate()
 {
-    this->isDead = true;
     this->stateMachine->move(EntityMoveState::NONE);
     this->stateMachine->cancelAttack();
     this->unscheduleUpdate();
@@ -252,7 +246,7 @@ void Entity::attack(const std::string attackName)
         return;
     }
 
-    if (this->getIsDead()) {
+    if (this->stateMachine->isDead()) {
         return;
     }
 
@@ -290,7 +284,7 @@ void Entity::startCharging()
         return;
     }
 
-    if (this->isDead) {
+    if (this->stateMachine->isDead()) {
         return;
     }
 
@@ -306,7 +300,7 @@ void Entity::willStateChange(EntityMoveState moveState, EntityAttackState attack
 
 void Entity::didStateChanged(EntityMoveState newMoveState, EntityAttackState newAttackState)
 {
-    if (this->getIsDead()) {
+    if (this->stateMachine->isDead()) {
         return;
     }
 
@@ -390,7 +384,7 @@ void Entity::setBodyColorByCurrentHp()
         // float opacity = remainHpPercent * ((1.0f - minimumOpacity) / 1.0f) + minimumOpacity;
         // sprite->setOpacity(static_cast<GLubyte>(opacity * 255));
 
-        if (this->isDead) {
+        if (this->stateMachine->isDead()) {
             sprite->setColor(Color3B(CIRCLE_DARK_RED));
             sprite->setOpacity(8);
             continue;
@@ -427,7 +421,7 @@ void Entity::update(float dt)
 
 void Entity::receiveDamage()
 {
-    if (this->getIsDead()) {
+    if (this->stateMachine->isDead()) {
         return;
     }
 
@@ -441,11 +435,11 @@ void Entity::receiveDamage()
 
 void Entity::die()
 {
-    if (this->getIsDead()) {
+    if (this->stateMachine->isDead()) {
         return;
     }
 
-    this->isDead = true;
+    this->stateMachine->dead();
     Sprite* body = this->getBody();
 
     ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Die.plist");

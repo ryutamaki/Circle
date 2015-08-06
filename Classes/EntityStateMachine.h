@@ -35,6 +35,13 @@ enum class EntityAttackState
     COOL_DOWN,
 };
 
+enum class EntityGlobalState
+{
+    READY,
+    ALIVE,
+    DEAD,
+};
+
 class EntityStateMachineDelegate
 {
 public:
@@ -53,6 +60,8 @@ public:
     void setMoveState(const EntityMoveState moveState);
     const EntityAttackState getAttackState();
     void setAttackState(const EntityAttackState attackState);
+    const EntityGlobalState getGlobalState();
+    void setGlobalState(const EntityGlobalState globalState);
 
     void setDelegate(EntityStateMachineDelegate* delegate);
 
@@ -68,10 +77,15 @@ public:
     void coolDownAttaking();
     void finishAttaking();
     void cancelAttack();
+    // GLOBAL
+    void ready();
+    void alive();
+    void dead();
 
     bool canAttack();
     bool canCharge();
 
+    bool isDead();
     bool isMoving();
     bool isAttacking();
     bool isCharging();
@@ -81,6 +95,7 @@ private:
 
     EntityMoveState moveState;
     EntityAttackState attackState;
+    EntityGlobalState globalState;
 };
 
 #endif /* defined(__DotWar__EntityStateMachine__) */
