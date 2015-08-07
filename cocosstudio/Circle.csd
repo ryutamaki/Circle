@@ -137,17 +137,17 @@
             <FileData Type="Normal" Path="Images/CircleNeedle@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Ready" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
-              <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="58.8608" RightMargin="13.1392" TopMargin="24.0000" BottomMargin="24.0000" ctype="SpriteObjectData">
-                <Size X="8.0000" Y="32.0000" />
+              <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="56.0000" RightMargin="16.0000" TopMargin="22.0000" BottomMargin="22.0000" ctype="SpriteObjectData">
+                <Size X="8.0000" Y="36.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="62.8608" Y="40.0000" />
+                <Position X="60.0000" Y="40.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.7858" Y="0.5000" />
-                <PreSize X="0.1000" Y="0.4000" />
+                <PrePosition X="0.7500" Y="0.5000" />
+                <PreSize X="0.1000" Y="0.4500" />
                 <FileData Type="Normal" Path="Images/CircleEyes@2x.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
