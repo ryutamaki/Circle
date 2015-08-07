@@ -301,7 +301,6 @@ void Entity::receiveDamage(int damage, Vec2 enemyPosition)
     this->addChild(particle);
 
     EntityDirection knockbackDirection = EntityHelper::directionFromStartPositionAndEndPosition(enemyPosition, this->getPosition());
-    // TODO: magic number
     this->knockback(knockbackDirection, ENTITY_KNOCKBACK_DISTANCE_PER_SEC, ENTITY_KNOCKBACK_CANCEL_ATTACK);
 }
 
@@ -316,6 +315,7 @@ void Entity::knockback(EntityDirection direction, float distance, bool cancelAtt
         this->stateMachine->cancelAttack();
     }
 
+    this->setVisible(true); // Avoid set original state for blink action false
     this->runAction(Blink::create(ENTITY_KNOCKBACK_DURATION, 4));
 
     Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(direction);
