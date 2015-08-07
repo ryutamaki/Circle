@@ -12,6 +12,7 @@
 #include "ui/CocosGUI.h"
 
 #include "GameSceneManager.h"
+#include "PowerUpScene.h"
 
 USING_NS_CC;
 
@@ -92,6 +93,18 @@ void GameResultLayer::onEnter()
 
     this->resultLayout = this->getChildByName<ui::Layout*>("ResultLayout");
 
+    this->setupButtons();
+}
+
+void GameResultLayer::onExit()
+{
+    Layer::onExit();
+
+    this->stopAction(this->timeline);
+}
+
+void GameResultLayer::setupButtons()
+{
     ui::Button* quitButton = this->resultLayout->getChildByName<ui::Button*>("QuitButton");
     quitButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
@@ -103,6 +116,18 @@ void GameResultLayer::onEnter()
     retryButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             GameSceneManager::getInstance()->restartGameScene();
+        }
+    });
+
+    ui::Button* powerUpButton = this->resultLayout->getChildByName<ui::Button*>("PowerUpButton");
+    powerUpButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+        if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            PowerUpScene* powerUpScene = PowerUpScene::create();
+            powerUpScene->setEntityType(EntityType::CIRCLE);
+            Scene* scene = Scene::create();
+            scene->addChild(powerUpScene);
+            TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
+            Director::getInstance()->pushScene(transition);
         }
     });
 }

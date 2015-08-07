@@ -134,6 +134,18 @@
           <Image Name="TutorialBasic@2x.png" />
           <Image Name="TutorialBasic@3x.png" />
           <Image Name="TutorialBasic@4x.png" />
+          <Image Name="Line_Red.png" />
+          <Image Name="Line_Red@2x.png" />
+          <Image Name="Line_Red@3x.png" />
+          <Image Name="Line_Red@4x.png" />
+          <Image Name="PowerUpButtonNormal.png" />
+          <Image Name="PowerUpButtonNormal@2x.png" />
+          <Image Name="PowerUpButtonNormal@3x.png" />
+          <Image Name="PowerUpButtonNormal@4x.png" />
+          <Image Name="PowerUpButtonPushed.png" />
+          <Image Name="PowerUpButtonPushed@2x.png" />
+          <Image Name="PowerUpButtonPushed@3x.png" />
+          <Image Name="PowerUpButtonPushed@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />

@@ -30,6 +30,9 @@ private:
     cocos2d::ui::Layout* resultLayout;
 
     void onEnter() override;
+    void onExit() override;
+
+    void setupButtons();
 
 };
 
