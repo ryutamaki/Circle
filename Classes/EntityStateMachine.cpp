@@ -158,7 +158,6 @@ void EntityStateMachine::readyToAttack()
         return;
     }
 
-    this->stop();
     this->setAttackState(EntityAttackState::READY);
 
     this->delegate->didStateChanged(this->moveState, this->direction, this->attackState);

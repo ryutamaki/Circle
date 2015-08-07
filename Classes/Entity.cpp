@@ -383,7 +383,7 @@ Sprite* Entity::getBody()
 
 void Entity::setVelocity(float dt)
 {
-    if (! this->stateMachine->isMoving()) {
+    if (! this->stateMachine->isMoving() || this->stateMachine->isAttacking()) {
         this->deaccelerate(dt);
     } else {
         this->accelerate(dt);
@@ -392,7 +392,7 @@ void Entity::setVelocity(float dt)
     Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(this->stateMachine->getDirection());
     this->velocity = ENTITY_VELOCITY_FACTOR * unitVector * dt * accelerationFactor;
 
-    if (this->stateMachine->getAttackState() == EntityAttackState::CHARGING) {
+    if (this->stateMachine->isCharging()) {
         this->velocity *= 0.4f;
     }
 }
