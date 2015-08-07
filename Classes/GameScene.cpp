@@ -43,6 +43,7 @@ bool GameScene::init()
     this->field = rootNode->getChildByName<Sprite*>("Field");
     this->coinContainer = std::unique_ptr<CoinContainer>(new CoinContainer());
     this->scoreLabel = this->field->getChildByName<ScoreLabel*>("ScoreLabel");
+    this->totalCoinCount = 0;
     this->lobbyButton = rootNode->getChildByName<ui::Button*>("LobbyButton");
     this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
 
@@ -438,6 +439,7 @@ void GameScene::checkDeadEnemy(float dt)
             continue;
         }
 
+        // stop ai if it exists
         EnemyAI* ai = static_cast<EnemyAI*>(it->second);
 
         if (ai) {
@@ -445,6 +447,13 @@ void GameScene::checkDeadEnemy(float dt)
             ai->removeFromParent();
         }
 
+        // give voin to user when defeat some of enemy
+        // いつ終了しても、そこまでのコインの付与が完了しているようにしたいため、敵が死んだのを確認した時点でコインを付与する
+        int coinCountToGive = enemy->getEntityParameterLevel().rank + 1;
+        this->giveCoin(enemy->getEntityParameterLevel().rank + 1);
+        this->totalCoinCount += coinCountToGive;
+
+        // move enemy instanse to dead list from alive list
         this->deadEnemyList.pushBack(enemy);
         this->aliveEnemyAndAiList.erase(
             std::remove(
@@ -455,12 +464,14 @@ void GameScene::checkDeadEnemy(float dt)
             this->aliveEnemyAndAiList.end()
         );
 
+        // update gamestate
         this->defeatEnemyCount++;
         this->scoreLabel->setScore(this->defeatEnemyCount);
     }
 
+    // speed bonus
+    // spawn enemy fast
     if (this->aliveEnemyAndAiList.size() == 0) {
-        // speed bonus
         if (GameSceneManager::getInstance()->isHost()) {
             this->spawnNextEnemy(0.0f);
         }
@@ -604,10 +615,10 @@ void GameScene::spawnNextEnemy(float dt)
 
 void GameScene::gameover()
 {
-    // First: Update user data because this is most important
-    this->giveCoin();
-    UserDataManager::getInstance()->setHighScoreByEntityType(this->defeatEnemyCount, this->enemyEntityType);
-
+    /* TODO: あげたコインの数が正しいかここで確認したい。
+     *  dead を判定して、コインをあげている関数が 0.2 秒間隔で回っているため、コインの付与に誤差が生じる可能性がある。
+     * そのため、ここで、dead をもう一度判定して、足り無い分は足してあげたい。
+     */
     // Second: Change state and stop this game
     this->gameState = GameState::RESULT;
     this->unscheduleAllCallbacks();
@@ -625,7 +636,7 @@ void GameScene::gameover()
     int currentHighScore = UserDataManager::getInstance()->getHighScoreByEntityType(this->enemyEntityType);
     bool isNewRecord = score > currentHighScore ? true : false;
     int highScore = isNewRecord ? score : currentHighScore;
-    this->showResultLayer(score, highScore, isNewRecord);
+    this->showResultLayer(score, highScore, isNewRecord, this->totalCoinCount);
 }
 
 void GameScene::checkGameOver()
@@ -641,10 +652,10 @@ void GameScene::checkGameOver()
     }
 }
 
-void GameScene::giveCoin()
+void GameScene::giveCoin(int coinCount)
 {
     int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
-    int newCoinCount = currentCoinCount + this->defeatEnemyCount;
+    int newCoinCount = currentCoinCount + coinCount;
     UserDataManager::getInstance()->setCoinCount(newCoinCount);
 }
 
@@ -697,7 +708,7 @@ void GameScene::showPauseLayer()
     pauseLayer->show(this->field);
 }
 
-void GameScene::showResultLayer(int score, int highscore, bool isNewRecord)
+void GameScene::showResultLayer(int score, int highscore, bool isNewRecord, int coinCount)
 {
     CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
     GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
@@ -706,7 +717,7 @@ void GameScene::showResultLayer(int score, int highscore, bool isNewRecord)
 
     gameResult->setScore(score);
     gameResult->setHighScore(highscore, isNewRecord);
-    gameResult->setCoinCount(score);
+    gameResult->setCoinCount(coinCount);
 }
 
 void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType)

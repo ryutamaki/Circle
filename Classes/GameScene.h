@@ -43,6 +43,7 @@ private:
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;
     ScoreLabel* scoreLabel;
+    int totalCoinCount;
     cocos2d::ui::Button* lobbyButton;
     cocos2d::ui::Button* pauseButton;
 
@@ -71,13 +72,13 @@ private:
     void checkDeadEnemy(float dt);
     void gameover();
     void checkGameOver();
-    void giveCoin();
+    void giveCoin(int coinCount);
     Entity* getTargetEntityByTargetString(std::string targetString);
 
     // transitions
     void showTutorialBasicIfNeverSeen();
     void showPauseLayer();
-    void showResultLayer(int score, int highscore, bool isNewRecord);
+    void showResultLayer(int score, int highscore, bool isNewRecord, int coinCount);
 
     void readyToStart(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void tryToStart();
