@@ -140,6 +140,9 @@
           <Fnt Name="Menlo70.fnt" />
           <Fnt Name="CircleFont30.fnt" />
           <Fnt Name="CircleFont24.fnt" />
+          <Fnt Name="CircleFont24_Red.fnt" />
+          <Fnt Name="CircleFont48_Red.fnt" />
+          <Fnt Name="CircleFont30_Red.fnt" />
         </Folder>
         <Project Name="GamePauseLayer.csd" Type="Layer" />
         <Project Name="TutorialLayer.csd" Type="Layer" />
