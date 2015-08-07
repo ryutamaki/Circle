@@ -146,6 +146,14 @@
           <Image Name="PowerUpButtonPushed@2x.png" />
           <Image Name="PowerUpButtonPushed@3x.png" />
           <Image Name="PowerUpButtonPushed@4x.png" />
+          <Image Name="StatusUpButtonNormal.png" />
+          <Image Name="StatusUpButtonNormal@2x.png" />
+          <Image Name="StatusUpButtonNormal@3x.png" />
+          <Image Name="StatusUpButtonNormal@4x.png" />
+          <Image Name="StatusUpButtonPushed.png" />
+          <Image Name="StatusUpButtonPushed@2x.png" />
+          <Image Name="StatusUpButtonPushed@3x.png" />
+          <Image Name="StatusUpButtonPushed@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />

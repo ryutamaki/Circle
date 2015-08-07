@@ -14,6 +14,8 @@
 
 #include "EntityConstants.h"
 
+class Entity;
+
 class PowerUpScene : public cocos2d::Layer
 {
 public:
@@ -29,19 +31,17 @@ private:
     int coinCount;
     EntityType entityType;
     EntityParameterLevel entityParameterLevel;
+    Entity* entity;
 
-    cocos2d::ui::TextBMFont* rankLabel;
-    cocos2d::ui::TextBMFont* hpLabel;
-    cocos2d::ui::TextBMFont* attackLabel;
-    cocos2d::ui::TextBMFont* coinCountLabel;
-
-    cocos2d::ui::Button* rankButton;
-    cocos2d::ui::Button* hpButton;
-    cocos2d::ui::Button* attackButton;
+    cocos2d::ui::Layout* coinLayout;
+    cocos2d::ui::Layout* rankLayout;
+    cocos2d::ui::Layout* hpLayout;
+    cocos2d::ui::Layout* attackLayout;
 
     void onEnter() override;
     void setupUI();
 
+    void setEntity(EntityType entityType, int rank);
     void setCoinCountLabelText(int coinCount);
     void setEntityParameterLevelLabelText(struct EntityParameterLevel entityParameterLevel);
 

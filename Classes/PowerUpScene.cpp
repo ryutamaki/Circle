@@ -38,19 +38,10 @@ bool PowerUpScene::init()
 
     this->addChild(rootNode);
 
-    ui::Layout* rankPanel = rootNode->getChildByName<ui::Layout*>("RankComponent");
-    ui::Layout* hpPanel = rootNode->getChildByName<ui::Layout*>("HpComponent");
-    ui::Layout* attackPanel = rootNode->getChildByName<ui::Layout*>("AttackComponent");
-    ui::Layout* coinPanel = rootNode->getChildByName<ui::Layout*>("CoinComponent");
-
-    this->rankLabel = rankPanel->getChildByName<ui::TextBMFont*>("RankLevelLabel");
-    this->hpLabel = hpPanel->getChildByName<ui::TextBMFont*>("HpLevelLabel");
-    this->attackLabel = attackPanel->getChildByName<ui::TextBMFont*>("AttackLevelLabel");
-    this->coinCountLabel = coinPanel->getChildByName<ui::TextBMFont*>("CoinCountLabel");
-
-    this->rankButton = rankPanel->getChildByName<ui::Button*>("RankUpButton");
-    this->hpButton = hpPanel->getChildByName<ui::Button*>("HpLevelUpButton");
-    this->attackButton = attackPanel->getChildByName<ui::Button*>("AttackLevelUpButton");
+    this->coinLayout = rootNode->getChildByName<ui::Layout*>("CoinLayout");
+    this->rankLayout = rootNode->getChildByName<ui::Layout*>("RankLayout");
+    this->hpLayout = rootNode->getChildByName<ui::Layout*>("HpLayout");
+    this->attackLayout = rootNode->getChildByName<ui::Layout*>("AttackLayout");
 
     ui::Button* backButton = rootNode->getChildByName<ui::Button*>("BackButton");
     backButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
@@ -92,27 +83,33 @@ void PowerUpScene::setupUI()
 {
     this->setCoinCountLabelText(this->coinCount);
 
-    if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank)) {
-        rankButton->setEnabled(false);
-    }
-    this->rankButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
-        if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            if (this->canUseCoin(1)) {
-                this->entityParameterLevel.rank++;
-                UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
-                this->setEntityParameterLevelLabelText(this->entityParameterLevel);
+    // Rank
+    ui::Button* rankUpButton = this->rankLayout->getChildByName<ui::Button*>("RankUpButton");
 
-                // TODO: magic number
-                this->useCoin(1);
+    if (EntityHelper::isNextRankExists(this->entityParameterLevel.rank)) {
+        rankUpButton->addTouchEventListener([this, rankUpButton](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+            if (eEventType == ui::Widget::TouchEventType::ENDED) {
+                if (this->canUseCoin(1)) {
+                    this->entityParameterLevel.rank++;
+                    UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
+                    this->setEntityParameterLevelLabelText(this->entityParameterLevel);
 
-                if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank)) {
-                    rankButton->setEnabled(false);
+                    // TODO: magic number
+                    this->useCoin(1);
+
+                    if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank)) {
+                        rankUpButton->setEnabled(false);
+                    }
                 }
             }
-        }
-    });
+        });
+    } else {
+        rankUpButton->setEnabled(false);
+    }
 
-    this->hpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+    // HP
+    ui::Button* hpUpButton = this->hpLayout->getChildByName<ui::Button*>("HpUpButton");
+    hpUpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
                 this->entityParameterLevel.hp++;
@@ -125,7 +122,9 @@ void PowerUpScene::setupUI()
         }
     });
 
-    this->attackButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+    // Attack
+    ui::Button* attackUpButton = this->attackLayout->getChildByName<ui::Button*>("AttackUpButton");
+    attackUpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             if (this->canUseCoin(1)) {
                 this->entityParameterLevel.attack++;
@@ -139,18 +138,48 @@ void PowerUpScene::setupUI()
     });
 }
 
+#pragma mark Setter
+
+void PowerUpScene::setEntity(EntityType entityType, int rank)
+{
+    if (this->entity) {
+        this->entity->removeFromParent();
+        this->entity = nullptr;
+    }
+
+    this->entity = EntityFactory::createEntity(entityType, this->entityParameterLevel);
+    this->entity->setNormalizedPosition(Vec2(0.4, 0.65));
+    this->addChild(this->entity);
+}
+
 void PowerUpScene::setCoinCountLabelText(int coinCount)
 {
-    this->coinCountLabel->setString(std::to_string(coinCount));
+    ui::TextBMFont* coinCountLabel = this->coinLayout->getChildByName<ui::TextBMFont*>("CoinCountLabel");
+    coinCountLabel->setString(std::to_string(coinCount));
 }
 
 void PowerUpScene::setEntityParameterLevelLabelText(struct EntityParameterLevel entityParameterLevel)
 {
     this->entityParameterLevel = entityParameterLevel;
+    this->setEntity(this->entityType, this->entityParameterLevel.rank);
 
-    this->rankLabel->setString(std::to_string(entityParameterLevel.rank));
-    this->hpLabel->setString(std::to_string(entityParameterLevel.hp));
-    this->attackLabel->setString(std::to_string(entityParameterLevel.attack));
+    // level
+    ui::TextBMFont* rankLabel = this->rankLayout->getChildByName<ui::TextBMFont*>("RankLevelLabel");
+    ui::TextBMFont* hpLabel = this->hpLayout->getChildByName<ui::TextBMFont*>("HpLevelLabel");
+    ui::TextBMFont* attackLabel = this->attackLayout->getChildByName<ui::TextBMFont*>("AttackLevelLabel");
+
+    rankLabel->setString(std::to_string(entityParameterLevel.rank));
+    hpLabel->setString(std::to_string(entityParameterLevel.hp));
+    attackLabel->setString(std::to_string(entityParameterLevel.attack));
+
+    // need coin count
+    ui::TextBMFont* rankUpCoinNeedCountLabel = this->rankLayout->getChildByName<ui::TextBMFont*>("RankUpCoinNeedCountLabel");
+    ui::TextBMFont* hpUpCoinNeedCountLabel = this->hpLayout->getChildByName<ui::TextBMFont*>("HpUpCoinNeedCountLabel");
+    ui::TextBMFont* attackUpCoinNeedCountLabel = this->attackLayout->getChildByName<ui::TextBMFont*>("AttackUpCoinNeedCountLabel");
+
+    rankUpCoinNeedCountLabel->setString(std::to_string(1));
+    hpUpCoinNeedCountLabel->setString(std::to_string(1));
+    attackUpCoinNeedCountLabel->setString(std::to_string(1));
 }
 
 #pragma mark Logic

@@ -77,7 +77,7 @@ Entity* EntityFactory::createEntity(EntityType entityType)
 
 Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel)
 {
-    Color4B initialColor = CIRCLE_DARK_BLUE;
+    Color4B initialColor = CIRCLE_LIGHT_BLUE;
     return EntityFactory::createEntity(entityType, parameterLevel, initialColor);
 }
 
