@@ -33,7 +33,6 @@ public:
     EntityParameterLevel getEntityParameterLevel();
     void setEntityParameterLevel(EntityParameterLevel entityParameter);
 
-    int getHp();
     void setHp(int hp);
     cocos2d::Vec2 getVelocity();
     void setInitialColor(cocos2d::Color4B initialColor);
@@ -60,10 +59,12 @@ public:
     // Behavior
     void attack(const std::string attackName);
     void startCharging();
+    void receiveDamage(int damage, Vec2 enemyPosition);
+    void knockback(EntityDirection direction, float distance, bool cancelAttack);
 
     // EntityStateMachineDelegate
-    void willStateChange(Moving moving, EntityDirection direction, EntityAttackState attackState) override;
-    void didStateChanged(Moving moving, EntityDirection direction, EntityAttackState attackState) override;
+    void willStateChange(EntityMoveState moveState, EntityDirection direction, EntityAttackState attackState) override;
+    void didStateChanged(EntityMoveState moveState, EntityDirection direction, EntityAttackState attackState) override;
 
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
@@ -85,7 +86,7 @@ protected:
     void onExit() override;
 
     Sprite* getBody();
-    void setAccelerationFactor(float accelerationFactor);
+    void setVelocity(float dt);
     void setRankSymbol(int rank);
     void setBodyColorByCurrentHp();
 
@@ -93,7 +94,6 @@ protected:
     void update(float dt) override;
     void accelerate(float deltaTime);
     void deaccelerate(float deltaTime);
-    void receiveDamage();
     void die();
 
     // Abstruct methods

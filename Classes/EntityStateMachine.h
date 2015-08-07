@@ -13,20 +13,13 @@ class Entity;
 class EntityStateDelegate;
 
 typedef int EntityDirection;
-typedef int Moving;
 
-// enum class EntityMoveState
-// {
-// NONE,
-// UP,
-// UP_LEFT,
-// LEFT,
-// DOWN_LEFT,
-// DOWN,
-// DOWN_RIGHT,
-// RIGHT,
-// UP_RIGHT,
-// };
+enum class EntityMoveState
+{
+    NONE,
+    MOVING,
+    KNOCKBACK,
+};
 
 enum class EntityAttackState
 {
@@ -48,8 +41,8 @@ enum class EntityGlobalState
 class EntityStateMachineDelegate
 {
 public:
-    virtual void willStateChange(Moving moving, EntityDirection direction, EntityAttackState attackState) = 0;
-    virtual void didStateChanged(Moving moving, EntityDirection direction, EntityAttackState newAttackState) = 0;
+    virtual void willStateChange(EntityMoveState moveState, EntityDirection direction, EntityAttackState attackState) = 0;
+    virtual void didStateChanged(EntityMoveState moveState, EntityDirection direction, EntityAttackState newAttackState) = 0;
 };
 
 class EntityStateMachine
@@ -59,8 +52,8 @@ public:
     ~EntityStateMachine();
 
     // Accessor
-    const Moving getMoving();
-    void setMoving(const Moving moving);
+    const EntityMoveState getMoveState();
+    void setMoveState(const EntityMoveState moveState);
     const EntityDirection getDirection();
     void setDirection(const EntityDirection direction);
     const EntityAttackState getAttackState();
@@ -76,6 +69,8 @@ public:
     // void move(const EntityMoveState movingState);
     void move(const EntityDirection direction);
     void stop();
+    void startKnockback();
+    void stopKnockback();
     // ATTACK:
     void startCharging();
     void readyToAttack();
@@ -101,8 +96,8 @@ private:
     EntityStateMachineDelegate* delegate;
 
     // EntityMoveState moveState;
-    Moving moving;
     EntityDirection direction;
+    EntityMoveState moveState;
     EntityAttackState attackState;
     EntityGlobalState globalState;
 };

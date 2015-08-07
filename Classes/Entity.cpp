@@ -59,23 +59,13 @@ void Entity::setEntityParameterLevel(struct EntityParameterLevel entityParameter
     this->setupEntityParamerterByLevel(entityParameterLevel);
 }
 
-int Entity::getHp()
-{
-    return this->hp;
-}
-
 void Entity::setHp(int hp)
 {
     if (this->stateMachine->isDead()) {
         return;
     }
 
-    int currentHp = this->hp;
     this->hp = MAX(hp, 0);
-
-    if (this->hp < currentHp) {
-        this->receiveDamage();
-    }
 
     if (this->hp <= 0) {
         this->die();
@@ -210,9 +200,9 @@ JSONPacker::EntityState Entity::currentEntityState()
 {
     JSONPacker::EntityState entityState;
     entityState.identifier = this->identifier;
-    entityState.hp = this->getHp();
+    entityState.hp = this->hp;
     entityState.position = this->getPosition();
-    entityState.moving = this->stateMachine->getMoving();
+    entityState.moveState = this->stateMachine->getMoveState();
     entityState.direction = this->stateMachine->getDirection();
     entityState.globalState = this->stateMachine->getGlobalState();
     entityState.attackState = this->stateMachine->getAttackState();
@@ -237,7 +227,7 @@ void Entity::deactivate()
 {
     this->stateMachine->stop();
     this->stateMachine->cancelAttack();
-    this->unscheduleUpdate();
+    this->unscheduleAllCallbacks();
     this->stopAllActions();
 }
 
@@ -295,13 +285,57 @@ void Entity::startCharging()
     this->stateMachine->startCharging();
 }
 
+void Entity::receiveDamage(int damage, Vec2 enemyPosition)
+{
+    if (this->stateMachine->isDead()) {
+        return;
+    }
+
+    this->setHp(this->hp - damage);
+
+    Sprite* body = this->getBody();
+
+    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Damage.plist");
+    particle->setStartColor(Color4F(body->getColor()));
+    particle->setEndColor(Color4F(body->getColor()));
+    this->addChild(particle);
+
+    EntityDirection knockbackDirection = EntityHelper::directionFromStartPositionAndEndPosition(enemyPosition, this->getPosition());
+    // TODO: magic number
+    this->knockback(knockbackDirection, ENTITY_KNOCKBACK_DISTANCE_PER_SEC, ENTITY_KNOCKBACK_CANCEL_ATTACK);
+}
+
+void Entity::knockback(EntityDirection direction, float distance, bool cancelAttack)
+{
+    this->stateMachine->startKnockback();
+
+    const std::string knockbackScheduleKey = "knockback";
+    this->unschedule(knockbackScheduleKey);
+
+    if (cancelAttack) {
+        this->stateMachine->cancelAttack();
+    }
+
+    this->runAction(Blink::create(ENTITY_KNOCKBACK_DURATION, 4));
+
+    Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(direction);
+    this->schedule([this, unitVector, distance](float dt) {
+        this->velocity = unitVector * distance * dt;
+    }, knockbackScheduleKey);
+
+    this->scheduleOnce([this, knockbackScheduleKey](float dt) {
+        this->stateMachine->stopKnockback();
+        this->unschedule(knockbackScheduleKey);
+    }, ENTITY_KNOCKBACK_DURATION, "unscheduleKnockback");
+}
+
 #pragma mark EntityStateMachineDelegate
 
-void Entity::willStateChange(Moving moving, EntityDirection direction, EntityAttackState attackState)
+void Entity::willStateChange(EntityMoveState moveState, EntityDirection direction, EntityAttackState attackState)
 {
 }
 
-void Entity::didStateChanged(Moving moving, EntityDirection direction, EntityAttackState newAttackState)
+void Entity::didStateChanged(EntityMoveState moveState, EntityDirection direction, EntityAttackState newAttackState)
 {
     if (this->stateMachine->isDead()) {
         return;
@@ -345,6 +379,22 @@ Sprite* Entity::getBody()
     Sprite* body = this->getChildByName<Sprite*>("Body");
     CCASSERT(body, "There are no body, please make a body in cocos studio.");
     return body;
+}
+
+void Entity::setVelocity(float dt)
+{
+    if (! this->stateMachine->isMoving()) {
+        this->deaccelerate(dt);
+    } else {
+        this->accelerate(dt);
+    }
+
+    Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(this->stateMachine->getDirection());
+    this->velocity = ENTITY_VELOCITY_FACTOR * unitVector * dt * accelerationFactor;
+
+    if (this->stateMachine->getAttackState() == EntityAttackState::CHARGING) {
+        this->velocity *= 0.4f;
+    }
 }
 
 void Entity::setRankSymbol(int rank)
@@ -406,20 +456,12 @@ void Entity::update(float dt)
 {
     Node::update(dt);
 
+    if (this->stateMachine->getMoveState() == EntityMoveState::KNOCKBACK) {
+        return;
+    }
+
     this->setRotation(-static_cast<float>(this->stateMachine->getDirection()));
-
-    if (! this->stateMachine->isMoving()) {
-        this->deaccelerate(dt);
-    } else {
-        this->accelerate(dt);
-    }
-
-    Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(this->stateMachine->getDirection());
-    this->velocity = ENTITY_VELOCITY_FACTOR * unitVector * dt * accelerationFactor;
-
-    if (this->stateMachine->getAttackState() == EntityAttackState::CHARGING) {
-        this->velocity *= 0.4f;
-    }
+    this->setVelocity(dt);
 }
 
 void Entity::accelerate(float deltaTime)
@@ -430,20 +472,6 @@ void Entity::accelerate(float deltaTime)
 void Entity::deaccelerate(float deltaTime)
 {
     this->accelerationFactor = MAX(0.0f, this->accelerationFactor - 5.0f * deltaTime);
-}
-
-void Entity::receiveDamage()
-{
-    if (this->stateMachine->isDead()) {
-        return;
-    }
-
-    Sprite* body = this->getBody();
-
-    ParticleSystemQuad* particle = ParticleSystemQuad::create("Particles/Damage.plist");
-    particle->setStartColor(Color4F(body->getColor()));
-    particle->setEndColor(Color4F(body->getColor()));
-    this->addChild(particle);
 }
 
 void Entity::die()

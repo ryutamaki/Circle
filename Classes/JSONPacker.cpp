@@ -31,8 +31,8 @@ EntityState unpackEntityStateJSON(std::string json)
     position.y = positionJson["y"].GetDouble();
     entityState.position = position;
 
-    entityState.moving = static_cast<Moving>(document["moving"].GetBool());
     entityState.direction = static_cast<EntityDirection>(document["direction"].GetInt());
+    entityState.moveState = static_cast<EntityMoveState>(document["moveState"].GetInt());
     entityState.globalState = static_cast<EntityGlobalState>(document["globalState"].GetInt());
     entityState.attackState = static_cast<EntityAttackState>(document["attackState"].GetInt());
     entityState.attackName = document["attackName"].GetString();
@@ -60,8 +60,8 @@ std::string packEntityState(const EntityState entityState)
     positionJson.AddMember("y", position.y, document.GetAllocator());
     document.AddMember("position", positionJson, document.GetAllocator());
 
-    document.AddMember("moving", static_cast<bool>(entityState.moving), document.GetAllocator());
     document.AddMember("direction", static_cast<int>(entityState.direction), document.GetAllocator());
+    document.AddMember("moveState", static_cast<int>(entityState.moveState), document.GetAllocator());
     document.AddMember("globalState", static_cast<int>(entityState.globalState), document.GetAllocator());
     document.AddMember("attackState", static_cast<int>(entityState.attackState), document.GetAllocator());
     document.AddMember("attackName", entityState.attackName.c_str(), document.GetAllocator());

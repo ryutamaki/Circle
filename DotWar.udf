@@ -32,8 +32,9 @@
       <Value ctype="TabsInfo">
         <OpenedDocuments>
           <FilePathData Path="PowerUpScene.csd" />
+          <FilePathData Path="Circle.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="PowerUpScene.csd" />
+        <ActiveDocument Path="Circle.csd" />
       </Value>
     </Item>
   </Properties>

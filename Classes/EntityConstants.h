@@ -12,6 +12,12 @@
 static const float ENTITY_CHARGE_START_DURATION = 0.1f;
 static const float ENTITY_VELOCITY_FACTOR = 400.0f;
 
+// TODO: These parameters should be attached to ATTACK
+// キャラクターのサイズが 80x80 なので、だいたい distance * duration が 80 くらいになるといいかも
+static const float ENTITY_KNOCKBACK_DURATION = 0.1f;
+static const float ENTITY_KNOCKBACK_DISTANCE_PER_SEC = 800.0f;
+static const bool ENTITY_KNOCKBACK_CANCEL_ATTACK = false;
+
 enum class EntityType
 {
     CIRCLE = 0,
@@ -53,8 +59,8 @@ struct EntityParameterMultipler
 };
 
 static const std::map<EntityType, EntityParameterLevel> ENTITY_INITIAL_LEVEL_PARAMETER = {
-    // {EntityType, {rank, hp, attack, speed}}
-    {EntityType::CIRCLE, {1, 1, 1}},
+    // {EntityType, {rank, hp, attack}}
+    {EntityType::CIRCLE, {0, 1, 1}},
 //    {EntityType::TRIANGLE, {1, 1, 1}},
     {EntityType::NONE, {0, 0, 0}},
 };

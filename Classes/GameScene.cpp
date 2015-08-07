@@ -209,7 +209,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
             target->setPosition(entityState.position);
         }
 
-        if (! entityState.moving) {
+        if (entityState.moveState == EntityMoveState::NONE) {
             target->stateMachine->stop();
         } else {
             target->stateMachine->move(entityState.direction);
@@ -225,8 +225,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
             Entity* damagedTarget = this->getTargetEntityByTargetString(entityState.damage.identifier);
 
             if (damagedTarget != nullptr) {
-                int currentHp = damagedTarget->getHp();
-                damagedTarget->setHp(currentHp - entityState.damage.volume);
+                damagedTarget->receiveDamage(entityState.damage.volume, entityState.position);
 
                 if (GameSceneManager::getInstance()->isHost()) {
                     JSONPacker::EntityState damagedTargetState = damagedTarget->currentEntityState();
@@ -420,7 +419,7 @@ void GameScene::damageEnemyFromCharacter()
         this->character->synchronizer->sendData(currentEntityState);
 
         if (this->character->synchronizer->getIsHost()) {
-            enemy->setHp(enemy->getHp() - damage);
+            enemy->receiveDamage(damage, this->character->getPosition());
 
             JSONPacker::EntityState currentEntityState = enemy->currentEntityState();
             enemy->synchronizer->sendDataIfNotHost(currentEntityState);
@@ -512,7 +511,7 @@ void GameScene::damageCharacterFromEntity()
         currentEntityState.damage.volume = damage;
         enemy->synchronizer->sendData(currentEntityState);
 
-        this->character->setHp(this->character->getHp() - damage);
+        this->character->receiveDamage(damage, enemy->getPosition());
         JSONPacker::EntityState currentCharacterState = this->character->currentEntityState();
         this->character->synchronizer->sendData(currentCharacterState);
 
