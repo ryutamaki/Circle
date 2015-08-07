@@ -90,7 +90,10 @@ void EnemyAI::running(float dt)
 
     if (this->target->stateMachine->isDead()) {
         auto it = this->opponents.find(this->target);
-        this->opponents.erase(it);
+
+        if (it != this->opponents.end()) {
+            this->opponents.erase(it);
+        }
         this->decideTarget();
     }
 

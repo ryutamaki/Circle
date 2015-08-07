@@ -465,7 +465,9 @@ void GameScene::checkDeadEnemy(float dt)
 
     if (this->aliveEnemyAndAiList.size() == 0) {
         // speed bonus
-        this->spawnNextEnemy(0.0f);
+        if (GameSceneManager::getInstance()->isHost()) {
+            this->spawnNextEnemy(0.0f);
+        }
     }
 
     // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
