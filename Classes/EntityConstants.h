@@ -73,15 +73,15 @@ static const std::map<EntityType, EntityParameter> ENTITY_INITIAL_PARAMETER = {
 
 static const std::map<int, std::string> ENTITY_RANK_SYMBOL_PATH = {
     {0, ""},
-    {1, ""},
-    {2, ""},
-    {3, ""},
-    {4, ""},
-    {5, ""},
-    {6, ""},
-    {7, ""},
-    {8, ""},
-    {9, ""},
+    {1, "Rank/Rank1@2x.png"},
+    {2, "Rank/Rank2@2x.png"},
+    {3, "Rank/Rank3@2x.png"},
+    {4, "Rank/Rank4@2x.png"},
+    {5, "Rank/Rank5@2x.png"},
+    {6, "Rank/Rank6@2x.png"},
+    {7, "Rank/Rank7@2x.png"},
+    {8, "Rank/Rank8@2x.png"},
+    {9, "Rank/Rank9@2x.png"},
     {10, ""},
 };
 

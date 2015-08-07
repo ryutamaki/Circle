@@ -548,7 +548,7 @@ void GameScene::spawnNextEnemy(float dt)
 
     // pop next enemy from enemy queue
     EntityParameterLevel paramterLevel = {
-        static_cast<int>(floor(this->nextEnemyIndex) / 10),
+        static_cast<int>(floor(this->nextEnemyIndex / 10)),
         this->nextEnemyIndex,
         this->nextEnemyIndex,
     };
