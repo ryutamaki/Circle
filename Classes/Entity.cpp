@@ -415,7 +415,7 @@ void Entity::update(float dt)
     }
 
     Vec2 unitVector = EntityHelper::unitVectorFronEntityDirection(this->stateMachine->getDirection());
-    this->velocity = (float)this->entityParameter.velocityFactor * unitVector * dt * accelerationFactor;
+    this->velocity = ENTITY_VELOCITY_FACTOR * unitVector * dt * accelerationFactor;
 
     if (this->stateMachine->getAttackState() == EntityAttackState::CHARGING) {
         this->velocity *= 0.4f;

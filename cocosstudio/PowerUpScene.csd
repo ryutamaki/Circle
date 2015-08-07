@@ -166,68 +166,6 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="SpeedComponent" ActionTag="885417409" Tag="47" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentWidthEnabled="True" LeftMargin="624.0000" RightMargin="96.0000" TopMargin="326.0000" BottomMargin="64.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="8" RightEage="8" TopEage="8" BottomEage="8" Scale9OriginX="8" Scale9OriginY="8" Scale9Width="84" Scale9Height="84" ctype="PanelObjectData">
-            <Size X="240.0000" Y="250.0000" />
-            <Children>
-              <AbstractNodeData Name="SpeedLabel" ActionTag="-327143193" Tag="58" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="47.5000" RightMargin="47.5000" TopMargin="22.0000" BottomMargin="172.0000" LabelText="SPEED" ctype="TextBMFontObjectData">
-                <Size X="145.0000" Y="56.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="120.0000" Y="200.0000" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.8000" />
-                <PreSize X="0.1208" Y="0.3111" />
-                <LabelBMFontFile_CNB Type="Normal" Path="Fonts/Menlo48.fnt" Plist="" />
-              </AbstractNodeData>
-              <AbstractNodeData Name="Line" ActionTag="-2011889947" Tag="57" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="108.0000" RightMargin="108.0000" TopMargin="73.0000" BottomMargin="173.0000" ctype="SpriteObjectData">
-                <Size X="24.0000" Y="4.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="120.0000" Y="175.0000" />
-                <Scale ScaleX="7.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.7000" />
-                <PreSize X="0.1000" Y="0.0222" />
-                <FileData Type="Normal" Path="Images/Line@2x.png" Plist="" />
-                <BlendFunc Src="1" Dst="771" />
-              </AbstractNodeData>
-              <AbstractNodeData Name="SpeedLevelLabel" ActionTag="-1679348087" Tag="28" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="99.0000" RightMargin="99.0000" TopMargin="97.0000" BottomMargin="72.0000" LabelText="0" ctype="TextBMFontObjectData">
-                <Size X="42.0000" Y="81.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="120.0000" Y="112.5000" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.4500" />
-                <PreSize X="0.1750" Y="0.3375" />
-                <LabelBMFontFile_CNB Type="Normal" Path="Fonts/Menlo70.fnt" Plist="" />
-              </AbstractNodeData>
-              <AbstractNodeData Name="SpeedLevelUpButton" ActionTag="-119715907" Tag="22" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" TopMargin="177.0000" BottomMargin="-23.0000" TouchEnable="True" FontSize="16" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="210" Scale9Height="74" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
-                <Size X="240.0000" Y="96.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="120.0000" Y="25.0000" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.1000" />
-                <PreSize X="0.2500" Y="0.1500" />
-                <TextColor A="255" R="65" G="65" B="70" />
-                <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
-                <PressedFileData Type="Normal" Path="Images/LevelUpButtonPushed@2x.png" Plist="" />
-                <NormalFileData Type="Normal" Path="Images/LevelUpButtonNormal@2x.png" Plist="" />
-                <OutlineColor A="255" R="255" G="0" B="0" />
-                <ShadowColor A="255" R="110" G="110" B="110" />
-              </AbstractNodeData>
-            </Children>
-            <AnchorPoint ScaleX="1.0000" />
-            <Position X="864.0000" Y="64.0000" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.9000" Y="0.1000" />
-            <PreSize X="0.2500" Y="0.3906" />
-            <FileData Type="Normal" Path="Images/ComponentFrame@2x.png" Plist="" />
-            <SingleColor A="255" R="150" G="200" B="255" />
-            <FirstColor A="255" R="150" G="200" B="255" />
-            <EndColor A="255" R="255" G="255" B="255" />
-            <ColorVector ScaleY="1.0000" />
-          </AbstractNodeData>
           <AbstractNodeData Name="CoinComponent" ActionTag="-47544359" Tag="50" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentWidthEnabled="True" LeftMargin="625.4400" RightMargin="94.5600" TopMargin="102.0000" BottomMargin="358.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="8" RightEage="8" TopEage="8" BottomEage="8" Scale9OriginX="8" Scale9OriginY="8" Scale9Width="84" Scale9Height="84" ctype="PanelObjectData">
             <Size X="240.0000" Y="180.0000" />
             <Children>

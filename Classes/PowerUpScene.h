@@ -33,13 +33,11 @@ private:
     cocos2d::ui::TextBMFont* rankLabel;
     cocos2d::ui::TextBMFont* hpLabel;
     cocos2d::ui::TextBMFont* attackLabel;
-    cocos2d::ui::TextBMFont* speedLabel;
     cocos2d::ui::TextBMFont* coinCountLabel;
 
     cocos2d::ui::Button* rankButton;
     cocos2d::ui::Button* hpButton;
     cocos2d::ui::Button* attackButton;
-    cocos2d::ui::Button* speedButton;
 
     void onEnter() override;
     void setupUI();

@@ -96,7 +96,6 @@ EntityReadyState unpackEntityReadyStateJSON(std::string json)
     parameterLevel.rank = parameterLevelJson["rank"].GetInt();
     parameterLevel.hp = parameterLevelJson["hp"].GetInt();
     parameterLevel.attack = parameterLevelJson["attack"].GetInt();
-    parameterLevel.speed = parameterLevelJson["speed"].GetInt();
     entityReadyState.parameterLevel = parameterLevel;
 
     return entityReadyState;
@@ -116,7 +115,6 @@ std::string packEntityReadyState(const EntityReadyState entityReadyState)
     parameterLevelJson.AddMember("rank", parameterLevel.rank, document.GetAllocator());
     parameterLevelJson.AddMember("hp", parameterLevel.hp, document.GetAllocator());
     parameterLevelJson.AddMember("attack", parameterLevel.attack, document.GetAllocator());
-    parameterLevelJson.AddMember("speed", parameterLevel.speed, document.GetAllocator());
     document.AddMember("parameterLevel", parameterLevelJson, document.GetAllocator());
 
     rapidjson::StringBuffer buffer;

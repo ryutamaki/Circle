@@ -71,7 +71,7 @@ Entity* EntityFactory::createUserEntity(EntityType entityType)
 
 Entity* EntityFactory::createEntity(EntityType entityType)
 {
-    EntityParameterLevel parameterLevel = {1, 1, 1, 1};
+    EntityParameterLevel parameterLevel = {1, 1, 1};
     return EntityFactory::createEntity(entityType, parameterLevel);
 }
 

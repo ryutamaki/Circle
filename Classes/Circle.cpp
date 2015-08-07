@@ -40,6 +40,5 @@ void Circle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterL
     this->entityParameter = {
         static_cast<int>(initialParameter.initialHp + parameterLevel.hp * parameterMultipler.hp * 5),
         static_cast<int>(initialParameter.attackFactor + parameterLevel.attack * parameterMultipler.attack * 1),
-        static_cast<int>(initialParameter.velocityFactor + parameterLevel.speed * parameterMultipler.speed * 1),
     };
 }

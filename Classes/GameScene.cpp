@@ -542,7 +542,6 @@ void GameScene::spawnNextEnemy(float dt)
         static_cast<int>(floor(this->nextEnemyIndex) / 10),
         this->nextEnemyIndex,
         this->nextEnemyIndex,
-        this->nextEnemyIndex,
     };
 
     Entity* newEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);

@@ -31,20 +31,9 @@
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-          <FilePathData Path="Circle.csd" />
-          <FilePathData Path="Triangle.csd" />
-          <FilePathData Path="MenuScene.csd" />
-          <FilePathData Path="StageSelectScene.csd" />
-          <FilePathData Path="GameScene.csd" />
           <FilePathData Path="PowerUpScene.csd" />
-          <FilePathData Path="StageComponent.csd" />
-          <FilePathData Path="ScoreLabel.csd" />
-          <FilePathData Path="GamePauseLayer.csd" />
-          <FilePathData Path="TutorialLayer.csd" />
-          <FilePathData Path="GameResultLayer.csd" />
-          <FilePathData Path="Coin.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="Circle.csd" />
+        <ActiveDocument Path="PowerUpScene.csd" />
       </Value>
     </Item>
   </Properties>
