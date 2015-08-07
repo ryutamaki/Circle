@@ -460,7 +460,14 @@ void Entity::update(float dt)
         return;
     }
 
-    this->setRotation(-static_cast<float>(this->stateMachine->getDirection()));
+    // set rotation
+    float startAngle = this->getRotation();
+    float endAngle = -static_cast<float>(this->stateMachine->getDirection());
+    float diffAngle = EntityHelper::diffAngleFromStartAngleAndEndAngle(startAngle, endAngle);
+    float anglePerSecond = 15.0f;
+    this->setRotation(startAngle + diffAngle * dt * anglePerSecond);
+
+    // set velocity
     this->setVelocity(dt);
 }
 

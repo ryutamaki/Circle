@@ -284,12 +284,9 @@ void GameScene::setupTouchHandling()
 
             EntityDirection direction = EntityHelper::directionFromStartPositionAndEndPosition(lastTouchPosition, currentTouchPosition);
 
-            if (direction == this->character->stateMachine->getDirection()) {
-                return;
+            if (direction != this->character->stateMachine->getDirection()) {
+                this->character->stateMachine->move(direction);
             }
-
-            this->character->stateMachine->move(direction);
-
             lastTouchPosition = currentTouchPosition;
         };
     touchListenerForMove->onTouchCancelled = [this](Touch* touch, Event* event) {

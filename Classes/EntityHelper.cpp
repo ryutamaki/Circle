@@ -27,6 +27,26 @@ const Vec2 EntityHelper::unitVectorFronEntityDirection(EntityDirection direction
     return Vec2(cos(radiun), sin(radiun));
 }
 
+const float EntityHelper::diffAngleFromStartAngleAndEndAngle(float startAngle, float endAngle)
+{
+    if (startAngle > 0) {
+        startAngle = fmodf(startAngle, 360.0f);
+    } else {
+        startAngle = fmodf(startAngle, -360.0f);
+    }
+
+    float diffAngle = endAngle - startAngle;
+
+    if (diffAngle > 180) {
+        diffAngle -= 360;
+    }
+
+    if (diffAngle < -180) {
+        diffAngle += 360;
+    }
+    return diffAngle;
+}
+
 const bool EntityHelper::isRankExists(int rank)
 {
     if (ENTITY_RANK_SYMBOL_PATH.count(rank)) {
