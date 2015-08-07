@@ -66,6 +66,11 @@ public:
     void willStateChange(EntityMoveState moveState, EntityDirection direction, EntityAttackState attackState) override;
     void didStateChanged(EntityMoveState moveState, EntityDirection direction, EntityAttackState attackState) override;
 
+    // abstract functions
+    virtual int getCoinCountToRankUp() = 0;
+    virtual int getCoinCountToHpLevelUp() = 0;
+    virtual int getCoinCountToAttackLevelUp() = 0;
+    
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
     std::string identifier;

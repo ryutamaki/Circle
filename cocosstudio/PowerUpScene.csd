@@ -98,9 +98,9 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.3500" />
-                <PreSize X="0.5000" Y="0.5000" />
+                <PreSize X="0.5000" Y="0.4348" />
                 <TextColor A="255" R="65" G="65" B="70" />
-                <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+                <DisabledFileData Type="Normal" Path="Images/StatusUpButtonPushed@2x.png" Plist="" />
                 <PressedFileData Type="Normal" Path="Images/StatusUpButtonPushed@2x.png" Plist="" />
                 <NormalFileData Type="Normal" Path="Images/StatusUpButtonNormal@2x.png" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
@@ -169,9 +169,9 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.3500" />
-                <PreSize X="0.5000" Y="0.5000" />
+                <PreSize X="0.5000" Y="0.4348" />
                 <TextColor A="255" R="65" G="65" B="70" />
-                <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+                <DisabledFileData Type="Normal" Path="Images/StatusUpButtonPushed@2x.png" Plist="" />
                 <PressedFileData Type="Normal" Path="Images/StatusUpButtonPushed@2x.png" Plist="" />
                 <NormalFileData Type="Normal" Path="Images/StatusUpButtonNormal@2x.png" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
@@ -240,9 +240,9 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.3500" />
-                <PreSize X="0.5000" Y="0.5000" />
+                <PreSize X="0.5000" Y="0.4348" />
                 <TextColor A="255" R="65" G="65" B="70" />
-                <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+                <DisabledFileData Type="Normal" Path="Images/StatusUpButtonPushed@2x.png" Plist="" />
                 <PressedFileData Type="Normal" Path="Images/StatusUpButtonPushed@2x.png" Plist="" />
                 <NormalFileData Type="Normal" Path="Images/StatusUpButtonNormal@2x.png" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />

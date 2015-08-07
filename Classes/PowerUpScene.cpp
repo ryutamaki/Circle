@@ -86,18 +86,20 @@ void PowerUpScene::setupUI()
     // Rank
     ui::Button* rankUpButton = this->rankLayout->getChildByName<ui::Button*>("RankUpButton");
 
-    if (EntityHelper::isNextRankExists(this->entityParameterLevel.rank)) {
+    if (EntityHelper::isNextRankExists(this->entityParameterLevel.rank) &&
+        this->coinCount >= this->entity->getCoinCountToRankUp()) {
         rankUpButton->addTouchEventListener([this, rankUpButton](Ref* pRef, ui::Widget::TouchEventType eEventType) {
             if (eEventType == ui::Widget::TouchEventType::ENDED) {
-                if (this->canUseCoin(1)) {
+                int useCoinCount = this->entity->getCoinCountToRankUp();
+
+                if (this->canUseCoin(useCoinCount)) {
                     this->entityParameterLevel.rank++;
                     UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                     this->setEntityParameterLevelLabelText(this->entityParameterLevel);
+                    this->useCoin(useCoinCount);
 
-                    // TODO: magic number
-                    this->useCoin(1);
-
-                    if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank)) {
+                    if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank) ||
+                        this->coinCount < this->entity->getCoinCountToRankUp()) {
                         rankUpButton->setEnabled(false);
                     }
                 }
@@ -111,13 +113,13 @@ void PowerUpScene::setupUI()
     ui::Button* hpUpButton = this->hpLayout->getChildByName<ui::Button*>("HpUpButton");
     hpUpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            if (this->canUseCoin(1)) {
+            int useCoinCount = this->entity->getCoinCountToHpLevelUp();
+
+            if (this->canUseCoin(useCoinCount)) {
                 this->entityParameterLevel.hp++;
                 UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                 this->setEntityParameterLevelLabelText(this->entityParameterLevel);
-
-                // TODO: magic number
-                this->useCoin(1);
+                this->useCoin(useCoinCount);
             }
         }
     });
@@ -126,13 +128,13 @@ void PowerUpScene::setupUI()
     ui::Button* attackUpButton = this->attackLayout->getChildByName<ui::Button*>("AttackUpButton");
     attackUpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            if (this->canUseCoin(1)) {
+            int useCoinCount = this->entity->getCoinCountToAttackLevelUp();
+
+            if (this->canUseCoin(useCoinCount)) {
                 this->entityParameterLevel.attack++;
                 UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                 this->setEntityParameterLevelLabelText(this->entityParameterLevel);
-
-                // TODO: magic number
-                this->useCoin(1);
+                this->useCoin(useCoinCount);
             }
         }
     });
@@ -177,19 +179,19 @@ void PowerUpScene::setEntityParameterLevelLabelText(struct EntityParameterLevel 
     ui::TextBMFont* hpUpCoinNeedCountLabel = this->hpLayout->getChildByName<ui::TextBMFont*>("HpUpCoinNeedCountLabel");
     ui::TextBMFont* attackUpCoinNeedCountLabel = this->attackLayout->getChildByName<ui::TextBMFont*>("AttackUpCoinNeedCountLabel");
 
-    rankUpCoinNeedCountLabel->setString(std::to_string(1));
-    hpUpCoinNeedCountLabel->setString(std::to_string(1));
-    attackUpCoinNeedCountLabel->setString(std::to_string(1));
+    rankUpCoinNeedCountLabel->setString(std::to_string(this->entity->getCoinCountToRankUp()));
+    hpUpCoinNeedCountLabel->setString(std::to_string(this->entity->getCoinCountToHpLevelUp()));
+    attackUpCoinNeedCountLabel->setString(std::to_string(this->entity->getCoinCountToAttackLevelUp()));
 }
 
 #pragma mark Logic
 
 bool PowerUpScene::canUseCoin(int useCoinCount)
 {
-    if (this->coinCount - useCoinCount < 0) {
-        return false;
+    if (this->coinCount - useCoinCount >= 0) {
+        return true;
     }
-    return true;
+    return false;
 }
 
 void PowerUpScene::useCoin(int useCoinCount)

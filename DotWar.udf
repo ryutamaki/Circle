@@ -28,5 +28,16 @@
         <LastRunType Value="Unknown" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="PowerUpScene.csd" />
+          <FilePathData Path="Circle.csd" />
+          <FilePathData Path="GameResultLayer.csd" />
+          <FilePathData Path="MenuScene.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="PowerUpScene.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

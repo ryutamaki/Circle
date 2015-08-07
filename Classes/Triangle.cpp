@@ -28,9 +28,38 @@ bool Triangle::init()
     return true;
 }
 
-#pragma mark Game logic
+#pragma mark Override methods
+
+int Triangle::getCoinCountToRankUp()
+{
+    int currentRank = this->getEntityParameterLevel().rank;
+    int coinCount = 0;
+
+    coinCount = 10 * powf(2.0f, static_cast<float>(currentRank));
+    return coinCount;
+}
+
+int Triangle::getCoinCountToHpLevelUp()
+{
+    int currentHp = this->getEntityParameterLevel().hp;
+    int coinCount = 0;
+
+    coinCount = 2 * powf(2.0f, static_cast<float>(currentHp));
+    return coinCount;
+}
+
+int Triangle::getCoinCountToAttackLevelUp()
+{
+    int currentAttack = this->getEntityParameterLevel().attack;
+    int coinCount = 0;
+
+    coinCount = 2 * powf(2.0f, static_cast<float>(currentAttack));
+    return coinCount;
+}
 
 #pragma mark - Protected methods
+
+#pragma mark Override methods
 
 void Triangle::setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel)
 {

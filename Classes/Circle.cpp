@@ -26,7 +26,34 @@ bool Circle::init()
     return true;
 }
 
-#pragma mark Game logic
+#pragma Override methods
+
+int Circle::getCoinCountToRankUp()
+{
+    int currentRank = this->getEntityParameterLevel().rank;
+    int coinCount = 0;
+
+    coinCount = 10 * powf(2.0f, static_cast<float>(currentRank));
+    return coinCount;
+}
+
+int Circle::getCoinCountToHpLevelUp()
+{
+    int currentHp = this->getEntityParameterLevel().hp;
+    int coinCount = 0;
+
+    coinCount = currentHp;
+    return coinCount;
+}
+
+int Circle::getCoinCountToAttackLevelUp()
+{
+    int currentAttack = this->getEntityParameterLevel().attack;
+    int coinCount = 0;
+
+    coinCount = currentAttack;
+    return coinCount;
+}
 
 #pragma mark - Protected methods
 

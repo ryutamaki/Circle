@@ -19,6 +19,10 @@ public:
     CREATE_FUNC(Circle);
     bool init() override;
 
+    int getCoinCountToRankUp() override;
+    int getCoinCountToHpLevelUp() override;
+    int getCoinCountToAttackLevelUp() override;
+
 protected:
     void setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel) override;
 };

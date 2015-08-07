@@ -17,6 +17,10 @@ public:
     CREATE_FUNC(Triangle);
     bool init() override;
 
+    int getCoinCountToRankUp() override;
+    int getCoinCountToHpLevelUp() override;
+    int getCoinCountToAttackLevelUp() override;
+
 protected:
     void setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel) override;
 };
