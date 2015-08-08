@@ -24,11 +24,11 @@ void EntityContainer::addFriend(id identifier, Entity* entity)
 {
 }
 
-void EntityContainer::addEnemy(id identifier, Entity* entity)
+void EntityContainer::addEnemy(EntityIdentifier identifier, Entity* entity)
 {
 }
 
-void EntityContainer::moveEnemyToCemetery(id identifier)
+void EntityContainer::moveEnemyToCemetery(EntityIdentifier identifier)
 {
 }
 

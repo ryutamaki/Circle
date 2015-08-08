@@ -180,12 +180,12 @@ std::vector<Rect> Entity::getRectsUseForDamageInWorldSpace()
     return returnRects;
 }
 
-std::string Entity::getIdentifier()
+EntityIdentifier Entity::getIdentifier()
 {
     return this->identifier;
 }
 
-void Entity::setIdentifier(std::string identifier)
+void Entity::setIdentifier(EntityIdentifier identifier)
 {
     this->identifier = identifier;
 }
@@ -208,7 +208,7 @@ JSONPacker::EntityState Entity::currentEntityState()
     entityState.attackState = this->stateMachine->getAttackState();
     entityState.attackName = this->currentAttackName;
 
-    entityState.damage.identifier = "";
+    entityState.damage.identifier = this->identifier; // FIXME: It should be initialized by null identifier
     entityState.damage.volume = 0;
 
     return entityState;

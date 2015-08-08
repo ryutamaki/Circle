@@ -22,7 +22,7 @@ EntityState unpackEntityStateJSON(std::string json)
 
     EntityState entityState;
 
-    entityState.identifier = document["identifier"].GetString();
+    entityState.identifier = document["identifier"].GetInt();
     entityState.hp = document["hp"].GetInt();
 
     rapidjson::Value& positionJson = document["position"];
@@ -39,7 +39,7 @@ EntityState unpackEntityStateJSON(std::string json)
 
     rapidjson::Value& damageJson = document["damage"];
     EntityState::Damage damage;
-    damage.identifier = damageJson["identifier"].GetString();
+    damage.identifier = damageJson["identifier"].GetInt();
     damage.volume = damageJson["volume"].GetInt();
     entityState.damage = damage;
 
@@ -51,7 +51,7 @@ std::string packEntityState(const EntityState entityState)
     rapidjson::Document document;
     document.SetObject();
 
-    document.AddMember("identifier", entityState.identifier.c_str(), document.GetAllocator());
+    document.AddMember("identifier", static_cast<EntityIdentifier>(entityState.identifier), document.GetAllocator());
     document.AddMember("hp", entityState.hp, document.GetAllocator());
 
     Vec2 position = entityState.position;
@@ -68,7 +68,7 @@ std::string packEntityState(const EntityState entityState)
 
     EntityState::Damage damage = entityState.damage;
     rapidjson::Value damageJson(rapidjson::kObjectType);
-    damageJson.AddMember("identifier", damage.identifier.c_str(), document.GetAllocator());
+    damageJson.AddMember("identifier", static_cast<EntityIdentifier>(damage.identifier), document.GetAllocator());
     damageJson.AddMember("volume", damage.volume, document.GetAllocator());
     document.AddMember("damage", damageJson, document.GetAllocator());
 
@@ -87,7 +87,7 @@ EntityReadyState unpackEntityReadyStateJSON(std::string json)
 
     EntityReadyState entityReadyState;
 
-    entityReadyState.identifier = document["identifier"].GetString();
+    entityReadyState.identifier = document["identifier"].GetInt();
     entityReadyState.isReady = document["isReady"].GetBool();
     entityReadyState.entityType = static_cast<EntityType>(document["entityType"].GetInt());
 
@@ -106,7 +106,7 @@ std::string packEntityReadyState(const EntityReadyState entityReadyState)
     rapidjson::Document document;
     document.SetObject();
 
-    document.AddMember("identifier", entityReadyState.identifier.c_str(), document.GetAllocator());
+    document.AddMember("identifier", static_cast<EntityIdentifier>(entityReadyState.identifier), document.GetAllocator());
     document.AddMember("isReady", entityReadyState.isReady, document.GetAllocator());
     document.AddMember("entityType", static_cast<int>(entityReadyState.entityType), document.GetAllocator());
 

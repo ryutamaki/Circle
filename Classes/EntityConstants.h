@@ -18,6 +18,8 @@ static const float ENTITY_KNOCKBACK_DURATION = 0.1f;
 static const float ENTITY_KNOCKBACK_DISTANCE_PER_SEC = 800.0f;
 static const bool ENTITY_KNOCKBACK_CANCEL_ATTACK = false;
 
+typedef unsigned int EntityIdentifier;
+
 enum class EntityType
 {
     CIRCLE = 0,

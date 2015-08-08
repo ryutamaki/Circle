@@ -783,8 +783,8 @@ void GameScene::start()
     this->scheduleUpdate();
 
     if (this->character) {
-        log("%s, host: %d, myself: %d, senddata: %d, isdead: %d",
-            this->character->getIdentifier().c_str(),
+        log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",
+            this->character->getIdentifier(),
             this->character->synchronizer->getIsHost(),
             this->character->synchronizer->getIsMyself(),
             this->character->synchronizer->getIsSendData(),
@@ -792,8 +792,8 @@ void GameScene::start()
     }
 
     if (this->friendCharacter) {
-        log("%s, host: %d, myself: %d, senddata: %d, isdead: %d",
-            this->friendCharacter->getIdentifier().c_str(),
+        log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",
+            this->friendCharacter->getIdentifier(),
             this->friendCharacter->synchronizer->getIsHost(),
             this->friendCharacter->synchronizer->getIsMyself(),
             this->friendCharacter->synchronizer->getIsSendData(),
