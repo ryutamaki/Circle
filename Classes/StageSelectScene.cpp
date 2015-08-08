@@ -96,6 +96,8 @@ void StageSelectScene::setupStageSelectButtons()
     const unsigned int entityTypeCount = (int)EntityType::NONE;
     const unsigned int totalPageCount = ceil(entityTypeCount);
 
+    std::unique_ptr<EntityFactory> factory = std::unique_ptr<EntityFactory>(new EntityFactory());
+
     for (int page = 0, last = totalPageCount; page < last; ++page) {
         EntityType entityType = (EntityType)(page);
 
@@ -108,7 +110,12 @@ void StageSelectScene::setupStageSelectButtons()
         // stageComponent->setEntityType(entityType);
         // stageComponent->setNormalizedPosition(Vec2(0.5f, 0.5f));
 
-        Entity* entity = EntityFactory::createEntity(entityType, ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType), CIRCLE_LIGHT_RED);
+        Entity* entity = factory->createEntity(
+                entityType,
+                ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType),
+                {},
+                CIRCLE_LIGHT_RED
+            );
         entity->setName("Entity");
         entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
 

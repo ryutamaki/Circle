@@ -20,6 +20,7 @@
 #pragma mark Constructor and Destructor
 
 EntityFactory::EntityFactory()
+    : identifier(0)
 {
 }
 
@@ -37,12 +38,24 @@ Entity* EntityFactory::createEntity(EntityType entityType)
 
 Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel)
 {
-    Color4B initialColor = CIRCLE_LIGHT_BLUE;
-    return EntityFactory::createEntity(entityType, parameterLevel, initialColor);
+    std::map<std::string, EntityAttackParams> attackMap = {
+        {"Attack",		 {1, EntityAttackType::NORMAL, ""										  }},
+        {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
+    };
+    return this->createEntity(entityType, parameterLevel, attackMap);
 }
 
-Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel, Color4B initialColor)
+Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap)
 {
+    Color4B initialColor = CIRCLE_LIGHT_BLUE;
+    return this->createEntity(entityType, parameterLevel, attackMap, initialColor);
+}
+
+Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap, Color4B initialColor)
+{
+    this->identifier++;
+    log("%d", this->identifier);
+
     CSLoader* instance = CSLoader::getInstance();
     switch (entityType) {
         case EntityType::CIRCLE:
@@ -51,12 +64,9 @@ Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel 
             Circle* circle = dynamic_cast<Circle*>(CSLoader::createNode("Circle.csb"));
             circle->setEntityType(entityType);
             circle->setEntityParameterLevel(parameterLevel);
+            circle->setAttackMap(attackMap);
             circle->setInitialColor(initialColor);
-            // TODO: この攻撃の設定方法いつかリファクタしたい
-            circle->setAttackMap({
-                {"Attack", {1, EntityAttackType::NORMAL, ""}},
-                {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
-            });
+            circle->setIdentifier(this->identifier);
             return circle;
         }
 

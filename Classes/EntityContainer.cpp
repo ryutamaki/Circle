@@ -98,21 +98,13 @@ void EntityContainer::moveEnemyToCemetery(EntityIdentifier identifier)
     Entity* target = this->findEnemy(identifier);
 
     if (target == nullptr) {
-        CCASSERT(false, "Enemy has already moved to the cemetary. Something wrong is happened.");
+        return;
     }
 
-    auto it = this->enemies.find(identifier);
+    std::map<EntityIdentifier, Entity*>::iterator it = this->enemies.find(identifier);
 
     this->cemetery.insert(std::pair<EntityIdentifier, Entity*>(identifier, target));
-    this->enemies.erase(
-        it,
-        // std::remove(
-        // this->enemies.begin(),
-        // this->enemies.end(),
-        // identifier
-        // ),
-        this->enemies.end()
-    );
+    this->enemies.erase(it);
 
     EntityAI* ai = this->findAi(identifier);
 

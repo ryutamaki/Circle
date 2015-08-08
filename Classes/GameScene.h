@@ -8,6 +8,7 @@
 
 #include "Entity.h"
 #include "EntityContainer.h"
+#include "EntityFactory.h"
 #include "CoinContainer.h"
 
 class EntityAI;
@@ -50,6 +51,7 @@ private:
 
     std::unique_ptr<CoinContainer> coinContainer;
 
+    std::unique_ptr<EntityFactory> entityFactory;
     std::unique_ptr<EntityContainer> entityContainer;
     Entity* character;
     Entity* friendCharacter;

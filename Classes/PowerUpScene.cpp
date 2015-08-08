@@ -60,7 +60,7 @@ void PowerUpScene::setEntityType(EntityType entityType)
     this->entityType = entityType;
 
     EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(this->entityType);
-    Entity* entity = EntityFactory::createEntity(this->entityType, parameterLevel);
+    this->setEntity(entityType, parameterLevel.rank);
 
     this->entityParameterLevel = entity->getEntityParameterLevel();
     this->setEntityParameterLevelLabelText(this->entityParameterLevel);
@@ -150,7 +150,8 @@ void PowerUpScene::setEntity(EntityType entityType, int rank)
         this->entity = nullptr;
     }
 
-    this->entity = EntityFactory::createEntity(entityType, this->entityParameterLevel);
+    std::unique_ptr<EntityFactory> factory = std::unique_ptr<EntityFactory>(new EntityFactory());
+    this->entity = factory->createEntity(entityType, this->entityParameterLevel);
     this->entity->setNormalizedPosition(Vec2(0.4, 0.65));
     this->addChild(this->entity);
 }

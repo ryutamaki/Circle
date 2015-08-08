@@ -57,6 +57,7 @@ bool GameScene::init()
 
     this->addChild(rootNode);
 
+    this->entityFactory = std::unique_ptr<EntityFactory>(new EntityFactory());
     this->entityContainer = std::unique_ptr<EntityContainer>(new EntityContainer());
 
     this->networkedSession = false;
@@ -73,7 +74,7 @@ bool GameScene::init()
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
     EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
-    this->character = EntityFactory::createEntity(entityType, parameterLevel);
+    this->character = this->entityFactory->createEntity(entityType, parameterLevel);
     this->character->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character, 2);
@@ -93,7 +94,7 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
         return;
     }
 
-    this->friendCharacter = EntityFactory::createEntity(entityType, parameterLevel);
+    this->friendCharacter = this->entityFactory->createEntity(entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter, 1);
@@ -520,7 +521,13 @@ void GameScene::spawnNextEnemy(float dt)
         this->nextEnemyIndex,
     };
 
-    Entity* newEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
+    Entity* newEnemy = this->entityFactory->createEntity(
+            this->enemyEntityType,
+            paramterLevel,
+            {{"AttackNeedle", {1, EntityAttackType::NORMAL, ""}},
+             {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}}, },
+            CIRCLE_LIGHT_RED
+        );
     EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
     this->entityContainer->addEnemy(newEnemy->getIdentifier(), newEnemy);
     this->entityContainer->addAi(newEnemy->getIdentifier(), enemyAi);
@@ -537,12 +544,6 @@ void GameScene::spawnNextEnemy(float dt)
 
     newEnemy->setPosition(this->nextEnemyInitialPosition);
     this->nextEnemyInitialPosition = Vec2::ZERO;
-
-    // TODO: ここにあるべきでは無い
-    newEnemy->setAttackMap({
-        {"AttackNeedle", {1, EntityAttackType::NORMAL, ""}},
-        {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
-    });
 
     // sync settings for an enemy
     if (this->networkedSession) {

@@ -21,9 +21,30 @@ public:
     EntityFactory();
     ~EntityFactory();
 
-    static Entity* createEntity(EntityType entityType);
-    static Entity* createEntity(EntityType entityType, EntityParameterLevel parameterLevel);
-    static Entity* createEntity(EntityType entityType, EntityParameterLevel parameterLevel, cocos2d::Color4B initialColor);
+    Entity* createEntity(
+        EntityType entityType
+    );
+
+    Entity* createEntity(
+        EntityType				entityType,
+        EntityParameterLevel	parameterLevel
+    );
+
+    Entity* createEntity(
+        EntityType entityType,
+        EntityParameterLevel parameterLevel,
+        std::map<std::string, EntityAttackParams> attackMap
+    );
+
+    Entity* createEntity(
+        EntityType entityType,
+        EntityParameterLevel parameterLevel,
+        std::map<std::string, EntityAttackParams> attackMap,
+        cocos2d::Color4B initialColor
+    );
+
+private:
+    EntityIdentifier identifier;
 };
 
 #endif /* defined(__DotWar__EntityFactory__) */
