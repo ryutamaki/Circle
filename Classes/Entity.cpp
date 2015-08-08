@@ -341,6 +341,12 @@ void Entity::didStateChanged(EntityMoveState moveState, EntityDirection directio
         return;
     }
 
+    if (newAttackState == EntityAttackState::ATTACKING ||
+        newAttackState == EntityAttackState::COOL_DOWN ||
+        newAttackState == EntityAttackState::HIT) {
+        return;
+    }
+
     JSONPacker::EntityState currentEntityState = this->currentEntityState();
     this->synchronizer->sendData(currentEntityState);
 }

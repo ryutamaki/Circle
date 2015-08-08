@@ -209,15 +209,10 @@ void GameScene::receivedData(const void* data, unsigned long length)
         }
 
         if (entityState.damage.volume != 0) {
-            Entity* damagedTarget = this->entityContainer->findEntity(entityState.identifier);
+            Entity* damagedTarget = this->entityContainer->findEntity(entityState.damage.identifier);
 
             if (damagedTarget != nullptr) {
                 damagedTarget->receiveDamage(entityState.damage.volume, entityState.position);
-
-                if (GameSceneManager::getInstance()->isHost()) {
-                    JSONPacker::EntityState damagedTargetState = damagedTarget->currentEntityState();
-                    damagedTarget->synchronizer->sendData(damagedTargetState);
-                }
             }
         }
     }
@@ -402,12 +397,8 @@ void GameScene::damageEnemyFromCharacter()
         currentEntityState.damage.volume = damage;
         this->character->synchronizer->sendData(currentEntityState);
 
-        if (this->character->synchronizer->getIsHost()) {
-            enemy->receiveDamage(damage, this->character->getPosition());
-
-            JSONPacker::EntityState currentEntityState = enemy->currentEntityState();
-            enemy->synchronizer->sendDataIfNotHost(currentEntityState);
-        }
+        enemy->receiveDamage(damage, this->character->getPosition());
+        enemy->synchronizer->sendData(enemy->currentEntityState());
 
         // Change attack state at last
         this->character->stateMachine->hitAttack();
