@@ -133,7 +133,10 @@ void EntityContainer::pauseAllEntity()
     // pause all ai
     for (auto& kv : this->aiList) {
         EntityAI* ai = static_cast<EntityAI*>(kv.second);
-        ai->stop();
+
+        if (ai) {
+            ai->stop();
+        }
     }
 }
 
