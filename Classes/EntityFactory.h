@@ -50,7 +50,7 @@ public:
     );
 
 private:
-    EntityIdentifier identifier;
+    EntityIdentifier enemyIdentifier;
 
     Entity* gen(
         EntityIdentifier identifier,

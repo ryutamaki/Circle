@@ -97,7 +97,7 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     }
     bool isHost = GameSceneManager::getInstance()->isHost();
 
-    this->friendCharacter = this->entityFactory->createFriend(isHost, entityType, parameterLevel);
+    this->friendCharacter = this->entityFactory->createFriend(! isHost, entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter, 1);
@@ -167,7 +167,6 @@ void GameScene::receivedData(const void* data, unsigned long length)
 
         if (! this->friendCharacter) {
             this->setFriendCharacter(entityReadyState.entityType, entityReadyState.parameterLevel);
-            this->friendCharacter->setIdentifier(entityReadyState.identifier);
             this->friendCharacter->synchronizer->setIsReadyToPlay(entityReadyState.isReady);
         }
 
@@ -657,7 +656,6 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         this->character->synchronizer->setIsReadyToPlay(true);
 
-        this->entityContainer->addFriend(this->character->getIdentifier(), this->character);
         Entity* myself = this->entityContainer->findMyself();
 
         JSONPacker::EntityReadyState entityReadyState;

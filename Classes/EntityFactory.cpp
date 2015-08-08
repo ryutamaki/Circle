@@ -20,7 +20,7 @@
 #pragma mark Constructor and Destructor
 
 EntityFactory::EntityFactory()
-    : identifier(ENEMY_INITIAL_IDENTIFIER)
+    : enemyIdentifier(ENEMY_INITIAL_IDENTIFIER)
 {
 }
 
@@ -75,12 +75,12 @@ Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel p
 
 Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap)
 {
-    this->identifier++;
-    log("%d", this->identifier);
+    this->enemyIdentifier++;
+    log("%d", this->enemyIdentifier);
 
     Color4B initialColor = CIRCLE_LIGHT_RED;
     return this->gen(
-        this->identifier,
+        this->enemyIdentifier,
         entityType,
         parameterLevel,
         attackMap,
@@ -108,7 +108,7 @@ Entity* EntityFactory::gen(
             circle->setEntityParameterLevel(parameterLevel);
             circle->setAttackMap(attackMap);
             circle->setInitialColor(initialColor);
-            circle->setIdentifier(this->identifier);
+            circle->setIdentifier(identifier);
             return circle;
         }
 
