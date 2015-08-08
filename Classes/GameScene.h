@@ -9,7 +9,7 @@
 #include "Entity.h"
 #include "CoinContainer.h"
 
-class EnemyAI;
+class EntityAI;
 class ScoreLabel;
 
 class GameScene : public cocos2d::Layer
@@ -52,7 +52,7 @@ private:
     Entity* character;
     Entity* friendCharacter;
     EntityType enemyEntityType;
-    std::vector<std::pair<Entity*, EnemyAI*>> aliveEnemyAndAiList;
+    std::vector<std::pair<Entity*, EntityAI*>> aliveEnemyAndAiList;
     cocos2d::Vector<Entity*> deadEnemyList;
     int defeatEnemyCount;
     int nextEnemyIndex;
@@ -67,7 +67,7 @@ private:
     void damageEnemyFromCharacter();
     void damageCharacterFromEntity();
 
-    EnemyAI* attachAI(Entity* entity);
+    EntityAI* attachAI(Entity* entity);
     void spawnNextEnemy(float dt);
     void checkDeadEnemy(float dt);
     void gameover();

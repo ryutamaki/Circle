@@ -1,22 +1,22 @@
 //
-//  EnemyAI.h
+//  EntityAI.h
 //  DotWar
 //
 //  Created by ryutamaki on 2015/07/20.
 //
 //
 
-#ifndef __DotWar__EnemyAI__
-#define __DotWar__EnemyAI__
+#ifndef __DotWar__EntityAI__
+#define __DotWar__EntityAI__
 
 #include "cocos2d.h"
 #include "Entity.h"
 
-class EnemyAI : public cocos2d::Node
+class EntityAI : public cocos2d::Node
 {
 public:
-    EnemyAI(Entity* entity, cocos2d::Vector<Entity*> opponents);
-    ~EnemyAI();
+    EntityAI(Entity* entity, cocos2d::Vector<Entity*> opponents);
+    ~EntityAI();
 
     void start();
     void stop();
@@ -42,4 +42,4 @@ private:
 
 };
 
-#endif /* defined(__DotWar__EnemyAI__) */
+#endif /* defined(__DotWar__EntityAI__) */

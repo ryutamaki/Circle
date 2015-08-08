@@ -2,7 +2,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "EnemyAI.h"
+#include "EntityAI.h"
 #include "Coin.h"
 #include "GamePauseLayer.h"
 #include "GamePauseLayerReader.h"
@@ -126,7 +126,7 @@ void GameScene::pauseGame()
 
     for (auto& kv : this->aliveEnemyAndAiList) {
         Entity* enemy = static_cast<Entity*>(kv.first);
-        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
+        EntityAI* ai = static_cast<EntityAI*>(kv.second);
         enemy->pause();
         ai->stop();
     }
@@ -147,7 +147,7 @@ void GameScene::resumeGame()
 
     for (auto& kv : this->aliveEnemyAndAiList) {
         Entity* enemy = static_cast<Entity*>(kv.first);
-        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
+        EntityAI* ai = static_cast<EntityAI*>(kv.second);
         enemy->resume();
         ai->start();
     }
@@ -441,7 +441,7 @@ void GameScene::checkDeadEnemy(float dt)
         }
 
         // stop ai if it exists
-        EnemyAI* ai = static_cast<EnemyAI*>(it->second);
+        EntityAI* ai = static_cast<EntityAI*>(it->second);
 
         if (ai) {
             ai->stop();
@@ -528,7 +528,7 @@ void GameScene::damageCharacterFromEntity()
     }
 }
 
-EnemyAI* GameScene::attachAI(Entity* entity)
+EntityAI* GameScene::attachAI(Entity* entity)
 {
     cocos2d::Vector<Entity*> opponents;
     opponents.pushBack(this->character);
@@ -536,7 +536,7 @@ EnemyAI* GameScene::attachAI(Entity* entity)
     if (this->networkedSession && this->friendCharacter) {
         opponents.pushBack(this->friendCharacter);
     }
-    EnemyAI* enemyAi = new EnemyAI(entity, opponents);
+    EntityAI* enemyAi = new EntityAI(entity, opponents);
     this->addChild(enemyAi);
 
     return enemyAi;
@@ -555,8 +555,8 @@ void GameScene::spawnNextEnemy(float dt)
     };
 
     Entity* newEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
-    EnemyAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
-    this->aliveEnemyAndAiList.push_back(std::pair<Entity*, EnemyAI*>(newEnemy, enemyAi));
+    EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
+    this->aliveEnemyAndAiList.push_back(std::pair<Entity*, EntityAI*>(newEnemy, enemyAi));
 
     // set properties
     Size fieldSize = this->field->getContentSize();
@@ -625,7 +625,7 @@ void GameScene::gameover()
     this->unscheduleAllCallbacks();
 
     for (auto& kv : this->aliveEnemyAndAiList) {
-        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
+        EntityAI* ai = static_cast<EntityAI*>(kv.second);
 
         if (ai) {
             ai->stop();
@@ -816,12 +816,12 @@ void GameScene::disconnected()
     if (! this->character->synchronizer->getIsHost()) {
         for (auto& kv : this->aliveEnemyAndAiList) {
             Entity* enemy = static_cast<Entity*>(kv.first);
-            EnemyAI* ai = dynamic_cast<EnemyAI*>(kv.second);
+            EntityAI* ai = dynamic_cast<EntityAI*>(kv.second);
 
             if (! ai) {
                 enemy->stateMachine->cancelAttack();
                 enemy->stateMachine->stop();
-                EnemyAI* ai = this->attachAI(enemy);
+                EntityAI* ai = this->attachAI(enemy);
                 ai->start();
             }
         }
