@@ -20,7 +20,7 @@
 #pragma mark Constructor and Destructor
 
 EntityFactory::EntityFactory()
-    : identifier(0)
+    : identifier(ENEMY_INITIAL_IDENTIFIER)
 {
 }
 
@@ -30,32 +30,74 @@ EntityFactory::~EntityFactory()
 
 #pragma mark Factory methods
 
-Entity* EntityFactory::createEntity(EntityType entityType)
-{
-    EntityParameterLevel parameterLevel = {1, 1, 1};
-    return EntityFactory::createEntity(entityType, parameterLevel);
-}
-
-Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel)
+Entity* EntityFactory::createFriend(bool isHost, EntityType entityType, EntityParameterLevel parameterLevel)
 {
     std::map<std::string, EntityAttackParams> attackMap = {
         {"Attack",		 {1, EntityAttackType::NORMAL, ""										  }},
         {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
     };
-    return this->createEntity(entityType, parameterLevel, attackMap);
+
+    return this->createFriend(isHost, entityType, parameterLevel, attackMap);
 }
 
-Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap)
+Entity* EntityFactory::createFriend(bool isHost, EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap)
 {
-    Color4B initialColor = CIRCLE_LIGHT_BLUE;
-    return this->createEntity(entityType, parameterLevel, attackMap, initialColor);
+    EntityIdentifier identifier;
+    Color4B initialColor;
+
+    // MARK: 二人までしか入れないと思ってる
+    if (isHost) {
+        identifier = ENTITY_HOST_PLAYER_IDENTIFIER;
+        initialColor = CIRCLE_LIGHT_BLUE;
+    } else {
+        identifier = ENTITY_BUDDY_PLAYER_IDENTIFIER;
+        // TODO: change the color
+        initialColor = CIRCLE_LIGHT_BLUE;
+    }
+
+    return this->gen(
+        identifier,
+        entityType,
+        parameterLevel,
+        attackMap,
+        initialColor
+    );
 }
 
-Entity* EntityFactory::createEntity(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap, Color4B initialColor)
+Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel parameterLevel)
+{
+    std::map<std::string, EntityAttackParams> attackMap = {
+        {"AttackNeedle", {1, EntityAttackType::NORMAL, ""										  }},
+        {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}}
+    };
+    return this->createEnemy(entityType, parameterLevel, attackMap);
+}
+
+Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap)
 {
     this->identifier++;
     log("%d", this->identifier);
 
+    Color4B initialColor = CIRCLE_LIGHT_RED;
+    return this->gen(
+        this->identifier,
+        entityType,
+        parameterLevel,
+        attackMap,
+        initialColor
+    );
+}
+
+#pragma mark - Private methods
+
+Entity* EntityFactory::gen(
+    EntityIdentifier identifier,
+    EntityType entityType,
+    EntityParameterLevel parameterLevel,
+    std::map<std::string, EntityAttackParams> attackMap,
+    Color4B initialColor
+)
+{
     CSLoader* instance = CSLoader::getInstance();
     switch (entityType) {
         case EntityType::CIRCLE:

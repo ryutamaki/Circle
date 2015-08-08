@@ -13,6 +13,10 @@
 
 #include "EntityConstants.h"
 
+static const EntityIdentifier ENTITY_HOST_PLAYER_IDENTIFIER = 0;
+static const EntityIdentifier ENTITY_BUDDY_PLAYER_IDENTIFIER = 1;
+static const EntityIdentifier ENEMY_INITIAL_IDENTIFIER = 10;
+
 class Entity;
 
 class EntityFactory
@@ -21,30 +25,40 @@ public:
     EntityFactory();
     ~EntityFactory();
 
-    Entity* createEntity(
-        EntityType entityType
+    Entity* createFriend(
+        bool isHost,
+        EntityType entityType,
+        EntityParameterLevel parameterLevel
     );
 
-    Entity* createEntity(
-        EntityType				entityType,
-        EntityParameterLevel	parameterLevel
-    );
-
-    Entity* createEntity(
+    Entity* createFriend(
+        bool isHost,
         EntityType entityType,
         EntityParameterLevel parameterLevel,
         std::map<std::string, EntityAttackParams> attackMap
     );
 
-    Entity* createEntity(
+    Entity* createEnemy(
+        EntityType				entityType,
+        EntityParameterLevel	parameterLevel
+    );
+
+    Entity* createEnemy(
+        EntityType entityType,
+        EntityParameterLevel parameterLevel,
+        std::map<std::string, EntityAttackParams> attackMap
+    );
+
+private:
+    EntityIdentifier identifier;
+
+    Entity* gen(
+        EntityIdentifier identifier,
         EntityType entityType,
         EntityParameterLevel parameterLevel,
         std::map<std::string, EntityAttackParams> attackMap,
         cocos2d::Color4B initialColor
     );
-
-private:
-    EntityIdentifier identifier;
 };
 
 #endif /* defined(__DotWar__EntityFactory__) */

@@ -66,11 +66,10 @@ void StageComponent::onEnter()
 void StageComponent::attachEntity(EntityType eEntityType)
 {
     std::unique_ptr<EntityFactory> factory = std::unique_ptr<EntityFactory>(new EntityFactory());
-    Entity* entity = factory->createEntity(
+    Entity* entity = factory->createEnemy(
             eEntityType,
             ENTITY_INITIAL_LEVEL_PARAMETER.at(eEntityType),
-            {},
-            CIRCLE_LIGHT_RED
+            {}
         );
 
     if (entity != nullptr) {

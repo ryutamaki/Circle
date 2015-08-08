@@ -73,19 +73,21 @@ bool GameScene::init()
 // TODO: multi の時の味方のポジション同期をなんとかする
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
+    bool isHost = GameSceneManager::getInstance()->isHost();
     EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
-    this->character = this->entityFactory->createEntity(entityType, parameterLevel);
+    this->character = this->entityFactory->createFriend(isHost, entityType, parameterLevel);
     this->character->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character, 2);
 
     if (this->networkedSession) {
-        bool isHost = GameSceneManager::getInstance()->isHost();
         // sync settings for myself
         this->character->synchronizer->setIsSendData(true);
         this->character->synchronizer->setIsHost(isHost);
         this->character->synchronizer->setIsMyself(true);
     }
+
+    this->entityContainer->addFriend(this->character->getIdentifier(), this->character);
 }
 
 void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel parameterLevel)
@@ -93,17 +95,19 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     if (! this->networkedSession) {
         return;
     }
+    bool isHost = GameSceneManager::getInstance()->isHost();
 
-    this->friendCharacter = this->entityFactory->createEntity(entityType, parameterLevel);
+    this->friendCharacter = this->entityFactory->createFriend(isHost, entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter, 1);
 
     // sync settigns for another player
     // TODO: player は二人だと思ってる
-    bool isHost = GameSceneManager::getInstance()->isHost();
     this->friendCharacter->synchronizer->setIsSendData(false); // receive only
     this->friendCharacter->synchronizer->setIsHost(! isHost);
+
+    this->entityContainer->addFriend(this->friendCharacter->getIdentifier(), this->friendCharacter);
 }
 
 void GameScene::setEnemyEntityType(EntityType entityType)
@@ -521,12 +525,9 @@ void GameScene::spawnNextEnemy(float dt)
         this->nextEnemyIndex,
     };
 
-    Entity* newEnemy = this->entityFactory->createEntity(
+    Entity* newEnemy = this->entityFactory->createEnemy(
             this->enemyEntityType,
-            paramterLevel,
-            {{"AttackNeedle", {1, EntityAttackType::NORMAL, ""}},
-             {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}}, },
-            CIRCLE_LIGHT_RED
+            paramterLevel
         );
     EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
     this->entityContainer->addEnemy(newEnemy->getIdentifier(), newEnemy);

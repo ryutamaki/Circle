@@ -151,7 +151,8 @@ void PowerUpScene::setEntity(EntityType entityType, int rank)
     }
 
     std::unique_ptr<EntityFactory> factory = std::unique_ptr<EntityFactory>(new EntityFactory());
-    this->entity = factory->createEntity(entityType, this->entityParameterLevel);
+    bool isHost = true;
+    this->entity = factory->createFriend(isHost, entityType, this->entityParameterLevel);
     this->entity->setNormalizedPosition(Vec2(0.4, 0.65));
     this->addChild(this->entity);
 }

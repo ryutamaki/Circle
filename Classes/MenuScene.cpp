@@ -86,7 +86,8 @@ void MenuScene::putEntityByEntityType(EntityType entityType)
     // put character
     EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
     std::unique_ptr<EntityFactory> factory = std::unique_ptr<EntityFactory>(new EntityFactory());
-    Entity* entity = factory->createEntity(entityType, parameterLevel);
+    bool isHost = true;
+    Entity* entity = factory->createFriend(isHost, entityType, parameterLevel);
     entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
     this->addChild(entity);
 }

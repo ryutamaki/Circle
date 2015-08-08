@@ -110,11 +110,10 @@ void StageSelectScene::setupStageSelectButtons()
         // stageComponent->setEntityType(entityType);
         // stageComponent->setNormalizedPosition(Vec2(0.5f, 0.5f));
 
-        Entity* entity = factory->createEntity(
+        Entity* entity = factory->createEnemy(
                 entityType,
                 ENTITY_INITIAL_LEVEL_PARAMETER.at(entityType),
-                {},
-                CIRCLE_LIGHT_RED
+                {}
             );
         entity->setName("Entity");
         entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
