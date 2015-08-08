@@ -54,8 +54,6 @@ private:
     Entity* character;
     Entity* friendCharacter;
     EntityType enemyEntityType;
-    std::vector<std::pair<Entity*, EntityAI*>> aliveEnemyAndAiList;
-    cocos2d::Vector<Entity*> deadEnemyList;
     int defeatEnemyCount;
     int nextEnemyIndex;
     cocos2d::Vec2 nextEnemyInitialPosition;

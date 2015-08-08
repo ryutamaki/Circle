@@ -124,18 +124,7 @@ void GameScene::pauseGame()
     }
 
     this->pause();
-    this->character->pause();
-
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
-        EntityAI* ai = static_cast<EntityAI*>(kv.second);
-        enemy->pause();
-        ai->stop();
-    }
-
-    if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
-        this->friendCharacter->pause();
-    }
+    this->entityContainer->pauseAllEntity();
 }
 
 void GameScene::resumeGame()
@@ -145,18 +134,7 @@ void GameScene::resumeGame()
     }
 
     this->resume();
-    this->character->resume();
-
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
-        EntityAI* ai = static_cast<EntityAI*>(kv.second);
-        enemy->resume();
-        ai->start();
-    }
-
-    if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
-        this->friendCharacter->resume();
-    }
+    this->entityContainer->resumeAllEntity();
 }
 
 #pragma mark Networking
@@ -389,8 +367,8 @@ void GameScene::damageEnemyFromCharacter()
 
     std::vector<Rect> characterRects = this->character->getRectsUseForAttackInWorldSpace();
 
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
+    for (auto& kv : this->entityContainer->getAllEnemies()) {
+        Entity* enemy = static_cast<Entity*>(kv.second);
         std::vector<Rect> enemyRects = enemy->getRectsUseForDamageInWorldSpace();
 
         // collisions check
@@ -435,37 +413,22 @@ void GameScene::checkDeadEnemy(float dt)
 {
     // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
 
-    for (auto it = this->aliveEnemyAndAiList.begin(), last = this->aliveEnemyAndAiList.end(); it != last; ++it) {
-        Entity* enemy = static_cast<Entity*>(it->first);
+    std::map<EntityIdentifier, Entity*> enemies = this->entityContainer->getAllEnemies();
+
+    for (auto& kv : enemies) {
+        Entity* enemy = static_cast<Entity*>(kv.second);
 
         if (! enemy->stateMachine->isDead()) {
             continue;
         }
 
-        // stop ai if it exists
-        EntityAI* ai = static_cast<EntityAI*>(it->second);
-
-        if (ai) {
-            ai->stop();
-            ai->removeFromParent();
-        }
+        this->entityContainer->moveEnemyToCemetery(kv.first);
 
         // give voin to user when defeat some of enemy
         // いつ終了しても、そこまでのコインの付与が完了しているようにしたいため、敵が死んだのを確認した時点でコインを付与する
         int coinCountToGive = enemy->getEntityParameterLevel().rank + 1;
         this->giveCoin(enemy->getEntityParameterLevel().rank + 1);
         this->totalCoinCount += coinCountToGive;
-
-        // move enemy instanse to dead list from alive list
-        this->deadEnemyList.pushBack(enemy);
-        this->aliveEnemyAndAiList.erase(
-            std::remove(
-                this->aliveEnemyAndAiList.begin(),
-                this->aliveEnemyAndAiList.end(),
-                *it
-            ),
-            this->aliveEnemyAndAiList.end()
-        );
 
         // update gamestate
         this->defeatEnemyCount++;
@@ -474,7 +437,7 @@ void GameScene::checkDeadEnemy(float dt)
 
     // speed bonus
     // spawn enemy fast
-    if (this->aliveEnemyAndAiList.size() == 0) {
+    if (this->entityContainer->getAllEnemies().size() == 0) {
         if (GameSceneManager::getInstance()->isHost()) {
             this->spawnNextEnemy(0.0f);
         }
@@ -486,9 +449,10 @@ void GameScene::checkDeadEnemy(float dt)
 void GameScene::damageCharacterFromEntity()
 {
     std::vector<Rect> characterRects = this->character->getRectsUseForDamageInWorldSpace();
+    std::map<EntityIdentifier, Entity*> enemies = this->entityContainer->getAllEnemies();
 
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
+    for (auto& kv : enemies) {
+        Entity* enemy = static_cast<Entity*>(kv.second);
 
         // そもそも攻撃していなかった
         if (enemy->stateMachine->getAttackState() != EntityAttackState::ATTACKING) {
@@ -558,7 +522,8 @@ void GameScene::spawnNextEnemy(float dt)
 
     Entity* newEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
     EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
-    this->aliveEnemyAndAiList.push_back(std::pair<Entity*, EntityAI*>(newEnemy, enemyAi));
+    this->entityContainer->addEnemy(newEnemy->getIdentifier(), newEnemy);
+    this->entityContainer->addAi(newEnemy->getIdentifier(), enemyAi);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
@@ -621,17 +586,12 @@ void GameScene::gameover()
      *  dead を判定して、コインをあげている関数が 0.2 秒間隔で回っているため、コインの付与に誤差が生じる可能性がある。
      * そのため、ここで、dead をもう一度判定して、足り無い分は足してあげたい。
      */
-    // Second: Change state and stop this game
+    // First: Change state and stop this game
     this->gameState = GameState::RESULT;
     this->unscheduleAllCallbacks();
 
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        EntityAI* ai = static_cast<EntityAI*>(kv.second);
-
-        if (ai) {
-            ai->stop();
-        }
-    }
+    // Second: Pause all entities
+    this->entityContainer->pauseAllEntity();
 
     // Third:
     int score = this->defeatEnemyCount;
@@ -704,6 +664,7 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         this->character->synchronizer->setIsReadyToPlay(true);
 
+        this->entityContainer->addFriend(this->character->getIdentifier(), this->character);
         Entity* myself = this->entityContainer->findMyself();
 
         JSONPacker::EntityReadyState entityReadyState;
@@ -793,15 +754,18 @@ void GameScene::disconnected()
 
     // attach AI if you are not a host user
     if (! this->character->synchronizer->getIsHost()) {
-        for (auto& kv : this->aliveEnemyAndAiList) {
-            Entity* enemy = static_cast<Entity*>(kv.first);
-            EntityAI* ai = dynamic_cast<EntityAI*>(kv.second);
+        for (auto& kv : this->entityContainer->getAllEnemies()) {
+            EntityIdentifier identifier = kv.first;
+            Entity* enemy = static_cast<Entity*>(kv.second);
+
+            EntityAI* ai = this->entityContainer->findAi(identifier);
 
             if (! ai) {
                 enemy->stateMachine->cancelAttack();
                 enemy->stateMachine->stop();
                 EntityAI* ai = this->attachAI(enemy);
                 ai->start();
+                this->entityContainer->addAi(identifier, ai);
             }
         }
 

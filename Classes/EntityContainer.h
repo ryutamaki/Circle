@@ -20,12 +20,19 @@ public:
     EntityContainer();
     ~EntityContainer();
 
+    std::map<EntityIdentifier, Entity*> getAllEnemies();
+
     Entity* findEntity(EntityIdentifier identifier);
     Entity* findMyself();
+    EntityAI* findAi(EntityIdentifier identifier);
 
     void addFriend(EntityIdentifier identifier, Entity* entity);
     void addEnemy(EntityIdentifier identifier, Entity* entity);
+    void addAi(EntityIdentifier identifier, EntityAI* entity);
     void moveEnemyToCemetery(EntityIdentifier identifier);
+
+    void pauseAllEntity();
+    void resumeAllEntity();
 
 private:
     // These are formed for frineds VS enemies
