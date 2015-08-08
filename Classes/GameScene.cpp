@@ -57,6 +57,8 @@ bool GameScene::init()
 
     this->addChild(rootNode);
 
+    this->entityContainer = std::unique_ptr<EntityContainer>(new EntityContainer());
+
     this->networkedSession = false;
     this->gameState = GameState::PREPARE;
     this->defeatEnemyCount = 0;
@@ -197,7 +199,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
             }
         }
 
-        Entity* target = this->getTargetEntityByTargetString(entityState.identifier);
+        Entity* target = this->entityContainer->findEntity(entityState.identifier);
 
         if (target == nullptr || target->stateMachine->getGlobalState() != EntityGlobalState::ALIVE) {
             return;
@@ -224,7 +226,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
         }
 
         if (entityState.damage.volume != 0) {
-            Entity* damagedTarget = this->getTargetEntityByTargetString(entityState.damage.identifier);
+            Entity* damagedTarget = this->entityContainer->findEntity(entityState.identifier);
 
             if (damagedTarget != nullptr) {
                 damagedTarget->receiveDamage(entityState.damage.volume, entityState.position);
@@ -560,7 +562,6 @@ void GameScene::spawnNextEnemy(float dt)
 
     // set properties
     Size fieldSize = this->field->getContentSize();
-    newEnemy->setIdentifier("Enemy" + std::to_string(this->nextEnemyIndex));
 
     if (GameSceneManager::getInstance()->isHost()) {
         this->nextEnemyInitialPosition = Vec2(
@@ -660,29 +661,6 @@ void GameScene::giveCoin(int coinCount)
     UserDataManager::getInstance()->setCoinCount(newCoinCount);
 }
 
-Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
-{
-    Entity* target = nullptr;
-    Vector<Node*> fieldChildren = this->field->getChildren();
-
-    for (int index = 0; index < fieldChildren.size(); ++index) {
-        Entity* entity = dynamic_cast<Entity*>(fieldChildren.at(index));
-
-        if (! entity) {
-            continue;
-        }
-
-        std::string identifier = entity->getIdentifier();
-
-        if (identifier == targetString) {
-            target = entity;
-            return target;
-        }
-    }
-
-    return target;
-}
-
 #pragma mark Transitions
 
 void GameScene::showTutorialBasicIfNeverSeen()
@@ -726,13 +704,14 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         this->character->synchronizer->setIsReadyToPlay(true);
 
+        Entity* myself = this->entityContainer->findMyself();
+
         JSONPacker::EntityReadyState entityReadyState;
-        entityReadyState.identifier = GameSceneManager::getInstance()->getUniqueIdentifier();
+        entityReadyState.identifier = myself->getIdentifier();
         entityReadyState.isReady = this->character->synchronizer->getIsReadyToPlay();
         entityReadyState.entityType = this->character->getEntityType();
         entityReadyState.parameterLevel = this->character->getEntityParameterLevel();
 
-        this->character->setIdentifier(GameSceneManager::getInstance()->getUniqueIdentifier());
         this->character->synchronizer->sendData(entityReadyState);
         this->tryToStart();
     }

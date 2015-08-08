@@ -7,6 +7,7 @@
 #include "EntityConstants.h"
 
 #include "Entity.h"
+#include "EntityContainer.h"
 #include "CoinContainer.h"
 
 class EntityAI;
@@ -49,6 +50,7 @@ private:
 
     std::unique_ptr<CoinContainer> coinContainer;
 
+    std::unique_ptr<EntityContainer> entityContainer;
     Entity* character;
     Entity* friendCharacter;
     EntityType enemyEntityType;
@@ -73,7 +75,6 @@ private:
     void gameover();
     void checkGameOver();
     void giveCoin(int coinCount);
-    Entity* getTargetEntityByTargetString(std::string targetString);
 
     // transitions
     void showTutorialBasicIfNeverSeen();

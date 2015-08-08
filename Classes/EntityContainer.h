@@ -20,6 +20,9 @@ public:
     EntityContainer();
     ~EntityContainer();
 
+    Entity* findEntity(EntityIdentifier identifier);
+    Entity* findMyself();
+
     void addFriend(EntityIdentifier identifier, Entity* entity);
     void addEnemy(EntityIdentifier identifier, Entity* entity);
     void moveEnemyToCemetery(EntityIdentifier identifier);
@@ -34,6 +37,10 @@ private:
 
     // Body list
     std::map<EntityIdentifier, Entity*> cemetery;
+
+    
+    Entity* findFriend(EntityIdentifier identifier);
+    Entity* findEnemy(EntityIdentifier identifier);
 };
 
 #endif /* defined(__DotWar__EntityContainer__) */
