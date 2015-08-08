@@ -21,9 +21,6 @@ public:
     EntityFactory();
     ~EntityFactory();
 
-    // This function refer to user data
-    static Entity* createUserEntity(EntityType entityType);
-
     static Entity* createEntity(EntityType entityType);
     static Entity* createEntity(EntityType entityType, EntityParameterLevel parameterLevel);
     static Entity* createEntity(EntityType entityType, EntityParameterLevel parameterLevel, cocos2d::Color4B initialColor);

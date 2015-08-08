@@ -59,7 +59,8 @@ void PowerUpScene::setEntityType(EntityType entityType)
 {
     this->entityType = entityType;
 
-    Entity* entity = EntityFactory::createUserEntity(this->entityType);
+    EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(this->entityType);
+    Entity* entity = EntityFactory::createEntity(this->entityType, parameterLevel);
 
     this->entityParameterLevel = entity->getEntityParameterLevel();
     this->setEntityParameterLevelLabelText(this->entityParameterLevel);

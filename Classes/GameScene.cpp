@@ -70,7 +70,8 @@ bool GameScene::init()
 // TODO: multi の時の味方のポジション同期をなんとかする
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
-    this->character = EntityFactory::createUserEntity(entityType);
+    EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
+    this->character = EntityFactory::createEntity(entityType, parameterLevel);
     this->character->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character, 2);

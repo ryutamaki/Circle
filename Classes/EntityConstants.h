@@ -39,14 +39,14 @@ struct EntityAttackParams {
 
 struct EntityParameter
 {
-    // FIXME: Do not use unsigned int because ValueMap "=" operator not support it
+    // FIXME: I do not use unsigned int because ValueMap "=" operator not support it
     int initialHp;
     int attackFactor;
 };
 
 struct EntityParameterLevel
 {
-    // FIXME: Do not use unsigned int because ValueMap "=" operator not support it
+    // FIXME: I do not use unsigned int because ValueMap "=" operator not support it
     int rank;
     int hp;
     int attack;
