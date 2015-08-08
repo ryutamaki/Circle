@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		03019EF71B755AEA000C4CDC /* Rank in Resources */ = {isa = PBXBuildFile; fileRef = 03019EF61B755AEA000C4CDC /* Rank */; };
 		03019EF81B755AEA000C4CDC /* Rank in Resources */ = {isa = PBXBuildFile; fileRef = 03019EF61B755AEA000C4CDC /* Rank */; };
+		03019EFB1B75DEA9000C4CDC /* EntityContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03019EF91B75DEA9000C4CDC /* EntityContainer.cpp */; };
+		03019EFC1B75DEA9000C4CDC /* EntityContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03019EF91B75DEA9000C4CDC /* EntityContainer.cpp */; };
 		031B09031B6EBE50005269F4 /* Particles in Resources */ = {isa = PBXBuildFile; fileRef = 031B09021B6EBE50005269F4 /* Particles */; };
 		031B09041B6EBE50005269F4 /* Particles in Resources */ = {isa = PBXBuildFile; fileRef = 031B09021B6EBE50005269F4 /* Particles */; };
 		031C156C1B68292C007D0FEC /* ScoreLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 031C15681B68292C007D0FEC /* ScoreLabel.cpp */; };
@@ -148,6 +150,8 @@
 
 /* Begin PBXFileReference section */
 		03019EF61B755AEA000C4CDC /* Rank */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Rank; path = Images/Rank; sourceTree = "<group>"; };
+		03019EF91B75DEA9000C4CDC /* EntityContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityContainer.cpp; sourceTree = "<group>"; };
+		03019EFA1B75DEA9000C4CDC /* EntityContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EntityContainer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		031B09021B6EBE50005269F4 /* Particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Particles; sourceTree = "<group>"; };
 		031C15661B67F747007D0FEC /* ColorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorConstants.h; sourceTree = "<group>"; };
 		031C15681B68292C007D0FEC /* ScoreLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreLabel.cpp; sourceTree = "<group>"; };
@@ -225,8 +229,8 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		46880B8619C43A87006E1F66 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameScene.cpp; sourceTree = "<group>"; };
-		46880B8719C43A87006E1F66 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		46880B8619C43A87006E1F66 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = GameScene.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		46880B8719C43A87006E1F66 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GameScene.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -341,6 +345,8 @@
 				03D7099D1B6582210056912B /* EntityFactory.h */,
 				03917D821B57230B0068BCA6 /* Entity.cpp */,
 				03917D831B57230B0068BCA6 /* Entity.h */,
+				03019EF91B75DEA9000C4CDC /* EntityContainer.cpp */,
+				03019EFA1B75DEA9000C4CDC /* EntityContainer.h */,
 				034F41061B5D529E00167F16 /* EntityAI.cpp */,
 				034F41071B5D529E00167F16 /* EntityAI.h */,
 				03B167B01B582555005D1FF6 /* CustomEntities */,
@@ -736,6 +742,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				0342E5DA1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
 				03D709981B657BD70056912B /* StageComponentReader.cpp in Sources */,
+				03019EFB1B75DEA9000C4CDC /* EntityContainer.cpp in Sources */,
 				039659B91B5F113E006E587B /* EntityHelper.cpp in Sources */,
 				03917D571B56C9B90068BCA6 /* Circle.cpp in Sources */,
 				0342E5C61B66CBEB009B737E /* CoinReader.cpp in Sources */,
@@ -776,6 +783,7 @@
 				0399AB4F1B655C590069507F /* StageSelectScene.cpp in Sources */,
 				0351AF981B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */,
 				0342E5DD1B66ED80009B737E /* GameResultLayerReader.cpp in Sources */,
+				03019EFC1B75DEA9000C4CDC /* EntityContainer.cpp in Sources */,
 				0342E5DB1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
 				03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */,
 				46880B8B19C43A87006E1F66 /* GameScene.cpp in Sources */,
