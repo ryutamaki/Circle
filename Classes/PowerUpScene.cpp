@@ -59,9 +59,9 @@ void PowerUpScene::setEntityType(EntityType entityType)
 {
     this->entityType = entityType;
 
-    Entity* entity = EntityFactory::createUserEntity(this->entityType);
+    this->entityParameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(this->entityType);
+    this->setEntity(this->entityType);
 
-    this->entityParameterLevel = entity->getEntityParameterLevel();
     this->setEntityParameterLevelLabelText(this->entityParameterLevel);
 }
 
@@ -142,14 +142,16 @@ void PowerUpScene::setupUI()
 
 #pragma mark Setter
 
-void PowerUpScene::setEntity(EntityType entityType, int rank)
+void PowerUpScene::setEntity(EntityType entityType)
 {
     if (this->entity) {
         this->entity->removeFromParent();
         this->entity = nullptr;
     }
 
-    this->entity = EntityFactory::createEntity(entityType, this->entityParameterLevel);
+    std::unique_ptr<EntityFactory> factory = std::unique_ptr<EntityFactory>(new EntityFactory());
+    bool isHost = true;
+    this->entity = factory->createFriend(isHost, entityType, this->entityParameterLevel);
     this->entity->setNormalizedPosition(Vec2(0.4, 0.65));
     this->addChild(this->entity);
 }
@@ -163,7 +165,7 @@ void PowerUpScene::setCoinCountLabelText(int coinCount)
 void PowerUpScene::setEntityParameterLevelLabelText(struct EntityParameterLevel entityParameterLevel)
 {
     this->entityParameterLevel = entityParameterLevel;
-    this->setEntity(this->entityType, this->entityParameterLevel.rank);
+    this->setEntity(this->entityType);
 
     // level
     ui::TextBMFont* rankLabel = this->rankLayout->getChildByName<ui::TextBMFont*>("RankLevelLabel");

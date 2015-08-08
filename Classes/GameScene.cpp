@@ -2,7 +2,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
-#include "EnemyAI.h"
+#include "EntityAI.h"
 #include "Coin.h"
 #include "GamePauseLayer.h"
 #include "GamePauseLayerReader.h"
@@ -57,6 +57,9 @@ bool GameScene::init()
 
     this->addChild(rootNode);
 
+    this->entityFactory = std::unique_ptr<EntityFactory>(new EntityFactory());
+    this->entityContainer = std::unique_ptr<EntityContainer>(new EntityContainer());
+
     this->networkedSession = false;
     this->gameState = GameState::PREPARE;
     this->defeatEnemyCount = 0;
@@ -70,18 +73,21 @@ bool GameScene::init()
 // TODO: multi の時の味方のポジション同期をなんとかする
 void GameScene::setCharacterByEntityType(EntityType entityType)
 {
-    this->character = EntityFactory::createUserEntity(entityType);
+    bool isHost = GameSceneManager::getInstance()->isHost();
+    EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
+    this->character = this->entityFactory->createFriend(isHost, entityType, parameterLevel);
     this->character->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->character->setRotation(0.0f);
     this->field->addChild(this->character, 2);
 
     if (this->networkedSession) {
-        bool isHost = GameSceneManager::getInstance()->isHost();
         // sync settings for myself
         this->character->synchronizer->setIsSendData(true);
         this->character->synchronizer->setIsHost(isHost);
         this->character->synchronizer->setIsMyself(true);
     }
+
+    this->entityContainer->addFriend(this->character->getIdentifier(), this->character);
 }
 
 void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel parameterLevel)
@@ -89,17 +95,19 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     if (! this->networkedSession) {
         return;
     }
+    bool isHost = GameSceneManager::getInstance()->isHost();
 
-    this->friendCharacter = EntityFactory::createEntity(entityType, parameterLevel);
+    this->friendCharacter = this->entityFactory->createFriend(! isHost, entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter, 1);
 
     // sync settigns for another player
     // TODO: player は二人だと思ってる
-    bool isHost = GameSceneManager::getInstance()->isHost();
     this->friendCharacter->synchronizer->setIsSendData(false); // receive only
     this->friendCharacter->synchronizer->setIsHost(! isHost);
+
+    this->entityContainer->addFriend(this->friendCharacter->getIdentifier(), this->friendCharacter);
 }
 
 void GameScene::setEnemyEntityType(EntityType entityType)
@@ -121,18 +129,7 @@ void GameScene::pauseGame()
     }
 
     this->pause();
-    this->character->pause();
-
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
-        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
-        enemy->pause();
-        ai->stop();
-    }
-
-    if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
-        this->friendCharacter->pause();
-    }
+    this->entityContainer->pauseAllEntity();
 }
 
 void GameScene::resumeGame()
@@ -142,18 +139,7 @@ void GameScene::resumeGame()
     }
 
     this->resume();
-    this->character->resume();
-
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
-        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
-        enemy->resume();
-        ai->start();
-    }
-
-    if (this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
-        this->friendCharacter->resume();
-    }
+    this->entityContainer->resumeAllEntity();
 }
 
 #pragma mark Networking
@@ -181,7 +167,6 @@ void GameScene::receivedData(const void* data, unsigned long length)
 
         if (! this->friendCharacter) {
             this->setFriendCharacter(entityReadyState.entityType, entityReadyState.parameterLevel);
-            this->friendCharacter->setIdentifier(entityReadyState.identifier);
             this->friendCharacter->synchronizer->setIsReadyToPlay(entityReadyState.isReady);
         }
 
@@ -196,7 +181,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
             }
         }
 
-        Entity* target = this->getTargetEntityByTargetString(entityState.identifier);
+        Entity* target = this->entityContainer->findEntity(entityState.identifier);
 
         if (target == nullptr || target->stateMachine->getGlobalState() != EntityGlobalState::ALIVE) {
             return;
@@ -223,15 +208,10 @@ void GameScene::receivedData(const void* data, unsigned long length)
         }
 
         if (entityState.damage.volume != 0) {
-            Entity* damagedTarget = this->getTargetEntityByTargetString(entityState.damage.identifier);
+            Entity* damagedTarget = this->entityContainer->findEntity(entityState.damage.identifier);
 
             if (damagedTarget != nullptr) {
                 damagedTarget->receiveDamage(entityState.damage.volume, entityState.position);
-
-                if (GameSceneManager::getInstance()->isHost()) {
-                    JSONPacker::EntityState damagedTargetState = damagedTarget->currentEntityState();
-                    damagedTarget->synchronizer->sendData(damagedTargetState);
-                }
             }
         }
     }
@@ -386,8 +366,8 @@ void GameScene::damageEnemyFromCharacter()
 
     std::vector<Rect> characterRects = this->character->getRectsUseForAttackInWorldSpace();
 
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
+    for (auto& kv : this->entityContainer->getAllEnemies()) {
+        Entity* enemy = static_cast<Entity*>(kv.second);
         std::vector<Rect> enemyRects = enemy->getRectsUseForDamageInWorldSpace();
 
         // collisions check
@@ -416,12 +396,8 @@ void GameScene::damageEnemyFromCharacter()
         currentEntityState.damage.volume = damage;
         this->character->synchronizer->sendData(currentEntityState);
 
-        if (this->character->synchronizer->getIsHost()) {
-            enemy->receiveDamage(damage, this->character->getPosition());
-
-            JSONPacker::EntityState currentEntityState = enemy->currentEntityState();
-            enemy->synchronizer->sendDataIfNotHost(currentEntityState);
-        }
+        enemy->receiveDamage(damage, this->character->getPosition());
+        enemy->synchronizer->sendData(enemy->currentEntityState());
 
         // Change attack state at last
         this->character->stateMachine->hitAttack();
@@ -432,37 +408,22 @@ void GameScene::checkDeadEnemy(float dt)
 {
     // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
 
-    for (auto it = this->aliveEnemyAndAiList.begin(), last = this->aliveEnemyAndAiList.end(); it != last; ++it) {
-        Entity* enemy = static_cast<Entity*>(it->first);
+    std::map<EntityIdentifier, Entity*> enemies = this->entityContainer->getAllEnemies();
+
+    for (auto& kv : enemies) {
+        Entity* enemy = static_cast<Entity*>(kv.second);
 
         if (! enemy->stateMachine->isDead()) {
             continue;
         }
 
-        // stop ai if it exists
-        EnemyAI* ai = static_cast<EnemyAI*>(it->second);
-
-        if (ai) {
-            ai->stop();
-            ai->removeFromParent();
-        }
+        this->entityContainer->moveEnemyToCemetery(kv.first);
 
         // give voin to user when defeat some of enemy
         // いつ終了しても、そこまでのコインの付与が完了しているようにしたいため、敵が死んだのを確認した時点でコインを付与する
         int coinCountToGive = enemy->getEntityParameterLevel().rank + 1;
         this->giveCoin(enemy->getEntityParameterLevel().rank + 1);
         this->totalCoinCount += coinCountToGive;
-
-        // move enemy instanse to dead list from alive list
-        this->deadEnemyList.pushBack(enemy);
-        this->aliveEnemyAndAiList.erase(
-            std::remove(
-                this->aliveEnemyAndAiList.begin(),
-                this->aliveEnemyAndAiList.end(),
-                *it
-            ),
-            this->aliveEnemyAndAiList.end()
-        );
 
         // update gamestate
         this->defeatEnemyCount++;
@@ -471,7 +432,7 @@ void GameScene::checkDeadEnemy(float dt)
 
     // speed bonus
     // spawn enemy fast
-    if (this->aliveEnemyAndAiList.size() == 0) {
+    if (this->entityContainer->getAllEnemies().size() == 0) {
         if (GameSceneManager::getInstance()->isHost()) {
             this->spawnNextEnemy(0.0f);
         }
@@ -483,9 +444,10 @@ void GameScene::checkDeadEnemy(float dt)
 void GameScene::damageCharacterFromEntity()
 {
     std::vector<Rect> characterRects = this->character->getRectsUseForDamageInWorldSpace();
+    std::map<EntityIdentifier, Entity*> enemies = this->entityContainer->getAllEnemies();
 
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        Entity* enemy = static_cast<Entity*>(kv.first);
+    for (auto& kv : enemies) {
+        Entity* enemy = static_cast<Entity*>(kv.second);
 
         // そもそも攻撃していなかった
         if (enemy->stateMachine->getAttackState() != EntityAttackState::ATTACKING) {
@@ -527,7 +489,7 @@ void GameScene::damageCharacterFromEntity()
     }
 }
 
-EnemyAI* GameScene::attachAI(Entity* entity)
+EntityAI* GameScene::attachAI(Entity* entity)
 {
     cocos2d::Vector<Entity*> opponents;
     opponents.pushBack(this->character);
@@ -535,7 +497,7 @@ EnemyAI* GameScene::attachAI(Entity* entity)
     if (this->networkedSession && this->friendCharacter) {
         opponents.pushBack(this->friendCharacter);
     }
-    EnemyAI* enemyAi = new EnemyAI(entity, opponents);
+    EntityAI* enemyAi = new EntityAI(entity, opponents);
     this->addChild(enemyAi);
 
     return enemyAi;
@@ -553,13 +515,16 @@ void GameScene::spawnNextEnemy(float dt)
         this->nextEnemyIndex,
     };
 
-    Entity* newEnemy = EntityFactory::createEntity(this->enemyEntityType, paramterLevel, CIRCLE_LIGHT_RED);
-    EnemyAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
-    this->aliveEnemyAndAiList.push_back(std::pair<Entity*, EnemyAI*>(newEnemy, enemyAi));
+    Entity* newEnemy = this->entityFactory->createEnemy(
+            this->enemyEntityType,
+            paramterLevel
+        );
+    EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
+    this->entityContainer->addEnemy(newEnemy->getIdentifier(), newEnemy);
+    this->entityContainer->addAi(newEnemy->getIdentifier(), enemyAi);
 
     // set properties
     Size fieldSize = this->field->getContentSize();
-    newEnemy->setIdentifier("Enemy" + std::to_string(this->nextEnemyIndex));
 
     if (GameSceneManager::getInstance()->isHost()) {
         this->nextEnemyInitialPosition = Vec2(
@@ -570,12 +535,6 @@ void GameScene::spawnNextEnemy(float dt)
 
     newEnemy->setPosition(this->nextEnemyInitialPosition);
     this->nextEnemyInitialPosition = Vec2::ZERO;
-
-    // TODO: ここにあるべきでは無い
-    newEnemy->setAttackMap({
-        {"AttackNeedle", {1, EntityAttackType::NORMAL, ""}},
-        {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
-    });
 
     // sync settings for an enemy
     if (this->networkedSession) {
@@ -619,17 +578,12 @@ void GameScene::gameover()
      *  dead を判定して、コインをあげている関数が 0.2 秒間隔で回っているため、コインの付与に誤差が生じる可能性がある。
      * そのため、ここで、dead をもう一度判定して、足り無い分は足してあげたい。
      */
-    // Second: Change state and stop this game
+    // First: Change state and stop this game
     this->gameState = GameState::RESULT;
     this->unscheduleAllCallbacks();
 
-    for (auto& kv : this->aliveEnemyAndAiList) {
-        EnemyAI* ai = static_cast<EnemyAI*>(kv.second);
-
-        if (ai) {
-            ai->stop();
-        }
-    }
+    // Second: Pause all entities
+    this->entityContainer->pauseAllEntity();
 
     // Third:
     int score = this->defeatEnemyCount;
@@ -657,29 +611,6 @@ void GameScene::giveCoin(int coinCount)
     int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
     int newCoinCount = currentCoinCount + coinCount;
     UserDataManager::getInstance()->setCoinCount(newCoinCount);
-}
-
-Entity* GameScene::getTargetEntityByTargetString(std::string targetString)
-{
-    Entity* target = nullptr;
-    Vector<Node*> fieldChildren = this->field->getChildren();
-
-    for (int index = 0; index < fieldChildren.size(); ++index) {
-        Entity* entity = dynamic_cast<Entity*>(fieldChildren.at(index));
-
-        if (! entity) {
-            continue;
-        }
-
-        std::string identifier = entity->getIdentifier();
-
-        if (identifier == targetString) {
-            target = entity;
-            return target;
-        }
-    }
-
-    return target;
 }
 
 #pragma mark Transitions
@@ -725,13 +656,14 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         this->character->synchronizer->setIsReadyToPlay(true);
 
+        Entity* myself = this->entityContainer->findMyself();
+
         JSONPacker::EntityReadyState entityReadyState;
-        entityReadyState.identifier = GameSceneManager::getInstance()->getUniqueIdentifier();
+        entityReadyState.identifier = myself->getIdentifier();
         entityReadyState.isReady = this->character->synchronizer->getIsReadyToPlay();
         entityReadyState.entityType = this->character->getEntityType();
         entityReadyState.parameterLevel = this->character->getEntityParameterLevel();
 
-        this->character->setIdentifier(GameSceneManager::getInstance()->getUniqueIdentifier());
         this->character->synchronizer->sendData(entityReadyState);
         this->tryToStart();
     }
@@ -782,8 +714,8 @@ void GameScene::start()
     this->scheduleUpdate();
 
     if (this->character) {
-        log("%s, host: %d, myself: %d, senddata: %d, isdead: %d",
-            this->character->getIdentifier().c_str(),
+        log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",
+            this->character->getIdentifier(),
             this->character->synchronizer->getIsHost(),
             this->character->synchronizer->getIsMyself(),
             this->character->synchronizer->getIsSendData(),
@@ -791,8 +723,8 @@ void GameScene::start()
     }
 
     if (this->friendCharacter) {
-        log("%s, host: %d, myself: %d, senddata: %d, isdead: %d",
-            this->friendCharacter->getIdentifier().c_str(),
+        log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",
+            this->friendCharacter->getIdentifier(),
             this->friendCharacter->synchronizer->getIsHost(),
             this->friendCharacter->synchronizer->getIsMyself(),
             this->friendCharacter->synchronizer->getIsSendData(),
@@ -813,15 +745,18 @@ void GameScene::disconnected()
 
     // attach AI if you are not a host user
     if (! this->character->synchronizer->getIsHost()) {
-        for (auto& kv : this->aliveEnemyAndAiList) {
-            Entity* enemy = static_cast<Entity*>(kv.first);
-            EnemyAI* ai = dynamic_cast<EnemyAI*>(kv.second);
+        for (auto& kv : this->entityContainer->getAllEnemies()) {
+            EntityIdentifier identifier = kv.first;
+            Entity* enemy = static_cast<Entity*>(kv.second);
+
+            EntityAI* ai = this->entityContainer->findAi(identifier);
 
             if (! ai) {
                 enemy->stateMachine->cancelAttack();
                 enemy->stateMachine->stop();
-                EnemyAI* ai = this->attachAI(enemy);
+                EntityAI* ai = this->attachAI(enemy);
                 ai->start();
+                this->entityContainer->addAi(identifier, ai);
             }
         }
 

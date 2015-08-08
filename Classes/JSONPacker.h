@@ -12,6 +12,7 @@
 #include "cocos2d.h"
 
 #include "EntityStateMachine.h"
+#include "EntityConstants.h"
 
 namespace JSONPacker
 {
@@ -19,11 +20,11 @@ namespace JSONPacker
     {
         struct Damage
         {
-            std::string identifier;
+            EntityIdentifier identifier;
             int volume;
         };
 
-        std::string identifier;
+        EntityIdentifier identifier;
         int hp;
         cocos2d::Vec2 position;
         EntityDirection direction;
@@ -40,7 +41,7 @@ namespace JSONPacker
 
     struct EntityReadyState
     {
-        std::string identifier;
+        EntityIdentifier identifier;
         bool isReady;
         EntityType entityType;
         EntityParameterLevel parameterLevel;

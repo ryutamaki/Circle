@@ -46,8 +46,8 @@ public:
     std::vector<cocos2d::Rect> getRectsUseForAttackInWorldSpace();
     std::vector<cocos2d::Rect> getRectsUseForDamageInWorldSpace();
 
-    std::string getIdentifier();
-    void setIdentifier(std::string identifier);
+    EntityIdentifier getIdentifier();
+    void setIdentifier(EntityIdentifier identifier);
 
     cocos2d::Size getBodySize();
 
@@ -73,7 +73,7 @@ public:
     
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
-    std::string identifier;
+    EntityIdentifier identifier;
 
     EntityType entityType;
     EntityParameter entityParameter;

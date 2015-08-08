@@ -7,9 +7,11 @@
 #include "EntityConstants.h"
 
 #include "Entity.h"
+#include "EntityContainer.h"
+#include "EntityFactory.h"
 #include "CoinContainer.h"
 
-class EnemyAI;
+class EntityAI;
 class ScoreLabel;
 
 class GameScene : public cocos2d::Layer
@@ -49,11 +51,11 @@ private:
 
     std::unique_ptr<CoinContainer> coinContainer;
 
+    std::unique_ptr<EntityFactory> entityFactory;
+    std::unique_ptr<EntityContainer> entityContainer;
     Entity* character;
     Entity* friendCharacter;
     EntityType enemyEntityType;
-    std::vector<std::pair<Entity*, EnemyAI*>> aliveEnemyAndAiList;
-    cocos2d::Vector<Entity*> deadEnemyList;
     int defeatEnemyCount;
     int nextEnemyIndex;
     cocos2d::Vec2 nextEnemyInitialPosition;
@@ -67,13 +69,12 @@ private:
     void damageEnemyFromCharacter();
     void damageCharacterFromEntity();
 
-    EnemyAI* attachAI(Entity* entity);
+    EntityAI* attachAI(Entity* entity);
     void spawnNextEnemy(float dt);
     void checkDeadEnemy(float dt);
     void gameover();
     void checkGameOver();
     void giveCoin(int coinCount);
-    Entity* getTargetEntityByTargetString(std::string targetString);
 
     // transitions
     void showTutorialBasicIfNeverSeen();

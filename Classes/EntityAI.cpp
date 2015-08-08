@@ -1,12 +1,12 @@
 //
-// EnemyAI.cpp
+// EntityAI.cpp
 // DotWar
 //
 // Created by ryutamaki on 2015/07/20.
 //
 //
 
-#include "EnemyAI.h"
+#include "EntityAI.h"
 
 #include "EntityHelper.h"
 
@@ -14,7 +14,7 @@ USING_NS_CC;
 
 #pragma mark - Public methods
 
-EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*> opponents)
+EntityAI::EntityAI(Entity* entity, cocos2d::Vector<Entity*> opponents)
 {
     this->entity = entity;
     this->opponents = opponents;
@@ -25,7 +25,7 @@ EnemyAI::EnemyAI(Entity* entity, cocos2d::Vector<Entity*> opponents)
     this->decideTarget();
 }
 
-EnemyAI::~EnemyAI()
+EntityAI::~EntityAI()
 {
     this->entity = nullptr;
     this->target = nullptr;
@@ -33,19 +33,19 @@ EnemyAI::~EnemyAI()
 
 #pragma mark Game logic
 
-void EnemyAI::start()
+void EntityAI::start()
 {
-    this->schedule(CC_SCHEDULE_SELECTOR(EnemyAI::running));
+    this->schedule(CC_SCHEDULE_SELECTOR(EntityAI::running));
 }
 
-void EnemyAI::stop()
+void EntityAI::stop()
 {
-    this->unschedule(CC_SCHEDULE_SELECTOR(EnemyAI::running));
+    this->unschedule(CC_SCHEDULE_SELECTOR(EntityAI::running));
 }
 
 #pragma mark - Private methods
 
-void EnemyAI::running(float dt)
+void EntityAI::running(float dt)
 {
     if (this->isMoving) {
         return;
@@ -121,7 +121,7 @@ void EnemyAI::running(float dt)
     }
 }
 
-void EnemyAI::stay(float dulation)
+void EntityAI::stay(float dulation)
 {
     this->entity->runAction(
         Sequence::create(
@@ -133,7 +133,7 @@ void EnemyAI::stay(float dulation)
     );
 }
 
-void EnemyAI::move(EntityDirection direction, float dulation)
+void EntityAI::move(EntityDirection direction, float dulation)
 {
     this->entity->runAction(
         Sequence::create(
@@ -145,12 +145,12 @@ void EnemyAI::move(EntityDirection direction, float dulation)
     );
 }
 
-void EnemyAI::attack(std::string attackName)
+void EntityAI::attack(std::string attackName)
 {
     this->entity->attack(attackName);
 }
 
-void EnemyAI::decideTarget()
+void EntityAI::decideTarget()
 {
     if (this->opponents.size() == 0) {
         return;

@@ -41,7 +41,7 @@ private:
     void onEnter() override;
     void setupUI();
 
-    void setEntity(EntityType entityType, int rank);
+    void setEntity(EntityType entityType);
     void setCoinCountLabelText(int coinCount);
     void setEntityParameterLevelLabelText(struct EntityParameterLevel entityParameterLevel);
 

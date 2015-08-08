@@ -18,6 +18,8 @@ static const float ENTITY_KNOCKBACK_DURATION = 0.1f;
 static const float ENTITY_KNOCKBACK_DISTANCE_PER_SEC = 800.0f;
 static const bool ENTITY_KNOCKBACK_CANCEL_ATTACK = false;
 
+typedef unsigned int EntityIdentifier;
+
 enum class EntityType
 {
     CIRCLE = 0,
@@ -39,14 +41,14 @@ struct EntityAttackParams {
 
 struct EntityParameter
 {
-    // FIXME: Do not use unsigned int because ValueMap "=" operator not support it
+    // FIXME: I do not use unsigned int because ValueMap "=" operator not support it
     int initialHp;
     int attackFactor;
 };
 
 struct EntityParameterLevel
 {
-    // FIXME: Do not use unsigned int because ValueMap "=" operator not support it
+    // FIXME: I do not use unsigned int because ValueMap "=" operator not support it
     int rank;
     int hp;
     int attack;

@@ -15,6 +15,7 @@
 
 #include "PowerUpScene.h"
 
+#include "UserDataManager.h"
 #include "StageSelectScene.h"
 #include "EntityFactory.h"
 
@@ -83,7 +84,10 @@ void MenuScene::onEnter()
 void MenuScene::putEntityByEntityType(EntityType entityType)
 {
     // put character
-    Entity* entity = EntityFactory::createUserEntity(entityType);
+    EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
+    std::unique_ptr<EntityFactory> factory = std::unique_ptr<EntityFactory>(new EntityFactory());
+    bool isHost = true;
+    Entity* entity = factory->createFriend(isHost, entityType, parameterLevel);
     entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
     this->addChild(entity);
 }
