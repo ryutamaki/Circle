@@ -33,7 +33,7 @@ int Circle::getCoinCountToRankUp()
     int currentRank = this->getEntityParameterLevel().rank;
     int coinCount = 0;
 
-    coinCount = (currentRank * 10 + 1) * powf(2.0f, static_cast<float>(currentRank)) + 20;
+    coinCount = (currentRank * 7 + 1) * powf(2.0f, static_cast<float>(currentRank)) + 20;
     // 最大桁のみを残して切り捨てる
     int digit = static_cast<int>(log10(static_cast<double>(coinCount)) + 1);
     coinCount = coinCount - coinCount % static_cast<int>(pow(10, digit - 1));
