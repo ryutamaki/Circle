@@ -158,6 +158,13 @@
           <Image Name="SinglePlayerButtonPushed@2x.png" />
           <Image Name="SinglePlayerButtonPushed@3x.png" />
           <Image Name="SinglePlayerButtonPushed@4x.png" />
+          <Image Name="EndlessButtonNormal@2x.png" />
+          <Image Name="EndlessButtonNormal@3x.png" />
+          <Image Name="EndlessButtonNormal@4x.png" />
+          <Image Name="EndlessButtonPushed.png" />
+          <Image Name="EndlessButtonPushed@2x.png" />
+          <Image Name="EndlessButtonPushed@3x.png" />
+          <Image Name="EndlessButtonPushed@4x.png" />
           <Image Name="MultiplayerButtonNormal.png" />
           <Image Name="MultiplayerButtonNormal@2x.png" />
           <Image Name="MultiplayerButtonNormal@3x.png" />
