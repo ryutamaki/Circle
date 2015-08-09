@@ -63,7 +63,7 @@ bool GameScene::init()
     this->networkedSession = false;
     this->gameState = GameState::PREPARE;
     this->defeatEnemyCount = 0;
-    this->nextEnemyIndex = 0;
+    this->nextEnemyIndex = 1;
 
     return true;
 }
@@ -97,7 +97,7 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     }
     bool isHost = GameSceneManager::getInstance()->isHost();
 
-    this->friendCharacter = this->entityFactory->createFriend(! isHost, entityType, parameterLevel);
+    this->friendCharacter = this->entityFactory->createFriend(isHost, entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter, 1);
@@ -503,21 +503,22 @@ EntityAI* GameScene::attachAI(Entity* entity)
     return enemyAi;
 }
 
+EntityParameterLevel GameScene::enemyParameterLevel(int nextEnemyIndex)
+{
+    int rank = static_cast<int>(floor(nextEnemyIndex / 10.0f));
+    int hpLevel = nextEnemyIndex;
+    int attackLevel = nextEnemyIndex;
+
+    EntityParameterLevel paramterLevel = {rank, hpLevel, attackLevel};
+    return paramterLevel;
+}
+
 void GameScene::spawnNextEnemy(float dt)
 {
-    // update index
-    ++this->nextEnemyIndex;
-
-    // pop next enemy from enemy queue
-    EntityParameterLevel paramterLevel = {
-        static_cast<int>(floor(this->nextEnemyIndex / 10)),
-        this->nextEnemyIndex,
-        this->nextEnemyIndex,
-    };
-
+    EntityParameterLevel nextEnemyParameterLevel = this->enemyParameterLevel(this->nextEnemyIndex);
     Entity* newEnemy = this->entityFactory->createEnemy(
             this->enemyEntityType,
-            paramterLevel
+            nextEnemyParameterLevel
         );
     EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
     this->entityContainer->addEnemy(newEnemy->getIdentifier(), newEnemy);
@@ -570,6 +571,9 @@ void GameScene::spawnNextEnemy(float dt)
     }),
             NULL);
     newEnemy->runAction(sequence);
+
+    // update index
+    ++this->nextEnemyIndex;
 }
 
 void GameScene::gameover()

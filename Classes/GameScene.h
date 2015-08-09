@@ -70,6 +70,7 @@ private:
     void damageCharacterFromEntity();
 
     EntityAI* attachAI(Entity* entity);
+    EntityParameterLevel enemyParameterLevel(int nextEnemyIndex);
     void spawnNextEnemy(float dt);
     void checkDeadEnemy(float dt);
     void gameover();
