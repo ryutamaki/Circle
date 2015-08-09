@@ -62,8 +62,9 @@ bool GameScene::init()
 
     this->networkedSession = false;
     this->gameState = GameState::PREPARE;
+    this->counterToForceSpawnEnemy = 0.0f;
     this->defeatEnemyCount = 0;
-    this->nextEnemyIndex = 0;
+    this->nextEnemyIndex = 1;
 
     return true;
 }
@@ -97,7 +98,7 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     }
     bool isHost = GameSceneManager::getInstance()->isHost();
 
-    this->friendCharacter = this->entityFactory->createFriend(! isHost, entityType, parameterLevel);
+    this->friendCharacter = this->entityFactory->createFriend(isHost, entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter, 1);
@@ -177,7 +178,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
         if (! GameSceneManager::getInstance()->isHost()) {
             if (entityState.globalState == EntityGlobalState::READY) {
                 this->nextEnemyInitialPosition = entityState.position;
-                this->spawnNextEnemy(0.0f);
+                this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
             }
         }
 
@@ -430,14 +431,6 @@ void GameScene::checkDeadEnemy(float dt)
         this->scoreLabel->setScore(this->defeatEnemyCount);
     }
 
-    // speed bonus
-    // spawn enemy fast
-    if (this->entityContainer->getAllEnemies().size() == 0) {
-        if (GameSceneManager::getInstance()->isHost()) {
-            this->spawnNextEnemy(0.0f);
-        }
-    }
-
     // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
 }
 
@@ -503,21 +496,45 @@ EntityAI* GameScene::attachAI(Entity* entity)
     return enemyAi;
 }
 
-void GameScene::spawnNextEnemy(float dt)
+EntityParameterLevel GameScene::enemyParameterLevel(int nextEnemyIndex)
 {
-    // update index
-    ++this->nextEnemyIndex;
+    // TODO: これ何やってるのか分かり難いやめたい
+    // ENTITY_RANK_SYMBOL_PATH と ENTITY_PARAMETER_MULTIPLER_BY_RANK の両方が maxRank の情報を持ってるから危険
+    int maxRank = ENTITY_RANK_SYMBOL_PATH.end()->first - 1;
+    int rank = MIN(static_cast<int>(floor(nextEnemyIndex / 10.0f)), maxRank);
+    int hpLevel = nextEnemyIndex;
+    int attackLevel = nextEnemyIndex;
 
-    // pop next enemy from enemy queue
-    EntityParameterLevel paramterLevel = {
-        static_cast<int>(floor(this->nextEnemyIndex / 10)),
-        this->nextEnemyIndex,
-        this->nextEnemyIndex,
-    };
+    EntityParameterLevel paramterLevel = {rank, hpLevel, attackLevel};
+    return paramterLevel;
+}
 
+void GameScene::tryToSpawnNextEnemy(float dt)
+{
+    EntityParameterLevel nextEnemyParameterLevel = this->enemyParameterLevel(this->nextEnemyIndex);
+
+    this->counterToForceSpawnEnemy += dt;
+
+    // force spawn duration を越えてたら強制的に spawn する
+    if (this->counterToForceSpawnEnemy > ENEMY_FORCE_SPAWN_DURATION) {
+        this->counterToForceSpawnEnemy = 0.0f;
+        this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
+        return;
+    }
+
+    // force spawn duration を越えてなくても、ememy が上限に達していない場合は spawn する
+    if (this->entityContainer->canSpawnEnemy(this->character->getEntityParameterLevel().rank, nextEnemyParameterLevel.rank)) {
+        this->counterToForceSpawnEnemy = 0.0f;
+        this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
+        return;
+    }
+}
+
+void GameScene::spawnNextEnemy(EntityParameterLevel parameterLevel)
+{
     Entity* newEnemy = this->entityFactory->createEnemy(
             this->enemyEntityType,
-            paramterLevel
+            parameterLevel
         );
     EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
     this->entityContainer->addEnemy(newEnemy->getIdentifier(), newEnemy);
@@ -570,6 +587,9 @@ void GameScene::spawnNextEnemy(float dt)
     }),
             NULL);
     newEnemy->runAction(sequence);
+
+    // update index
+    ++this->nextEnemyIndex;
 }
 
 void GameScene::gameover()
@@ -703,8 +723,8 @@ void GameScene::start()
 
     // Initial enemy
     if (GameSceneManager::getInstance()->isHost()) {
-        this->spawnNextEnemy(0.0f);
-        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawnNextEnemy), INITIAL_ENEMY_SPAWN_DURATION);
+        // this->spawnNextEnemy(0.0f);
+        this->schedule(CC_SCHEDULE_SELECTOR(GameScene::tryToSpawnNextEnemy));
     }
     this->schedule(CC_SCHEDULE_SELECTOR(GameScene::checkDeadEnemy), 0.2f);
 
@@ -768,5 +788,5 @@ void GameScene::disconnected()
     this->setNetworkedSession(false);
     this->character->synchronizer->setIsSendData(false);
 
-    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::spawnNextEnemy), INITIAL_ENEMY_SPAWN_DURATION);
+    this->schedule(CC_SCHEDULE_SELECTOR(GameScene::tryToSpawnNextEnemy));
 }

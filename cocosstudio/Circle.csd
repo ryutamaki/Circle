@@ -2,19 +2,19 @@
   <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="199" Speed="1.0000" ActivedAnimationName="ChargeAttack">
+      <Animation Duration="199" Speed="1.0000" ActivedAnimationName="AttackNeedle">
         <Timeline ActionTag="629999460" Property="Scale">
           <ScaleFrame FrameIndex="31" X="0.5000" Y="0.5000">
+            <EasingData Type="8" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="75" X="0.6000" Y="0.6000">
             <EasingData Type="0" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="60" X="0.5000" Y="0.5000">
+          <ScaleFrame FrameIndex="76" X="1.0000" Y="1.0000">
             <EasingData Type="0" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="61" X="1.0000" Y="1.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="70" X="1.0000" Y="1.0000">
-            <EasingData Type="0" />
+          <ScaleFrame FrameIndex="81" X="1.0000" Y="1.0000">
+            <EasingData Type="14" />
           </ScaleFrame>
           <ScaleFrame FrameIndex="99" X="0.5000" Y="0.5000">
             <EasingData Type="0" />
@@ -33,8 +33,8 @@
           <EventFrame FrameIndex="19" Tween="False" Value="Cooldown" />
           <EventFrame FrameIndex="20" Tween="False" Value="Finish" />
           <EventFrame FrameIndex="31" Tween="False" Value="Ready" />
-          <EventFrame FrameIndex="61" Tween="False" Value="Attack" />
-          <EventFrame FrameIndex="71" Tween="False" Value="Cooldown" />
+          <EventFrame FrameIndex="76" Tween="False" Value="Attack" />
+          <EventFrame FrameIndex="81" Tween="False" Value="Cooldown" />
           <EventFrame FrameIndex="100" Tween="False" Value="Finish" />
           <EventFrame FrameIndex="121" Tween="False" Value="Ready" />
           <EventFrame FrameIndex="122" Tween="False" Value="Attack" />
@@ -54,13 +54,37 @@
           <PointFrame FrameIndex="20" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
-          <PointFrame FrameIndex="108" X="2.0000" Y="2.0000">
+          <PointFrame FrameIndex="31" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
-          <PointFrame FrameIndex="110" X="2.0000" Y="-2.0000">
+          <PointFrame FrameIndex="75" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
-          <PointFrame FrameIndex="112" X="-1.0000" Y="-1.0000">
+          <PointFrame FrameIndex="76" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="80" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="81" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="99" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="100" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="108" X="4.0000" Y="5.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="110" X="3.0000" Y="-3.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="112" X="-3.0000" Y="-2.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="114" X="-4.0000" Y="3.0000">
             <EasingData Type="0" />
           </PointFrame>
         </Timeline>
@@ -72,15 +96,15 @@
         </Timeline>
         <Timeline ActionTag="-1773017991" Property="Scale">
           <ScaleFrame FrameIndex="31" X="1.0000" Y="1.0000">
+            <EasingData Type="11" />
+          </ScaleFrame>
+          <ScaleFrame FrameIndex="75" X="0.7000" Y="0.7000">
             <EasingData Type="0" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="60" X="0.8000" Y="0.8000">
+          <ScaleFrame FrameIndex="76" X="1.0000" Y="1.0000">
             <EasingData Type="0" />
           </ScaleFrame>
-          <ScaleFrame FrameIndex="61" X="1.0000" Y="1.0000">
-            <EasingData Type="0" />
-          </ScaleFrame>
-          <ScaleFrame FrameIndex="70" X="1.0000" Y="1.0000">
+          <ScaleFrame FrameIndex="80" X="1.0000" Y="1.0000">
             <EasingData Type="0" />
           </ScaleFrame>
           <ScaleFrame FrameIndex="99" X="1.0000" Y="1.0000">
@@ -126,18 +150,18 @@
       <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Needle" ActionTag="629999460" Tag="49" VisibleForFrame="False" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-78.0000" RightMargin="-78.0000" TopMargin="-78.0000" BottomMargin="-78.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Needle" ActionTag="629999460" Tag="49" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-78.0000" RightMargin="-78.0000" TopMargin="-78.0000" BottomMargin="-78.0000" ctype="SpriteObjectData">
             <Size X="156.0000" Y="156.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />
-            <Scale ScaleX="0.5000" ScaleY="0.5000" />
+            <Scale ScaleX="0.5008" ScaleY="0.5008" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="1.9500" Y="1.9500" />
             <FileData Type="Normal" Path="Images/CircleNeedle@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
               <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="56.0000" RightMargin="16.0000" TopMargin="22.0000" BottomMargin="22.0000" ctype="SpriteObjectData">

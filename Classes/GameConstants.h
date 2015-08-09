@@ -19,7 +19,8 @@ static const float BATTLE_FIELD_FRAME_THICKNESS = 5.0f;
 
 static const float SENSITIVITY_TO_CONTROL_PLAYER = 7.0f;
 
-static const float INITIAL_ENEMY_SPAWN_DURATION = 5.0f;
+static const int MAX_ENTITY_COUNT_IN_FIELD = 10;
+static const float ENEMY_FORCE_SPAWN_DURATION = 10.0f;
 
 static const int Z_ORDER_FOR_MODAL = 10;
 

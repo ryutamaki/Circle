@@ -33,8 +33,11 @@ int Circle::getCoinCountToRankUp()
     int currentRank = this->getEntityParameterLevel().rank;
     int coinCount = 0;
 
-    coinCount = 10 * powf(2.0f, static_cast<float>(currentRank));
-    return coinCount;
+    coinCount = (currentRank * 7 + 1) * powf(2.0f, static_cast<float>(currentRank)) + 20;
+    // 最大桁のみを残して切り捨てる
+    int digit = static_cast<int>(log10(static_cast<double>(coinCount)) + 1);
+    coinCount = coinCount - coinCount % static_cast<int>(pow(10, digit - 1));
+    return MAX(1, coinCount);
 }
 
 int Circle::getCoinCountToHpLevelUp()
@@ -42,7 +45,7 @@ int Circle::getCoinCountToHpLevelUp()
     int currentHp = this->getEntityParameterLevel().hp;
     int coinCount = 0;
 
-    coinCount = currentHp;
+    coinCount = ceil(currentHp / 5.0f);
     return coinCount;
 }
 
@@ -51,7 +54,7 @@ int Circle::getCoinCountToAttackLevelUp()
     int currentAttack = this->getEntityParameterLevel().attack;
     int coinCount = 0;
 
-    coinCount = currentAttack;
+    coinCount = ceil(currentAttack / 3.0f);
     return coinCount;
 }
 
