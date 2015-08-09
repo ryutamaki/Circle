@@ -29,7 +29,10 @@ public:
     void addFriend(EntityIdentifier identifier, Entity* entity);
     void addEnemy(EntityIdentifier identifier, Entity* entity);
     void addAi(EntityIdentifier identifier, EntityAI* entity);
+
     void moveEnemyToCemetery(EntityIdentifier identifier);
+
+    bool canSpawnEnemy(int characterRank, int enemyRank);
 
     void pauseAllEntity();
     void resumeAllEntity();

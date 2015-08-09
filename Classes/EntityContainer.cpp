@@ -114,6 +114,21 @@ void EntityContainer::moveEnemyToCemetery(EntityIdentifier identifier)
     }
 }
 
+#pragma mark Utility
+
+bool EntityContainer::canSpawnEnemy(int characterRank, int enemyRank)
+{
+    int currentEnemyCount = static_cast<int>(this->enemies.size());
+    int rankDiff = characterRank - enemyRank;
+    int maxEnemyCount = MIN(rankDiff, MAX_ENTITY_COUNT_IN_FIELD);
+
+    if (rankDiff <= 0) {
+        return currentEnemyCount < 1;
+    }
+
+    return currentEnemyCount <= maxEnemyCount;
+}
+
 #pragma mark Pause and Resume
 
 void EntityContainer::pauseAllEntity()

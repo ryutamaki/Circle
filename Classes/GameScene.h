@@ -56,6 +56,7 @@ private:
     Entity* character;
     Entity* friendCharacter;
     EntityType enemyEntityType;
+    float counterToForceSpawnEnemy;
     int defeatEnemyCount;
     int nextEnemyIndex;
     cocos2d::Vec2 nextEnemyInitialPosition;
@@ -71,7 +72,8 @@ private:
 
     EntityAI* attachAI(Entity* entity);
     EntityParameterLevel enemyParameterLevel(int nextEnemyIndex);
-    void spawnNextEnemy(float dt);
+    void tryToSpawnNextEnemy(float dt);
+    void spawnNextEnemy(EntityParameterLevel parameterLevel);
     void checkDeadEnemy(float dt);
     void gameover();
     void checkGameOver();
