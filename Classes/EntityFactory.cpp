@@ -34,7 +34,7 @@ Entity* EntityFactory::createFriend(bool isHost, EntityType entityType, EntityPa
 {
     std::map<std::string, EntityAttackParams> attackMap = {
         {"Attack",		 {1, EntityAttackType::NORMAL, ""										  }},
-        {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
+        {"ChargeAttack", {3, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}},
     };
 
     return this->createFriend(isHost, entityType, parameterLevel, attackMap);
@@ -68,7 +68,7 @@ Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel p
 {
     std::map<std::string, EntityAttackParams> attackMap = {
         {"AttackNeedle", {1, EntityAttackType::NORMAL, ""										  }},
-        {"ChargeAttack", {5, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}}
+        {"ChargeAttack", {4, EntityAttackType::CHARGE, "Particles/Circle_ChargeAttack_Smoke.plist"}}
     };
     return this->createEnemy(entityType, parameterLevel, attackMap);
 }

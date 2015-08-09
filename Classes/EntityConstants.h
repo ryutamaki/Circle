@@ -9,7 +9,7 @@
 #ifndef DotWar_EntityConstants_h
 #define DotWar_EntityConstants_h
 
-static const float ENTITY_CHARGE_START_DURATION = 0.1f;
+static const float ENTITY_CHARGE_START_DURATION = 0.2f;
 static const float ENTITY_VELOCITY_FACTOR = 400.0f;
 
 // TODO: These parameters should be attached to ATTACK
