@@ -498,7 +498,10 @@ EntityAI* GameScene::attachAI(Entity* entity)
 
 EntityParameterLevel GameScene::enemyParameterLevel(int nextEnemyIndex)
 {
-    int rank = static_cast<int>(floor(nextEnemyIndex / 10.0f));
+    // TODO: これ何やってるのか分かり難いやめたい
+    // ENTITY_RANK_SYMBOL_PATH と ENTITY_PARAMETER_MULTIPLER_BY_RANK の両方が maxRank の情報を持ってるから危険
+    int maxRank = ENTITY_RANK_SYMBOL_PATH.end()->first - 1;
+    int rank = MIN(static_cast<int>(floor(nextEnemyIndex / 10.0f)), maxRank);
     int hpLevel = nextEnemyIndex;
     int attackLevel = nextEnemyIndex;
 
