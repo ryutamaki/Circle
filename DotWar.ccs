@@ -181,6 +181,7 @@
         </Folder>
         <Project Name="GamePauseLayer.csd" Type="Layer" />
         <Project Name="TutorialLayer.csd" Type="Layer" />
+        <Project Name="CoinLabel.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

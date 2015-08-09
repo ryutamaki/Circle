@@ -13,6 +13,7 @@
 
 class EntityAI;
 class ScoreLabel;
+class CoinLabel;
 
 class GameScene : public cocos2d::Layer
 {
@@ -45,6 +46,7 @@ private:
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;
     ScoreLabel* scoreLabel;
+    CoinLabel* coinLabel;
     int totalCoinCount;
     cocos2d::ui::Button* lobbyButton;
     cocos2d::ui::Button* pauseButton;

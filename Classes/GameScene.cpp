@@ -12,6 +12,8 @@
 #include "TutorialLayerReader.h"
 #include "ScoreLabel.h"
 #include "ScoreLabelReader.h"
+#include "CoinLabel.h"
+#include "CoinLabelReader.h"
 
 #include "JSONPacker.h"
 #include "EntityFactory.h"
@@ -33,6 +35,7 @@ bool GameScene::init()
     }
 
     CSLoader::getInstance()->registReaderObject("ScoreLabelReader", (ObjectFactory::Instance)ScoreLabelReader::getInstance);
+    CSLoader::getInstance()->registReaderObject("CoinLabelReader", (ObjectFactory::Instance)CoinLabelReader::getInstance);
 
     auto rootNode = CSLoader::createNode("GameScene.csb");
 
@@ -43,6 +46,7 @@ bool GameScene::init()
     this->field = rootNode->getChildByName<Sprite*>("Field");
     this->coinContainer = std::unique_ptr<CoinContainer>(new CoinContainer());
     this->scoreLabel = this->field->getChildByName<ScoreLabel*>("ScoreLabel");
+    this->coinLabel = this->field->getChildByName<CoinLabel*>("CoinLabel");
     this->totalCoinCount = 0;
     this->lobbyButton = rootNode->getChildByName<ui::Button*>("LobbyButton");
     this->lobbyButton->addTouchEventListener(CC_CALLBACK_2(GameScene::readyToStart, this));
@@ -631,6 +635,7 @@ void GameScene::giveCoin(int coinCount)
     int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
     int newCoinCount = currentCoinCount + coinCount;
     UserDataManager::getInstance()->setCoinCount(newCoinCount);
+    this->coinLabel->setCoinCount(newCoinCount);
 }
 
 #pragma mark Transitions
