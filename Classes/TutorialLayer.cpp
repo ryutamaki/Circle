@@ -24,6 +24,14 @@ bool TutorialLayer::init()
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
+    // Prevent propagation into the layers below
+    EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
+    eventListener->setSwallowTouches(true);
+    eventListener->onTouchBegan = [](Touch* touch, Event* event) -> bool {
+            return true;
+        };
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
+
     return true;
 }
 
@@ -61,9 +69,10 @@ void TutorialLayer::onEnter()
 
     // Set overlay as a close button
     ui::Button* overlay = this->getChildByName<ui::Button*>("Overlay");
-    overlay->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+    overlay->addTouchEventListener([this, overlay](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
             this->hide();
+            overlay->setTouchEnabled(false);
         }
     });
     this->setContentSize(overlay->getContentSize());
