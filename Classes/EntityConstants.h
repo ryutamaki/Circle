@@ -84,7 +84,7 @@ static const std::map<int, std::string> ENTITY_RANK_SYMBOL_PATH = {
     {7, "Rank/Rank7@2x.png"},
     {8, "Rank/Rank8@2x.png"},
     {9, "Rank/Rank9@2x.png"},
-    {10, ""},
+    {10, "Rank/Rank10@2x.png"},
 };
 
 static const std::map<int, EntityParameterMultipler> ENTITY_PARAMETER_MULTIPLER_BY_RANK = {
