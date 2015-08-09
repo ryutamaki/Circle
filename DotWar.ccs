@@ -118,14 +118,6 @@
           <Image Name="ResumeButtonPushed@2x.png" />
           <Image Name="ResumeButtonPushed@3x.png" />
           <Image Name="ResumeButtonPushed@4x.png" />
-          <Image Name="TmpButtonNormal.png" />
-          <Image Name="TmpButtonNormal@2x.png" />
-          <Image Name="TmpButtonNormal@3x.png" />
-          <Image Name="TmpButtonNormal@4x.png" />
-          <Image Name="TmpButtonPushed.png" />
-          <Image Name="TmpButtonPushed@2x.png" />
-          <Image Name="TmpButtonPushed@3x.png" />
-          <Image Name="TmpButtonPushed@4x.png" />
           <Image Name="ScrollViewSeparator.png" />
           <Image Name="ScrollViewSeparator@2x.png" />
           <Image Name="ScrollViewSeparator@3x.png" />
@@ -154,6 +146,22 @@
           <Image Name="StatusUpButtonPushed@2x.png" />
           <Image Name="StatusUpButtonPushed@3x.png" />
           <Image Name="StatusUpButtonPushed@4x.png" />
+          <Image Name="MultiplayerButtonPushed.png" />
+          <Image Name="MultiplayerButtonPushed@2x.png" />
+          <Image Name="MultiplayerButtonPushed@3x.png" />
+          <Image Name="MultiplayerButtonPushed@4x.png" />
+          <Image Name="SinglePlayerButtonNormal.png" />
+          <Image Name="SinglePlayerButtonNormal@2x.png" />
+          <Image Name="SinglePlayerButtonNormal@3x.png" />
+          <Image Name="SinglePlayerButtonNormal@4x.png" />
+          <Image Name="SinglePlayerButtonPushed.png" />
+          <Image Name="SinglePlayerButtonPushed@2x.png" />
+          <Image Name="SinglePlayerButtonPushed@3x.png" />
+          <Image Name="SinglePlayerButtonPushed@4x.png" />
+          <Image Name="MultiplayerButtonNormal.png" />
+          <Image Name="MultiplayerButtonNormal@2x.png" />
+          <Image Name="MultiplayerButtonNormal@3x.png" />
+          <Image Name="MultiplayerButtonNormal@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />
