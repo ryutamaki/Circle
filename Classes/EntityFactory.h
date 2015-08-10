@@ -26,9 +26,9 @@ public:
     ~EntityFactory();
 
     Entity* createFriend(
-        bool isHost,
-        EntityType entityType,
-        EntityParameterLevel parameterLevel
+        bool					isHost,
+        EntityType				entityType,
+        EntityParameterLevel	parameterLevel
     );
 
     Entity* createFriend(
