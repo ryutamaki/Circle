@@ -31,6 +31,8 @@ bool GameResultLayer::init()
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
+    this->networked = false;
+
     // Prevent propagation into the layers below
     EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
     eventListener->setSwallowTouches(true);
@@ -78,6 +80,11 @@ void GameResultLayer::setCoinCount(int coinCount)
     coinCountLabel->setString(std::to_string(coinCount));
 }
 
+void GameResultLayer::setNetworked(bool networked)
+{
+    this->networked = networked;
+}
+
 #pragma mark - Private methods
 
 #pragma mark View lifecycle
@@ -113,9 +120,9 @@ void GameResultLayer::setupButtons()
     });
 
     ui::Button* retryButton = this->resultLayout->getChildByName<ui::Button*>("RetryButton");
-    retryButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
+    retryButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            GameSceneManager::getInstance()->restartGameScene();
+            GameSceneManager::getInstance()->restartGameScene(this->networked);
         }
     });
 

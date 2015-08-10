@@ -24,7 +24,7 @@ public:
     // scene transitions
     void enterGameScene(EntityType enemyEntityType, bool networked);
     void exitGameScene();
-    void restartGameScene();
+    void restartGameScene(bool networked);
     void pauseGameScene();
     void resumeGameScene();
 

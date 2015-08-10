@@ -63,12 +63,12 @@ void GameSceneManager::exitGameScene()
     }
 }
 
-void GameSceneManager::restartGameScene()
+void GameSceneManager::restartGameScene(bool networked)
 {
     if (this->gameScene) {
         EntityType enemyEntityType = this->gameScene->getEnemyEntityType();
 
-        this->enterGameScene(enemyEntityType, false);
+        this->enterGameScene(enemyEntityType, networked);
     }
 }
 

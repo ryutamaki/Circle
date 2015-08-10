@@ -20,6 +20,7 @@ public:
     void setScore(int score);
     void setHighScore(int highScore, bool isNewRecord);
     void setCoinCount(int coinCount);
+    void setNetworked(bool networked);
 
     void show(Node* parent);
     void hide(std::function<void()> lastFrameCallback);
@@ -28,6 +29,7 @@ private:
     cocostudio::timeline::ActionTimeline* timeline;
 
     cocos2d::ui::Layout* resultLayout;
+    bool networked;
 
     void onEnter() override;
     void onExit() override;

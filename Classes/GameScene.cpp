@@ -677,6 +677,7 @@ void GameScene::showResultLayer(int score, int highscore, bool isNewRecord, int 
     gameResult->setScore(score);
     gameResult->setHighScore(highscore, isNewRecord);
     gameResult->setCoinCount(coinCount);
+    gameResult->setNetworked(this->networkedSession);
 }
 
 void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType)
