@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Triangle" ID="8590d622-a871-41c1-ba55-fafd14948388" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="70" Speed="1.0000">
+      <Animation Duration="130" Speed="1.0000" ActivedAnimationName="Charge">
         <Timeline ActionTag="-2083801574" Property="VisibleForFrame">
           <BoolFrame FrameIndex="1" Tween="False" Value="True" />
           <BoolFrame FrameIndex="2" Tween="False" Value="False" />
@@ -42,6 +42,27 @@
           <PointFrame FrameIndex="68" X="0.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
+          <PointFrame FrameIndex="101" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="102" X="4.0000" Y="3.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="103" X="-5.0000" Y="-2.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="104" X="3.0000" Y="-3.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="105" X="-4.0000" Y="5.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="121" X="0.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
+          <PointFrame FrameIndex="130" X="-30.0000" Y="0.0000">
+            <EasingData Type="0" />
+          </PointFrame>
         </Timeline>
         <Timeline ActionTag="-2083801574" Property="FrameEvent">
           <EventFrame FrameIndex="11" Tween="False" Value="Ready" />
@@ -56,6 +77,9 @@
         </AnimationInfo>
         <AnimationInfo Name="Attack" StartIndex="10" EndIndex="71">
           <RenderColor A="255" R="219" G="112" B="147" />
+        </AnimationInfo>
+        <AnimationInfo Name="Charge" StartIndex="100" EndIndex="106">
+          <RenderColor A="150" R="123" G="104" B="238" />
         </AnimationInfo>
       </AnimationList>
       <ObjectData Name="Node" CustomClassName="Triangle" Tag="3" ctype="GameNodeObjectData">
