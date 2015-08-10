@@ -772,6 +772,11 @@ void GameScene::disconnected()
         return;
     }
 
+    if (this->gameState == GameState::RESULT) {
+        GameSceneManager::getInstance()->exitGameScene();
+        return;
+    }
+
     // kill friend character
     this->friendCharacter->setHp(0);
 
