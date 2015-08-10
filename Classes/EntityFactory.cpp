@@ -52,7 +52,7 @@ Entity* EntityFactory::createFriend(bool isHost, EntityType entityType, EntityPa
     } else {
         identifier = ENTITY_BUDDY_PLAYER_IDENTIFIER;
         // TODO: change the color
-        initialColor = CIRCLE_LIGHT_BLUE;
+        initialColor = CIRCLE_LIGHT_YELLOW;
     }
 
     return this->gen(
