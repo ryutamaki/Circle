@@ -13,9 +13,9 @@
 
 #include "EntityConstants.h"
 
-static const EntityIdentifier ENTITY_HOST_PLAYER_IDENTIFIER = 0;
-static const EntityIdentifier ENTITY_BUDDY_PLAYER_IDENTIFIER = 1;
-static const EntityIdentifier ENEMY_INITIAL_IDENTIFIER = 10;
+static const EntityIdentifier ENTITY_HOST_PLAYER_IDENTIFIER = -1;
+static const EntityIdentifier ENTITY_BUDDY_PLAYER_IDENTIFIER = -2;
+static const EntityIdentifier ENEMY_INITIAL_IDENTIFIER = 1;
 
 class Entity;
 
