@@ -64,13 +64,13 @@
           <AbstractNodeData Name="Body" ActionTag="-2083801574" Tag="4" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
-              <AbstractNodeData Name="Eyes" ActionTag="-598274595" Tag="26" IconVisible="False" LeftMargin="43.0000" RightMargin="-7.0000" TopMargin="-6.0000" BottomMargin="28.0000" ctype="SpriteObjectData">
-                <Size X="10.0000" Y="24.0000" />
+              <AbstractNodeData Name="Eyes" ActionTag="-598274595" Tag="26" IconVisible="False" LeftMargin="44.0000" RightMargin="28.0000" TopMargin="28.0000" BottomMargin="28.0000" ctype="SpriteObjectData">
+                <Size X="8.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="48.0000" Y="40.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="1.0435" Y="0.8696" />
+                <PrePosition X="0.6000" Y="0.5000" />
                 <PreSize X="0.0000" Y="0.0000" />
                 <FileData Type="Normal" Path="Images/TriangleEyes@2x.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />
