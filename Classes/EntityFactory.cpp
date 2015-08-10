@@ -111,6 +111,18 @@ Entity* EntityFactory::gen(
             return circle;
         }
 
+        case EntityType::TRIANGLE:
+        {
+            instance->registReaderObject("TriangleReader", (ObjectFactory::Instance)TriangleReader::getInstance);
+            Triangle* triangle = dynamic_cast<Triangle*>(CSLoader::createNode("Triangle.csb"));
+            triangle->setEntityType(entityType);
+            triangle->setEntityParameterLevel(parameterLevel);
+            triangle->setAttackMap(attackMap);
+            triangle->setInitialColor(initialColor);
+            triangle->setIdentifier(identifier);
+            return triangle;
+        }
+
         case EntityType::NONE:
         {
             return nullptr;

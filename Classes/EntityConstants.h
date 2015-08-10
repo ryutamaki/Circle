@@ -23,7 +23,7 @@ typedef unsigned int EntityIdentifier;
 enum class EntityType
 {
     CIRCLE = 0,
-//    TRIANGLE,
+    TRIANGLE,
     NONE, // This is not good way but I dont no some of better way.
 };
 
@@ -63,13 +63,13 @@ struct EntityParameterMultipler
 static const std::map<EntityType, EntityParameterLevel> ENTITY_INITIAL_LEVEL_PARAMETER = {
     // {EntityType, {rank, hp, attack}}
     {EntityType::CIRCLE, {0, 1, 1}},
-//    {EntityType::TRIANGLE, {1, 1, 1}},
+    {EntityType::TRIANGLE, {0, 1, 1}},
     {EntityType::NONE, {0, 0, 0}},
 };
 
 static const std::map<EntityType, EntityParameter> ENTITY_INITIAL_PARAMETER = {
     {EntityType::CIRCLE, {10, 1}},
-//    {EntityType::TRIANGLE, {200, 1}},
+    {EntityType::TRIANGLE, {200, 1}},
     {EntityType::NONE, {0, 0}},
 };
 

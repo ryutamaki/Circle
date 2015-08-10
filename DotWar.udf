@@ -39,8 +39,9 @@
           <FilePathData Path="StageSelectScene.csd" />
           <FilePathData Path="ScoreLabel.csd" />
           <FilePathData Path="CoinLabel.csd" />
+          <FilePathData Path="Triangle.csd" />
         </OpenedDocuments>
-        <ActiveDocument Path="CoinLabel.csd" />
+        <ActiveDocument Path="Triangle.csd" />
       </Value>
     </Item>
   </Properties>
