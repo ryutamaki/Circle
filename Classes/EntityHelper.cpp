@@ -47,6 +47,8 @@ const float EntityHelper::diffAngleFromStartAngleAndEndAngle(float startAngle, f
     return diffAngle;
 }
 
+#pragma mark Rank
+
 const bool EntityHelper::isRankExists(int rank)
 {
     if (ENTITY_RANK_SYMBOL_PATH.count(rank)) {
@@ -59,4 +61,9 @@ const bool EntityHelper::isNextRankExists(int rank)
 {
     int nextRank = rank + 1;
     return EntityHelper::isRankExists(nextRank);
+}
+
+const int EntityHelper::getMaxRank()
+{
+    return ENTITY_RANK_SYMBOL_PATH.end()->first - 1;
 }

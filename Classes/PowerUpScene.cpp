@@ -181,7 +181,11 @@ void PowerUpScene::setEntityParameterLevelLabelText(struct EntityParameterLevel 
     ui::TextBMFont* hpUpCoinNeedCountLabel = this->hpLayout->getChildByName<ui::TextBMFont*>("HpUpCoinNeedCountLabel");
     ui::TextBMFont* attackUpCoinNeedCountLabel = this->attackLayout->getChildByName<ui::TextBMFont*>("AttackUpCoinNeedCountLabel");
 
-    rankUpCoinNeedCountLabel->setString(std::to_string(this->entity->getCoinCountToRankUp()));
+    if (EntityHelper::getMaxRank() == this->entityParameterLevel.rank) {
+        rankUpCoinNeedCountLabel->setString("MAX");
+    } else {
+        rankUpCoinNeedCountLabel->setString(std::to_string(this->entity->getCoinCountToRankUp()));
+    }
     hpUpCoinNeedCountLabel->setString(std::to_string(this->entity->getCoinCountToHpLevelUp()));
     attackUpCoinNeedCountLabel->setString(std::to_string(this->entity->getCoinCountToAttackLevelUp()));
 }

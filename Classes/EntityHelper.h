@@ -21,6 +21,7 @@ public:
 
     static const bool isRankExists(int rank);
     static const bool isNextRankExists(int rank);
+    static const int getMaxRank();
 };
 
 #endif /* defined(__DotWar__EntityHelper__) */
