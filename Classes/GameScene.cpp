@@ -195,17 +195,17 @@ void GameScene::receivedData(const void* data, unsigned long length)
             return;
         }
 
+        if (target->getPosition().distance(entityState.position) > 80.0f) {
+            target->setPosition(entityState.position);
+        }
+
         // log("identifier: %s, hp: %d, move: %d, attack: %d, damage target: %s, damage volume: %d, position: {%f, %f}", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume, entityState.position.x, entityState.position.y);
         target->setHp(entityState.hp);
 
         // TODO: magic number
-        if (target->getPosition().distance(entityState.position) > 20.0f) {
-            target->setPosition(entityState.position);
-        }
-
         if (entityState.moveState == EntityMoveState::NONE) {
             target->stateMachine->stop();
-        } else {
+        } else if (entityState.moveState == EntityMoveState::MOVING) {
             target->stateMachine->move(entityState.direction);
         }
 
@@ -421,7 +421,7 @@ void GameScene::checkDeadEnemy(float dt)
     for (auto& kv : enemies) {
         Entity* enemy = static_cast<Entity*>(kv.second);
 
-        if (! enemy->stateMachine->isDead()) {
+        if (enemy && ! enemy->stateMachine->isDead()) {
             continue;
         }
 
@@ -492,9 +492,12 @@ void GameScene::damageCharacterFromEntity()
 EntityAI* GameScene::attachAI(Entity* entity)
 {
     cocos2d::Vector<Entity*> opponents;
-    opponents.pushBack(this->character);
 
-    if (this->networkedSession && this->friendCharacter) {
+    if (this->character && ! this->character->stateMachine->isDead()) {
+        opponents.pushBack(this->character);
+    }
+
+    if (this->networkedSession && this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
         opponents.pushBack(this->friendCharacter);
     }
     EntityAI* enemyAi = new EntityAI(entity, opponents);
@@ -565,10 +568,10 @@ void GameScene::spawnNextEnemy(EntityParameterLevel parameterLevel)
         newEnemy->synchronizer->setIsSendData(GameSceneManager::getInstance()->isHost());
         newEnemy->synchronizer->setIsHost(false);
         newEnemy->synchronizer->setIsMyself(false);
-        newEnemy->stateMachine->ready();
     }
 
     this->field->addChild(newEnemy);
+    newEnemy->stateMachine->ready();
 
     // animate next entity
     float spawnDuration = 1.5f;
@@ -790,7 +793,6 @@ void GameScene::disconnected()
         }
 
         this->character->synchronizer->setIsHost(true);
-        this->character->synchronizer->setIsSendData(false);
     }
 
     // unable network session
