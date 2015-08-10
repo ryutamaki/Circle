@@ -74,6 +74,16 @@ void EntityAI::running(float dt)
         }
     }
 
+    if (! this->target || this->target->stateMachine->isDead()) {
+        auto it = this->opponents.find(this->target);
+
+        if (it != this->opponents.end()) {
+            this->opponents.erase(it);
+        }
+        this->decideTarget();
+        return;
+    }
+
     float rand = CCRANDOM_0_1();
 
     if (rand < 0.05f) {
@@ -85,15 +95,6 @@ void EntityAI::running(float dt)
         this->stay(1.0f);
         return;
     } else if (rand < 0.2f) {
-        this->decideTarget();
-    }
-
-    if (this->target->stateMachine->isDead()) {
-        auto it = this->opponents.find(this->target);
-
-        if (it != this->opponents.end()) {
-            this->opponents.erase(it);
-        }
         this->decideTarget();
     }
 
