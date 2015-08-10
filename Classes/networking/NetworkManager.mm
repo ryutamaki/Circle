@@ -96,7 +96,7 @@
 - (void)sendData:(NSData*)data
 {
     NSError* error;
-    [self.session sendData:data toPeers:self.session.connectedPeers withMode:MCSessionSendDataReliable error:&error];
+    [self.session sendData:data toPeers:self.session.connectedPeers withMode:MCSessionSendDataUnreliable error:&error];
 }
 
 #pragma mark - MCBrowserViewControllerDelegate methods
