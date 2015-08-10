@@ -102,7 +102,7 @@ void GameScene::setFriendCharacter(EntityType entityType, EntityParameterLevel p
     }
     bool isHost = GameSceneManager::getInstance()->isHost();
 
-    this->friendCharacter = this->entityFactory->createFriend(isHost, entityType, parameterLevel);
+    this->friendCharacter = this->entityFactory->createFriend(! isHost, entityType, parameterLevel);
     this->friendCharacter->setNormalizedPosition(Vec2(0.3f, 0.5f));
     this->friendCharacter->setRotation(0.0f);
     this->field->addChild(this->friendCharacter, 1);
