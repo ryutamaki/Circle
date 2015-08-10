@@ -68,7 +68,7 @@ bool GameScene::init()
     this->gameState = GameState::PREPARE;
     this->counterToForceSpawnEnemy = 0.0f;
     this->defeatEnemyCount = 0;
-    this->nextEnemyIndex = 1;
+    this->nextEnemyIndex = ENEMY_INITIAL_IDENTIFIER;
 
     return true;
 }
@@ -182,7 +182,10 @@ void GameScene::receivedData(const void* data, unsigned long length)
         if (! GameSceneManager::getInstance()->isHost()) {
             if (entityState.globalState == EntityGlobalState::READY) {
                 this->nextEnemyInitialPosition = entityState.position;
-                this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
+
+                if (entityState.identifier == this->nextEnemyIndex) {
+                    this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
+                }
             }
         }
 

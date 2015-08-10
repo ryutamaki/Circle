@@ -75,17 +75,16 @@ Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel p
 
 Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap)
 {
-    this->enemyIdentifier++;
-    log("%d", this->enemyIdentifier);
-
     Color4B initialColor = CIRCLE_LIGHT_RED;
-    return this->gen(
-        this->enemyIdentifier,
-        entityType,
-        parameterLevel,
-        attackMap,
-        initialColor
-    );
+    Entity* entity = this->gen(
+            this->enemyIdentifier,
+            entityType,
+            parameterLevel,
+            attackMap,
+            initialColor
+        );
+    this->enemyIdentifier++;
+    return entity;
 }
 
 #pragma mark - Private methods
