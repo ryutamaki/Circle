@@ -150,7 +150,6 @@ void PowerUpScene::setupUI()
     // Attack
     ui::Button* attackUpButton = this->attackLayout->getChildByName<ui::Button*>("AttackUpButton");
 
-<<<<<<< HEAD
     if (this->canUseCoin(this->entity->getCoinCountToAttackLevelUp())) {
         attackUpButton->addTouchEventListener([this, attackUpButton](Ref* pRef, ui::Widget::TouchEventType eEventType) {
             if (eEventType == ui::Widget::TouchEventType::ENDED) {
