@@ -73,6 +73,8 @@
 		039EB4D31B6C240700884C73 /* GamePauseLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039EB4CE1B6C240700884C73 /* GamePauseLayer.cpp */; };
 		039EB4D41B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039EB4D01B6C240700884C73 /* GamePauseLayerReader.cpp */; };
 		039EB4D51B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 039EB4D01B6C240700884C73 /* GamePauseLayerReader.cpp */; };
+		03ACBD6F1B7946C900F7119A /* FlurryHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03ACBD6D1B7946C900F7119A /* FlurryHelper.cpp */; };
+		03ACBD701B7946C900F7119A /* FlurryHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03ACBD6D1B7946C900F7119A /* FlurryHelper.cpp */; };
 		03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
 		03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */; };
 		03B167C31B59C0B0005D1FF6 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03B167C21B59C085005D1FF6 /* libcocos2d iOS.a */; };
@@ -83,9 +85,11 @@
 		03D709991B657BD70056912B /* StageComponentReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D709941B657BD70056912B /* StageComponentReader.cpp */; };
 		03D7099E1B6582210056912B /* EntityFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D7099C1B6582210056912B /* EntityFactory.cpp */; };
 		03D7099F1B6582210056912B /* EntityFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 03D7099C1B6582210056912B /* EntityFactory.cpp */; };
+		0AA04E50BD398324651F0E04 /* PluginFlurryAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA274F4CB8922BE63DF0C4E0 /* PluginFlurryAnalytics.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		2A084E3CA106848ADD1806A7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14664E8EA2F90ECD9ED705D6 /* SystemConfiguration.framework */; };
 		41E34A81ACA2320B6C76C445 /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
@@ -124,8 +128,13 @@
 		521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6219F0C34300D177D7 /* Default-667h@2x.png */; };
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		6B51417BADC7423933A65098 /* sdkbox_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DD491FB50FAFD85CE77159 /* sdkbox_config.json */; };
+		716D49929E0AD9DB4EB9186A /* sdkbox_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 38DD491FB50FAFD85CE77159 /* sdkbox_config.json */; };
 		7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */ = {isa = PBXBuildFile; fileRef = FA144D09A52357282113E0F8 /* res */; };
+		7DC44978959FB5FD900BE94A /* PluginFlurryAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA274F4CB8922BE63DF0C4E0 /* PluginFlurryAnalytics.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		937F4FDD83CB15880A243769 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14664E8EA2F90ECD9ED705D6 /* SystemConfiguration.framework */; };
+		B1AF495EBF5E2CF2DAF25E20 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461943BB8090E83132898F04 /* sdkbox.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -133,6 +142,7 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
+		E9484FEAAB366821196813B0 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461943BB8090E83132898F04 /* sdkbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -220,6 +230,8 @@
 		039EB4CF1B6C240700884C73 /* GamePauseLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePauseLayer.h; sourceTree = "<group>"; };
 		039EB4D01B6C240700884C73 /* GamePauseLayerReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GamePauseLayerReader.cpp; sourceTree = "<group>"; };
 		039EB4D11B6C240700884C73 /* GamePauseLayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GamePauseLayerReader.h; sourceTree = "<group>"; };
+		03ACBD6D1B7946C900F7119A /* FlurryHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlurryHelper.cpp; sourceTree = "<group>"; };
+		03ACBD6E1B7946C900F7119A /* FlurryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryHelper.h; sourceTree = "<group>"; };
 		03B167B11B58301C005D1FF6 /* EntityStateMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityStateMachine.cpp; sourceTree = "<group>"; };
 		03B167B21B58301C005D1FF6 /* EntityStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityStateMachine.h; sourceTree = "<group>"; };
 		03B167B91B59928F005D1FF6 /* GameConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConstants.h; sourceTree = "<group>"; };
@@ -230,11 +242,14 @@
 		03D709951B657BD70056912B /* StageComponentReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageComponentReader.h; sourceTree = "<group>"; };
 		03D7099C1B6582210056912B /* EntityFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityFactory.cpp; sourceTree = "<group>"; };
 		03D7099D1B6582210056912B /* EntityFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityFactory.h; sourceTree = "<group>"; };
+		14664E8EA2F90ECD9ED705D6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* DotWar iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DotWar iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		38DD491FB50FAFD85CE77159 /* sdkbox_config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = sdkbox_config.json; path = /Users/tamakiryu/Develop/MakeSchool/DotWar/Resources/sdkbox_config.json; sourceTree = "<absolute>"; };
+		461943BB8090E83132898F04 /* sdkbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sdkbox.framework; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		46880B8619C43A87006E1F66 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = GameScene.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -283,6 +298,7 @@
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		FA144D09A52357282113E0F8 /* res */ = {isa = PBXFileReference; lastKnownFileType = "?"; name = res; path = ../Resources/res; sourceTree = "<group>"; };
+		FA274F4CB8922BE63DF0C4E0 /* PluginFlurryAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginFlurryAnalytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +319,9 @@
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
+				B1AF495EBF5E2CF2DAF25E20 /* sdkbox.framework in Frameworks */,
+				0AA04E50BD398324651F0E04 /* PluginFlurryAnalytics.framework in Frameworks */,
+				2A084E3CA106848ADD1806A7 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +340,9 @@
 				5087E76917EB910900C73F5D /* OpenAL.framework in Frameworks */,
 				5087E76A17EB910900C73F5D /* AVFoundation.framework in Frameworks */,
 				5087E76B17EB910900C73F5D /* AudioToolbox.framework in Frameworks */,
+				E9484FEAAB366821196813B0 /* sdkbox.framework in Frameworks */,
+				7DC44978959FB5FD900BE94A /* PluginFlurryAnalytics.framework in Frameworks */,
+				937F4FDD83CB15880A243769 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +406,8 @@
 			children = (
 				03917D7E1B5712800068BCA6 /* JSONPacker.cpp */,
 				03917D7F1B5712800068BCA6 /* JSONPacker.h */,
+				03ACBD6D1B7946C900F7119A /* FlurryHelper.cpp */,
+				03ACBD6E1B7946C900F7119A /* FlurryHelper.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -511,6 +535,9 @@
 				BF170DB012928DE900B8313A /* OpenGLES.framework */,
 				BF1C47EA1293683800B63C5D /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				461943BB8090E83132898F04 /* sdkbox.framework */,
+				FA274F4CB8922BE63DF0C4E0 /* PluginFlurryAnalytics.framework */,
+				14664E8EA2F90ECD9ED705D6 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -522,6 +549,7 @@
 				031B09021B6EBE50005269F4 /* Particles */,
 				0342E5D41B66D8CC009B737E /* Images.xcassets */,
 				FA144D09A52357282113E0F8 /* res */,
+				38DD491FB50FAFD85CE77159 /* sdkbox_config.json */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -718,6 +746,7 @@
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				41E34A81ACA2320B6C76C445 /* res in Resources */,
+				716D49929E0AD9DB4EB9186A /* sdkbox_config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +758,7 @@
 				031B09041B6EBE50005269F4 /* Particles in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				7AB94C6A95BCF2B4CA3DF1DC /* res in Resources */,
+				6B51417BADC7423933A65098 /* sdkbox_config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,6 +790,7 @@
 				0342E5C61B66CBEB009B737E /* CoinReader.cpp in Sources */,
 				031C156C1B68292C007D0FEC /* ScoreLabel.cpp in Sources */,
 				03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
+				03ACBD6F1B7946C900F7119A /* FlurryHelper.cpp in Sources */,
 				0351AF971B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */,
 				03D709961B657BD70056912B /* StageComponent.cpp in Sources */,
 				036376D31B773470000B3F46 /* CoinLabelReader.cpp in Sources */,
@@ -804,6 +835,7 @@
 				03D709991B657BD70056912B /* StageComponentReader.cpp in Sources */,
 				03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
 				036376D41B773470000B3F46 /* CoinLabelReader.cpp in Sources */,
+				03ACBD701B7946C900F7119A /* FlurryHelper.cpp in Sources */,
 				03917D651B56EDC60068BCA6 /* TriangleReader.cpp in Sources */,
 				039EB4D51B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */,
 				03917D5A1B56C9B90068BCA6 /* CircleReader.cpp in Sources */,
@@ -837,6 +869,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "\"/Users/tamakiryu/Develop/MakeSchool/DotWar/proj.ios_mac/\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -855,10 +888,15 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/ios";
+				LIBRARY_SEARCH_PATHS = (
+					"/Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/ios",
+					"\"sdkbox.framework\"",
+					"\"PluginFlurryAnalytics.framework\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-fobjc-arc",
 				);
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
@@ -877,6 +915,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				FRAMEWORK_SEARCH_PATHS = "\"/Users/tamakiryu/Develop/MakeSchool/DotWar/proj.ios_mac/\"";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -893,10 +932,15 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/ios";
+				LIBRARY_SEARCH_PATHS = (
+					"/Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/ios",
+					"\"sdkbox.framework\"",
+					"\"PluginFlurryAnalytics.framework\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-fobjc-arc",
 				);
 				PROVISIONING_PROFILE = "0be69647-af71-4a5d-8b42-7d66294afca1";
 				SDKROOT = iphoneos;
@@ -913,6 +957,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = "\"/Users/tamakiryu/Develop/MakeSchool/DotWar/proj.ios_mac/\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -930,10 +975,15 @@
 					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/mac";
+				LIBRARY_SEARCH_PATHS = (
+					"/Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/mac",
+					"\"sdkbox.framework\"",
+					"\"PluginFlurryAnalytics.framework\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_MAC_BEGIN)",
 					"$(_COCOS_LIB_MAC_END)",
+					"-fobjc-arc",
 				);
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_MAC_BEGIN) $(_COCOS_HEADER_MAC_END)";
 			};
@@ -946,6 +996,7 @@
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = "\"/Users/tamakiryu/Develop/MakeSchool/DotWar/proj.ios_mac/\"";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;
@@ -961,10 +1012,15 @@
 					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/glfw3/include/mac",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
-				LIBRARY_SEARCH_PATHS = " /Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/mac";
+				LIBRARY_SEARCH_PATHS = (
+					"/Applications/Cocos/frameworks/cocos2d-x-3.6/prebuilt/mac",
+					"\"sdkbox.framework\"",
+					"\"PluginFlurryAnalytics.framework\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_MAC_BEGIN)",
 					"$(_COCOS_LIB_MAC_END)",
+					"-fobjc-arc",
 				);
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_MAC_BEGIN) $(_COCOS_HEADER_MAC_END)";
 			};
@@ -976,6 +1032,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "\"/Users/tamakiryu/Develop/MakeSchool/DotWar/proj.ios_mac/\"";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -994,8 +1051,13 @@
 					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external",
 					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/chipmunk/include/chipmunk",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"sdkbox.framework\"",
+					"\"PluginFlurryAnalytics.framework\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1006,6 +1068,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = "\"/Users/tamakiryu/Develop/MakeSchool/DotWar/proj.ios_mac/\"";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1023,8 +1086,13 @@
 					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external",
 					"/Applications/Cocos/frameworks/cocos2d-x-3.6/external/chipmunk/include/chipmunk",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"sdkbox.framework\"",
+					"\"PluginFlurryAnalytics.framework\"",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;

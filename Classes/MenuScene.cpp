@@ -19,6 +19,8 @@
 #include "StageSelectScene.h"
 #include "EntityFactory.h"
 
+#include "FlurryHelper.h"
+
 USING_NS_CC;
 
 #pragma mark - Public methods
@@ -79,6 +81,9 @@ void MenuScene::onEnter()
     // This will start observing to find peers.
     // Set self.peerID in NetworkManager also.
     GameSceneManager::getInstance()->receiveMultiplayerInvitations();
+
+    // log for analytics
+    FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_MENU);
 }
 
 void MenuScene::putEntityByEntityType(EntityType entityType)

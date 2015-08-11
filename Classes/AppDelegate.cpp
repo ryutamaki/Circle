@@ -2,6 +2,8 @@
 #include "MenuScene.h"
 #include "UserDataManager.h"
 
+#include "PluginFlurryAnalytics/PluginFlurryAnalytics.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate()
@@ -69,6 +71,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // load user data
     UserDataManager::getInstance()->load();
+
+    // Start Flurry analytics sessions
+    sdkbox::PluginFlurryAnalytics::init();
+    sdkbox::PluginFlurryAnalytics::startSession();
 
     return true;
 }

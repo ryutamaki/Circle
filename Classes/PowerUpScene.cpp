@@ -14,6 +14,7 @@
 #include "EntityFactory.h"
 
 #include "UserDataManager.h"
+#include "FlurryHelper.h"
 
 USING_NS_CC;
 
@@ -77,6 +78,9 @@ void PowerUpScene::onEnter()
     CCASSERT(this->entityType != EntityType::NONE, "You MUST set entityType before onEnter().");
 
     this->setupUI();
+
+    // log for analytics
+    FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_POWERUP);
 }
 
 void PowerUpScene::setupUI()
@@ -97,6 +101,9 @@ void PowerUpScene::setupUI()
                     UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                     this->setEntityParameterLevelLabelText(this->entityParameterLevel);
                     this->useCoin(useCoinCount);
+
+                    int remainingCoinCount = UserDataManager::getInstance()->getCoinCount();
+                    FlurryHelper::logPowerUp("Rank", this->entityParameterLevel.rank, this->entityParameterLevel.hp, this->entityParameterLevel.attack, useCoinCount, remainingCoinCount);
 
                     if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank) ||
                         this->coinCount < this->entity->getCoinCountToRankUp()) {
@@ -124,6 +131,9 @@ void PowerUpScene::setupUI()
                     UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                     this->setEntityParameterLevelLabelText(this->entityParameterLevel);
                     this->useCoin(useCoinCount);
+
+                    int remainingCoinCount = UserDataManager::getInstance()->getCoinCount();
+                    FlurryHelper::logPowerUp("HP", this->entityParameterLevel.rank, this->entityParameterLevel.hp, this->entityParameterLevel.attack, useCoinCount, remainingCoinCount);
                 }
 
                 if (! this->canUseCoin(this->entity->getCoinCountToHpLevelUp())) {
@@ -140,6 +150,7 @@ void PowerUpScene::setupUI()
     // Attack
     ui::Button* attackUpButton = this->attackLayout->getChildByName<ui::Button*>("AttackUpButton");
 
+<<<<<<< HEAD
     if (this->canUseCoin(this->entity->getCoinCountToAttackLevelUp())) {
         attackUpButton->addTouchEventListener([this, attackUpButton](Ref* pRef, ui::Widget::TouchEventType eEventType) {
             if (eEventType == ui::Widget::TouchEventType::ENDED) {
@@ -150,6 +161,9 @@ void PowerUpScene::setupUI()
                     UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                     this->setEntityParameterLevelLabelText(this->entityParameterLevel);
                     this->useCoin(useCoinCount);
+
+                    int remainingCoinCount = UserDataManager::getInstance()->getCoinCount();
+                    FlurryHelper::logPowerUp("Attack", this->entityParameterLevel.rank, this->entityParameterLevel.hp, this->entityParameterLevel.attack, useCoinCount, remainingCoinCount);
                 }
 
                 if (! this->canUseCoin(this->entity->getCoinCountToAttackLevelUp())) {
