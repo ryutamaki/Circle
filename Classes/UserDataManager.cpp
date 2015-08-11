@@ -72,7 +72,11 @@ int UserDataManager::getCoinCount()
     this->load();
 
     if (this->userData.find(USER_DATA_COIN_COUNT) == this->userData.end()) {
+#if COCOS2D_DEBUG
+        int initialCoinCount = 1000;
+#else
         int initialCoinCount = 0;
+#endif
         return initialCoinCount;
     }
 
