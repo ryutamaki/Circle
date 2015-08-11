@@ -36,7 +36,7 @@
             "AppVersion": "V0.5",
             "SessionTimeout": 10, 
             "CrashReport": true, 
-            "Debug": true
+            "Debug": false
         }
     }
 }
