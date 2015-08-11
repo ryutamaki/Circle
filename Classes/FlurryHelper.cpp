@@ -19,7 +19,7 @@ void logTransitionScene(std::string toScene)
     sdkbox::PluginFlurryAnalytics::logEvent("Scene", scenes);
 }
 
-void logGameResult(bool isSinglePlayerMode, bool abandon, int score, int coinEarned, int totalCoin)
+void logGameResult(bool isSinglePlayerMode, bool abandon, int score, int coinEarned, int totalCoin, int playTimeInSeconds)
 {
     std::map<std::string, std::string> params = {
         {"Game Mode",	isSinglePlayerMode ? "Single Player" : "Multiplayer"},
@@ -27,6 +27,7 @@ void logGameResult(bool isSinglePlayerMode, bool abandon, int score, int coinEar
         {"Score",		StringUtils::toString(score)						},
         {"Coin Earned", StringUtils::toString(coinEarned)					},
         {"Total Coin",	StringUtils::toString(totalCoin)					},
+        {"Play Time",	StringUtils::toString(playTimeInSeconds)			},
     };
 
     sdkbox::PluginFlurryAnalytics::logEvent("Game Result", params);

@@ -632,7 +632,10 @@ void GameScene::gameover()
     int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
     bool isSinglePlayerMode = ! this->networkedSession;
     bool isQuit = false;
-    FlurryHelper::logGameResult(isSinglePlayerMode, isQuit, score, this->totalCoinCount, currentCoinCount);
+
+    std::chrono::seconds playTime = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - this->startTime);
+    int playTimeInSeconds = static_cast<int>(playTime.count());
+    FlurryHelper::logGameResult(isSinglePlayerMode, isQuit, score, this->totalCoinCount, currentCoinCount, playTimeInSeconds);
 }
 
 void GameScene::checkGameOver()
@@ -680,7 +683,9 @@ void GameScene::showPauseLayer()
     CSLoader::getInstance()->registReaderObject("GamePauseLayerReader", (ObjectFactory::Instance)GamePauseLayerReader::getInstance);
     GamePauseLayer* pauseLayer = dynamic_cast<GamePauseLayer*>(CSLoader::createNode("GamePauseLayer.csb"));
 
-    pauseLayer->setCurrentGameStateForAnalytics(this->networkedSession, this->defeatEnemyCount, this->totalCoinCount);
+    std::chrono::seconds playTime = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - this->startTime);
+    int playTimeInSeconds = static_cast<int>(playTime.count());
+    pauseLayer->setCurrentGameStateForAnalytics(this->networkedSession, this->defeatEnemyCount, this->totalCoinCount, playTimeInSeconds);
     pauseLayer->show(this->field);
 }
 
@@ -758,6 +763,8 @@ void GameScene::start()
     this->lobbyButton = nullptr;
 
     this->scheduleUpdate();
+
+    this->startTime = std::chrono::system_clock::now();
 
     if (this->character) {
         log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",

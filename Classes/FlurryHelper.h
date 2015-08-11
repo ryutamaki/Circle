@@ -19,7 +19,7 @@ namespace FlurryHelper {
     static const std::string SCENE_NAME_POWERUP = "PowerUp Scene";
 
     void logTransitionScene(std::string toScene);
-    void logGameResult(bool isSinglePlayerMode, bool abandon, int score, int coinEarned, int totalCoin);
+    void logGameResult(bool isSinglePlayerMode, bool abandon, int score, int coinEarned, int totalCoin, int playTimeInSeconds);
     void logPowerUp(std::string targetStatus, int rank, int hpLevel, int attackLevel, int coinUsed, int coinRemaining);
 
 }

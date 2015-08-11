@@ -52,11 +52,12 @@ void GamePauseLayer::hide(std::function<void()> lastFrameCallback)
 
 #pragma mark Setter
 
-void GamePauseLayer::setCurrentGameStateForAnalytics(bool networked, int score, int coinEarned)
+void GamePauseLayer::setCurrentGameStateForAnalytics(bool networked, int score, int coinEarned, int playTimeInSeconds)
 {
     this->networked = networked;
     this->score = score;
     this->coinEarned = coinEarned;
+    this->playTimeInSeconds = playTimeInSeconds;
 }
 
 #pragma mark - Private methods
@@ -80,7 +81,7 @@ void GamePauseLayer::onEnter()
             int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
             bool isSinglePlayerMode = ! this->networked;
             bool isQuit = true;
-            FlurryHelper::logGameResult(isSinglePlayerMode, isQuit, this->score, this->coinEarned, currentCoinCount);
+            FlurryHelper::logGameResult(isSinglePlayerMode, isQuit, this->score, this->coinEarned, currentCoinCount, this->playTimeInSeconds);
             GameSceneManager::getInstance()->exitGameScene();
         }
     });
