@@ -14,6 +14,7 @@
 #include "EntityFactory.h"
 
 #include "UserDataManager.h"
+#include "FlurryHelper.h"
 
 USING_NS_CC;
 
@@ -77,6 +78,9 @@ void PowerUpScene::onEnter()
     CCASSERT(this->entityType != EntityType::NONE, "You MUST set entityType before onEnter().");
 
     this->setupUI();
+
+    // log for analytics
+    FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_POWERUP);
 }
 
 void PowerUpScene::setupUI()

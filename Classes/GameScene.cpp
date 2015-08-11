@@ -19,6 +19,7 @@
 #include "EntityFactory.h"
 #include "GameSceneManager.h"
 #include "UserDataManager.h"
+#include "FlurryHelper.h"
 
 USING_NS_CC;
 
@@ -243,6 +244,13 @@ void GameScene::onEnter()
 
     this->setupTouchHandling();
     this->showTutorialBasicIfNeverSeen();
+
+    // log for analytics
+    if (this->networkedSession) {
+        FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_GAME_MULTI);
+    } else {
+        FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_GAME_SINGLE);
+    }
 }
 
 void GameScene::setupTouchHandling()

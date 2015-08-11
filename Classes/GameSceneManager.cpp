@@ -48,6 +48,7 @@ void GameSceneManager::enterGameScene(EntityType enemyEntityType, bool networked
     this->gameScene->setEnemyEntityType(enemyEntityType);
 
     scene->addChild(this->gameScene);
+
     TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
     Director::getInstance()->replaceScene(transition);
 }
