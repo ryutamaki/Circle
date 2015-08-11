@@ -1017,6 +1017,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b1a9f663-30a8-4a9d-851a-1d427018ac72";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1052,6 +1053,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-fobjc-arc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b1a9f663-30a8-4a9d-851a-1d427018ac72";
 				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
 			};

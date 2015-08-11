@@ -33,7 +33,7 @@
         "FlurryAnalytics": {
             "APIKey": "Q3DSXTZG4B5DFHPJ35J7",
             "Level": 2, 
-            "AppVersion": "V0.5",
+            "AppVersion": "V1.0.0",
             "SessionTimeout": 10, 
             "CrashReport": true, 
             "Debug": false
