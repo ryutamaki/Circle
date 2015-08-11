@@ -3,7 +3,7 @@
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
-      <ObjectData Name="Scene" Tag="6" ctype="GameNodeObjectData">
+      <ObjectData Name="Scene" Visible="False" Tag="6" ctype="GameNodeObjectData">
         <Size X="960.0000" Y="640.0000" />
         <Children>
           <AbstractNodeData Name="Background" ActionTag="1270772589" Tag="13" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-187.0000" RightMargin="-187.0000" TopMargin="-110.0000" ctype="SpriteObjectData">
@@ -42,13 +42,13 @@
             <OutlineColor A="255" R="255" G="0" B="0" />
             <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
-          <AbstractNodeData Name="CoinLayout" ActionTag="1665831279" Tag="60" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="475.9999" RightMargin="284.0001" TopMargin="109.0000" BottomMargin="301.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="CoinLayout" ActionTag="1665831279" Tag="60" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="476.0000" RightMargin="284.0000" TopMargin="109.0000" BottomMargin="301.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="200.0000" Y="230.0000" />
             <Children>
-              <AbstractNodeData Name="CoinLabel" ActionTag="-1332992539" Tag="59" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="64.0001" RightMargin="63.9999" TopMargin="56.1000" BottomMargin="138.9000" LabelText="COIN" ctype="TextBMFontObjectData">
+              <AbstractNodeData Name="CoinLabel" ActionTag="-1332992539" Tag="59" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="64.0000" RightMargin="64.0000" TopMargin="56.1000" BottomMargin="138.9000" LabelText="COIN" ctype="TextBMFontObjectData">
                 <Size X="72.0000" Y="35.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="100.0001" Y="156.4000" />
+                <Position X="100.0000" Y="156.4000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.6800" />
@@ -66,10 +66,10 @@
                 <FileData Type="Normal" Path="Images/Line_Red@2x.png" Plist="" />
                 <BlendFunc Src="1" Dst="771" />
               </AbstractNodeData>
-              <AbstractNodeData Name="CoinCountLabel" ActionTag="-1117650949" Tag="71" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="85.5001" RightMargin="85.4999" TopMargin="110.0000" BottomMargin="64.0000" LabelText="0" ctype="TextBMFontObjectData">
+              <AbstractNodeData Name="CoinCountLabel" ActionTag="-1117650949" Tag="71" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="85.5000" RightMargin="85.5000" TopMargin="110.0000" BottomMargin="64.0000" LabelText="0" ctype="TextBMFontObjectData">
                 <Size X="29.0000" Y="56.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="100.0001" Y="92.0000" />
+                <Position X="100.0000" Y="92.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.4000" />
@@ -78,7 +78,7 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="575.9999" Y="416.0000" />
+            <Position X="576.0000" Y="416.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.6000" Y="0.6500" />

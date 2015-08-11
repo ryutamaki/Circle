@@ -51,6 +51,7 @@ bool MenuScene::init()
     auto rootNode = CSLoader::createNode("MenuScene.csb");
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
+    log("%f, %f", visibleSize.width, visibleSize.height);
     rootNode->setContentSize(visibleSize);
     ui::Helper::doLayout(rootNode);
 

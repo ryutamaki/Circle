@@ -9,8 +9,8 @@
           <AbstractNodeData Name="Background" CanEdit="False" ActionTag="-141331998" Tag="39" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-187.0000" RightMargin="-187.0000" TopMargin="-110.0000" ctype="SpriteObjectData">
             <Size X="1334.0000" Y="750.0000" />
             <Children>
-              <AbstractNodeData Name="ScrollViewSeparator" ActionTag="2060201694" Tag="22" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-1.0000" RightMargin="-1.0000" TopMargin="508.0000" BottomMargin="208.0000" ctype="SpriteObjectData">
-                <Size X="1336.0000" Y="34.0000" />
+              <AbstractNodeData Name="ScrollViewSeparator" ActionTag="2060201694" Tag="22" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" TopMargin="508.0000" BottomMargin="208.0000" ctype="SpriteObjectData">
+                <Size X="1334.0000" Y="34.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="667.0000" Y="225.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
