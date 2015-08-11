@@ -20,6 +20,7 @@ namespace FlurryHelper {
 
     void logTransitionScene(std::string toScene);
     void logGameResult(bool isSinglePlayerMode, bool abandon, int score, int coinEarned, int totalCoin);
+    void logPowerUp(std::string targetStatus, int rank, int hpLevel, int attackLevel, int coinUsed, int coinRemaining);
 
 }
 

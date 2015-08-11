@@ -31,4 +31,18 @@ void logGameResult(bool isSinglePlayerMode, bool abandon, int score, int coinEar
 
     sdkbox::PluginFlurryAnalytics::logEvent("Game Result", params);
 }
+
+void logPowerUp(std::string targetStatus, int rank, int hpLevel, int attackLevel, int coinUsed, int coinRemaining)
+{
+    std::map<std::string, std::string> params = {
+        {"Target Status",  targetStatus						   },
+        {"Rank",		   StringUtils::toString(rank)		   },
+        {"HP Level",	   StringUtils::toString(hpLevel)	   },
+        {"Attack Level",   StringUtils::toString(attackLevel)  },
+        {"Coin Used",	   StringUtils::toString(coinUsed)	   },
+        {"Coin Remaining", StringUtils::toString(coinRemaining)},
+    };
+
+    sdkbox::PluginFlurryAnalytics::logEvent("Power Up", params);
+}
 }

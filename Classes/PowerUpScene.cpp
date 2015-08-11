@@ -102,6 +102,9 @@ void PowerUpScene::setupUI()
                     this->setEntityParameterLevelLabelText(this->entityParameterLevel);
                     this->useCoin(useCoinCount);
 
+                    int remainingCoinCount = UserDataManager::getInstance()->getCoinCount();
+                    FlurryHelper::logPowerUp("Rank", this->entityParameterLevel.rank, this->entityParameterLevel.hp, this->entityParameterLevel.attack, useCoinCount, remainingCoinCount);
+
                     if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank) ||
                         this->coinCount < this->entity->getCoinCountToRankUp()) {
                         rankUpButton->setEnabled(false);
@@ -124,6 +127,9 @@ void PowerUpScene::setupUI()
                 UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                 this->setEntityParameterLevelLabelText(this->entityParameterLevel);
                 this->useCoin(useCoinCount);
+
+                int remainingCoinCount = UserDataManager::getInstance()->getCoinCount();
+                FlurryHelper::logPowerUp("HP", this->entityParameterLevel.rank, this->entityParameterLevel.hp, this->entityParameterLevel.attack, useCoinCount, remainingCoinCount);
             }
         }
     });
@@ -139,6 +145,9 @@ void PowerUpScene::setupUI()
                 UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
                 this->setEntityParameterLevelLabelText(this->entityParameterLevel);
                 this->useCoin(useCoinCount);
+
+                int remainingCoinCount = UserDataManager::getInstance()->getCoinCount();
+                FlurryHelper::logPowerUp("Attack", this->entityParameterLevel.rank, this->entityParameterLevel.hp, this->entityParameterLevel.attack, useCoinCount, remainingCoinCount);
             }
         }
     });
