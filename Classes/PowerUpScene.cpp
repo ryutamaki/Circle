@@ -101,43 +101,67 @@ void PowerUpScene::setupUI()
                     if (! EntityHelper::isNextRankExists(this->entityParameterLevel.rank) ||
                         this->coinCount < this->entity->getCoinCountToRankUp()) {
                         rankUpButton->setEnabled(false);
+                        rankUpButton->setBright(false);
                     }
                 }
             }
         });
     } else {
         rankUpButton->setEnabled(false);
+        rankUpButton->setBright(false);
     }
 
     // HP
     ui::Button* hpUpButton = this->hpLayout->getChildByName<ui::Button*>("HpUpButton");
-    hpUpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
-        if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            int useCoinCount = this->entity->getCoinCountToHpLevelUp();
 
-            if (this->canUseCoin(useCoinCount)) {
-                this->entityParameterLevel.hp++;
-                UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
-                this->setEntityParameterLevelLabelText(this->entityParameterLevel);
-                this->useCoin(useCoinCount);
+    if (this->canUseCoin(this->entity->getCoinCountToHpLevelUp())) {
+        hpUpButton->addTouchEventListener([this, hpUpButton](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+            if (eEventType == ui::Widget::TouchEventType::ENDED) {
+                int useCoinCount = this->entity->getCoinCountToHpLevelUp();
+
+                if (this->canUseCoin(useCoinCount)) {
+                    this->entityParameterLevel.hp++;
+                    UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
+                    this->setEntityParameterLevelLabelText(this->entityParameterLevel);
+                    this->useCoin(useCoinCount);
+                }
+
+                if (! this->canUseCoin(this->entity->getCoinCountToHpLevelUp())) {
+                    hpUpButton->setEnabled(false);
+                    hpUpButton->setBright(false);
+                }
             }
-        }
-    });
+        });
+    } else {
+        hpUpButton->setEnabled(false);
+        hpUpButton->setBright(false);
+    }
 
     // Attack
     ui::Button* attackUpButton = this->attackLayout->getChildByName<ui::Button*>("AttackUpButton");
-    attackUpButton->addTouchEventListener([this](Ref* pRef, ui::Widget::TouchEventType eEventType) {
-        if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            int useCoinCount = this->entity->getCoinCountToAttackLevelUp();
 
-            if (this->canUseCoin(useCoinCount)) {
-                this->entityParameterLevel.attack++;
-                UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
-                this->setEntityParameterLevelLabelText(this->entityParameterLevel);
-                this->useCoin(useCoinCount);
+    if (this->canUseCoin(this->entity->getCoinCountToAttackLevelUp())) {
+        attackUpButton->addTouchEventListener([this, attackUpButton](Ref* pRef, ui::Widget::TouchEventType eEventType) {
+            if (eEventType == ui::Widget::TouchEventType::ENDED) {
+                int useCoinCount = this->entity->getCoinCountToAttackLevelUp();
+
+                if (this->canUseCoin(useCoinCount)) {
+                    this->entityParameterLevel.attack++;
+                    UserDataManager::getInstance()->setEntityParameterLevel(this->entityType, this->entityParameterLevel);
+                    this->setEntityParameterLevelLabelText(this->entityParameterLevel);
+                    this->useCoin(useCoinCount);
+                }
+
+                if (! this->canUseCoin(this->entity->getCoinCountToAttackLevelUp())) {
+                    attackUpButton->setEnabled(false);
+                    attackUpButton->setBright(false);
+                }
             }
-        }
-    });
+        });
+    } else {
+        attackUpButton->setEnabled(false);
+        attackUpButton->setBright(false);
+    }
 }
 
 #pragma mark Setter
