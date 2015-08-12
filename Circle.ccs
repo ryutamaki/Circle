@@ -169,6 +169,10 @@
           <Image Name="MultiplayerButtonNormal@2x.png" />
           <Image Name="MultiplayerButtonNormal@3x.png" />
           <Image Name="MultiplayerButtonNormal@4x.png" />
+          <Image Name="TriangleBullet.png" />
+          <Image Name="TriangleBullet@2x.png" />
+          <Image Name="TriangleBullet@3x.png" />
+          <Image Name="TriangleBullet@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />

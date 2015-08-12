@@ -154,14 +154,14 @@
             <Size X="156.0000" Y="156.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />
-            <Scale ScaleX="0.5008" ScaleY="0.5008" />
+            <Scale ScaleX="0.5000" ScaleY="0.5000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="1.9500" Y="1.9500" />
             <FileData Type="Normal" Path="Images/CircleNeedle@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Ready" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
               <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="56.0000" RightMargin="16.0000" TopMargin="22.0000" BottomMargin="22.0000" ctype="SpriteObjectData">

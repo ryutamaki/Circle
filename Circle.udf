@@ -5,10 +5,10 @@
         <LuaIsEncrypt Value="False" />
         <LuaEncryptKey Value="" />
         <LuaEncryptSign Value="" />
-        <Android_PackageName Value="org.cocos.DotWar" />
+        <Android_PackageName Value="org.cocos.Circle" />
         <AndroidkeyStore Value="" />
         <AndroidVersion Value="" />
-        <iOS_Target Value="DotWar iOS" />
+        <iOS_Target Value="Circle iOS" />
         <iOS_BundleID Value="iPhone Developer: Ryu Tamaki (PNYZW2H6A6)" />
         <Platform Value="None" />
         <RunPlatform Value="None" />
@@ -26,22 +26,6 @@
         <LastPublishType Value="XCode" />
         <IsLastPublish Value="True" />
         <LastRunType Value="Unknown" />
-      </Value>
-    </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="PowerUpScene.csd" />
-          <FilePathData Path="Circle.csd" />
-          <FilePathData Path="GameResultLayer.csd" />
-          <FilePathData Path="MenuScene.csd" />
-          <FilePathData Path="GameScene.csd" />
-          <FilePathData Path="StageSelectScene.csd" />
-          <FilePathData Path="ScoreLabel.csd" />
-          <FilePathData Path="CoinLabel.csd" />
-          <FilePathData Path="Triangle.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="Triangle.csd" />
       </Value>
     </Item>
   </Properties>
