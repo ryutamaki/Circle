@@ -19,10 +19,18 @@ public:
     void show(Node* parent);
     void hide(std::function<void()> lastFrameCallback);
 
+    void setCurrentGameStateForAnalytics(bool networked, int score, int coinEarned, int playTimeInSeconds);
+
 protected:
     cocostudio::timeline::ActionTimeline* timeline;
-
+    
     cocos2d::ui::Layout* pauseLayout;
+
+    // Use for analytics
+    bool networked;
+    int score;
+    int coinEarned;
+    int playTimeInSeconds;
 
     bool init() override;
     void onEnter() override;

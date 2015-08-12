@@ -22,6 +22,6 @@ static const Color4B CIRCLE_DARK_RED = Color4B(178, 58, 86, 100);
 static const Color4B CIRCLE_LIGHT_BLUE = Color4B(119, 144, 180, 100);
 static const Color4B CIRCLE_DARK_BLUE = Color4B(61, 73, 106, 100);
 
-static const Color4B CIRCLE_LIGHT_YELLOW = Color4B(240, 200, 0, 100);
+static const Color4B CIRCLE_LIGHT_YELLOW = Color4B(228, 202, 136, 100);
 
 #endif

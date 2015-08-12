@@ -19,6 +19,8 @@
 #include "StageSelectScene.h"
 #include "EntityFactory.h"
 
+#include "FlurryHelper.h"
+
 USING_NS_CC;
 
 #pragma mark - Public methods
@@ -49,6 +51,7 @@ bool MenuScene::init()
     auto rootNode = CSLoader::createNode("MenuScene.csb");
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
+    log("%f, %f", visibleSize.width, visibleSize.height);
     rootNode->setContentSize(visibleSize);
     ui::Helper::doLayout(rootNode);
 
@@ -79,6 +82,9 @@ void MenuScene::onEnter()
     // This will start observing to find peers.
     // Set self.peerID in NetworkManager also.
     GameSceneManager::getInstance()->receiveMultiplayerInvitations();
+
+    // log for analytics
+    FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_MENU);
 }
 
 void MenuScene::putEntityByEntityType(EntityType entityType)

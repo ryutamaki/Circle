@@ -4,6 +4,9 @@ cocos2d
 # Ignore cocostudio binaryfiles
 *.csb
 
+# Ignore backup files which sdkbox create
+backup-*
+
 # Ignore thumbnails created by windows
 Thumbs.db
 

@@ -19,6 +19,7 @@
 #include "EntityFactory.h"
 #include "GameSceneManager.h"
 #include "UserDataManager.h"
+#include "FlurryHelper.h"
 
 USING_NS_CC;
 
@@ -243,6 +244,13 @@ void GameScene::onEnter()
 
     this->setupTouchHandling();
     this->showTutorialBasicIfNeverSeen();
+
+    // log for analytics
+    if (this->networkedSession) {
+        FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_GAME_MULTI);
+    } else {
+        FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_GAME_SINGLE);
+    }
 }
 
 void GameScene::setupTouchHandling()
@@ -619,6 +627,15 @@ void GameScene::gameover()
     bool isNewRecord = score > currentHighScore ? true : false;
     int highScore = isNewRecord ? score : currentHighScore;
     this->showResultLayer(score, highScore, isNewRecord, this->totalCoinCount);
+
+    // Forth: log for analytics
+    int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
+    bool isSinglePlayerMode = ! this->networkedSession;
+    bool isQuit = false;
+
+    std::chrono::seconds playTime = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - this->startTime);
+    int playTimeInSeconds = static_cast<int>(playTime.count());
+    FlurryHelper::logGameResult(isSinglePlayerMode, isQuit, score, this->totalCoinCount, currentCoinCount, playTimeInSeconds);
 }
 
 void GameScene::checkGameOver()
@@ -665,6 +682,10 @@ void GameScene::showPauseLayer()
 {
     CSLoader::getInstance()->registReaderObject("GamePauseLayerReader", (ObjectFactory::Instance)GamePauseLayerReader::getInstance);
     GamePauseLayer* pauseLayer = dynamic_cast<GamePauseLayer*>(CSLoader::createNode("GamePauseLayer.csb"));
+
+    std::chrono::seconds playTime = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now() - this->startTime);
+    int playTimeInSeconds = static_cast<int>(playTime.count());
+    pauseLayer->setCurrentGameStateForAnalytics(this->networkedSession, this->defeatEnemyCount, this->totalCoinCount, playTimeInSeconds);
     pauseLayer->show(this->field);
 }
 
@@ -742,6 +763,8 @@ void GameScene::start()
     this->lobbyButton = nullptr;
 
     this->scheduleUpdate();
+
+    this->startTime = std::chrono::system_clock::now();
 
     if (this->character) {
         log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",

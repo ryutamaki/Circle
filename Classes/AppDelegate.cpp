@@ -2,6 +2,8 @@
 #include "MenuScene.h"
 #include "UserDataManager.h"
 
+#include "PluginFlurryAnalytics/PluginFlurryAnalytics.h"
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate()
@@ -37,7 +39,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     glview->setDesignResolutionSize(960, 640, ResolutionPolicy::FIXED_HEIGHT);
 
     // turn on display FPS
+#if COCOS2D_DEBUG
     director->setDisplayStats(true);
+#else
+    director->setDisplayStats(false);
+#endif
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
@@ -45,21 +51,21 @@ bool AppDelegate::applicationDidFinishLaunching()
     FileUtils::getInstance()->addSearchPath("res");
 
     // resolution settings
-    std::vector<std::string> searchResolutionsOrder(1);
-
-    cocos2d::Size targetSize = glview->getFrameSize();
-
-    if (targetSize.height < 481.0f) {
-        searchResolutionsOrder[0] = "resources-1x";
-    } else if (targetSize.height < 1137.0f) {
-        searchResolutionsOrder[0] = "resources-2x";
-    } else if (targetSize.height < 2047.0f) {
-        searchResolutionsOrder[0] = "resources-3x";
-    } else {
-        searchResolutionsOrder[0] = "resources-4x";
-    }
-
-    FileUtils::getInstance()->setSearchResolutionsOrder(searchResolutionsOrder);
+//    std::vector<std::string> searchResolutionsOrder(1);
+//
+//    cocos2d::Size targetSize = glview->getFrameSize();
+//
+//    if (targetSize.height < 481.0f) {
+//        searchResolutionsOrder[0] = "resources-1x";
+//    } else if (targetSize.height < 1137.0f) {
+//        searchResolutionsOrder[0] = "resources-2x";
+//    } else if (targetSize.height < 2047.0f) {
+//        searchResolutionsOrder[0] = "resources-3x";
+//    } else {
+//        searchResolutionsOrder[0] = "resources-4x";
+//    }
+//
+//    FileUtils::getInstance()->setSearchResolutionsOrder(searchResolutionsOrder);
 
     // create a scene. it's an autorelease object
     auto scene = MenuScene::createScene();
@@ -69,6 +75,10 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // load user data
     UserDataManager::getInstance()->load();
+
+    // Start Flurry analytics sessions
+    sdkbox::PluginFlurryAnalytics::init();
+    sdkbox::PluginFlurryAnalytics::startSession();
 
     return true;
 }

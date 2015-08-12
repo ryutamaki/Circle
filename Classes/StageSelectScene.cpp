@@ -17,6 +17,8 @@
 #include "GameSceneManager.h"
 #include "MenuScene.h"
 
+#include "FlurryHelper.h"
+
 USING_NS_CC;
 
 #pragma mark - Public methods
@@ -82,6 +84,9 @@ void StageSelectScene::onEnter()
     this->setupStageSelectButtons();
     this->setupUI();
     this->expandPageViewTouchHandler();
+
+    // log for analytics
+    FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_STAGE_SELECT);
 }
 
 void StageSelectScene::onExit()

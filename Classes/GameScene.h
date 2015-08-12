@@ -11,6 +11,8 @@
 #include "EntityFactory.h"
 #include "CoinContainer.h"
 
+#include <chrono>
+
 class EntityAI;
 class ScoreLabel;
 class CoinLabel;
@@ -42,6 +44,7 @@ private:
     GameState gameState;
     bool isAttackTouching;
     clock_t touchStartTime;
+    std::chrono::system_clock::time_point startTime;
 
     cocos2d::Sprite* background;
     cocos2d::Sprite* field;

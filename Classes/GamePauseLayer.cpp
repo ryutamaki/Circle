@@ -10,6 +10,9 @@
 #include "CocosGUI.h"
 
 #include "GameSceneManager.h"
+#include "UserDataManager.h"
+
+#include "FlurryHelper.h"
 
 #pragma mark - Public methods
 
@@ -47,6 +50,16 @@ void GamePauseLayer::hide(std::function<void()> lastFrameCallback)
     this->timeline->setLastFrameCallFunc(lastFrameCallback);
 }
 
+#pragma mark Setter
+
+void GamePauseLayer::setCurrentGameStateForAnalytics(bool networked, int score, int coinEarned, int playTimeInSeconds)
+{
+    this->networked = networked;
+    this->score = score;
+    this->coinEarned = coinEarned;
+    this->playTimeInSeconds = playTimeInSeconds;
+}
+
 #pragma mark - Private methods
 
 #pragma mark View lifecycle
@@ -65,6 +78,10 @@ void GamePauseLayer::onEnter()
     ui::Button* quitButton = this->pauseLayout->getChildByName<ui::Button*>("QuitButton");
     quitButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
+            int currentCoinCount = UserDataManager::getInstance()->getCoinCount();
+            bool isSinglePlayerMode = ! this->networked;
+            bool isQuit = true;
+            FlurryHelper::logGameResult(isSinglePlayerMode, isQuit, this->score, this->coinEarned, currentCoinCount, this->playTimeInSeconds);
             GameSceneManager::getInstance()->exitGameScene();
         }
     });
