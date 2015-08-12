@@ -7,7 +7,7 @@
           <PointFrame FrameIndex="143" X="0.0000" Y="0.0000">
             <EasingData Type="8" />
           </PointFrame>
-          <PointFrame FrameIndex="230" X="300.0000" Y="0.0000">
+          <PointFrame FrameIndex="230" X="400.0000" Y="0.0000">
             <EasingData Type="0" />
           </PointFrame>
         </Timeline>
@@ -129,10 +129,10 @@
       <ObjectData Name="Node" CustomClassName="Triangle" Tag="3" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Bullet" ActionTag="1719643108" Tag="34" IconVisible="False" RightMargin="-22.0000" TopMargin="-11.0000" BottomMargin="-11.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Bullet" ActionTag="1719643108" Tag="34" VisibleForFrame="False" IconVisible="False" LeftMargin="400.0000" RightMargin="-422.0000" TopMargin="-11.0000" BottomMargin="-11.0000" ctype="SpriteObjectData">
             <Size X="22.0000" Y="22.0000" />
             <AnchorPoint ScaleY="0.5000" />
-            <Position />
+            <Position X="400.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
