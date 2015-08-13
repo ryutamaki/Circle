@@ -111,6 +111,7 @@ void EntityContainer::moveEnemyToCemetery(EntityIdentifier identifier)
     if (ai) {
         ai->stop();
         ai->removeFromParent();
+        this->aiList.erase(this->aiList.find(identifier));
     }
 }
 
