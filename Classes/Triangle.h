@@ -21,6 +21,8 @@ public:
     int getCoinCountToHpLevelUp() override;
     int getCoinCountToAttackLevelUp() override;
 
+    std::vector<cocos2d::Rect> getRectsUseForAttackInWorldSpace() override;
+
 protected:
     void setupEntityParamerterByLevel(struct EntityParameterLevel parameterLevel) override;
 };

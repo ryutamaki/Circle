@@ -43,7 +43,7 @@ public:
     EntityAttackParams getAttackParamsByName(std::string attackName);
 
     cocos2d::Rect getBodyRect();
-    std::vector<cocos2d::Rect> getRectsUseForAttackInWorldSpace();
+    virtual std::vector<cocos2d::Rect> getRectsUseForAttackInWorldSpace();
     std::vector<cocos2d::Rect> getRectsUseForDamageInWorldSpace();
 
     EntityIdentifier getIdentifier();

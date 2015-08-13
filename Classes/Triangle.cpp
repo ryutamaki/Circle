@@ -57,6 +57,41 @@ int Triangle::getCoinCountToAttackLevelUp()
     return coinCount;
 }
 
+std::vector<Rect> Triangle::getRectsUseForAttackInWorldSpace()
+{
+    std::vector<Rect> returnRects;
+    Vector<Node*> children = this->getChildren();
+
+    for (int i = 0, last = (int)children.size(); i < last; ++i) {
+        Sprite* sprite = dynamic_cast<Sprite*>(children.at(i));
+
+        if (! sprite || ! sprite->isVisible()) {
+            continue;
+        }
+
+        // TODO: ひどいけど便利
+        if (this->getCurrentAttackName() == "ChargeAttack") {
+            if (sprite->getName() == "Body") {
+                continue;
+            }
+        }
+
+        Size size = sprite->getContentSize();
+        float scaleX = sprite->getScaleX();
+        float scaleY = sprite->getScaleY();
+        Vec2 spritePositionInWorld = this->convertToWorldSpace(sprite->getPosition());
+
+        Rect spriteRect = Rect(
+                spritePositionInWorld.x - size.width * sprite->getAnchorPoint().x * scaleX,
+                spritePositionInWorld.y - size.height * sprite->getAnchorPoint().y * scaleY,
+                size.width * scaleX, size.height * scaleY
+            );
+        returnRects.push_back(spriteRect);
+    }
+
+    return returnRects;
+}
+
 #pragma mark - Protected methods
 
 #pragma mark Override methods
