@@ -76,9 +76,8 @@ private:
     void damageCharacterFromEntity();
 
     EntityAI* attachAI(Entity* entity);
-    EntityParameterLevel enemyParameterLevel(int nextEnemyIndex);
     void tryToSpawnNextEnemy(float dt);
-    void spawnNextEnemy(EntityParameterLevel parameterLevel);
+    void spawnNextEnemy();
     void checkDeadEnemy(float dt);
     void gameover();
     void checkGameOver();

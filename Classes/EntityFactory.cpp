@@ -75,6 +75,42 @@ Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel p
     return this->createEnemy(entityType, parameterLevel, attackMap);
 }
 
+Entity* EntityFactory::createEnemy(EntityType entityType, int enemyIndex)
+{
+    EntityParameterLevel parameterLevel;
+
+    switch (entityType) {
+        case EntityType::CIRCLE:
+        {
+            int maxRank = EntityHelper::getMaxRank();
+            int rank = MIN(static_cast<int>(floor(enemyIndex / 10.0f)), maxRank);
+            int hpLevel = enemyIndex;
+            int attackLevel = enemyIndex;
+
+            parameterLevel = {rank, hpLevel, attackLevel};
+            break;
+        }
+
+        case EntityType::TRIANGLE:
+        {
+            int maxRank = EntityHelper::getMaxRank();
+            int rank = MIN(static_cast<int>(floor(enemyIndex / 10.0f)), maxRank);
+            int hpLevel = enemyIndex + 50;
+            int attackLevel = enemyIndex + 50;
+
+            parameterLevel = {rank, hpLevel, attackLevel};
+            break;
+        }
+
+        default:
+        {
+            CCASSERT(false, "Undefined entity type is passed.");
+            break;
+        }
+    }
+    return this->createEnemy(entityType, parameterLevel);
+}
+
 Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel parameterLevel, std::map<std::string, EntityAttackParams> attackMap)
 {
     Color4B initialColor = CIRCLE_LIGHT_RED;

@@ -45,13 +45,18 @@ public:
     );
 
     Entity* createEnemy(
+        EntityType	entityType,
+        int			enemyIndex
+    );
+
+    Entity* createEnemy(
         EntityType entityType,
         EntityParameterLevel parameterLevel,
         std::map<std::string, EntityAttackParams> attackMap
     );
 
     EntityAI* createAI(
-        Entity* entity,
+        Entity*						entity,
         cocos2d::Vector<Entity*> opponents
     );
 

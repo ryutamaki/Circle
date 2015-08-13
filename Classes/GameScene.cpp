@@ -185,7 +185,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
                 this->nextEnemyInitialPosition = entityState.position;
 
                 if (entityState.identifier == this->nextEnemyIndex) {
-                    this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
+                    this->spawnNextEnemy();
                 }
             }
         }
@@ -515,43 +515,34 @@ EntityAI* GameScene::attachAI(Entity* entity)
     return enemyAi;
 }
 
-EntityParameterLevel GameScene::enemyParameterLevel(int nextEnemyIndex)
-{
-    int maxRank = EntityHelper::getMaxRank();
-    int rank = MIN(static_cast<int>(floor(nextEnemyIndex / 10.0f)), maxRank);
-    int hpLevel = nextEnemyIndex;
-    int attackLevel = nextEnemyIndex;
-
-    EntityParameterLevel paramterLevel = {rank, hpLevel, attackLevel};
-    return paramterLevel;
-}
-
 void GameScene::tryToSpawnNextEnemy(float dt)
 {
-    EntityParameterLevel nextEnemyParameterLevel = this->enemyParameterLevel(this->nextEnemyIndex);
-
     this->counterToForceSpawnEnemy += dt;
 
     // force spawn duration を越えてたら強制的に spawn する
     if (this->counterToForceSpawnEnemy > ENEMY_FORCE_SPAWN_DURATION) {
         this->counterToForceSpawnEnemy = 0.0f;
-        this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
+        this->spawnNextEnemy();
         return;
     }
 
+    // TODO: EntityFactory と処理が被っている。重要な計算式なので、複数箇所に書きたくない。
+    int maxRank = EntityHelper::getMaxRank();
+    int nextEnemyRank = MIN(static_cast<int>(floor(nextEnemyIndex / 10.0f)), maxRank);
+
     // force spawn duration を越えてなくても、ememy が上限に達していない場合は spawn する
-    if (this->entityContainer->canSpawnEnemy(this->character->getEntityParameterLevel().rank, nextEnemyParameterLevel.rank)) {
+    if (this->entityContainer->canSpawnEnemy(this->character->getEntityParameterLevel().rank, nextEnemyRank)) {
         this->counterToForceSpawnEnemy = 0.0f;
-        this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
+        this->spawnNextEnemy();
         return;
     }
 }
 
-void GameScene::spawnNextEnemy(EntityParameterLevel parameterLevel)
+void GameScene::spawnNextEnemy()
 {
     Entity* newEnemy = this->entityFactory->createEnemy(
             this->enemyEntityType,
-            parameterLevel
+            this->nextEnemyIndex
         );
     EntityAI* enemyAi = GameSceneManager::getInstance()->isHost() ? this->attachAI(newEnemy) : nullptr;
     this->entityContainer->addEnemy(newEnemy->getIdentifier(), newEnemy);
