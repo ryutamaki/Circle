@@ -18,6 +18,7 @@ static const EntityIdentifier ENTITY_BUDDY_PLAYER_IDENTIFIER = -2;
 static const EntityIdentifier ENEMY_INITIAL_IDENTIFIER = 1;
 
 class Entity;
+class EntityAI;
 
 class EntityFactory
 {
@@ -47,6 +48,11 @@ public:
         EntityType entityType,
         EntityParameterLevel parameterLevel,
         std::map<std::string, EntityAttackParams> attackMap
+    );
+
+    EntityAI* createAI(
+        Entity* entity,
+        cocos2d::Vector<Entity*> opponents
     );
 
 private:

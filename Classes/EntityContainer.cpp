@@ -111,6 +111,7 @@ void EntityContainer::moveEnemyToCemetery(EntityIdentifier identifier)
     if (ai) {
         ai->stop();
         ai->removeFromParent();
+        this->aiList.erase(this->aiList.find(identifier));
     }
 }
 
@@ -148,6 +149,7 @@ void EntityContainer::pauseAllEntity()
     // pause all ai
     for (auto& kv : this->aiList) {
         EntityAI* ai = static_cast<EntityAI*>(kv.second);
+        log("ai identifier: %d", kv.first);
 
         if (ai) {
             ai->stop();

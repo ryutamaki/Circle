@@ -15,13 +15,17 @@
 class EntityAI : public cocos2d::Node
 {
 public:
+    static EntityAI* create(Entity* entity, Vector<Entity*> opponents);
+
     EntityAI(Entity* entity, cocos2d::Vector<Entity*> opponents);
     ~EntityAI();
 
     void start();
     void stop();
 
-private:
+protected:
+    virtual void running(float dt);
+
     Entity* entity;
 
     Entity* target;
@@ -30,8 +34,6 @@ private:
     bool isMoving;
     bool isPreActionAttack;
     bool isPreActionCharge;
-
-    void running(float dt);
 
     void stay(float dulation);
 //    void move(EntityMoveState movieState, float dulation);

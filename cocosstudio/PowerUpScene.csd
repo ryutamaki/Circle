@@ -3,7 +3,7 @@
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
-      <ObjectData Name="Scene" Visible="False" Tag="6" ctype="GameNodeObjectData">
+      <ObjectData Name="Scene" Tag="6" ctype="GameNodeObjectData">
         <Size X="960.0000" Y="640.0000" />
         <Children>
           <AbstractNodeData Name="Background" ActionTag="1270772589" Tag="13" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-187.0000" RightMargin="-187.0000" TopMargin="-110.0000" ctype="SpriteObjectData">

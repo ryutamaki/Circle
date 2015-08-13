@@ -40,6 +40,8 @@
 		036376D21B773470000B3F46 /* CoinLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CD1B773470000B3F46 /* CoinLabel.cpp */; };
 		036376D31B773470000B3F46 /* CoinLabelReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CF1B773470000B3F46 /* CoinLabelReader.cpp */; };
 		036376D41B773470000B3F46 /* CoinLabelReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CF1B773470000B3F46 /* CoinLabelReader.cpp */; };
+		038D4CFA1B7C19FF000832F3 /* CircleAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038D4CF81B7C19FF000832F3 /* CircleAI.cpp */; };
+		038D4CFB1B7C19FF000832F3 /* CircleAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038D4CF81B7C19FF000832F3 /* CircleAI.cpp */; };
 		038DE76A1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */; };
 		038DE76B1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */; };
 		038EE8D61B6AAC3200D6A928 /* PowerUpScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 038EE8D41B6AAC3200D6A928 /* PowerUpScene.cpp */; };
@@ -184,6 +186,8 @@
 		036376CE1B773470000B3F46 /* CoinLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinLabel.h; sourceTree = "<group>"; };
 		036376CF1B773470000B3F46 /* CoinLabelReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinLabelReader.cpp; sourceTree = "<group>"; };
 		036376D01B773470000B3F46 /* CoinLabelReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinLabelReader.h; sourceTree = "<group>"; };
+		038D4CF81B7C19FF000832F3 /* CircleAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleAI.cpp; sourceTree = "<group>"; };
+		038D4CF91B7C19FF000832F3 /* CircleAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleAI.h; sourceTree = "<group>"; };
 		038DE7681B60A71B00F1C861 /* EntitySynchronizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntitySynchronizer.cpp; sourceTree = "<group>"; };
 		038DE7691B60A71B00F1C861 /* EntitySynchronizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntitySynchronizer.h; sourceTree = "<group>"; };
 		038EE8D41B6AAC3200D6A928 /* PowerUpScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpScene.cpp; sourceTree = "<group>"; };
@@ -236,7 +240,7 @@
 		14664E8EA2F90ECD9ED705D6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* DotWar iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "DotWar iOS.app"; path = "Circle iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Circle iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Circle iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		38DD491FB50FAFD85CE77159 /* sdkbox_config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = sdkbox_config.json; path = /Users/tamakiryu/Develop/MakeSchool/Dotwar/Resources/sdkbox_config.json; sourceTree = "<absolute>"; };
@@ -357,6 +361,8 @@
 				03019EFA1B75DEA9000C4CDC /* EntityContainer.h */,
 				034F41061B5D529E00167F16 /* EntityAI.cpp */,
 				034F41071B5D529E00167F16 /* EntityAI.h */,
+				038D4CF81B7C19FF000832F3 /* CircleAI.cpp */,
+				038D4CF91B7C19FF000832F3 /* CircleAI.h */,
 				03B167B01B582555005D1FF6 /* CustomEntities */,
 			);
 			name = Entities;
@@ -472,7 +478,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* DotWar iOS.app */,
+				1D6058910D05DD3D006BFB54 /* Circle iOS.app */,
 				5087E76F17EB910900C73F5D /* Circle Mac.app */,
 			);
 			name = Products;
@@ -610,7 +616,7 @@
 			);
 			name = "Circle iOS";
 			productName = iphone;
-			productReference = 1D6058910D05DD3D006BFB54 /* DotWar iOS.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Circle iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5087E73D17EB910900C73F5D /* Circle Mac */ = {
@@ -760,6 +766,7 @@
 				039EB4D21B6C240700884C73 /* GamePauseLayer.cpp in Sources */,
 				0342E5CC1B66CC3D009B737E /* CoinContainer.cpp in Sources */,
 				03917D7B1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */,
+				038D4CFA1B7C19FF000832F3 /* CircleAI.cpp in Sources */,
 				03917D841B57230B0068BCA6 /* Entity.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				036376D11B773470000B3F46 /* CoinLabel.cpp in Sources */,
@@ -808,6 +815,7 @@
 				039659BA1B5F113E006E587B /* EntityHelper.cpp in Sources */,
 				038DE76B1B60A71B00F1C861 /* EntitySynchronizer.cpp in Sources */,
 				0342E5C51B66CBEB009B737E /* Coin.cpp in Sources */,
+				038D4CFB1B7C19FF000832F3 /* CircleAI.cpp in Sources */,
 				03917D811B5712800068BCA6 /* JSONPacker.cpp in Sources */,
 				0342E5C71B66CBEB009B737E /* CoinReader.cpp in Sources */,
 			);

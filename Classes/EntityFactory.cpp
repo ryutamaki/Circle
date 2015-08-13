@@ -12,6 +12,7 @@
 
 #include "Circle.h"
 #include "CircleReader.h"
+#include "CircleAI.h"
 #include "Triangle.h"
 #include "TriangleReader.h"
 
@@ -85,6 +86,30 @@ Entity* EntityFactory::createEnemy(EntityType entityType, EntityParameterLevel p
         );
     this->enemyIdentifier++;
     return entity;
+}
+
+EntityAI* EntityFactory::createAI(Entity* entity, Vector<Entity*> opponents)
+{
+    EntityType entityType = entity->getEntityType();
+    switch (entityType) {
+        case EntityType::CIRCLE:
+        {
+            CircleAI* circleAI = CircleAI::create(entity, opponents);
+            return circleAI;
+        }
+
+        case EntityType::TRIANGLE:
+        {
+            break;
+        }
+
+        case EntityType::NONE:
+        {
+            return nullptr;
+        }
+    }
+
+    CCASSERT(false, "Undefined entity type is passed.");
 }
 
 #pragma mark - Private methods

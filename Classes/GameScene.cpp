@@ -499,7 +499,7 @@ void GameScene::damageCharacterFromEntity()
 
 EntityAI* GameScene::attachAI(Entity* entity)
 {
-    cocos2d::Vector<Entity*> opponents;
+    Vector<Entity*> opponents;
 
     if (this->character && ! this->character->stateMachine->isDead()) {
         opponents.pushBack(this->character);
@@ -508,7 +508,8 @@ EntityAI* GameScene::attachAI(Entity* entity)
     if (this->networkedSession && this->friendCharacter && ! this->friendCharacter->stateMachine->isDead()) {
         opponents.pushBack(this->friendCharacter);
     }
-    EntityAI* enemyAi = new EntityAI(entity, opponents);
+
+    EntityAI* enemyAi = this->entityFactory->createAI(entity, opponents);
     this->addChild(enemyAi);
 
     return enemyAi;
