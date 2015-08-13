@@ -78,15 +78,10 @@ void TriangleAI::running(float dt)
 
     float rand = CCRANDOM_0_1();
 
-    if (rand < 0.05f) {
-        this->entity->startCharging();
-        this->stay(2.0f);
-        this->isPreActionCharge = true;
-        return;
-    } else if (rand < 0.15f) {
+    if (rand < 0.10f) {
         this->stay(1.0f);
         return;
-    } else if (rand < 0.2f) {
+    } else if (rand < 0.15f) {
         this->decideTarget();
     }
 
@@ -110,7 +105,15 @@ void TriangleAI::running(float dt)
     } else {
         EntityDirection direction = EntityHelper::directionFromStartPositionAndEndPosition(myPosition, targetPosition);
 
-        this->move(direction, 0.3f);
+        if (distance < 400.0f && CCRANDOM_0_1() < 0.3f) {
+            this->move(direction, 0.0f);
+            this->entity->startCharging();
+            this->stay(2.0f);
+            this->isPreActionCharge = true;
+            return;
+        } else {
+            this->move(direction, 0.3f);
+        }
     }
 }
 
