@@ -15,6 +15,7 @@
 #include "CircleAI.h"
 #include "Triangle.h"
 #include "TriangleReader.h"
+#include "TriangleAI.h"
 
 #pragma mark - Public methods
 
@@ -100,7 +101,8 @@ EntityAI* EntityFactory::createAI(Entity* entity, Vector<Entity*> opponents)
 
         case EntityType::TRIANGLE:
         {
-            break;
+            TriangleAI* triangleAI = TriangleAI::create(entity, opponents);
+            return triangleAI;
         }
 
         case EntityType::NONE:

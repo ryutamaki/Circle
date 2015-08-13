@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Triangle" ID="8590d622-a871-41c1-ba55-fafd14948388" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="240" Speed="1.0000" ActivedAnimationName="ChargeAttack">
+      <Animation Duration="240" Speed="1.0000" ActivedAnimationName="Attack">
         <Timeline ActionTag="1719643108" Property="Position">
           <PointFrame FrameIndex="143" X="0.0000" Y="0.0000">
             <EasingData Type="8" />
@@ -129,10 +129,10 @@
       <ObjectData Name="Node" CustomClassName="Triangle" Tag="3" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Bullet" ActionTag="1719643108" Tag="34" VisibleForFrame="False" IconVisible="False" LeftMargin="400.0000" RightMargin="-422.0000" TopMargin="-11.0000" BottomMargin="-11.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Bullet" ActionTag="1719643108" Tag="34" VisibleForFrame="False" IconVisible="False" RightMargin="-22.0000" TopMargin="-11.0000" BottomMargin="-11.0000" ctype="SpriteObjectData">
             <Size X="22.0000" Y="22.0000" />
             <AnchorPoint ScaleY="0.5000" />
-            <Position X="400.0000" />
+            <Position />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

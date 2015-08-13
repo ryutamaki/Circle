@@ -36,6 +36,8 @@
 		0351AF961B726B0E0004AA6F /* TutorialLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF911B726B0E0004AA6F /* TutorialLayer.cpp */; };
 		0351AF971B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */; };
 		0351AF981B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */; };
+		035DF8B01B7D47A40040F04C /* TriangleAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DF8AE1B7D47A40040F04C /* TriangleAI.cpp */; };
+		035DF8B31B7D47AD0040F04C /* TriangleAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DF8AE1B7D47A40040F04C /* TriangleAI.cpp */; };
 		036376D11B773470000B3F46 /* CoinLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CD1B773470000B3F46 /* CoinLabel.cpp */; };
 		036376D21B773470000B3F46 /* CoinLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CD1B773470000B3F46 /* CoinLabel.cpp */; };
 		036376D31B773470000B3F46 /* CoinLabelReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CF1B773470000B3F46 /* CoinLabelReader.cpp */; };
@@ -182,6 +184,8 @@
 		0351AF921B726B0E0004AA6F /* TutorialLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayer.h; sourceTree = "<group>"; };
 		0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialLayerReader.cpp; sourceTree = "<group>"; };
 		0351AF941B726B0E0004AA6F /* TutorialLayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayerReader.h; sourceTree = "<group>"; };
+		035DF8AE1B7D47A40040F04C /* TriangleAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TriangleAI.cpp; sourceTree = "<group>"; };
+		035DF8AF1B7D47A40040F04C /* TriangleAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleAI.h; sourceTree = "<group>"; };
 		036376CD1B773470000B3F46 /* CoinLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinLabel.cpp; sourceTree = "<group>"; };
 		036376CE1B773470000B3F46 /* CoinLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinLabel.h; sourceTree = "<group>"; };
 		036376CF1B773470000B3F46 /* CoinLabelReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinLabelReader.cpp; sourceTree = "<group>"; };
@@ -363,6 +367,8 @@
 				034F41071B5D529E00167F16 /* EntityAI.h */,
 				038D4CF81B7C19FF000832F3 /* CircleAI.cpp */,
 				038D4CF91B7C19FF000832F3 /* CircleAI.h */,
+				035DF8AE1B7D47A40040F04C /* TriangleAI.cpp */,
+				035DF8AF1B7D47A40040F04C /* TriangleAI.h */,
 				03B167B01B582555005D1FF6 /* CustomEntities */,
 			);
 			name = Entities;
@@ -754,6 +760,7 @@
 				03917D681B56F7FC0068BCA6 /* MenuScene.cpp in Sources */,
 				03ACBD6F1B7946C900F7119A /* FlurryHelper.cpp in Sources */,
 				0351AF971B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */,
+				035DF8B01B7D47A40040F04C /* TriangleAI.cpp in Sources */,
 				03D709961B657BD70056912B /* StageComponent.cpp in Sources */,
 				036376D31B773470000B3F46 /* CoinLabelReader.cpp in Sources */,
 				03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */,
@@ -786,6 +793,7 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				038EE8D71B6AAC3200D6A928 /* PowerUpScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				035DF8B31B7D47AD0040F04C /* TriangleAI.cpp in Sources */,
 				03D709971B657BD70056912B /* StageComponent.cpp in Sources */,
 				031C156D1B68292C007D0FEC /* ScoreLabel.cpp in Sources */,
 				0399AB4F1B655C590069507F /* StageSelectScene.cpp in Sources */,
