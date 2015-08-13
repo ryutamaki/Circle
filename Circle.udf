@@ -5,10 +5,10 @@
         <LuaIsEncrypt Value="False" />
         <LuaEncryptKey Value="" />
         <LuaEncryptSign Value="" />
-        <Android_PackageName Value="org.cocos.DotWar" />
+        <Android_PackageName Value="org.cocos.Circle" />
         <AndroidkeyStore Value="" />
         <AndroidVersion Value="" />
-        <iOS_Target Value="DotWar iOS" />
+        <iOS_Target Value="Circle iOS" />
         <iOS_BundleID Value="iPhone Developer: Ryu Tamaki (PNYZW2H6A6)" />
         <Platform Value="None" />
         <RunPlatform Value="None" />

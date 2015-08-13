@@ -1,5 +1,5 @@
 <Solution>
-  <PropertyGroup Name="DotWar" Version="2.3.1.2" Type="CocosStudio" />
+  <PropertyGroup Name="Circle" Version="2.3.1.2" Type="CocosStudio" />
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
@@ -169,6 +169,14 @@
           <Image Name="MultiplayerButtonNormal@2x.png" />
           <Image Name="MultiplayerButtonNormal@3x.png" />
           <Image Name="MultiplayerButtonNormal@4x.png" />
+          <Image Name="TriangleBullet.png" />
+          <Image Name="TriangleBullet@2x.png" />
+          <Image Name="TriangleBullet@3x.png" />
+          <Image Name="TriangleBullet@4x.png" />
+          <Image Name="ButtonNotifier.png" />
+          <Image Name="ButtonNotifier@2x.png" />
+          <Image Name="ButtonNotifier@3x.png" />
+          <Image Name="ButtonNotifier@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />
@@ -182,6 +190,7 @@
         <Project Name="GamePauseLayer.csd" Type="Layer" />
         <Project Name="TutorialLayer.csd" Type="Layer" />
         <Project Name="CoinLabel.csd" Type="Node" />
+        <Project Name="PowerUpButton.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>
