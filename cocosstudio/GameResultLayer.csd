@@ -54,7 +54,7 @@
       <ObjectData Name="Layer" CustomClassName="GameResultLayer" Tag="40" ctype="GameLayerObjectData">
         <Size X="1334.0000" Y="750.0000" />
         <Children>
-          <AbstractNodeData Name="Overlay" ActionTag="-874100482" Tag="12" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1.3974" RightMargin="-1.3975" BottomMargin="0.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Overlay" ActionTag="-874100482" Tag="12" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1.3974" RightMargin="-1.3975" ctype="SpriteObjectData">
             <Size X="1334.0000" Y="750.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="668.3974" Y="375.0000" />
@@ -201,20 +201,15 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="PowerUpButton" ActionTag="1395882344" Tag="43" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="510.0000" RightMargin="190.0000" TopMargin="330.0000" BottomMargin="42.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="70" Scale9Height="86" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
-                <Size X="100.0000" Y="108.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+              <AbstractNodeData Name="PowerUpButton" ActionTag="-1407469045" Tag="78" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="560.0000" RightMargin="240.0000" TopMargin="384.0000" BottomMargin="96.0000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
                 <Position X="560.0000" Y="96.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.7000" Y="0.2000" />
-                <PreSize X="0.1250" Y="0.2250" />
-                <TextColor A="255" R="65" G="65" B="70" />
-                <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
-                <PressedFileData Type="Normal" Path="Images/PowerUpButtonPushed@2x.png" Plist="" />
-                <NormalFileData Type="Normal" Path="Images/PowerUpButtonNormal@2x.png" Plist="" />
-                <OutlineColor A="255" R="255" G="0" B="0" />
-                <ShadowColor A="255" R="110" G="110" B="110" />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="PowerUpButton.csd" Plist="" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />

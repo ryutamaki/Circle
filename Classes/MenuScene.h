@@ -14,6 +14,9 @@
 
 #include "EntityConstants.h"
 
+class Entity;
+class PowerUpButton;
+
 class MenuScene : public cocos2d::Layer
 {
 public:
@@ -27,13 +30,14 @@ public:
     CREATE_FUNC(MenuScene);
 
 private:
+    PowerUpButton* powerUpButton;
+
     void onEnter() override;
 
-    void putEntityByEntityType(EntityType entityType);
+    Entity* putEntityByEntityType(EntityType entityType);
 
     void singlePlayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
     void multiplayerButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
-    void powerUpButtonPushed(Ref* pSender, cocos2d::ui::Widget::TouchEventType eEventType);
 
 };
 

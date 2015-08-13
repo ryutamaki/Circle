@@ -14,6 +14,8 @@
 #include "GameSceneManager.h"
 
 #include "PowerUpScene.h"
+#include "PowerUpButton.h"
+#include "PowerUpButtonReader.h"
 
 #include "UserDataManager.h"
 #include "StageSelectScene.h"
@@ -48,20 +50,19 @@ bool MenuScene::init()
         return false;
     }
 
+    CSLoader::getInstance()->registReaderObject("PowerUpButtonReader", (ObjectFactory::Instance)PowerUpButtonReader::getInstance);
     auto rootNode = CSLoader::createNode("MenuScene.csb");
 
     Size visibleSize = Director::getInstance()->getVisibleSize();
-    log("%f, %f", visibleSize.width, visibleSize.height);
     rootNode->setContentSize(visibleSize);
     ui::Helper::doLayout(rootNode);
 
     ui::Button* singlePlayerButton = rootNode->getChildByName<ui::Button*>("SinglePlayerButton");
     ui::Button* multiplayerButton = rootNode->getChildByName<ui::Button*>("MultiplayerButton");
-    ui::Button* powerUpButton = rootNode->getChildByName<ui::Button*>("PowerUpButton");
+    this->powerUpButton = rootNode->getChildByName<PowerUpButton*>("PowerUpButton");
 
     singlePlayerButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::singlePlayerButtonPushed, this));
     multiplayerButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::multiplayerButtonPushed, this));
-    powerUpButton->addTouchEventListener(CC_CALLBACK_2(MenuScene::powerUpButtonPushed, this));
 
     this->addChild(rootNode);
 
@@ -77,7 +78,8 @@ void MenuScene::onEnter()
     Layer::onEnter();
 
     // put character
-    this->putEntityByEntityType(EntityType::CIRCLE);
+    Entity* entity = this->putEntityByEntityType(EntityType::CIRCLE);
+    this->powerUpButton->setNotifierByEntity(entity);
 
     // This will start observing to find peers.
     // Set self.peerID in NetworkManager also.
@@ -87,7 +89,7 @@ void MenuScene::onEnter()
     FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_MENU);
 }
 
-void MenuScene::putEntityByEntityType(EntityType entityType)
+Entity* MenuScene::putEntityByEntityType(EntityType entityType)
 {
     // put character
     EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(entityType);
@@ -96,6 +98,8 @@ void MenuScene::putEntityByEntityType(EntityType entityType)
     Entity* entity = factory->createFriend(isHost, entityType, parameterLevel);
     entity->setNormalizedPosition(Vec2(0.5f, 0.6f));
     this->addChild(entity);
+
+    return entity;
 }
 
 #pragma mark Callbacks
@@ -113,17 +117,5 @@ void MenuScene::multiplayerButtonPushed(Ref* pSender, ui::Widget::TouchEventType
 {
     if (eEventType == ui::Widget::TouchEventType::ENDED) {
         GameSceneManager::getInstance()->showPeerList();
-    }
-}
-
-void MenuScene::powerUpButtonPushed(Ref* pSender, ui::Widget::TouchEventType eEventType)
-{
-    if (eEventType == ui::Widget::TouchEventType::ENDED) {
-        PowerUpScene* powerUpScene = PowerUpScene::create();
-        powerUpScene->setEntityType(EntityType::CIRCLE);
-        Scene* scene = Scene::create();
-        scene->addChild(powerUpScene);
-        TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
-        Director::getInstance()->pushScene(transition);
     }
 }

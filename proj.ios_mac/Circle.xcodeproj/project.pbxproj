@@ -36,6 +36,10 @@
 		0351AF961B726B0E0004AA6F /* TutorialLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF911B726B0E0004AA6F /* TutorialLayer.cpp */; };
 		0351AF971B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */; };
 		0351AF981B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */; };
+		035DF8A61B7D26530040F04C /* PowerUpButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DF8A21B7D26530040F04C /* PowerUpButton.cpp */; };
+		035DF8A71B7D26530040F04C /* PowerUpButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DF8A21B7D26530040F04C /* PowerUpButton.cpp */; };
+		035DF8A81B7D26530040F04C /* PowerUpButtonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DF8A41B7D26530040F04C /* PowerUpButtonReader.cpp */; };
+		035DF8A91B7D26530040F04C /* PowerUpButtonReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 035DF8A41B7D26530040F04C /* PowerUpButtonReader.cpp */; };
 		036376D11B773470000B3F46 /* CoinLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CD1B773470000B3F46 /* CoinLabel.cpp */; };
 		036376D21B773470000B3F46 /* CoinLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CD1B773470000B3F46 /* CoinLabel.cpp */; };
 		036376D31B773470000B3F46 /* CoinLabelReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 036376CF1B773470000B3F46 /* CoinLabelReader.cpp */; };
@@ -180,6 +184,10 @@
 		0351AF921B726B0E0004AA6F /* TutorialLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayer.h; sourceTree = "<group>"; };
 		0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialLayerReader.cpp; sourceTree = "<group>"; };
 		0351AF941B726B0E0004AA6F /* TutorialLayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialLayerReader.h; sourceTree = "<group>"; };
+		035DF8A21B7D26530040F04C /* PowerUpButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpButton.cpp; sourceTree = "<group>"; };
+		035DF8A31B7D26530040F04C /* PowerUpButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpButton.h; sourceTree = "<group>"; };
+		035DF8A41B7D26530040F04C /* PowerUpButtonReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PowerUpButtonReader.cpp; sourceTree = "<group>"; };
+		035DF8A51B7D26530040F04C /* PowerUpButtonReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerUpButtonReader.h; sourceTree = "<group>"; };
 		036376CD1B773470000B3F46 /* CoinLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinLabel.cpp; sourceTree = "<group>"; };
 		036376CE1B773470000B3F46 /* CoinLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinLabel.h; sourceTree = "<group>"; };
 		036376CF1B773470000B3F46 /* CoinLabelReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoinLabelReader.cpp; sourceTree = "<group>"; };
@@ -369,6 +377,10 @@
 				03917D671B56F7FC0068BCA6 /* MenuScene.h */,
 				038EE8D41B6AAC3200D6A928 /* PowerUpScene.cpp */,
 				038EE8D51B6AAC3200D6A928 /* PowerUpScene.h */,
+				035DF8A21B7D26530040F04C /* PowerUpButton.cpp */,
+				035DF8A31B7D26530040F04C /* PowerUpButton.h */,
+				035DF8A41B7D26530040F04C /* PowerUpButtonReader.cpp */,
+				035DF8A51B7D26530040F04C /* PowerUpButtonReader.h */,
 				0351AF911B726B0E0004AA6F /* TutorialLayer.cpp */,
 				0351AF921B726B0E0004AA6F /* TutorialLayer.h */,
 				0351AF931B726B0E0004AA6F /* TutorialLayerReader.cpp */,
@@ -738,6 +750,7 @@
 				031C156E1B68292C007D0FEC /* ScoreLabelReader.cpp in Sources */,
 				0351AF951B726B0E0004AA6F /* TutorialLayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				035DF8A81B7D26530040F04C /* PowerUpButtonReader.cpp in Sources */,
 				0342E5DA1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
 				03D709981B657BD70056912B /* StageComponentReader.cpp in Sources */,
 				03019EFB1B75DEA9000C4CDC /* EntityContainer.cpp in Sources */,
@@ -749,6 +762,7 @@
 				03ACBD6F1B7946C900F7119A /* FlurryHelper.cpp in Sources */,
 				0351AF971B726B0E0004AA6F /* TutorialLayerReader.cpp in Sources */,
 				03D709961B657BD70056912B /* StageComponent.cpp in Sources */,
+				035DF8A61B7D26530040F04C /* PowerUpButton.cpp in Sources */,
 				036376D31B773470000B3F46 /* CoinLabelReader.cpp in Sources */,
 				03917D801B5712800068BCA6 /* JSONPacker.cpp in Sources */,
 				03B167B31B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
@@ -787,6 +801,7 @@
 				03019EFC1B75DEA9000C4CDC /* EntityContainer.cpp in Sources */,
 				0342E5DB1B66ED80009B737E /* GameResultLayer.cpp in Sources */,
 				03917D731B56FD030068BCA6 /* NetworkManager.mm in Sources */,
+				035DF8A71B7D26530040F04C /* PowerUpButton.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* GameScene.cpp in Sources */,
 				03D709991B657BD70056912B /* StageComponentReader.cpp in Sources */,
 				03B167B41B58301C005D1FF6 /* EntityStateMachine.cpp in Sources */,
@@ -796,6 +811,7 @@
 				039EB4D51B6C240700884C73 /* GamePauseLayerReader.cpp in Sources */,
 				03917D5A1B56C9B90068BCA6 /* CircleReader.cpp in Sources */,
 				039EB4D31B6C240700884C73 /* GamePauseLayer.cpp in Sources */,
+				035DF8A91B7D26530040F04C /* PowerUpButtonReader.cpp in Sources */,
 				0342E5CD1B66CC3D009B737E /* CoinContainer.cpp in Sources */,
 				03917D7C1B56FE220068BCA6 /* GameSceneManager.cpp in Sources */,
 				03917D851B57230B0068BCA6 /* Entity.cpp in Sources */,

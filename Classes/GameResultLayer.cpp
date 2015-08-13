@@ -12,7 +12,11 @@
 #include "ui/CocosGUI.h"
 
 #include "GameSceneManager.h"
-#include "PowerUpScene.h"
+#include "PowerUpButton.h"
+#include "PowerUpButtonReader.h"
+
+#include "EntityFactory.h"
+#include "UserDataManager.h"
 
 USING_NS_CC;
 
@@ -31,7 +35,12 @@ bool GameResultLayer::init()
     // retain the character animation timeline so it doesn't get deallocated
     this->timeline->retain();
 
+    this->score = 0;
+    this->highScore = 0;
+    this->isNewRecord = false;
+    this->coinCount = 0;
     this->networked = false;
+    this->entityType = EntityType::NONE;
 
     // Prevent propagation into the layers below
     EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
@@ -60,29 +69,32 @@ void GameResultLayer::hide(std::function<void()> lastFrameCallback)
 
 void GameResultLayer::setScore(int score)
 {
-    ui::TextBMFont* scoreCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("ScoreCountLabel");
-    scoreCountLabel->setString(std::to_string(score));
+    this->score = score;
 }
 
-void GameResultLayer::setHighScore(int highScore, bool isNewRecord)
+void GameResultLayer::setHighScore(int highScore)
 {
-    ui::TextBMFont* highScoreCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("HighScoreCountLabel");
-    highScoreCountLabel->setString(std::to_string(highScore));
+    this->highScore = highScore;
+}
 
-    if (isNewRecord) {
-        highScoreCountLabel->setColor(Color3B(CIRCLE_DARK_BLUE));
-    }
+void GameResultLayer::setIsNewRecord(bool isNewRecord)
+{
+    this->isNewRecord = isNewRecord;
 }
 
 void GameResultLayer::setCoinCount(int coinCount)
 {
-    ui::TextBMFont* coinCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("CoinCountLabel");
-    coinCountLabel->setString(std::to_string(coinCount));
+    this->coinCount = coinCount;
 }
 
 void GameResultLayer::setNetworked(bool networked)
 {
     this->networked = networked;
+}
+
+void GameResultLayer::setEntityType(EntityType entityType)
+{
+    this->entityType = entityType;
 }
 
 #pragma mark - Private methods
@@ -99,8 +111,9 @@ void GameResultLayer::onEnter()
     this->setContentSize(overlay->getContentSize());
 
     this->resultLayout = this->getChildByName<ui::Layout*>("ResultLayout");
-
     this->setupButtons();
+    this->setupPowerUpButtonNotifier();
+    this->setupLabels();
 }
 
 void GameResultLayer::onExit()
@@ -125,16 +138,29 @@ void GameResultLayer::setupButtons()
             GameSceneManager::getInstance()->restartGameScene(this->networked);
         }
     });
+}
 
-    ui::Button* powerUpButton = this->resultLayout->getChildByName<ui::Button*>("PowerUpButton");
-    powerUpButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
-        if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            PowerUpScene* powerUpScene = PowerUpScene::create();
-            powerUpScene->setEntityType(EntityType::CIRCLE);
-            Scene* scene = Scene::create();
-            scene->addChild(powerUpScene);
-            TransitionFade* transition = TransitionFade::create(SCENE_TRANSITION_DURATION, scene, SCENE_TRANSITION_COLOR);
-            Director::getInstance()->pushScene(transition);
-        }
-    });
+void GameResultLayer::setupPowerUpButtonNotifier()
+{
+    std::unique_ptr<EntityFactory> entityFactory = std::unique_ptr<EntityFactory>(new EntityFactory());
+    EntityParameterLevel parameterLevel = UserDataManager::getInstance()->getEntityParameterLevel(this->entityType);
+    Entity* entity = entityFactory->createFriend(true, this->entityType, parameterLevel);
+    PowerUpButton* powerUpButton = this->resultLayout->getChildByName<PowerUpButton*>("PowerUpButton");
+    powerUpButton->setNotifierByEntity(entity);
+}
+
+void GameResultLayer::setupLabels()
+{
+    ui::TextBMFont* scoreCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("ScoreCountLabel");
+    scoreCountLabel->setString(std::to_string(this->score));
+
+    ui::TextBMFont* coinCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("CoinCountLabel");
+    coinCountLabel->setString(std::to_string(this->coinCount));
+
+    ui::TextBMFont* highScoreCountLabel = this->resultLayout->getChildByName<ui::TextBMFont*>("HighScoreCountLabel");
+    highScoreCountLabel->setString(std::to_string(this->highScore));
+
+    if (isNewRecord) {
+        highScoreCountLabel->setColor(Color3B(CIRCLE_DARK_BLUE));
+    }
 }

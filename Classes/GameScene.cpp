@@ -245,6 +245,9 @@ void GameScene::onEnter()
     this->setupTouchHandling();
     this->showTutorialBasicIfNeverSeen();
 
+    int coinCount = UserDataManager::getInstance()->getCoinCount();
+    this->coinLabel->setCoinCount(coinCount);
+
     // log for analytics
     if (this->networkedSession) {
         FlurryHelper::logTransitionScene(FlurryHelper::SCENE_NAME_GAME_MULTI);
@@ -694,12 +697,14 @@ void GameScene::showResultLayer(int score, int highscore, bool isNewRecord, int 
     CSLoader::getInstance()->registReaderObject("GameResultLayerReader", (ObjectFactory::Instance)GameResultLayerReader::getInstance);
     GameResultLayer* gameResult = dynamic_cast<GameResultLayer*>(CSLoader::createNode("GameResultLayer.csb"));
 
-    gameResult->show(this->field);
-
     gameResult->setScore(score);
-    gameResult->setHighScore(highscore, isNewRecord);
+    gameResult->setHighScore(highscore);
+    gameResult->setIsNewRecord(isNewRecord);
     gameResult->setCoinCount(coinCount);
     gameResult->setNetworked(this->networkedSession);
+    gameResult->setEntityType(this->character->getEntityType());
+
+    gameResult->show(this->field);
 }
 
 void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType)
