@@ -74,9 +74,9 @@ void PowerUpButton::onEnter()
         }
 
         if (this->powerUpButton->isHighlighted()) {
-            this->notifier->setPosition(Vec2(10.0f, 90.0f));
+            this->notifier->setPosition(Vec2(90.0f, 90.0f));
         } else {
-            this->notifier->setPosition(Vec2(10.0f, 98.0f));
+            this->notifier->setPosition(Vec2(90.0f, 98.0f));
         }
     });
 
