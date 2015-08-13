@@ -17,6 +17,7 @@ public:
     CREATE_FUNC(Triangle);
     bool init() override;
 
+    int getCoinCountDropped() override;
     int getCoinCountToRankUp() override;
     int getCoinCountToHpLevelUp() override;
     int getCoinCountToAttackLevelUp() override;

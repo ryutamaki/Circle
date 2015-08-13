@@ -28,6 +28,11 @@ bool Circle::init()
 
 #pragma Override methods
 
+int Circle::getCoinCountDropped()
+{
+    return this->getEntityParameterLevel().rank + 1;
+}
+
 int Circle::getCoinCountToRankUp()
 {
     int currentRank = this->getEntityParameterLevel().rank;

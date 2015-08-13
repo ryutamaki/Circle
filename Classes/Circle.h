@@ -19,6 +19,7 @@ public:
     CREATE_FUNC(Circle);
     bool init() override;
 
+    int getCoinCountDropped() override;
     int getCoinCountToRankUp() override;
     int getCoinCountToHpLevelUp() override;
     int getCoinCountToAttackLevelUp() override;

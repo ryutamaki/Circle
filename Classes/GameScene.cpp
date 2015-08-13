@@ -433,13 +433,14 @@ void GameScene::checkDeadEnemy(float dt)
             continue;
         }
 
-        this->entityContainer->moveEnemyToCemetery(kv.first);
-
         // give voin to user when defeat some of enemy
         // いつ終了しても、そこまでのコインの付与が完了しているようにしたいため、敵が死んだのを確認した時点でコインを付与する
-        int coinCountToGive = enemy->getEntityParameterLevel().rank + 1;
-        this->giveCoin(enemy->getEntityParameterLevel().rank + 1);
+        int coinCountToGive = enemy->getCoinCountDropped();
+        this->giveCoin(enemy->getCoinCountDropped());
         this->totalCoinCount += coinCountToGive;
+
+        // move enemy to cemetery
+        this->entityContainer->moveEnemyToCemetery(kv.first);
 
         // update gamestate
         this->defeatEnemyCount++;

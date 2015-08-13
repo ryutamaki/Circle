@@ -30,6 +30,11 @@ bool Triangle::init()
 
 #pragma mark Override methods
 
+int Triangle::getCoinCountDropped()
+{
+    return (this->getEntityParameterLevel().rank + 1) * 2;
+}
+
 int Triangle::getCoinCountToRankUp()
 {
     int currentRank = this->getEntityParameterLevel().rank;

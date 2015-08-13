@@ -67,6 +67,7 @@ public:
     void didStateChanged(EntityMoveState moveState, EntityDirection direction, EntityAttackState attackState) override;
 
     // abstract functions
+    virtual int getCoinCountDropped() = 0;
     virtual int getCoinCountToRankUp() = 0;
     virtual int getCoinCountToHpLevelUp() = 0;
     virtual int getCoinCountToAttackLevelUp() = 0;
