@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Triangle" ID="8590d622-a871-41c1-ba55-fafd14948388" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="240" Speed="1.0000">
+      <Animation Duration="240" Speed="1.0000" ActivedAnimationName="Charging">
         <Timeline ActionTag="1719643108" Property="Position">
           <PointFrame FrameIndex="143" X="0.0000" Y="0.0000">
             <EasingData Type="8" />
@@ -119,7 +119,7 @@
         <AnimationInfo Name="EnemyAttack" StartIndex="10" EndIndex="71">
           <RenderColor A="255" R="219" G="112" B="147" />
         </AnimationInfo>
-        <AnimationInfo Name="Charge" StartIndex="100" EndIndex="106">
+        <AnimationInfo Name="Charging" StartIndex="100" EndIndex="106">
           <RenderColor A="255" R="123" G="104" B="238" />
         </AnimationInfo>
         <AnimationInfo Name="ChargeAttack" StartIndex="120" EndIndex="241">
