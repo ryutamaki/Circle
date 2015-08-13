@@ -56,7 +56,7 @@ bool StageSelectScene::init()
     ui::Helper::doLayout(rootNode);
 
     this->pageView = rootNode->getChildByName<ui::PageView*>("PageView");
-    this->pageView->setSizePercent(Vec2(0.5f, 1.0f));
+    this->pageView->setSizePercent(Vec2(0.3f, 1.0f));
     this->pageView->setCustomScrollThreshold(visibleSize.width * 0.1f);
 
     this->endlessButton = rootNode->getChildByName<ui::Button*>("EndlessButton");
