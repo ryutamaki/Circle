@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Circle" ID="11748200-112a-45c6-a796-472168a2b2dd" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="199" Speed="1.0000" ActivedAnimationName="AttackNeedle">
+      <Animation Duration="199" Speed="1.0000">
         <Timeline ActionTag="629999460" Property="Scale">
           <ScaleFrame FrameIndex="31" X="0.5000" Y="0.5000">
             <EasingData Type="8" />
@@ -137,7 +137,7 @@
         <AnimationInfo Name="Damaged" StartIndex="0" EndIndex="5">
           <RenderColor A="255" R="255" G="239" B="213" />
         </AnimationInfo>
-        <AnimationInfo Name="AttackNeedle" StartIndex="30" EndIndex="101">
+        <AnimationInfo Name="EnemyAttack" StartIndex="30" EndIndex="101">
           <RenderColor A="255" R="233" G="150" B="122" />
         </AnimationInfo>
         <AnimationInfo Name="ChargeAttack" StartIndex="120" EndIndex="200">
@@ -150,7 +150,7 @@
       <ObjectData Name="Node" CustomClassName="Circle" Tag="8" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Needle" ActionTag="629999460" Tag="49" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-78.0000" RightMargin="-78.0000" TopMargin="-78.0000" BottomMargin="-78.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Needle" ActionTag="629999460" Tag="49" VisibleForFrame="False" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-78.0000" RightMargin="-78.0000" TopMargin="-78.0000" BottomMargin="-78.0000" ctype="SpriteObjectData">
             <Size X="156.0000" Y="156.0000" />
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position />
@@ -161,7 +161,7 @@
             <FileData Type="Normal" Path="Images/CircleNeedle@2x.png" Plist="" />
             <BlendFunc Src="1" Dst="771" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" FrameEvent="Ready" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="Body" ActionTag="-1773017991" Tag="62" IconVisible="False" LeftMargin="-40.0000" RightMargin="-40.0000" TopMargin="-40.0000" BottomMargin="-40.0000" ctype="SpriteObjectData">
             <Size X="80.0000" Y="80.0000" />
             <Children>
               <AbstractNodeData Name="Eyes" ActionTag="-758022569" Tag="21" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="56.0000" RightMargin="16.0000" TopMargin="22.0000" BottomMargin="22.0000" ctype="SpriteObjectData">

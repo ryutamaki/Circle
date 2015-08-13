@@ -2,7 +2,7 @@
   <PropertyGroup Type="Node" Name="Triangle" ID="8590d622-a871-41c1-ba55-fafd14948388" Version="2.3.1.2" />
   <Content ctype="GameProjectContent">
     <Content>
-      <Animation Duration="240" Speed="1.0000" ActivedAnimationName="Attack">
+      <Animation Duration="240" Speed="1.0000">
         <Timeline ActionTag="1719643108" Property="Position">
           <PointFrame FrameIndex="143" X="0.0000" Y="0.0000">
             <EasingData Type="8" />
@@ -116,7 +116,7 @@
         <AnimationInfo Name="Damaged" StartIndex="0" EndIndex="5">
           <RenderColor A="255" R="255" G="160" B="122" />
         </AnimationInfo>
-        <AnimationInfo Name="Attack" StartIndex="10" EndIndex="71">
+        <AnimationInfo Name="EnemyAttack" StartIndex="10" EndIndex="71">
           <RenderColor A="255" R="219" G="112" B="147" />
         </AnimationInfo>
         <AnimationInfo Name="Charge" StartIndex="100" EndIndex="106">
@@ -129,7 +129,7 @@
       <ObjectData Name="Node" CustomClassName="Triangle" Tag="3" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Bullet" ActionTag="1719643108" Tag="34" VisibleForFrame="False" IconVisible="False" RightMargin="-22.0000" TopMargin="-11.0000" BottomMargin="-11.0000" ctype="SpriteObjectData">
+          <AbstractNodeData Name="BulletCenter" ActionTag="1719643108" Tag="34" VisibleForFrame="False" IconVisible="False" RightMargin="-22.0000" TopMargin="-11.0000" BottomMargin="-11.0000" ctype="SpriteObjectData">
             <Size X="22.0000" Y="22.0000" />
             <AnchorPoint ScaleY="0.5000" />
             <Position />
