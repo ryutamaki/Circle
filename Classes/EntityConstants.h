@@ -69,7 +69,7 @@ static const std::map<EntityType, EntityParameterLevel> ENTITY_INITIAL_LEVEL_PAR
 
 static const std::map<EntityType, EntityParameter> ENTITY_INITIAL_PARAMETER = {
     {EntityType::CIRCLE, {10, 1}},
-    {EntityType::TRIANGLE, {200, 1}},
+    {EntityType::TRIANGLE, {5, 1}},
     {EntityType::NONE, {0, 0}},
 };
 

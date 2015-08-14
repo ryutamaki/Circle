@@ -108,7 +108,7 @@ void TriangleAI::running(float dt)
         if (distance < 400.0f && CCRANDOM_0_1() < 0.3f) {
             this->move(direction, 0.0f);
             this->entity->startCharging();
-            this->stay(2.0f);
+            this->stay(6.0f);
             this->isPreActionCharge = true;
             return;
         } else {

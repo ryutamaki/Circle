@@ -95,8 +95,8 @@ Entity* EntityFactory::createEnemy(EntityType entityType, int enemyIndex)
         {
             int maxRank = EntityHelper::getMaxRank();
             int rank = MIN(static_cast<int>(floor(enemyIndex / 10.0f)), maxRank);
-            int hpLevel = enemyIndex + 50;
-            int attackLevel = enemyIndex + 50;
+            int hpLevel = enemyIndex + 40;
+            int attackLevel = enemyIndex + 20;
 
             parameterLevel = {rank, hpLevel, attackLevel};
             break;
