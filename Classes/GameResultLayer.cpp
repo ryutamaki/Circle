@@ -128,6 +128,20 @@ void GameResultLayer::onChartboostClick(const std::string& name)
 
 void GameResultLayer::onChartboostReward(const std::string& name, int reward)
 {
+    if (name == "Double Coins") {
+        log("double coins");
+
+        int userCoinCount = UserDataManager::getInstance()->getCoinCount();
+        int earnCoinCount = this->coinCount;
+        int totalUserCoinCount = userCoinCount + earnCoinCount;
+        UserDataManager::getInstance()->setCoinCount(totalUserCoinCount);
+        this->coinCount = totalUserCoinCount;
+        this->setupLabels();
+
+        ui::Button* adRewardButton = this->resultLayout->getChildByName<ui::Button*>("AdRewardButton");
+        adRewardButton->setEnabled(false);
+        adRewardButton->setBright(false);
+    }
 }
 
 void GameResultLayer::onChartboostFailedToLoad(const std::string& name, sdkbox::CB_LoadError e)
@@ -191,10 +205,8 @@ void GameResultLayer::setupButtons()
     ui::Button* adRewardButton = this->resultLayout->getChildByName<ui::Button*>("AdRewardButton");
     adRewardButton->addTouchEventListener([](Ref* pSender, ui::Widget::TouchEventType eEventType) {
         if (eEventType == ui::Widget::TouchEventType::ENDED) {
-            // To use the Chartboost predefined locations
-            sdkbox::PluginChartboost::show(sdkbox::CB_Location_Default);
             // To use customized location
-            sdkbox::PluginChartboost::show("DoubleCoins");
+            sdkbox::PluginChartboost::show("Double Coins");
         }
     });
 }

@@ -47,16 +47,10 @@
     "ios": {
         "Chartboost": {
             "ads": {
-                "Default": {
-                    "type": "interstitial"
-                }, 
-                "Level Complete": {
+                "Double Coins": {
                     "type": "rewarded_video"
-                }, 
-                "MoreApp": {
-                    "type": "more_app"
                 }
-            }, 
+            },
             "id": "55cd31c45b1453703d79f057",
             "signature": "0c33d8d3e17f5bf9336c825ac3cc02b62d0046ac"
         },
