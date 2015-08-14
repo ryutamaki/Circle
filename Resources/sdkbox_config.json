@@ -57,13 +57,13 @@
                     "type": "more_app"
                 }
             }, 
-            "id": "4f21c409cd1cb2fb7000001b", 
-            "signature": "92e2de2fd7070327bdeb54c15a5295309c6fcd2d"
-        }, 
+            "id": "55cd31c45b1453703d79f057",
+            "signature": "0c33d8d3e17f5bf9336c825ac3cc02b62d0046ac"
+        },
         "FlurryAnalytics": {
             "APIKey": "Q3DSXTZG4B5DFHPJ35J7", 
             "Level": 2, 
-            "AppVersion": "V1.0.0", 
+            "AppVersion": "V1.1.0",
             "SessionTimeout": 10, 
             "CrashReport": true, 
             "Debug": false
