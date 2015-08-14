@@ -225,6 +225,12 @@ void GameScene::receivedData(const void* data, unsigned long length)
                 damagedTarget->receiveDamage(entityState.damage.volume, entityState.position);
             }
         }
+    } else if (gameStateFromJSON == GameState::RETRY) {
+        if (this->gameState != GameState::RESULT) {
+            return;
+        }
+        bool networked = true;
+        GameSceneManager::getInstance()->restartGameScene(networked);
     }
 }
 
@@ -796,7 +802,7 @@ void GameScene::disconnected()
         return;
     }
 
-    if (this->gameState == GameState::RESULT) {
+    if (this->gameState != GameState::PLAYING) {
         GameSceneManager::getInstance()->exitGameScene();
         return;
     }

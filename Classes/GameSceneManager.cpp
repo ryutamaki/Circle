@@ -67,8 +67,12 @@ void GameSceneManager::exitGameScene()
 void GameSceneManager::restartGameScene(bool networked)
 {
     if (this->gameScene) {
-        EntityType enemyEntityType = this->gameScene->getEnemyEntityType();
+        if (networked) {
+            std::string json = JSONPacker::packGameState(GameState::RETRY);
+            this->sendData(json.c_str(), json.length());
+        }
 
+        EntityType enemyEntityType = this->gameScene->getEnemyEntityType();
         this->enterGameScene(enemyEntityType, networked);
     }
 }

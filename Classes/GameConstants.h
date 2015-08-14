@@ -28,6 +28,7 @@ enum class GameState
 {
     PREPARE,
     PLAYING,
+    RETRY,
     RESULT,
 };
 
