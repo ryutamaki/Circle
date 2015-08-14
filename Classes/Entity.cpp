@@ -199,6 +199,7 @@ Size Entity::getBodySize()
 JSONPacker::EntityState Entity::currentEntityState()
 {
     JSONPacker::EntityState entityState;
+    entityState.gameState = GameState::PLAYING;
     entityState.identifier = this->identifier;
     entityState.hp = this->hp;
     entityState.position = this->getPosition();

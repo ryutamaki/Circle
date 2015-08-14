@@ -168,7 +168,9 @@ void GameScene::receivedData(const void* data, unsigned long length)
     const char* cstr = reinterpret_cast<const char*>(data);
     std::string json = std::string(cstr, length);
 
-    if (this->gameState == GameState::PREPARE) {
+    GameState gameStateFromJSON = JSONPacker::getGameStateFromJSON(json);
+
+    if (gameStateFromJSON == GameState::PREPARE) {
         JSONPacker::EntityReadyState entityReadyState = JSONPacker::unpackEntityReadyStateJSON(json);
 
         if (! this->friendCharacter) {
@@ -177,7 +179,7 @@ void GameScene::receivedData(const void* data, unsigned long length)
         }
 
         this->tryToStart();
-    } else if (this->gameState == GameState::PLAYING) {
+    } else if (gameStateFromJSON == GameState::PLAYING) {
         JSONPacker::EntityState entityState = JSONPacker::unpackEntityStateJSON(json);
 
         if (! GameSceneManager::getInstance()->isHost()) {
@@ -715,6 +717,7 @@ void GameScene::readyToStart(Ref* pSender, ui::Widget::TouchEventType eEventType
         Entity* myself = this->entityContainer->findMyself();
 
         JSONPacker::EntityReadyState entityReadyState;
+        entityReadyState.gameState = GameState::PREPARE;
         entityReadyState.identifier = myself->getIdentifier();
         entityReadyState.isReady = this->character->synchronizer->getIsReadyToPlay();
         entityReadyState.entityType = this->character->getEntityType();

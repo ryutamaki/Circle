@@ -15,6 +15,30 @@
 USING_NS_CC;
 
 namespace JSONPacker {
+GameState getGameStateFromJSON(const std::string& json)
+{
+    rapidjson::Document document;
+    document.Parse<0>(json.c_str());
+
+    GameState gameState = static_cast<GameState>(document["gameState"].GetInt());
+    return gameState;
+}
+
+std::string packGameState(const GameState gameState)
+{
+    rapidjson::Document document;
+    document.SetObject();
+
+    document.AddMember("gameState", static_cast<int>(gameState), document.GetAllocator());
+
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    document.Accept(writer);
+
+    std::string returnString(buffer.GetString(), buffer.Size());
+    return returnString;
+}
+
 EntityState unpackEntityStateJSON(std::string json)
 {
     rapidjson::Document document;
@@ -51,7 +75,8 @@ std::string packEntityState(const EntityState entityState)
     rapidjson::Document document;
     document.SetObject();
 
-    document.AddMember("identifier", static_cast<EntityIdentifier>(entityState.identifier), document.GetAllocator());
+    document.AddMember("gameState", static_cast<int>(entityState.gameState), document.GetAllocator());
+    document.AddMember("identifier", static_cast<int>(entityState.identifier), document.GetAllocator());
     document.AddMember("hp", entityState.hp, document.GetAllocator());
 
     Vec2 position = entityState.position;
@@ -106,7 +131,8 @@ std::string packEntityReadyState(const EntityReadyState entityReadyState)
     rapidjson::Document document;
     document.SetObject();
 
-    document.AddMember("identifier", static_cast<EntityIdentifier>(entityReadyState.identifier), document.GetAllocator());
+    document.AddMember("gameState", static_cast<int>(entityReadyState.gameState), document.GetAllocator());
+    document.AddMember("identifier", static_cast<int>(entityReadyState.identifier), document.GetAllocator());
     document.AddMember("isReady", entityReadyState.isReady, document.GetAllocator());
     document.AddMember("entityType", static_cast<int>(entityReadyState.entityType), document.GetAllocator());
 

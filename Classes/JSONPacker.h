@@ -16,6 +16,10 @@
 
 namespace JSONPacker
 {
+
+    GameState getGameStateFromJSON(const std::string& json);
+    std::string packGameState(const GameState gameState);
+
     struct EntityState
     {
         struct Damage
@@ -24,6 +28,7 @@ namespace JSONPacker
             int volume;
         };
 
+        GameState gameState;
         EntityIdentifier identifier;
         int hp;
         cocos2d::Vec2 position;
@@ -41,6 +46,7 @@ namespace JSONPacker
 
     struct EntityReadyState
     {
+        GameState gameState;
         EntityIdentifier identifier;
         bool isReady;
         EntityType entityType;
