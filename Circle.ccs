@@ -177,6 +177,14 @@
           <Image Name="ButtonNotifier@2x.png" />
           <Image Name="ButtonNotifier@3x.png" />
           <Image Name="ButtonNotifier@4x.png" />
+          <Image Name="AdButtonNormal.png" />
+          <Image Name="AdButtonNormal@2x.png" />
+          <Image Name="AdButtonNormal@3x.png" />
+          <Image Name="AdButtonNormal@4x.png" />
+          <Image Name="AdButtonPushed.png" />
+          <Image Name="AdButtonPushed@2x.png" />
+          <Image Name="AdButtonPushed@3x.png" />
+          <Image Name="AdButtonPushed@4x.png" />
         </Folder>
         <Folder Name="Fonts">
           <Fnt Name="Menlo48.fnt" />

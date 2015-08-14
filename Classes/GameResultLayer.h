@@ -62,7 +62,6 @@ private:
     void setupButtons();
     void setupPowerUpButtonNotifier();
     void setupLabels();
-
 };
 
 #endif /* defined(__DotWar__GameResultLayer__) */

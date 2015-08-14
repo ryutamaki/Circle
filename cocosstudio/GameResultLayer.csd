@@ -211,6 +211,21 @@
                 <PreSize X="0.0000" Y="0.0000" />
                 <FileData Type="Normal" Path="PowerUpButton.csd" Plist="" />
               </AbstractNodeData>
+              <AbstractNodeData Name="AdRewardButton" ActionTag="247849518" Tag="49" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="662.0000" RightMargin="38.0000" TopMargin="190.0000" BottomMargin="190.0000" TouchEnable="True" FontSize="14" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="70" Scale9Height="78" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                <Size X="100.0000" Y="100.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="712.0000" Y="240.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.8900" Y="0.5000" />
+                <PreSize X="0.1250" Y="0.2083" />
+                <TextColor A="255" R="65" G="65" B="70" />
+                <DisabledFileData Type="Normal" Path="Images/AdButtonPushed@2x.png" Plist="" />
+                <PressedFileData Type="Normal" Path="Images/AdButtonPushed@2x.png" Plist="" />
+                <NormalFileData Type="Normal" Path="Images/AdButtonNormal@2x.png" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
             <Position X="667.0000" Y="375.0000" />
