@@ -39,9 +39,9 @@ void PowerUpButton::setNotifierByEntity(Entity* entity)
     int coinCountForHpLevelUp = entity->getCoinCountToHpLevelUp();
     int coinCountForAttackUp = entity->getCoinCountToAttackLevelUp();
 
-    countOfStatusUserCanLevelUp += currentCoinCount > coinCountForRankUp  ? 1 : 0;
-    countOfStatusUserCanLevelUp += currentCoinCount > coinCountForHpLevelUp ? 1 : 0;
-    countOfStatusUserCanLevelUp += currentCoinCount > coinCountForAttackUp ? 1 : 0;
+    countOfStatusUserCanLevelUp += currentCoinCount >= coinCountForRankUp  ? 1 : 0;
+    countOfStatusUserCanLevelUp += currentCoinCount >= coinCountForHpLevelUp ? 1 : 0;
+    countOfStatusUserCanLevelUp += currentCoinCount >= coinCountForAttackUp ? 1 : 0;
 
     if (countOfStatusUserCanLevelUp > 0) {
         this->notifier->setVisible(true);
