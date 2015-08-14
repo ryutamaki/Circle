@@ -202,7 +202,6 @@ void GameScene::receivedData(const void* data, unsigned long length)
             target->setPosition(entityState.position);
         }
 
-        // log("identifier: %s, hp: %d, move: %d, attack: %d, damage target: %s, damage volume: %d, position: {%f, %f}", entityState.identifier.c_str(), entityState.hp, entityState.moveState, entityState.attackState, entityState.damage.identifier.c_str(), entityState.damage.volume, entityState.position.x, entityState.position.y);
         target->setHp(entityState.hp);
 
         // TODO: magic number
@@ -433,8 +432,6 @@ void GameScene::damageEnemyFromCharacter()
 
 void GameScene::checkDeadEnemy(float dt)
 {
-    // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
-
     std::map<EntityIdentifier, Entity*> enemies = this->entityContainer->getAllEnemies();
 
     for (auto& kv : enemies) {
@@ -456,8 +453,6 @@ void GameScene::checkDeadEnemy(float dt)
         this->defeatEnemyCount++;
         this->scoreLabel->setScore(this->defeatEnemyCount);
     }
-
-    // log("before: alive: %lu   dead:%zd", this->aliveEnemyAndAiList.size(), this->deadEnemyList.size());
 }
 
 void GameScene::damageCharacterFromEntity()
@@ -774,24 +769,6 @@ void GameScene::start()
     this->scheduleUpdate();
 
     this->startTime = std::chrono::system_clock::now();
-
-    if (this->character) {
-        log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",
-            this->character->getIdentifier(),
-            this->character->synchronizer->getIsHost(),
-            this->character->synchronizer->getIsMyself(),
-            this->character->synchronizer->getIsSendData(),
-            this->character->stateMachine->isDead());
-    }
-
-    if (this->friendCharacter) {
-        log("%d, host: %d, myself: %d, senddata: %d, isdead: %d",
-            this->friendCharacter->getIdentifier(),
-            this->friendCharacter->synchronizer->getIsHost(),
-            this->friendCharacter->synchronizer->getIsMyself(),
-            this->friendCharacter->synchronizer->getIsSendData(),
-            this->friendCharacter->stateMachine->isDead());
-    }
 }
 
 #pragma mark networking
