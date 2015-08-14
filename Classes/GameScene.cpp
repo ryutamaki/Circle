@@ -536,15 +536,10 @@ void GameScene::tryToSpawnNextEnemy(float dt)
 
     this->counterToForceSpawnEnemy += dt;
 
-    // force spawn duration を越えてたら強制的に spawn する
-    if (this->counterToForceSpawnEnemy > ENEMY_FORCE_SPAWN_DURATION) {
-        this->counterToForceSpawnEnemy = 0.0f;
-        this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
-        return;
-    }
-
-    // force spawn duration を越えてなくても、ememy が上限に達していない場合は spawn する
-    if (this->entityContainer->canSpawnEnemy(this->character->getEntityParameterLevel().rank, nextEnemyParameterLevel.rank)) {
+    // force spawn duration を越えているか、
+    // ememy が上限に達していない場合は spawn する
+    if (this->entityContainer->canSpawnEnemy(this->character->getEntityParameterLevel().rank, nextEnemyParameterLevel.rank) ||
+        this->counterToForceSpawnEnemy > ENEMY_FORCE_SPAWN_DURATION) {
         this->counterToForceSpawnEnemy = 0.0f;
         this->spawnNextEnemy(this->enemyParameterLevel(this->nextEnemyIndex));
         return;
