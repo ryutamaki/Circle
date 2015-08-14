@@ -30,6 +30,7 @@ public:
 
     // networking
     void showPeerList();
+    void stopReceivingMultiplayerInvitations();
     void receiveMultiplayerInvitations();
     void sendData(const void* data, unsigned long length);
 

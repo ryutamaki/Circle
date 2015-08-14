@@ -98,6 +98,11 @@ void GameSceneManager::showPeerList()
     this->networkingWrapper->showPeerList();
 }
 
+void GameSceneManager::stopReceivingMultiplayerInvitations()
+{
+    this->networkingWrapper->stopAdvertisingAvailability();
+}
+
 void GameSceneManager::receiveMultiplayerInvitations()
 {
     this->networkingWrapper->startAdvertisingAvailability();
@@ -172,7 +177,7 @@ void GameSceneManager::stateChanged(ConnectionState state)
             CCLOG("Connected...");
 
             if (! this->gameScene) {
-                this->networkingWrapper->stopAdvertisingAvailability();
+                this->stopReceivingMultiplayerInvitations();
                 this->enterGameScene(EntityType::CIRCLE, true);
             }
             break;

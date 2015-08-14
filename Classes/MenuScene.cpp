@@ -83,6 +83,7 @@ void MenuScene::onEnter()
 
     // This will start observing to find peers.
     // Set self.peerID in NetworkManager also.
+    GameSceneManager::getInstance()->stopReceivingMultiplayerInvitations();
     GameSceneManager::getInstance()->receiveMultiplayerInvitations();
 
     // log for analytics
