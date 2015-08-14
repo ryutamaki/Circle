@@ -42,6 +42,9 @@ bool GameResultLayer::init()
     this->networked = false;
     this->entityType = EntityType::NONE;
 
+    // chatboost
+    sdkbox::PluginChartboost::setListener(this);
+
     // Prevent propagation into the layers below
     EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
     eventListener->setSwallowTouches(true);
@@ -49,6 +52,11 @@ bool GameResultLayer::init()
             return true;
         };
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
+
+    // To use the Chartboost predefined locations
+    sdkbox::PluginChartboost::show(sdkbox::CB_Location_Default);
+    // To use customized location
+    sdkbox::PluginChartboost::show("your_ad_name");
 
     return true;
 }
@@ -163,4 +171,51 @@ void GameResultLayer::setupLabels()
     if (isNewRecord) {
         highScoreCountLabel->setColor(Color3B(CIRCLE_DARK_BLUE));
     }
+}
+
+#pragma mark Chartboost
+
+void GameResultLayer::onChartboostCached(const std::string& name)
+{
+}
+
+bool GameResultLayer::onChartboostShouldDisplay(const std::string& name)
+{
+    return true;
+}
+
+void GameResultLayer::onChartboostDisplay(const std::string& name)
+{
+}
+
+void GameResultLayer::onChartboostDismiss(const std::string& name)
+{
+}
+
+void GameResultLayer::onChartboostClose(const std::string& name)
+{
+}
+
+void GameResultLayer::onChartboostClick(const std::string& name)
+{
+}
+
+void GameResultLayer::onChartboostReward(const std::string& name, int reward)
+{
+}
+
+void GameResultLayer::onChartboostFailedToLoad(const std::string& name, sdkbox::CB_LoadError e)
+{
+}
+
+void GameResultLayer::onChartboostFailToRecordClick(const std::string& name, sdkbox::CB_ClickError e)
+{
+}
+
+void GameResultLayer::onChartboostConfirmation()
+{
+}
+
+void GameResultLayer::onChartboostCompleteStore()
+{
 }

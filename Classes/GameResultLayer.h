@@ -12,9 +12,11 @@
 #include "cocos2d.h"
 #include "cocostudio/CocoStudio.h"
 
+#include "PluginChartboost/PluginChartboost.h"
+
 class Entity;
 
-class GameResultLayer : public cocos2d::Layer {
+class GameResultLayer : public cocos2d::Layer, public sdkbox::ChartboostListener {
 public:
     CREATE_FUNC(GameResultLayer);
     bool init() override;
@@ -28,6 +30,19 @@ public:
 
     void show(Node* parent);
     void hide(std::function<void()> lastFrameCallback);
+
+    // chartboost
+    void onChartboostCached(const std::string& name);
+    bool onChartboostShouldDisplay(const std::string& name);
+    void onChartboostDisplay(const std::string& name);
+    void onChartboostDismiss(const std::string& name);
+    void onChartboostClose(const std::string& name);
+    void onChartboostClick(const std::string& name);
+    void onChartboostReward(const std::string& name, int reward);
+    void onChartboostFailedToLoad(const std::string& name, sdkbox::CB_LoadError e);
+    void onChartboostFailToRecordClick(const std::string& name, sdkbox::CB_ClickError e);
+    void onChartboostConfirmation();
+    void onChartboostCompleteStore();
 
 private:
     cocostudio::timeline::ActionTimeline* timeline;

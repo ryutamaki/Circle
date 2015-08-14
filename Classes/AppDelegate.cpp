@@ -2,7 +2,9 @@
 #include "MenuScene.h"
 #include "UserDataManager.h"
 
+// sdkbox
 #include "PluginFlurryAnalytics/PluginFlurryAnalytics.h"
+#include "PluginChartboost/PluginChartboost.h"
 
 USING_NS_CC;
 
@@ -79,6 +81,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     // Start Flurry analytics sessions
     sdkbox::PluginFlurryAnalytics::init();
     sdkbox::PluginFlurryAnalytics::startSession();
+
+    // Chartboost
+    sdkbox::PluginChartboost::init();
 
     return true;
 }
